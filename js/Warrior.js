@@ -6,7 +6,7 @@ function warriorClass() {
 	this.myWarriorPic; // which picture to use
 	this.name = "Untitled Warrior";
 	this.keysHeld = 0;
-
+	this.sprites = {}
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
 	this.keyHeld_West = false;
@@ -54,15 +54,19 @@ function warriorClass() {
 
 		if(this.keyHeld_North) {
 			nextY -= PLAYER_MOVE_SPEED;
+			this.myWarriorPic = sprites.Player.standNorth
 		}
 		if(this.keyHeld_East) {
 			nextX += PLAYER_MOVE_SPEED;
+			this.myWarriorPic = sprites.Player.standEast
 		}
 		if(this.keyHeld_South) {
 			nextY += PLAYER_MOVE_SPEED;
+			this.myWarriorPic = sprites.Player.standSouth
 		}
 		if(this.keyHeld_West) {
 			nextX -= PLAYER_MOVE_SPEED;
+			this.myWarriorPic = sprites.Player.standWest
 		}
 
 		if (this.x > 850){

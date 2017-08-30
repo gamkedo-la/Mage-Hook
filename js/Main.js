@@ -23,7 +23,7 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-	blueWarrior.reset(warriorPic, "Blue Storm");
+	blueWarrior.reset(sprites.Player.standSouth, "Blue Storm");
 }
 
 function updateAll() {
