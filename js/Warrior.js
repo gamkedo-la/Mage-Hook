@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 3.0;
+const PLAYER_MOVE_SPEED = 10.0;
 
 function warriorClass() {
 	this.x = 75;
@@ -65,6 +65,12 @@ function warriorClass() {
 			nextX -= PLAYER_MOVE_SPEED;
 		}
 
+		if (this.x > 850){
+			loadLevel(levelTwo);
+			this.x = 75;
+			this.y = 375;
+		}
+
 		var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
 		var walkIntoTileType = TILE_WALL;
 
@@ -79,7 +85,6 @@ function warriorClass() {
 				break;
 			case TILE_GOAL:
 				console.log(this.name + " WINS!");
-				loadLevel(levelOne);
 				break;
 			case TILE_DOOR:
 				if(this.keysHeld > 0) {

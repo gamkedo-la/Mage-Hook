@@ -29,13 +29,19 @@ function loadLevel(whichLevel) {
 function updateAll() {
 	moveAll();
 	drawAll();
+	cameraLock();
 }
 
 function moveAll() {
 	blueWarrior.move();
+	//console.log(blueWarrior.x);
+	//console.log(blueWarrior.y);
 }
 
 function drawAll() {
+	canvasContext.save();
+	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
 	blueWarrior.draw();
+	canvasContext.restore();
 } 
