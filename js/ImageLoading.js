@@ -1,4 +1,5 @@
 var warriorPic = document.createElement("img");
+var testSpritePic = document.createElement("img"); // for test object
 var worldPics = [];
 var sprites = {}
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -18,7 +19,7 @@ function beginLoadingImage(data) {
 	if(!sprites[set]){
 		sprites[set] = {}
 	}
-	sprites[set][name] = document.createElement("img");	
+	sprites[set][name] = document.createElement("img");
 	sprites[set][name].onload = countLoadedImagesAndLaunchIfReady;
 	sprites[set][name].src = "img/"+ data.fileName;
 }
@@ -36,6 +37,8 @@ function loadImages() {
 		{set: "Player", name: "standNorth", fileName: "MainChar/playerchar_Standing_2.png"},
 		{set: "Player", name: "standWest", fileName: "MainChar/playerchar_Standing_3.png"},
 
+		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"}, // NOTE(Cipherpunk): added for testing
+
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_wall.png"},
 		{worldType: TILE_GOAL, theFile: "world_goal.png"},
@@ -48,7 +51,7 @@ function loadImages() {
 	for(var i=0;i<imageList.length;i++) {
 		if(imageList[i].set != undefined, imageList[i].set != undefined) {
 			beginLoadingImage(imageList[i]);
-		} else {			
+		} else {
 			loadImageForWorldCode(imageList[i].worldType, imageList[i].theFile);
 		}
 	}
