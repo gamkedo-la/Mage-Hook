@@ -11,19 +11,18 @@ function spriteClass(img, width, height, numberOfFrames) {
 	var frameIndex = 0;
 
 	var currentTick = 0;
-	var gameFramesPerSecond = 30; // probably should be a global constant
-	var targetFramesPerSecond = 8; // again probably another global constant needed
 	var timePerFrame = 1/SPRITE_FRAMES_PER_SECOND;
 	var timePerTick = 1/FRAMES_PER_SECOND;
 
-	this.render = function(canvasX, canvasY) {
+	this.draw = function(canvasX, canvasY) {
 		// this version of drawImage is needed to point to different frames in sprite sheet
 		canvasContext.drawImage(this.img,
 								frameX, frameY, this.width, this.height,
 								canvasX, canvasY, this.width, this.height);
+		this.updateFrame();
 	}
 
-	this.update = function() {
+	this.updateFrame = function() {
 		currentTick += timePerTick;
 
 		if(currentTick >= timePerFrame) {

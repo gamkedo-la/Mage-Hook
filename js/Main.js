@@ -30,7 +30,7 @@ function loadLevel(whichLevel) {
 	blueWarrior.reset(sprites.Player.standSouth, "Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;
-	testSprite = new spriteClass(testSpritePic, 32, 32, 6); // NOTE(Cipherpunk): temporary object
+	testSprite = new spriteClass(testSpritePic, 32, 32, 6); // NOTE(Cipherpunk): test object
 }
 
 function updateAll() {
@@ -43,7 +43,6 @@ function updateAll() {
 
 function moveAll() {
 	blueWarrior.move();
-	testSprite.update();
 	//console.log(blueWarrior.x);
 	//console.log(blueWarrior.y);
 }
@@ -53,6 +52,6 @@ function drawAll() {
 	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
 	blueWarrior.draw();
-	testSprite.render(canvas.width/2, canvas.height/2);
+	testSprite.draw(canvas.width/2, canvas.height/2);
 	canvasContext.restore();
 }
