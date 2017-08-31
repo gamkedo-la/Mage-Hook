@@ -1,4 +1,5 @@
 var canvas, canvasContext;
+var levelOneRun = false;
 
 var blueWarrior = new warriorClass();
 
@@ -18,7 +19,7 @@ function imageLoadingDoneSoStartGame() {
 
 	setupInput();
 
-	loadLevel(levelOne);
+	loadLevel(room1f1.layout);
 }
 
 function loadLevel(whichLevel) {
@@ -30,6 +31,8 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	cameraLock();
+	room1f1.roomChange();
+	room2f1.roomChange();
 }
 
 function moveAll() {

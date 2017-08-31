@@ -1,8 +1,8 @@
 const PLAYER_MOVE_SPEED = 10.0;
 
 function warriorClass() {
-	this.x = 75;
-	this.y = 75;
+	this.x = 475;
+	this.y = 125;
 	this.myWarriorPic; // which picture to use
 	this.name = "Untitled Warrior";
 	this.keysHeld = 0;
@@ -67,12 +67,6 @@ function warriorClass() {
 		if(this.keyHeld_West) {
 			nextX -= PLAYER_MOVE_SPEED;
 			this.myWarriorPic = sprites.Player.standWest
-		}
-
-		if (this.x > 850){
-			loadLevel(levelTwo);
-			this.x = 75;
-			this.y = 375;
 		}
 
 		var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
