@@ -1,7 +1,6 @@
 var canvas, canvasContext;
 var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
-const SPRITE_FRAMES_PER_SECOND = 8;
 
 var blueWarrior = new warriorClass();
 var testSprite = {}; // test object
@@ -30,7 +29,8 @@ function loadLevel(whichLevel) {
 	blueWarrior.reset(sprites.Player.standSouth, "Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;
-	testSprite = new spriteClass(testSpritePic, 32, 32, 6); // NOTE(Cipherpunk): test object
+	testSprite = new spriteClass(); // NOTE(Cipherpunk): test object
+	testSprite.setSprite(testSpritePic, 32, 32, 6, 9);
 }
 
 function updateAll() {
@@ -43,6 +43,7 @@ function updateAll() {
 
 function moveAll() {
 	blueWarrior.move();
+	testSprite.update();
 	//console.log(blueWarrior.x);
 	//console.log(blueWarrior.y);
 }
@@ -52,6 +53,6 @@ function drawAll() {
 	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
 	blueWarrior.draw();
-	testSprite.draw(canvas.width/2, canvas.height/2);
+	testSprite.draw(425, 125);
 	canvasContext.restore();
 }
