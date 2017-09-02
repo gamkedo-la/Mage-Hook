@@ -5,7 +5,8 @@ function warriorClass() {
 	var wasMoving = false;
 	var isFacing = "South";
 	var wasFacing = isFacing;
-
+	var warriorAtStartingPosition = true;
+	
 	this.x = 475;
 	this.y = 125;
 	this.name = "Untitled Warrior";
@@ -30,9 +31,13 @@ function warriorClass() {
 		this.controlKeyLeft = leftKey;
 	}
 
-	this.reset = function(whichImage, warriorName) {
+	this.reset = function(warriorName) {
 		this.name = warriorName;
-		sprite.setSprite(sprites.Player.standSouth, 96, 96, 1, 0);
+		if (warriorAtStartingPosition)
+		{
+			sprite.setSprite(sprites.Player.standSouth, 96, 96, 1, 0);
+			warriorAtStartingPosition = false;
+		}
 		this.keysHeld = 0;
 		this.updateKeyReadout();
 

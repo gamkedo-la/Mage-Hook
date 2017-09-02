@@ -26,7 +26,7 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-	blueWarrior.reset(sprites.Player.standSouth, "Blue Storm");
+	blueWarrior.reset("Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;
 	testSprite = new spriteClass(); // NOTE(Cipherpunk): test object
