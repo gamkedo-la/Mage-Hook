@@ -38,7 +38,7 @@ function loadImages() {
 		{set: "Player", name: "standWest", fileName: "MainChar/playerchar_Standing_3.png"},
 		{set: "Player", name: "walkSouth", fileName: "MainChar/playerchar_Walk South.png"},
 		{set: "Player", name: "walkEast", fileName: "MainChar/playerchar_Walk South.png"},
-		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk South.png"},
+		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk North.png"},
 		{set: "Player", name: "walkWest", fileName: "MainChar/playerchar_Walk South.png"},
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"}, // NOTE(Cipherpunk): added for testing
