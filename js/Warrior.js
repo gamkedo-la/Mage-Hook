@@ -6,7 +6,7 @@ function warriorClass() {
 	var isFacing = "South";
 	var wasFacing = isFacing;
 	var warriorAtStartingPosition = true;
-	
+
 	this.x = 475;
 	this.y = 125;
 	this.name = "Untitled Warrior";
@@ -66,22 +66,22 @@ function warriorClass() {
 		// TODO(Cipherpunk): setup logic for sprite animations when walking or idling
 		isMoving = false;
 
-		if(this.keyHeld_North) {
+		if(this.keyHeld_North && !this.keyHeld_South) {
 			nextY -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "North";
 		}
-		if(this.keyHeld_East) {
+		if(this.keyHeld_East && !this.keyHeld_West) {
 			nextX += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "East";
 		}
-		if(this.keyHeld_South) {
+		if(this.keyHeld_South && !this.keyHeld_North) {
 			nextY += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "South";
 		}
-		if(this.keyHeld_West) {
+		if(this.keyHeld_West && !this.keyHeld_East) {
 			nextX -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "West";
