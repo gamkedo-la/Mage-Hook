@@ -1,12 +1,16 @@
-const PLAYER_MOVE_SPEED = 10.0;
+const PLAYER_MOVE_SPEED = 7.5;
 
 function warriorClass() {
+	var isMoving = false;
+	var wasMoving = false;
+	var isFacing = "South";
+	var wasFacing = isFacing;
+
 	this.x = 475;
 	this.y = 125;
-	this.myWarriorPic; // which picture to use
 	this.name = "Untitled Warrior";
 	this.keysHeld = 0;
-	this.sprites = {}
+
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
 	this.keyHeld_West = false;
@@ -17,6 +21,8 @@ function warriorClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
+	var sprite = new spriteClass();
+
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;
@@ -26,13 +32,13 @@ function warriorClass() {
 
 	this.reset = function(whichImage, warriorName) {
 		this.name = warriorName;
-		this.myWarriorPic = whichImage;
+		sprite.setSprite(sprites.Player.standSouth, 96, 96, 1, 0);
 		this.keysHeld = 0;
 		this.updateKeyReadout();
 
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 				if(worldGrid[arrayIndex] == TILE_PLAYERSTART) {
 					worldGrid[arrayIndex] = TILE_GROUND;
 					this.x = eachCol * WORLD_W + WORLD_W/2;
@@ -52,22 +58,34 @@ function warriorClass() {
 		var nextX = this.x;
 		var nextY = this.y;
 
+		// TODO(Cipherpunk): setup logic for sprite animations when walking or idling
+		isMoving = false;
+
 		if(this.keyHeld_North) {
 			nextY -= PLAYER_MOVE_SPEED;
-			this.myWarriorPic = sprites.Player.standNorth
+			isMoving = true;
+			isFacing = "North";
 		}
 		if(this.keyHeld_East) {
 			nextX += PLAYER_MOVE_SPEED;
-			this.myWarriorPic = sprites.Player.standEast
+			isMoving = true;
+			isFacing = "East";
 		}
 		if(this.keyHeld_South) {
 			nextY += PLAYER_MOVE_SPEED;
-			this.myWarriorPic = sprites.Player.standSouth
+			isMoving = true;
+			isFacing = "South";
 		}
 		if(this.keyHeld_West) {
 			nextX -= PLAYER_MOVE_SPEED;
-			this.myWarriorPic = sprites.Player.standWest
+			isMoving = true;
+			isFacing = "West";
 		}
+
+		chooseWarriorAnimation();
+
+		wasMoving = isMoving;
+		wasFacing = isFacing;
 
 		var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
 		var walkIntoTileType = TILE_WALL;
@@ -100,9 +118,51 @@ function warriorClass() {
 			default:
 				break;
 		}
+
+		sprite.update();
 	}
 
 	this.draw = function() {
-		drawBitmapCenteredWithRotation(this.myWarriorPic, this.x,this.y, 0);
+		sprite.draw(this.x, this.y);
+	}
+
+	function chooseWarriorAnimation() {
+		if (wasMoving != isMoving ||
+			wasFacing != isFacing)
+		{
+			var warriorPic;
+
+			if (isMoving && isFacing == "South") {
+				warriorPic = sprites.Player.walkSouth;
+
+			} else if (isMoving && isFacing == "East") {
+				warriorPic = sprites.Player.walkEast;
+
+			} else if (isMoving && isFacing == "North") {
+				warriorPic = sprites.Player.walkNorth;
+
+			} else if (isMoving && isFacing == "West") {
+				warriorPic = sprites.Player.walkWest;
+
+			} else if (isFacing == "South") {
+				warriorPic = sprites.Player.standSouth;
+
+			} else if (isFacing == "East") {
+				warriorPic = sprites.Player.standEast;
+
+			} else if (isFacing == "North") {
+				warriorPic = sprites.Player.standNorth;
+
+			} else if (isFacing == "West") {
+				warriorPic = sprites.Player.standWest;
+			}
+
+			if (isMoving) {
+				sprite.setSprite(warriorPic, 96, 96, 7, 12);
+
+			} else {
+				sprite.setSprite(warriorPic, 96, 96, 1, 0);
+			}
+		}
 	}
 }
