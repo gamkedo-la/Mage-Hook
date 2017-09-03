@@ -17,7 +17,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	bluePlayer.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
 }
 
 function updateMousePos(evt) {
@@ -35,17 +35,17 @@ function updateMousePos(evt) {
 }
 
 function keySet(keyEvent, setTo) {
-	if(keyEvent.keyCode == bluePlayer.controlKeyLeft) {
-		bluePlayer.keyHeld_West = setTo;
+	if(keyEvent.keyCode == player.controlKeyLeft) {
+		player.keyHeld_West = setTo;
 	}
-	if(keyEvent.keyCode == bluePlayer.controlKeyRight) {
-		bluePlayer.keyHeld_East = setTo;
+	if(keyEvent.keyCode == player.controlKeyRight) {
+		player.keyHeld_East = setTo;
 	}
-	if(keyEvent.keyCode == bluePlayer.controlKeyUp) {
-		bluePlayer.keyHeld_North = setTo;
+	if(keyEvent.keyCode == player.controlKeyUp) {
+		player.keyHeld_North = setTo;
 	}
-	if(keyEvent.keyCode == bluePlayer.controlKeyDown) {
-		bluePlayer.keyHeld_South = setTo;
+	if(keyEvent.keyCode == player.controlKeyDown) {
+		player.keyHeld_South = setTo;
 	}
 }
 

@@ -26,15 +26,15 @@ room1f1.layout =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
 room1f1.loaded = true;
 room1f1.roomChange = function () {
-	if (this.loaded == true && bluePlayer.x > 850){
+	if (this.loaded == true && player.x > 850){
 			loadLevel(room2f1.layout);
-			bluePlayer.x -= 775;
+			player.x -= 775;
 			this.loaded = false;
 			room2f1.loaded = true;
 		}
-		if (this.loaded == true && bluePlayer.x < 50){
+		if (this.loaded == true && player.x < 50){
 			loadLevel(room2f1.layout);
-			bluePlayer.x += 775;
+			player.x += 775;
 			this.loaded = false;
 			room2f1.loaded = true;
 		}
@@ -57,15 +57,15 @@ room2f1.layout =[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,];
 room2f1.loaded = true;
 room2f1.roomChange = function () {
-	if (this.loaded == true && bluePlayer.x > 850){
+	if (this.loaded == true && player.x > 850){
 			loadLevel(room1f1.layout);
-			bluePlayer.x -= 775;
+			player.x -= 775;
 			this.loaded = false;
 			room1f1.loaded = true;
 		}
-		if (this.loaded == true && bluePlayer.x < 50){
+		if (this.loaded == true && player.x < 50){
 			loadLevel(room1f1.layout);
-			bluePlayer.x += 775;
+			player.x += 775;
 			this.loaded = false;
 			room1f1.loaded = true;
 		}

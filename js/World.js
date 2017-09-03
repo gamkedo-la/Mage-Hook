@@ -109,5 +109,4 @@ function drawWorld() {
 		drawTileY += WORLD_H;
 		drawTileX = 0;
 	} // end of for each row
-
 } // end of drawWorld func

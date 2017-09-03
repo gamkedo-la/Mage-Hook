@@ -7,9 +7,6 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var playerAtStartingPosition = true;
 
-	var collider = [];
-	var colliderOffset = 5;
-
 	this.x = 475;
 	this.y = 150;
 	var lastX = this.x;
@@ -27,6 +24,7 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
+	var collider = new boxColliderClass(5, 5);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -57,7 +55,6 @@ function playerClass() {
 				} // end of player start if
 			} // end of col for
 		} // end of row for
-		console.log("NO PLAYER START FOUND!");
 	} // end of playerReset func
 
 	this.updateKeyReadout = function() {
@@ -90,10 +87,10 @@ function playerClass() {
 			isFacing = "West";
 		}
 
-		setCollider(this.x, this.y);
+		collider.setCollider(this.x, this.y);
 
-		for (i = 0; i < collider.length; i++) {
-			var walkIntoTileIndex = getTileIndexAtPixelCoord(collider[i].x, collider[i].y);
+		for (i = 0; i < collider.corner.length; i++) {
+			var walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
 			var walkIntoTileType = TILE_WALL;
 
 			if(walkIntoTileIndex != undefined) {
@@ -135,6 +132,8 @@ function playerClass() {
 
 		choosePlayerAnimation();
 
+		collider.setCollider(lastX, lastY); // for drawing collider
+
 		lastX = this.x;
 		lastY = this.y;
 
@@ -148,32 +147,7 @@ function playerClass() {
 		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
 		canvasContext.strokeStyle = 'yellow';
 		//canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
-		drawCollider(collider);
-	}
-
-	function setCollider(posX, posY) {
-		collider[0] = {
-			x: posX - colliderOffset,
-			y: posY - colliderOffset
-		}
-		collider[1] = {
-			x: posX + colliderOffset,
-			y: posY - colliderOffset
-		}
-		collider[2] = {
-			x: posX - colliderOffset,
-			y: posY + colliderOffset
-		}
-		collider[3] = {
-			x: posX + colliderOffset,
-			y: posY + colliderOffset
-		}
-	}
-
-	function drawCollider(colliderArray) {
-		for (i = 0; i < colliderArray.length; i++) {
-			canvasContext.fillRect(colliderArray[i].x, colliderArray[i].y, 1, 1);
-		}
+		collider.draw();
 	}
 
 	function choosePlayerAnimation() {
