@@ -10,7 +10,7 @@ function warriorClass() {
 	this.x = 475;
 	this.y = 125;
 	this.name = "Untitled Warrior";
-	this.keysHeld = 0;
+	this.keysInInventory = 0;
 
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
@@ -38,7 +38,7 @@ function warriorClass() {
 			sprite.setSprite(sprites.Player.standSouth, 96, 96, 1, 0);
 			warriorAtStartingPosition = false;
 		}
-		this.keysHeld = 0;
+		this.keysInInventory = 0;
 		this.updateKeyReadout();
 
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
@@ -56,7 +56,7 @@ function warriorClass() {
 	} // end of warriorReset func
 
 	this.updateKeyReadout = function() {
-		document.getElementById("debugText").innerHTML = "Keys: " + this.keysHeld;
+		document.getElementById("debugText").innerHTML = "Keys: " + this.keysInInventory;
 	}
 
 	this.move = function() {
@@ -87,11 +87,6 @@ function warriorClass() {
 			isFacing = "West";
 		}
 
-		chooseWarriorAnimation();
-
-		wasMoving = isMoving;
-		wasFacing = isFacing;
-
 		var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
 		var walkIntoTileType = TILE_WALL;
 
@@ -108,27 +103,33 @@ function warriorClass() {
 				console.log(this.name + " WINS!");
 				break;
 			case TILE_DOOR:
-				if(this.keysHeld > 0) {
-					this.keysHeld--; // one less key
+				if(this.keysInInventory > 0) {
+					this.keysInInventory--; // one less key
 					this.updateKeyReadout();
 					worldGrid[walkIntoTileIndex] = TILE_GROUND;
 				}
 				break;
 			case TILE_KEY:
-				this.keysHeld++; // one more key
+				this.keysInInventory++; // one more key
 				this.updateKeyReadout();
 				worldGrid[walkIntoTileIndex] = TILE_GROUND;
 				break;
 			case TILE_WALL:
+				isMoving = false;
 			default:
 				break;
 		}
+
+		chooseWarriorAnimation();
+
+		wasMoving = isMoving;
+		wasFacing = isFacing;
 
 		sprite.update();
 	}
 
 	this.draw = function() {
-		sprite.draw(this.x, this.y);
+		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
 	}
 
 	function chooseWarriorAnimation() {
