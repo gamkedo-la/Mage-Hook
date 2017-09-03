@@ -7,8 +7,13 @@ function warriorClass() {
 	var wasFacing = isFacing;
 	var warriorAtStartingPosition = true;
 
+	var collider = [];
+	var colliderOffset = 8;
+
 	this.x = 475;
-	this.y = 125;
+	this.y = 150;
+	var previousX = this.x;
+	var previousY = this.y;
 	this.name = "Untitled Warrior";
 	this.keysInInventory = 0;
 
@@ -60,44 +65,60 @@ function warriorClass() {
 	}
 
 	this.move = function() {
-		var nextX = this.x;
-		var nextY = this.y;
 
 		// TODO(Cipherpunk): setup logic for sprite animations when walking or idling
 		isMoving = false;
 
 		if(this.keyHeld_North && !this.keyHeld_South) {
-			nextY -= PLAYER_MOVE_SPEED;
+			this.y -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "North";
 		}
 		if(this.keyHeld_East && !this.keyHeld_West) {
-			nextX += PLAYER_MOVE_SPEED;
+			this.x += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "East";
 		}
 		if(this.keyHeld_South && !this.keyHeld_North) {
-			nextY += PLAYER_MOVE_SPEED;
+			this.y += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "South";
 		}
 		if(this.keyHeld_West && !this.keyHeld_East) {
-			nextX -= PLAYER_MOVE_SPEED;
+			this.x -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "West";
 		}
 
-		var walkIntoTileIndex = getTileIndexAtPixelCoord(nextX, nextY);
-		var walkIntoTileType = TILE_WALL;
+		collider[0] = {
+			x: this.x - colliderOffset,
+			y: this.y - colliderOffset
+		}
+		collider[1] = {
+			x: this.x + colliderOffset,
+			y: this.y - colliderOffset
+		}
+		collider[2] = {
+			x: this.x - colliderOffset,
+			y: this.x + colliderOffset
+		}
+		collider[3] = {
+			x: this.x + colliderOffset,
+			y: this.y + colliderOffset
+		}
 
-		if(walkIntoTileIndex != undefined) {
-			walkIntoTileType = worldGrid[walkIntoTileIndex];
+		for (i = 0; i < collider.length; i++) {
+			var walkIntoTileIndex = getTileIndexAtPixelCoord(collider[i].x, collider[i].y);
+			var walkIntoTileType = TILE_WALL;
+
+			if(walkIntoTileIndex != undefined) {
+				walkIntoTileType = worldGrid[walkIntoTileIndex];
+				console.log(walkIntoTileType);
+			}
 		}
 
 		switch(walkIntoTileType) {
 			case TILE_GROUND:
-				this.x = nextX;
-				this.y = nextY;
 				break;
 			case TILE_GOAL:
 				console.log(this.name + " WINS!");
@@ -116,11 +137,16 @@ function warriorClass() {
 				break;
 			case TILE_WALL:
 				isMoving = false;
+				this.x = previousX;
+				this.y = previousY;
 			default:
 				break;
 		}
 
 		chooseWarriorAnimation();
+
+		previousX = this.x;
+		previousY = this.y;
 
 		wasMoving = isMoving;
 		wasFacing = isFacing;
@@ -130,6 +156,8 @@ function warriorClass() {
 
 	this.draw = function() {
 		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
+		canvasContext.strokeStyle = 'yellow';
+		canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
 	}
 
 	function chooseWarriorAnimation() {
