@@ -44,7 +44,7 @@ function loadImages() {
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"}, // NOTE(Cipherpunk): added for testing
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
-		{worldType: TILE_WALL, theFile: "world_wall.png"},
+		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
 		{worldType: TILE_KEY, theFile: "world_key.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"}

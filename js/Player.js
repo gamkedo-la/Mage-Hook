@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 7.5;
+const PLAYER_MOVE_SPEED = 6;
 
 function playerClass() {
 	var isMoving = false;
@@ -11,6 +11,7 @@ function playerClass() {
 	this.y = 150;
 	var lastX = this.x;
 	var lastY = this.y;
+
 	this.name = "Untitled Player";
 	this.keysInInventory = 0;
 
@@ -24,7 +25,7 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var collider = new boxColliderClass(5, 5);
+	var collider = new boxColliderClass(7, 3, -2, 0);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
