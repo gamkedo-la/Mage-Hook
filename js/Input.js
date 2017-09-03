@@ -3,10 +3,12 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
+
 const KEY_W = 87;
 const KEY_A = 65;
 const KEY_S = 83;
 const KEY_D = 68;
+const KEY_R = 82;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -52,7 +54,10 @@ function keySet(keyEvent, setTo) {
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	keySet(evt, true);
-
+	if(evt.keyCode == KEY_R){
+		console.log("R pusshed");
+		resetAllRooms();
+	}
 	evt.preventDefault();
 }
 

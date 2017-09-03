@@ -25,7 +25,7 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel(whichLevel) {
-	worldGrid = whichLevel.slice();
+	worldGrid = whichLevel;
 	player.reset("Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;

@@ -102,7 +102,9 @@ function drawWorld() {
 			if( tileTypeHasTransparency(tileKindHere) ) {
 				canvasContext.drawImage(worldPics[TILE_GROUND],drawTileX,drawTileY);
 			}
+			
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
+			
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
