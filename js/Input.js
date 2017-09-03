@@ -37,28 +37,31 @@ function updateMousePos(evt) {
 }
 
 function keySet(keyEvent, setTo) {
+	var validGameKey = true;
 	if(keyEvent.keyCode == player.controlKeyLeft) {
 		player.keyHeld_West = setTo;
-	}
-	if(keyEvent.keyCode == player.controlKeyRight) {
+	}else if(keyEvent.keyCode == player.controlKeyRight) {
 		player.keyHeld_East = setTo;
-	}
-	if(keyEvent.keyCode == player.controlKeyUp) {
+	}else if(keyEvent.keyCode == player.controlKeyUp) {
 		player.keyHeld_North = setTo;
-	}
-	if(keyEvent.keyCode == player.controlKeyDown) {
+	}else if(keyEvent.keyCode == player.controlKeyDown) {
 		player.keyHeld_South = setTo;
+	} else {
+		validGameKey = false;
 	}
+	return validGameKey;
 }
 
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
-	keySet(evt, true);
+	var validKey = keySet(evt, true);
 	if(evt.keyCode == KEY_R){
-		console.log("R pusshed");
+		validKey = true;
 		resetAllRooms();
 	}
-	evt.preventDefault();
+	if(validKey){
+		evt.preventDefault();
+	}
 }
 
 function keyReleased(evt) {
