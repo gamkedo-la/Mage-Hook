@@ -52,7 +52,7 @@ function drawAll() {
 	canvasContext.save();
 	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
-	player.draw();
 	testSprite.draw(425, 125);
+	player.draw();
 	canvasContext.restore();
 }

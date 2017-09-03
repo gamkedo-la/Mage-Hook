@@ -12,6 +12,9 @@ function playerClass() {
 	var lastX = this.x;
 	var lastY = this.y;
 
+	var walkIntoTileType;
+	var walkIntoTileIndex;
+
 	this.name = "Untitled Player";
 	this.keysInInventory = 0;
 
@@ -91,8 +94,8 @@ function playerClass() {
 		collider.setCollider(this.x, this.y);
 
 		for (i = 0; i < collider.corner.length; i++) {
-			var walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
-			var walkIntoTileType = TILE_WALL;
+			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
+			walkIntoTileType = TILE_WALL;
 
 			if(walkIntoTileIndex != undefined) {
 				walkIntoTileType = worldGrid[walkIntoTileIndex];
@@ -101,9 +104,7 @@ function playerClass() {
 				case TILE_GROUND:
 					break;
 				case TILE_SKULL:
-					isMoving = false;
-					this.x = lastX;
-					this.y = lastY;
+					this.handleCollision();
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
@@ -111,9 +112,7 @@ function playerClass() {
 						this.updateKeyReadout();
 						worldGrid[walkIntoTileIndex] = TILE_GROUND;
 					} else {
-						isMoving = false;
-						this.x = lastX;
-						this.y = lastY;
+						this.handleCollision();
 					}
 					break;
 				case TILE_KEY:
@@ -122,9 +121,7 @@ function playerClass() {
 					worldGrid[walkIntoTileIndex] = TILE_GROUND;
 					break;
 				case TILE_WALL:
-					isMoving = false;
-					this.x = lastX;
-					this.y = lastY;
+					this.handleCollision();
 					break;
 				default:
 					break;
@@ -147,7 +144,6 @@ function playerClass() {
 	this.draw = function() {
 		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
 		canvasContext.strokeStyle = 'yellow';
-		//canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
 		collider.draw();
 	}
 
@@ -189,6 +185,20 @@ function playerClass() {
 
 				sprite.setSprite(playerPic, 96, 96, 1, 0);
 			}
+		}
+	}
+
+	this.handleCollision = function() {
+		isMoving = false;
+		while (walkIntoTileType == TILE_WALL ||
+			   walkIntoTileType == TILE_DOOR ||
+		   	   walkIntoTileType == TILE_SKULL) {
+			var angle = Math.atan2(lastY - this.y, lastX - this.x);
+			this.x += Math.cos(angle);
+			this.y += Math.sin(angle);
+			collider.setCollider(this.x, this.y);
+			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
+			walkIntoTileType = worldGrid[walkIntoTileIndex];
 		}
 	}
 }
