@@ -2,7 +2,7 @@ var canvas, canvasContext;
 var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
 
-var blueWarrior = new warriorClass();
+var bluePlayer = new playerClass();
 var testSprite = {};
 
 window.onload = function() {
@@ -26,7 +26,7 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-	blueWarrior.reset("Blue Storm");
+	bluePlayer.reset("Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;
 	testSprite = new spriteClass();
@@ -42,17 +42,17 @@ function updateAll() {
 }
 
 function moveAll() {
-	blueWarrior.move();
+	bluePlayer.move();
 	testSprite.update();
-	//console.log(blueWarrior.x);
-	//console.log(blueWarrior.y);
+	//console.log(bluePlayer.x);
+	//console.log(bluePlayer.y);
 }
 
 function drawAll() {
 	canvasContext.save();
 	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
-	blueWarrior.draw();
+	bluePlayer.draw();
 	testSprite.draw(425, 125);
 	canvasContext.restore();
 }

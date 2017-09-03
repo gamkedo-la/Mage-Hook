@@ -65,17 +65,17 @@ function returnTileTypeAtColRow(col, row) {
 }
 
 function getTileIndexAtPixelCoord(atX, atY) {
-	var warriorWorldCol = Math.floor(atX / WORLD_W);
-	var warriorWorldRow = Math.floor(atY / WORLD_H);
-	var worldIndexUnderWarrior = rowColToArrayIndex(warriorWorldCol, warriorWorldRow);
+	var playerWorldCol = Math.floor(atX / WORLD_W);
+	var playerWorldRow = Math.floor(atY / WORLD_H);
+	var worldIndexUnderPlayer = rowColToArrayIndex(playerWorldCol, playerWorldRow);
 
-	if(warriorWorldCol >= 0 && warriorWorldCol < WORLD_COLS &&
-		warriorWorldRow >= 0 && warriorWorldRow < WORLD_ROWS) {
-		return worldIndexUnderWarrior;
+	if(playerWorldCol >= 0 && playerWorldCol < WORLD_COLS &&
+		playerWorldRow >= 0 && playerWorldRow < WORLD_ROWS) {
+		return worldIndexUnderPlayer;
 	} // end of valid col and row
 
 	return undefined;
-} // end of warriorWorldHandling func
+} // end of playerWorldHandling func
 
 function rowColToArrayIndex(col, row) {
 	return col + WORLD_COLS * row;

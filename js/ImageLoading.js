@@ -1,4 +1,4 @@
-var warriorPic = document.createElement("img");
+var playerPic = document.createElement("img");
 var testSpritePic = document.createElement("img"); // for test object
 var worldPics = [];
 var sprites = {}
