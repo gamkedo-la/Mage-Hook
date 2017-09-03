@@ -40,6 +40,10 @@ function spriteClass() {
 		timePerFrame = 0;
 	}
 
+	this.getFrame = function() {
+		return frameIndex;
+	}
+
 	this.reset = function() {
 		currentTime = 0;
 		frameIndex = 0;
