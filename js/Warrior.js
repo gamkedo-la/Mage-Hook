@@ -162,7 +162,10 @@ function warriorClass() {
 	this.draw = function() {
 		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
 		canvasContext.strokeStyle = 'yellow';
-		canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
+		//canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
+		for (i = 0; i < collider.length; i++) {
+			canvasContext.fillRect(collider[i].x, collider[i].y,1,1);
+		}
 	}
 
 	function chooseWarriorAnimation() {
