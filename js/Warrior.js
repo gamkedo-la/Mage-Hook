@@ -8,7 +8,7 @@ function warriorClass() {
 	var warriorAtStartingPosition = true;
 
 	var collider = [];
-	var colliderOffset = 8;
+	var colliderOffset = 5;
 
 	this.x = 475;
 	this.y = 150;
@@ -100,7 +100,7 @@ function warriorClass() {
 		}
 		collider[2] = {
 			x: this.x - colliderOffset,
-			y: this.x + colliderOffset
+			y: this.y + colliderOffset
 		}
 		collider[3] = {
 			x: this.x + colliderOffset,
@@ -115,33 +115,38 @@ function warriorClass() {
 				walkIntoTileType = worldGrid[walkIntoTileIndex];
 				console.log(walkIntoTileType);
 			}
-		}
-
-		switch(walkIntoTileType) {
-			case TILE_GROUND:
-				break;
-			case TILE_GOAL:
-				console.log(this.name + " WINS!");
-				break;
-			case TILE_DOOR:
-				if(this.keysInInventory > 0) {
-					this.keysInInventory--; // one less key
+			switch(walkIntoTileType) {
+				case TILE_GROUND:
+					break;
+				case TILE_GOAL:
+					console.log(this.name + " WINS!");
+					break;
+				case TILE_DOOR:
+					if(this.keysInInventory > 0) {
+						this.keysInInventory--; // one less key
+						this.updateKeyReadout();
+						worldGrid[walkIntoTileIndex] = TILE_GROUND;
+					} else {
+						isMoving = false;
+						this.x = previousX;
+						this.y = previousY;
+					}
+					break;
+				case TILE_KEY:
+					this.keysInInventory++; // one more key
 					this.updateKeyReadout();
 					worldGrid[walkIntoTileIndex] = TILE_GROUND;
-				}
-				break;
-			case TILE_KEY:
-				this.keysInInventory++; // one more key
-				this.updateKeyReadout();
-				worldGrid[walkIntoTileIndex] = TILE_GROUND;
-				break;
-			case TILE_WALL:
-				isMoving = false;
-				this.x = previousX;
-				this.y = previousY;
-			default:
-				break;
+					break;
+				case TILE_WALL:
+					isMoving = false;
+					this.x = previousX;
+					this.y = previousY;
+				default:
+					break;
+			}
 		}
+
+
 
 		chooseWarriorAnimation();
 

@@ -31,7 +31,6 @@ function loadLevel(whichLevel) {
 	var testSpritePic = sprites.Slime.idleAnimation;
 	testSprite = new spriteClass(); // NOTE(Cipherpunk): test object
 	testSprite.setSprite(testSpritePic, 32, 32, 6, 9);
-	testSprite.setFrame(2);
 }
 
 function updateAll() {
