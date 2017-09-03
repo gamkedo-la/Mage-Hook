@@ -3,7 +3,7 @@ var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
 
 var blueWarrior = new warriorClass();
-var testSprite = {}; // test object
+var testSprite = {};
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -29,7 +29,7 @@ function loadLevel(whichLevel) {
 	blueWarrior.reset("Blue Storm");
 
 	var testSpritePic = sprites.Slime.idleAnimation;
-	testSprite = new spriteClass(); // NOTE(Cipherpunk): test object
+	testSprite = new spriteClass();
 	testSprite.setSprite(testSpritePic, 32, 32, 6, 9);
 }
 

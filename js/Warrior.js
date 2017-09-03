@@ -12,8 +12,8 @@ function warriorClass() {
 
 	this.x = 475;
 	this.y = 150;
-	var previousX = this.x;
-	var previousY = this.y;
+	var lastX = this.x;
+	var lastY = this.y;
 	this.name = "Untitled Warrior";
 	this.keysInInventory = 0;
 
@@ -90,22 +90,7 @@ function warriorClass() {
 			isFacing = "West";
 		}
 
-		collider[0] = {
-			x: this.x - colliderOffset,
-			y: this.y - colliderOffset
-		}
-		collider[1] = {
-			x: this.x + colliderOffset,
-			y: this.y - colliderOffset
-		}
-		collider[2] = {
-			x: this.x - colliderOffset,
-			y: this.y + colliderOffset
-		}
-		collider[3] = {
-			x: this.x + colliderOffset,
-			y: this.y + colliderOffset
-		}
+		setCollider(this.x, this.y);
 
 		for (i = 0; i < collider.length; i++) {
 			var walkIntoTileIndex = getTileIndexAtPixelCoord(collider[i].x, collider[i].y);
@@ -113,13 +98,14 @@ function warriorClass() {
 
 			if(walkIntoTileIndex != undefined) {
 				walkIntoTileType = worldGrid[walkIntoTileIndex];
-				console.log(walkIntoTileType);
 			}
 			switch(walkIntoTileType) {
 				case TILE_GROUND:
 					break;
-				case TILE_GOAL:
-					console.log(this.name + " WINS!");
+				case TILE_SKULL:
+					isMoving = false;
+					this.x = lastX;
+					this.y = lastY;
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
@@ -128,8 +114,8 @@ function warriorClass() {
 						worldGrid[walkIntoTileIndex] = TILE_GROUND;
 					} else {
 						isMoving = false;
-						this.x = previousX;
-						this.y = previousY;
+						this.x = lastX;
+						this.y = lastY;
 					}
 					break;
 				case TILE_KEY:
@@ -139,19 +125,18 @@ function warriorClass() {
 					break;
 				case TILE_WALL:
 					isMoving = false;
-					this.x = previousX;
-					this.y = previousY;
+					this.x = lastX;
+					this.y = lastY;
+					break;
 				default:
 					break;
 			}
 		}
 
-
-
 		chooseWarriorAnimation();
 
-		previousX = this.x;
-		previousY = this.y;
+		lastX = this.x;
+		lastY = this.y;
 
 		wasMoving = isMoving;
 		wasFacing = isFacing;
@@ -163,8 +148,31 @@ function warriorClass() {
 		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
 		canvasContext.strokeStyle = 'yellow';
 		//canvasContext.strokeRect(collider[0].x, collider[0].y, colliderOffset*2, colliderOffset*2);
-		for (i = 0; i < collider.length; i++) {
-			canvasContext.fillRect(collider[i].x, collider[i].y,1,1);
+		drawCollider(collider);
+	}
+
+	function setCollider(posX, posY) {
+		collider[0] = {
+			x: posX - colliderOffset,
+			y: posY - colliderOffset
+		}
+		collider[1] = {
+			x: posX + colliderOffset,
+			y: posY - colliderOffset
+		}
+		collider[2] = {
+			x: posX - colliderOffset,
+			y: posY + colliderOffset
+		}
+		collider[3] = {
+			x: posX + colliderOffset,
+			y: posY + colliderOffset
+		}
+	}
+
+	function drawCollider(colliderArray) {
+		for (i = 0; i < colliderArray.length; i++) {
+			canvasContext.fillRect(colliderArray[i].x, colliderArray[i].y, 1, 1);
 		}
 	}
 
@@ -174,35 +182,36 @@ function warriorClass() {
 		{
 			var warriorPic;
 
-			if (isMoving && isFacing == "South") {
-				warriorPic = sprites.Player.walkSouth;
-
-			} else if (isMoving && isFacing == "East") {
-				warriorPic = sprites.Player.walkEast;
-
-			} else if (isMoving && isFacing == "North") {
-				warriorPic = sprites.Player.walkNorth;
-
-			} else if (isMoving && isFacing == "West") {
-				warriorPic = sprites.Player.walkWest;
-
-			} else if (isFacing == "South") {
-				warriorPic = sprites.Player.standSouth;
-
-			} else if (isFacing == "East") {
-				warriorPic = sprites.Player.standEast;
-
-			} else if (isFacing == "North") {
-				warriorPic = sprites.Player.standNorth;
-
-			} else if (isFacing == "West") {
-				warriorPic = sprites.Player.standWest;
-			}
-
 			if (isMoving) {
+				if (isFacing == "South") {
+					warriorPic = sprites.Player.walkSouth;
+
+				} else if (isFacing == "East") {
+					warriorPic = sprites.Player.walkEast;
+
+				} else if (isFacing == "North") {
+					warriorPic = sprites.Player.walkNorth;
+
+				} else if (isFacing == "West") {
+					warriorPic = sprites.Player.walkWest;
+				}
+
 				sprite.setSprite(warriorPic, 96, 96, 7, 12);
 
 			} else {
+ 				if (isFacing == "South") {
+					warriorPic = sprites.Player.standSouth;
+
+				} else if (isFacing == "East") {
+					warriorPic = sprites.Player.standEast;
+
+				} else if (isFacing == "North") {
+					warriorPic = sprites.Player.standNorth;
+
+				} else if (isFacing == "West") {
+					warriorPic = sprites.Player.standWest;
+				}
+
 				sprite.setSprite(warriorPic, 96, 96, 1, 0);
 			}
 		}

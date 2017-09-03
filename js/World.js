@@ -50,7 +50,7 @@ var worldGrid = [];
 const TILE_GROUND = 0;
 const TILE_WALL = 1;
 const TILE_PLAYERSTART = 2;
-const TILE_GOAL = 3;
+const TILE_SKULL = 3;
 const TILE_KEY = 4;
 const TILE_DOOR = 5;
 
@@ -82,7 +82,7 @@ function rowColToArrayIndex(col, row) {
 }
 
 function tileTypeHasTransparency(checkTileType) {
-	return (checkTileType == TILE_GOAL ||
+	return (checkTileType == TILE_SKULL ||
 			checkTileType == TILE_KEY ||
 			checkTileType == TILE_DOOR);
 }
@@ -95,7 +95,7 @@ function drawWorld() {
 	for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 		for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 
-			var arrayIndex = rowColToArrayIndex(eachCol, eachRow); 
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
 			var useImg = worldPics[tileKindHere];
 

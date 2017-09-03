@@ -6,7 +6,7 @@ var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
 function countLoadedImagesAndLaunchIfReady() {
 	picsToLoad--;
-	console.log(picsToLoad);
+	//console.log(picsToLoad);
 	if(picsToLoad == 0) {
 		imageLoadingDoneSoStartGame();
 	}
@@ -45,7 +45,7 @@ function loadImages() {
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_wall.png"},
-		{worldType: TILE_GOAL, theFile: "world_goal.png"},
+		{worldType: TILE_SKULL, theFile: "world_skull.png"},
 		{worldType: TILE_KEY, theFile: "world_key.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"}
 	];
