@@ -189,6 +189,7 @@ function playerClass() {
 	}
 
 	this.handleCollision = function() {
+		var emergencyTimer = 10;
 		isMoving = false;
 		while (walkIntoTileType == TILE_WALL ||
 			   walkIntoTileType == TILE_DOOR ||
@@ -199,6 +200,12 @@ function playerClass() {
 			collider.setCollider(this.x, this.y);
 			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
 			walkIntoTileType = worldGrid[walkIntoTileIndex];
+			emergencyTimer--;
+			if(emergencyTimer == 0) {
+				this.x = lastX;
+				this.y = lastY;
+				break;
+			}
 		}
 	}
 }
