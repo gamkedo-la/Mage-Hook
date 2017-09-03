@@ -3,7 +3,6 @@ var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
 
 var player = new playerClass();
-var enemy = {}
 var testSprite = {};
 
 window.onload = function() {
@@ -19,15 +18,15 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
-	setupInput();
-	enemy = new Enemy();
-
-	loadLevel(room1f1.layout);
+	setupInput();	
+	resetAllRooms();
+	loadLevel(room1f1);
 
 }
 
 function loadLevel(whichLevel) {
-	worldGrid = whichLevel;
+	currentRoom = whichLevel;
+	worldGrid = currentRoom.layout;
 	player.reset("Blue Storm");
 }
 
@@ -41,7 +40,7 @@ function updateAll() {
 
 function moveAll() {
 	player.move();
-	enemy.update();
+	currentRoom.moveMyEnemies();
 	//console.log(player.x);
 	//console.log(player.y);
 }
@@ -50,7 +49,7 @@ function drawAll() {
 	canvasContext.save();
 	canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
-	enemy.draw(425, 125);
+	currentRoom.drawMyEnemies();
 	player.draw();
 	canvasContext.restore();
 }
