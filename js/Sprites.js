@@ -12,7 +12,7 @@ function spriteClass() {
 	var timePerFrame
 	var timePerTick = 1/FRAMES_PER_SECOND;
 
-	// set sprite sheet to draw from
+	// set sprite sheet to draw from and defines animation speed
 	this.setSprite = function(newSpriteSheet,
 						newWidth, newHeight,
 						newTotal, newSpeed) {
@@ -23,8 +23,21 @@ function spriteClass() {
 		frameWidth = newWidth;
 		frameHeight = newHeight;
 		frameTotal = newTotal;
-		timePerFrame = 1/newSpeed;
+		if (newSpeed > 0) {
+			timePerFrame = 1/newSpeed;
+		} else {
+			timePerFrame = 0;
+		}
 		this.reset();
+	}
+
+	// sets a still frame from a sprite sheet, index goes left to right, top to bottom
+	this.setFrame = function(index) {
+		result = calculateFrameIndex(index);
+		frameX = result.x;
+		frameY = result.y;
+		frameIndex = index % frameTotal;
+		timePerFrame = 0;
 	}
 
 	this.reset = function() {
@@ -49,8 +62,7 @@ function spriteClass() {
 
 	// cycles through sprite animations
 	this.update = function() {
-
-		if (frameTotal > 0) {
+		if (frameTotal > 0 && timePerFrame > 0) {
 			currentTime += timePerTick;
 
 			if (currentTime >= timePerFrame) {
@@ -73,6 +85,16 @@ function spriteClass() {
 					}
 				}
 			}
+		}
+	}
+
+	// helper function for setting still frames
+	function calculateFrameIndex(index) {
+		var posX = (index * frameWidth) % spriteSheet.width;
+		var posY = (Math.floor(index / (spriteSheet.width / frameWidth)) * frameHeight) % spriteSheet.height;
+		return {
+			x: posX,
+			y: posY
 		}
 	}
 }
