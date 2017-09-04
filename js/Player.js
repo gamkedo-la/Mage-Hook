@@ -9,11 +9,6 @@ function playerClass() {
 
 	this.x = 110;
 	this.y = 120;
-	var lastX = this.x;
-	var lastY = this.y;
-
-	var walkIntoTileType;
-	var walkIntoTileIndex;
 
 	this.name = "Untitled Player";
 	this.keysInInventory = 0;
@@ -28,7 +23,13 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var collider = new boxColliderClass(2, 2, -1, 2);
+	var colliderWidth = 2;
+	var colliderHeight = 2;
+	var colliderOffsetX = -1;
+	var colliderOffsetY = 2;
+	var collider = new boxColliderClass(this.x, this.y,
+										colliderWidth, colliderHeight,
+										colliderOffsetX, colliderOffsetY);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -66,8 +67,6 @@ function playerClass() {
 	}
 
 	this.move = function() {
-
-		// TODO(Cipherpunk): setup logic for sprite animations when walking or idling
 		isMoving = false;
 
 		if(this.keyHeld_North && !this.keyHeld_South) {
@@ -91,37 +90,32 @@ function playerClass() {
 			isFacing = "West";
 		}
 
-		collider.setCollider(this.x, this.y);
+		collider.update(this.x, this.y);
+		var collisions = collider.checkCollider();
 
-		for (i = 0; i < collider.corner.length; i++) {
-			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
-			// walkIntoTileType = TILE_WALL;
-
-			if(walkIntoTileIndex != undefined) {
-				walkIntoTileType = worldGrid[walkIntoTileIndex];
-			}
-			switch(walkIntoTileType) {
+		for (var index in collisions) {
+			var tileIndex = collisions[index];
+			var tileType = worldGrid[tileIndex];
+			switch(tileType) {
 				case TILE_GROUND:
 					break;
 				case TILE_SKULL:
-					this.handleCollision();
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
 						this.keysInInventory--; // one less key
 						this.updateKeyReadout();
-						worldGrid[walkIntoTileIndex] = TILE_GROUND;
+						worldGrid[tileIndex] = TILE_GROUND;
 					} else {
-						this.handleCollision();
+
 					}
 					break;
 				case TILE_KEY:
 					this.keysInInventory++; // one more key
 					this.updateKeyReadout();
-					worldGrid[walkIntoTileIndex] = TILE_GROUND;
+					worldGrid[tileIndex] = TILE_GROUND;
 					break;
 				case TILE_WALL:
-					this.handleCollision();
 					break;
 				default:
 					break;
@@ -129,11 +123,6 @@ function playerClass() {
 		}
 
 		choosePlayerAnimation();
-
-		collider.setCollider(lastX, lastY); // for drawing collider
-
-		lastX = this.x;
-		lastY = this.y;
 
 		wasMoving = isMoving;
 		wasFacing = isFacing;
@@ -187,27 +176,6 @@ function playerClass() {
 				}
 
 				sprite.setSprite(playerPic, 32, 32, 1, 0);
-			}
-		}
-	}
-
-	this.handleCollision = function() {
-		var emergencyTimer = 10;
-		isMoving = false;
-		while (walkIntoTileType == TILE_WALL ||
-			   walkIntoTileType == TILE_DOOR ||
-		   	   walkIntoTileType == TILE_SKULL) {
-			var angle = Math.atan2(lastY - this.y, lastX - this.x);
-			this.x += Math.cos(angle);
-			this.y += Math.sin(angle);
-			collider.setCollider(this.x, this.y);
-			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
-			walkIntoTileType = worldGrid[walkIntoTileIndex];
-			emergencyTimer--;
-			if(emergencyTimer == 0) {
-				this.x = lastX;
-				this.y = lastY;
-				break;
 			}
 		}
 	}

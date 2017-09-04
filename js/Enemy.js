@@ -3,13 +3,13 @@ function Enemy(){
 	//var collider = new boxColliderClass(7, 3, -2, 0);
 	this.x = 475;
 	this.y = 150;
-	
+
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
 
 	var sprite = new spriteClass();
 	this.draw = function() {
-		this.sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
+		this.sprite.draw(this.x, this.y);
 		canvasContext.strokeStyle = 'yellow';
 		//collider.draw();
 	}
@@ -23,6 +23,6 @@ function Enemy(){
 		if(this.y < 0){
 			this.y = 0
 		}
-		
+
 	}
 }
