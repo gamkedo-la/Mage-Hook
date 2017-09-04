@@ -28,7 +28,7 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var collider = new boxColliderClass(5, 3, -2, 0);
+	var collider = new boxColliderClass(2, 2, -1, 2);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -95,7 +95,7 @@ function playerClass() {
 
 		for (i = 0; i < collider.corner.length; i++) {
 			walkIntoTileIndex = getTileIndexAtPixelCoord(collider.corner[i].x, collider.corner[i].y);
-			walkIntoTileType = TILE_WALL;
+			// walkIntoTileType = TILE_WALL;
 
 			if(walkIntoTileIndex != undefined) {
 				walkIntoTileType = worldGrid[walkIntoTileIndex];
@@ -139,10 +139,13 @@ function playerClass() {
 		wasFacing = isFacing;
 
 		sprite.update();
+
+		// logging
+		console.log(this.x + ": " + this.y);
 	}
 
 	this.draw = function() {
-		sprite.draw(this.x, this.y - 7); // - 64 to adjust for sprite height, collision aligned with feet
+		sprite.draw(this.x, this.y - 7);
 		canvasContext.strokeStyle = 'yellow';
 		collider.draw();
 	}

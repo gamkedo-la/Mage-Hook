@@ -18,7 +18,7 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
-	setupInput();	
+	setupInput();
 	resetAllRooms();
 	loadLevel(room1f1);
 
@@ -47,7 +47,7 @@ function moveAll() {
 
 function drawAll() {
 	canvasContext.save();
-	canvasContext.translate(-camPanX,-camPanY);
+	//canvasContext.translate(-camPanX,-camPanY);
 	drawWorld();
 	currentRoom.drawMyEnemies();
 	player.draw();

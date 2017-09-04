@@ -2,7 +2,7 @@ const WORLD_W = 20;
 const WORLD_H = 20;
 const WORLD_GAP = 0;
 const WORLD_COLS = 16;
-const WORLD_ROWS = 11;
+const WORLD_ROWS = 13;
 //rooms are defined now in rooms.js
 var worldGrid = [];
 
@@ -62,9 +62,9 @@ function drawWorld() {
 			if( tileTypeHasTransparency(tileKindHere) ) {
 				canvasContext.drawImage(worldPics[TILE_GROUND],drawTileX,drawTileY);
 			}
-			
+
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
-			
+
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
