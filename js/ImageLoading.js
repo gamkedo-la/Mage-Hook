@@ -32,10 +32,10 @@ function loadImageForWorldCode(worldCode, fileName) {
 
 function loadImages() {
 	var imageList = [
-		{set: "Player", name: "standSouth", fileName: "MainChar/playerchar_Standing_0.png"},
-		{set: "Player", name: "standEast", fileName: "MainChar/playerchar_Standing_1.png"},
-		{set: "Player", name: "standNorth", fileName: "MainChar/playerchar_Standing_2.png"},
-		{set: "Player", name: "standWest", fileName: "MainChar/playerchar_Standing_3.png"},
+		{set: "Player", name: "standSouth", fileName: "MainChar/playerchar_Stand_0.png"},
+		{set: "Player", name: "standEast", fileName: "MainChar/playerchar_Stand_1.png"},
+		{set: "Player", name: "standNorth", fileName: "MainChar/playerchar_Stand_2.png"},
+		{set: "Player", name: "standWest", fileName: "MainChar/playerchar_Stand_3.png"},
 		{set: "Player", name: "walkSouth", fileName: "MainChar/playerchar_Walk South.png"},
 		{set: "Player", name: "walkEast", fileName: "MainChar/playerchar_Walk East.png"},
 		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk North.png"},

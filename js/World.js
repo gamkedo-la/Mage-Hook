@@ -1,8 +1,8 @@
-const WORLD_W = 50;
-const WORLD_H = 50;
-const WORLD_GAP = 2;
-const WORLD_COLS = 18;
-const WORLD_ROWS = 14;
+const WORLD_W = 20;
+const WORLD_H = 20;
+const WORLD_GAP = 0;
+const WORLD_COLS = 16;
+const WORLD_ROWS = 11;
 //rooms are defined now in rooms.js
 var worldGrid = [];
 

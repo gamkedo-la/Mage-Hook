@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 6;
+const PLAYER_MOVE_SPEED = 3;
 
 function playerClass() {
 	var isMoving = false;
@@ -7,8 +7,8 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var playerAtStartingPosition = true;
 
-	this.x = 475;
-	this.y = 150;
+	this.x = 110;
+	this.y = 120;
 	var lastX = this.x;
 	var lastY = this.y;
 
@@ -28,7 +28,7 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var collider = new boxColliderClass(7, 3, -2, 0);
+	var collider = new boxColliderClass(5, 3, -2, 0);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -42,7 +42,7 @@ function playerClass() {
 		this.name = playerName;
 		if (playerAtStartingPosition)
 		{
-			sprite.setSprite(sprites.Player.standSouth, 96, 96, 1, 0);
+			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0);
 			playerAtStartingPosition = false;
 		}
 		this.keysInInventory = 0;
@@ -142,7 +142,7 @@ function playerClass() {
 	}
 
 	this.draw = function() {
-		sprite.draw(this.x, this.y - 32); // - 64 to adjust for sprite height, collision aligned with feet
+		sprite.draw(this.x, this.y - 7); // - 64 to adjust for sprite height, collision aligned with feet
 		canvasContext.strokeStyle = 'yellow';
 		collider.draw();
 	}
@@ -167,7 +167,7 @@ function playerClass() {
 					playerPic = sprites.Player.walkWest;
 				}
 
-				sprite.setSprite(playerPic, 96, 96, 7, 12);
+				sprite.setSprite(playerPic, 32, 32, 7, 12);
 
 			} else {
  				if (isFacing == "South") {
@@ -183,7 +183,7 @@ function playerClass() {
 					playerPic = sprites.Player.standWest;
 				}
 
-				sprite.setSprite(playerPic, 96, 96, 1, 0);
+				sprite.setSprite(playerPic, 32, 32, 1, 0);
 			}
 		}
 	}
