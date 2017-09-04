@@ -141,7 +141,7 @@ function playerClass() {
 		sprite.update();
 
 		// logging
-		console.log(this.x + ": " + this.y);
+		// console.log(this.x + ": " + this.y);
 	}
 
 	this.draw = function() {

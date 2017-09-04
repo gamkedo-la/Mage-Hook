@@ -47,7 +47,7 @@ function moveAll() {
 
 function drawAll() {
 	canvasContext.save();
-	//canvasContext.translate(-camPanX,-camPanY);
+	//canvasContext.translate(-camPanX,-camPanY); //currently causing visual bugs
 	drawWorld();
 	currentRoom.drawMyEnemies();
 	player.draw();
