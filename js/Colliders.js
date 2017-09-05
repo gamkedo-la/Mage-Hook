@@ -1,3 +1,5 @@
+var _DEBUG_DRAW_COLLIDERS = false;
+
 function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
     this.width = width;
     this.height = height;
@@ -8,6 +10,13 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
 
     this.update = function(posX, posY) {
         this.setCollider(posX, posY);
+    }
+
+    this.centerX = function() {
+        return this.x + offsetX;
+    }
+    this.centerY = function() {
+        return this.y + offsetY;
     }
 
     this.setCollider = function(posX, posY) {
@@ -68,17 +77,30 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
                 isColliding = true;
             }
         return isColliding;
+        /*
+        // proposed alternate way to write the above
+
+        var myLeft = this.box.topLeft.x;
+        var myRight = this.box.topLeft.x + this.width;
+        var myTop = this.box.topLeft.y;
+        var myBottom = this.box.topLeft.y + this.height;
+        var theirLeft = boxCollider.box.topLeft.x;
+        var theirRight = boxCollider.box.topLeft.x + boxCollider.width;
+        var theirTop = boxCollider.box.topLeft.y;
+        var theirBottom = boxCollider.box.topLeft.y + boxCollider.height;
+        return ((myLeft > theirRight || // I'm right of them
+                myRight < theirLeft || // I'm left of them
+                myTop > theirBottom || // I'm below them
+                myBottom < theirTop) // I'm above them
+                == false); // if none of the above are true, boxes don't overlap
+        */
     }
 
     this.draw = function() {
-        /*
-        canvasContext.strokeStyle = 'yellow';
-        canvasContext.strokeRect(this.box.topLeft.x,
-                                 this.box.topLeft.y,
-                                 this.width, this.height);
-        */
         for (var corner in this.box) {
             colorRect(this.box[corner].x, this.box[corner].y, 1, 1, 'yellow');
         }
+        colorRect(this.x, this.y, 1, 1, 'orange');
+        colorRect(this.centerX(), this.centerY(), 1, 1, 'lime');
     }
 }

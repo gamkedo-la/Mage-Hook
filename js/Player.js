@@ -43,14 +43,14 @@ function playerClass() {
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY,
 										blockedBy);
-	var colliderWidth = 8;
-	var colliderHeight = 8;
-	var colliderOffsetX = -1;
-	var colliderOffsetY = -1;
+	var hitboxWidth = 8;
+	var hitboxHeight = 8;
+	var hitboxOffsetX = -1;
+	var hitboxOffsetY = -1;
 	blockedBy = []
 	this.hitbox = new boxColliderClass(this.x, this.y,
-									   colliderWidth, colliderHeight,
-								       colliderOffsetX, colliderOffsetY,
+									   hitboxWidth, hitboxHeight,
+								       hitboxOffsetX, hitboxOffsetY,
 									   blockedBy);
 	var sprite = new spriteClass();
 
@@ -184,8 +184,10 @@ function playerClass() {
 		sprite.draw(this.x, this.y - 7);
 		canvasContext.strokeStyle = 'yellow';
 		//colorText(Math.round(stunTimer*100)/100, this.x, this.y, 'white');
-		//this.collider.draw();
-		//this.hitbox.draw();
+		if(_DEBUG_DRAW_COLLIDERS) {
+			this.collider.draw();
+			this.hitbox.draw();
+		}
 	}
 
 	function choosePlayerAnimation() {
@@ -231,14 +233,16 @@ function playerClass() {
 
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
-	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 
-	        if(this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
-				var x1 = currentRoom.enemyList[i].hitbox.x;
-				var x2 = this.hitbox.x;
-				var y1 = currentRoom.enemyList[i].hitbox.y;
-				var y2 = this.hitbox.y;
+	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
+	        if(currentRoom.enemyList[i].hitbox.x != undefined &&
+	        	this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
+				var x1 = currentRoom.enemyList[i].hitbox.centerX();
+				var x2 = this.hitbox.centerX();
+				var y1 = currentRoom.enemyList[i].hitbox.centerY();
+				var y2 = this.hitbox.centerY();
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
+				//console.log(knockbackAngle * 180/Math.PI);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				hitByEnemy = true;
 	        }

@@ -30,7 +30,9 @@ function Enemy(){
 	var sprite = new spriteClass();
 	this.draw = function() {
 		this.sprite.draw(this.x, this.y);
-		//this.hitbox.draw();
+		if(_DEBUG_DRAW_COLLIDERS) {
+			this.hitbox.draw();
+		}
 		//colorText(Math.round(directionTimer * 100)/100, this.x, this.y, 'white');
 	}
 	this.update = function(){
