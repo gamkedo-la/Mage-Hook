@@ -4,8 +4,10 @@ const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
 
 var testSpritePic
-function Enemy(){
+function Enemy(x, y){
 
+	this.x = x;
+	this.y = y;
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
@@ -13,16 +15,9 @@ function Enemy(){
 	var colliderHeight = 14;
 	var colliderOffsetX = 1;
 	var colliderOffsetY = 4;
-	blockedBy = []
-	var blockedBy = [
-		TILE_WALL,
-		TILE_SKULL,
-		TILE_DOOR
-	]
 	this.hitbox = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
-										colliderOffsetX, colliderOffsetY,
-										blockedBy);
+										colliderOffsetX, colliderOffsetY);
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
 
@@ -43,6 +38,7 @@ function Enemy(){
 			}
 			return;
 		}
+
 		if (directionTimer <= 0 || directionTimer == undefined) {
 			resetMovement();
 		}
@@ -52,8 +48,6 @@ function Enemy(){
 
 		this.sprite.update();
 		this.hitbox.update(this.x, this.y);
-		this.x = this.hitbox.x;
-		this.y = this.hitbox.y;
 	}
 
 	function resetMovement() {

@@ -30,19 +30,16 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
+/*
 	var colliderWidth = 4;
 	var colliderHeight = 4;
 	var colliderOffsetX = -1;
 	var colliderOffsetY = 2;
-	var blockedBy = [
-		TILE_WALL,
-		TILE_SKULL,
-		TILE_DOOR];
-
 	this.collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
-										colliderOffsetX, colliderOffsetY,
-										blockedBy);
+										colliderOffsetX, colliderOffsetY);
+*/
+
 	var hitboxWidth = 8;
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
@@ -96,81 +93,75 @@ function playerClass() {
 			stunTimer -= TIME_PER_TICK;
 			if (stunTimer <= 0) {
 				this.isStunned = false;
-			} else {
+			} else if (player.isMoving){
 				this.x += Math.cos(knockbackAngle) * knockbackSpeed;
 				this.y += Math.sin(knockbackAngle) * knockbackSpeed;
 				knockbackSpeed *= FRICTION;
-				this.collider.update(this.x, this.y);
 				this.hitbox.update(this.x, this.y);
-				player.x = this.collider.x;
-				player.y = this.collider.y;
 			}
 			return;
 		}
 
-		if(this.keyHeld_North && !this.keyHeld_South) {
-			this.y -= PLAYER_MOVE_SPEED;
+		if(this.keyHeld_West && !this.keyHeld_East) {
+			this.x -= PLAYER_MOVE_SPEED;
 			isMoving = true;
-			isFacing = "North";
+			isFacing = "West";
 		}
 		if(this.keyHeld_East && !this.keyHeld_West) {
 			this.x += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "East";
 		}
+
+		// check collisions
+		// undo x movement if collision
+
 		if(this.keyHeld_South && !this.keyHeld_North) {
 			this.y += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "South";
 		}
-		if(this.keyHeld_West && !this.keyHeld_East) {
-			this.x -= PLAYER_MOVE_SPEED;
+		if(this.keyHeld_North && !this.keyHeld_South) {
+			this.y -= PLAYER_MOVE_SPEED;
 			isMoving = true;
-			isFacing = "West";
+			isFacing = "North";
 		}
+
+		// check collisions
+		// undo y movement if collision
 
 		this.hitbox.update(this.x, this.y);
 		if (this.isCollidingWithEnemy()) {
 			this.isStunned = true;
 			stunTimer = STUN_DURATION;
+			return;
 		}
 
-		var collisions = this.collider.getTileIndexes();
-		this.collider.update(this.x, this.y);
-
-		for (var index in collisions) {
-			var tileIndex = collisions[index];
-			var tileType = worldGrid[tileIndex];
-			switch(tileType) {
-				case TILE_GROUND:
-					break;
-				case TILE_SKULL:
-					isMoving = false;
-					break;
-				case TILE_DOOR:
-					if(this.keysInInventory > 0) {
-						this.keysInInventory--; // one less key
-						this.updateKeyReadout();
-						worldGrid[tileIndex] = TILE_GROUND;
-					} else {
-						isMoving = false;
-					}
-					break;
-				case TILE_KEY:
-					this.keysInInventory++; // one more key
+		switch(TILE_GROUND) {
+			case TILE_GROUND:
+				break;
+			case TILE_SKULL:
+				isMoving = false;
+				break;
+			case TILE_DOOR:
+				if(this.keysInInventory > 0) {
+					this.keysInInventory--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
-					break;
-				case TILE_WALL:
+				} else {
 					isMoving = false;
-					break;
-				default:
-					break;
-			}
+				}
+				break;
+			case TILE_KEY:
+				this.keysInInventory++; // one more key
+				this.updateKeyReadout();
+				worldGrid[tileIndex] = TILE_GROUND;
+				break;
+			case TILE_WALL:
+				break;
+			default:
+				break;
 		}
-
-		player.x = this.collider.x;
-		player.y = this.collider.y;
 
 		choosePlayerAnimation();
 
@@ -178,7 +169,7 @@ function playerClass() {
 		wasFacing = isFacing;
 
 		sprite.update();
-
+		this.hitbox.update(this.x, this.y);
 		// logging
 		// console.log(this.x + ": " + this.y);
 	}
@@ -188,7 +179,7 @@ function playerClass() {
 		canvasContext.strokeStyle = 'yellow';
 		//colorText(Math.round(stunTimer*100)/100, this.x, this.y, 'white');
 		if(_DEBUG_DRAW_COLLIDERS) {
-			this.collider.draw();
+			//this.collider.draw();
 			this.hitbox.draw();
 		}
 	}
@@ -238,18 +229,22 @@ function playerClass() {
 		var hitByEnemy = false;
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
-	        if(currentRoom.enemyList[i].hitbox.x != undefined &&
-	           this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
-				var x1 = currentRoom.enemyList[i].hitbox.centerX;
-				var x2 = this.hitbox.centerX;
-				var y1 = currentRoom.enemyList[i].hitbox.centerY;
-				var y2 = this.hitbox.centerY;
+			var enemy = currentRoom.enemyList[i];
+			var x = enemy.hitbox.box.topLeft.x;
+			var y = enemy.hitbox.box.topLeft.y;
+			var width = enemy.hitbox.width;
+			var height = enemy.hitbox.height;
+	        if (this.hitbox.isCollidingWith(x, y, width, height)) {
+				x1 = enemy.hitbox.x;
+				x2 = this.hitbox.x;
+				y1 = enemy.hitbox.y;
+				y2 = this.hitbox.y;
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
+				enemy.sprite.setFrame(5);
+				enemy.recoil = true;
+				this.isMoving = true;
 				hitByEnemy = true;
-				currentRoom.enemyList[i].sprite.setFrame(5);
-				currentRoom.enemyList[i].hitbox.update();
-				currentRoom.enemyList[i].recoil = true;
 	        }
 	    }
 		return hitByEnemy;

@@ -14,6 +14,7 @@ function Room(roomLayout) {
 
 	this.spawnMyEnemies = function(){
 		var nextEnemy = null;
+		var x, y;
 		var enemyWasFound = false;
 		do {
 			enemyWasFound = false;
@@ -22,9 +23,9 @@ function Room(roomLayout) {
 					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 					if(this.layout[arrayIndex] == TILE_ENEMYSTART) {
 						this.layout[arrayIndex] = TILE_GROUND;
-						nextEnemy = new Enemy();
-						nextEnemy.x = eachCol * WORLD_W + WORLD_W/2;
-						nextEnemy.y = eachRow * WORLD_H + WORLD_H/2;
+						x = eachCol * WORLD_W + WORLD_W/2;
+						y = eachRow * WORLD_H + WORLD_H/2;
+						nextEnemy = new Enemy(x, y);
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
 						break;
