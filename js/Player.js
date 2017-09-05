@@ -27,9 +27,15 @@ function playerClass() {
 	var colliderHeight = 2;
 	var colliderOffsetX = -1;
 	var colliderOffsetY = 2;
+	var blockedBy = [
+		TILE_WALL,
+		TILE_SKULL,
+		TILE_DOOR];
+
 	var collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
-										colliderOffsetX, colliderOffsetY);
+										colliderOffsetX, colliderOffsetY,
+										blockedBy);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -100,6 +106,7 @@ function playerClass() {
 				case TILE_GROUND:
 					break;
 				case TILE_SKULL:
+					isMoving = false;
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
@@ -107,7 +114,7 @@ function playerClass() {
 						this.updateKeyReadout();
 						worldGrid[tileIndex] = TILE_GROUND;
 					} else {
-
+						isMoving = false;
 					}
 					break;
 				case TILE_KEY:
@@ -116,11 +123,15 @@ function playerClass() {
 					worldGrid[tileIndex] = TILE_GROUND;
 					break;
 				case TILE_WALL:
+					isMoving = false;
 					break;
 				default:
 					break;
 			}
 		}
+
+		player.x = collider.x;
+		player.y = collider.y;
 
 		choosePlayerAnimation();
 

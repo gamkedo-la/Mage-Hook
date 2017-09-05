@@ -1,37 +1,50 @@
-function boxColliderClass(x, y, width, height, offsetX, offsetY) {
+function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
     var width = width;
     var height = height;
-    var corner = [];
+    var corners = {};
     var lastX = x;
     var lastY = y;
     this.x = x;
     this.y = y;
+    this.blockedBy = blockedBy;
 
     this.update = function(posX, posY) {
         this.setCollider(posX, posY);
-        for (i = 0; i < corner.length; i++) {
-            var tileIndex = getTileIndexAtPixelCoord(corner[i].x, corner[i].y);
-            corner[i].collisionIndex = tileIndex;
-        }
     }
 
     this.setCollider = function(posX, posY) {
-		corner[0] = {
-			x: posX - width + offsetX,
-			y: posY - height + offsetY
+        var x = posX - width + offsetX;
+        var y = posY - height + offsetY;
+		corners.topLeft = {
+			x: x,
+			y: y,
+            index: getTileIndexAtPixelCoord(x, y)
 		}
-		corner[1] = {
-			x: posX + width + offsetX,
-			y: posY - height + offsetY
+
+        x = posX + width + offsetX;
+        y = posY - height + offsetY;
+		corners.topRight = {
+			x: x,
+			y: y,
+            index: getTileIndexAtPixelCoord(x, y)
 		}
-		corner[2] = {
-			x: posX - width + offsetX,
-			y: posY + height + offsetY
+
+        x = posX - width + offsetX;
+        y = posY + height + offsetY;
+		corners.bottomLeft = {
+			x: x,
+			y: y,
+            index: getTileIndexAtPixelCoord(x, y)
 		}
-		corner[3] = {
-			x: posX + width + offsetX,
-			y: posY + height + offsetY
+
+        x = posX + width + offsetX;
+        y = posY + height + offsetY;
+		corners.bottomRight = {
+			x: x,
+			y: y,
+            index: getTileIndexAtPixelCoord(x, y)
 		}
+
         lastX = this.x;
         lastY = this.y;
         this.x = posX;
@@ -40,43 +53,17 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 
     this.checkCollider = function() {
         return {
-            topLeft: corner[0].collisionIndex,
-            topRight: corner[1].collisionIndex,
-            bottomLeft: corner[2].collisionIndex,
-            bottomRight: corner[3].collisionIndex
-        }
-    }
-
-    // TODO: undoCollision() needs to be rewritten
-    this.undoCollision = function(tileType, cornerIndex) {
-        var emergencyTimer = 10;
-        var originalTileType = tileType;
-        while (tileType == originalTileType) {
-            var angle = Math.atan2(lastY - this.y, lastX - this.x);
-            this.x += Math.cos(angle);
-            this.y += Math.sin(angle);
-            this.setCollider(this.x, this.y);
-            var tileIndex = getTileIndexAtPixelCoord(corner[i].x, corner[i].y);
-            tileType = worldGrid[tileIndex];
-            emergencyTimer--;
-            if(emergencyTimer == 0) {
-                this.x = lastX;
-                this.y = lastY;
-                break;
-            }
-        }
-        return {
-            x: this.x,
-            y: this.y
+            topLeft: corners.topLeft.index,
+            topRight: corners.topRight.index,
+            bottomLeft: corners.bottomLeft.index,
+            bottomRight: corners.bottomRight.index
         }
     }
 
     this.draw = function() {
-        //this.setCollider(lastX, lastY);
         canvasContext.fillStyle = 'yellow';
-        for (i = 0; i < corner.length; i++) {
-            canvasContext.fillRect(corner[i].x, corner[i].y, 1, 1);
+        for (var corner in corners) {
+            canvasContext.fillRect(corners[corner].x, corners[corner].y, 1, 1);
         }
-        //this.setCollider(lastX, lastY);
     }
 }
