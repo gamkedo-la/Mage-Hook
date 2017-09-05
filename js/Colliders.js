@@ -82,12 +82,3 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
         }
     }
 }
-
-function checkForCollisionsWithPlayer() {
-    for (var i = 0; i < currentRoom.enemyList.length; i++) {
-
-        if(player.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
-            console.log("COLLIDING!")
-        }
-    }
-}

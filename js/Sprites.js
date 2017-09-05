@@ -9,8 +9,7 @@ function spriteClass() {
 	var frameIndex;
 
 	var currentTime;
-	var timePerFrame
-	var timePerTick = 1/FRAMES_PER_SECOND;
+	var timePerFrame;
 
 	// set sprite sheet to draw from and defines animation speed
 	this.setSprite = function(newSpriteSheet,
@@ -67,7 +66,7 @@ function spriteClass() {
 	// cycles through sprite animations
 	this.update = function() {
 		if (frameTotal > 0 && timePerFrame > 0) {
-			currentTime += timePerTick;
+			currentTime += TIME_PER_TICK;
 
 			if (currentTime >= timePerFrame) {
 				currentTime -= timePerFrame;

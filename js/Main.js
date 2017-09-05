@@ -1,6 +1,7 @@
 var canvas, canvasContext;
 var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
+const TIME_PER_TICK = 1/FRAMES_PER_SECOND;
 
 var player = new playerClass();
 var testSprite = {};
@@ -41,7 +42,6 @@ function updateAll() {
 function moveAll() {
 	player.move();
 	currentRoom.moveMyEnemies();
-	checkForCollisionsWithPlayer();
 	//console.log(player.x);
 	//console.log(player.y);
 }

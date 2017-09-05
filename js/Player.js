@@ -1,4 +1,7 @@
 const PLAYER_MOVE_SPEED = 3;
+const STUN_DURATION = 0.55;
+const INITIAL_KNOCKBACK_SPEED = 8;
+const FRICTION = 0.7;
 
 function playerClass() {
 	var isMoving = false;
@@ -12,6 +15,10 @@ function playerClass() {
 
 	this.name = "Untitled Player";
 	this.keysInInventory = 0;
+	this.isStunned = false;
+	var stunTimer;
+	var knockbackAngle;
+	var knockbackSpeed;
 
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
@@ -36,10 +43,10 @@ function playerClass() {
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY,
 										blockedBy);
-	var colliderWidth = 7;
-	var colliderHeight = 22;
+	var colliderWidth = 8;
+	var colliderHeight = 8;
 	var colliderOffsetX = -1;
-	var colliderOffsetY = -7;
+	var colliderOffsetY = -1;
 	blockedBy = []
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   colliderWidth, colliderHeight,
@@ -84,6 +91,20 @@ function playerClass() {
 	this.move = function() {
 		isMoving = false;
 
+		// stuns player when hit by monsters
+		if (this.isStunned) {
+			stunTimer -= TIME_PER_TICK;
+			if (stunTimer <= 0) {
+				this.isStunned = false;
+			} else {
+				this.x += Math.cos(knockbackAngle) * knockbackSpeed;
+				this.y += Math.sin(knockbackAngle) * knockbackSpeed;
+				knockbackSpeed *= FRICTION;
+				this.hitbox.update();
+			}
+			return;
+		}
+
 		if(this.keyHeld_North && !this.keyHeld_South) {
 			this.y -= PLAYER_MOVE_SPEED;
 			isMoving = true;
@@ -106,6 +127,11 @@ function playerClass() {
 		}
 
 		this.hitbox.update(this.x, this.y);
+		if (this.isCollidingWithEnemy()) {
+			this.isStunned = true;
+			stunTimer = STUN_DURATION;
+		}
+
 		this.collider.update(this.x, this.y);
 		var collisions = this.collider.getTileIndexes();
 
@@ -157,6 +183,7 @@ function playerClass() {
 	this.draw = function() {
 		sprite.draw(this.x, this.y - 7);
 		canvasContext.strokeStyle = 'yellow';
+		//colorText(Math.round(stunTimer*100)/100, this.x, this.y, 'white');
 		//this.collider.draw();
 		//this.hitbox.draw();
 	}
@@ -200,5 +227,22 @@ function playerClass() {
 				sprite.setSprite(playerPic, 32, 32, 1, 0);
 			}
 		}
+	}
+
+	this.isCollidingWithEnemy = function() {
+		var hitByEnemy = false;
+	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
+
+	        if(this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
+				var x1 = currentRoom.enemyList[i].hitbox.x;
+				var x2 = this.hitbox.x;
+				var y1 = currentRoom.enemyList[i].hitbox.y;
+				var y2 = this.hitbox.y;
+				knockbackAngle = Math.atan2(y2-y1, x2-x1);
+				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
+				hitByEnemy = true;
+	        }
+	    }
+		return hitByEnemy;
 	}
 }
