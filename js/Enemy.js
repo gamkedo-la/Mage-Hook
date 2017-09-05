@@ -53,6 +53,8 @@ function Enemy(){
 
 		this.sprite.update();
 		this.hitbox.update(this.x, this.y);
+		this.x = this.hitbox.x;
+		this.y = this.hitbox.y;
 	}
 
 	function resetMovement() {

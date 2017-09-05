@@ -47,7 +47,7 @@ function playerClass() {
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
 	var hitboxOffsetY = -1;
-	blockedBy = []
+	blockedBy = [];
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
 								       hitboxOffsetX, hitboxOffsetY,
@@ -133,8 +133,8 @@ function playerClass() {
 			stunTimer = STUN_DURATION;
 		}
 
-		this.collider.update(this.x, this.y);
 		var collisions = this.collider.getTileIndexes();
+		this.collider.update(this.x, this.y);
 
 		for (var index in collisions) {
 			var tileIndex = collisions[index];
@@ -238,17 +238,14 @@ function playerClass() {
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 	        if(currentRoom.enemyList[i].hitbox.x != undefined &&
 	           this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
-				var x1 = currentRoom.enemyList[i].hitbox.centerX();
-				var x2 = this.hitbox.centerX();
-				var y1 = currentRoom.enemyList[i].hitbox.centerY();
-				var y2 = this.hitbox.centerY();
+				var x1 = currentRoom.enemyList[i].hitbox.centerX;
+				var x2 = this.hitbox.centerX;
+				var y1 = currentRoom.enemyList[i].hitbox.centerY;
+				var y2 = this.hitbox.centerY;
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
-				//console.log(knockbackAngle * 180/Math.PI);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				hitByEnemy = true;
 				currentRoom.enemyList[i].sprite.setFrame(5);
-				//currentRoom.enemyList[i].x += Math.cos(knockbackAngle) * knockbackSpeed;
-				//currentRoom.enemyList[i].y += Math.cos(knockbackAngle) * knockbackSpeed;
 				currentRoom.enemyList[i].hitbox.update();
 				currentRoom.enemyList[i].recoil = true;
 	        }
