@@ -236,7 +236,7 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 	        if(currentRoom.enemyList[i].hitbox.x != undefined &&
-	        	this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
+	           this.hitbox.isCollidingWith(currentRoom.enemyList[i].hitbox)) {
 				var x1 = currentRoom.enemyList[i].hitbox.centerX();
 				var x2 = this.hitbox.centerX();
 				var y1 = currentRoom.enemyList[i].hitbox.centerY();
@@ -245,6 +245,11 @@ function playerClass() {
 				//console.log(knockbackAngle * 180/Math.PI);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				hitByEnemy = true;
+				currentRoom.enemyList[i].sprite.setFrame(5);
+				//currentRoom.enemyList[i].x += Math.cos(knockbackAngle) * knockbackSpeed;
+				//currentRoom.enemyList[i].y += Math.cos(knockbackAngle) * knockbackSpeed;
+				currentRoom.enemyList[i].hitbox.update();
+				currentRoom.enemyList[i].recoil = true;
 	        }
 	    }
 		return hitByEnemy;

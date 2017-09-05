@@ -7,6 +7,7 @@ const MARGIN = 25;
 var testSpritePic
 function Enemy(){
 
+	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
 	var colliderWidth = 12;
@@ -36,13 +37,18 @@ function Enemy(){
 		//colorText(Math.round(directionTimer * 100)/100, this.x, this.y, 'white');
 	}
 	this.update = function(){
-
+		if (this.recoil) {
+			if (!player.isStunned) {
+				this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
+				resetMovement();
+				this.recoil = false;
+			}
+			return;
+		}
 		if (directionTimer <= 0 || directionTimer == undefined ||
 			this.x < 0 + MARGIN || this.x > canvas.width - MARGIN ||
 			this.y < 0 + MARGIN || this.y > canvas.height - MARGIN) {
-			directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
-			moveAngle = Math.random() * 2*Math.PI;
-			moveSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
+			resetMovement();
 		}
 		this.x += Math.cos(moveAngle) * moveSpeed;
 		this.y += Math.sin(moveAngle) * moveSpeed;
@@ -50,5 +56,11 @@ function Enemy(){
 
 		this.sprite.update();
 		this.hitbox.update(this.x, this.y);
+	}
+
+	function resetMovement() {
+		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
+		moveAngle = Math.random() * 2*Math.PI;
+		moveSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
 	}
 }
