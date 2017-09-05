@@ -1,8 +1,20 @@
 var testSpritePic
 function Enemy(){
-	//var collider = new boxColliderClass(7, 3, -2, 0);
-	this.x = 475;
-	this.y = 150;
+
+	var colliderWidth = 16;
+	var colliderHeight = 16;
+	var colliderOffsetX = 1;
+	var colliderOffsetY = 5;
+	blockedBy = []
+	var blockedBy = [
+		TILE_WALL,
+		TILE_SKULL,
+		TILE_DOOR
+	]
+	this.hitbox = new boxColliderClass(this.x, this.y,
+										colliderWidth, colliderHeight,
+										colliderOffsetX, colliderOffsetY,
+										blockedBy);
 
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
@@ -10,11 +22,11 @@ function Enemy(){
 	var sprite = new spriteClass();
 	this.draw = function() {
 		this.sprite.draw(this.x, this.y);
-		canvasContext.strokeStyle = 'yellow';
-		//collider.draw();
+		//this.hitbox.draw();
 	}
 	this.update = function(){
 		this.sprite.update();
+		this.hitbox.update(this.x, this.y);
 		this.x += -1 + Math.floor(Math.random() * 3)
 		this.y += -1 + Math.floor(Math.random() * 3)
 		if(this.x < 0 ){

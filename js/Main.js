@@ -41,6 +41,7 @@ function updateAll() {
 function moveAll() {
 	player.move();
 	currentRoom.moveMyEnemies();
+	checkForCollisionsWithPlayer();
 	//console.log(player.x);
 	//console.log(player.y);
 }

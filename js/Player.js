@@ -23,8 +23,8 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var colliderWidth = 2;
-	var colliderHeight = 2;
+	var colliderWidth = 4;
+	var colliderHeight = 4;
 	var colliderOffsetX = -1;
 	var colliderOffsetY = 2;
 	var blockedBy = [
@@ -32,10 +32,19 @@ function playerClass() {
 		TILE_SKULL,
 		TILE_DOOR];
 
-	var collider = new boxColliderClass(this.x, this.y,
+	this.collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY,
 										blockedBy);
+	var colliderWidth = 7;
+	var colliderHeight = 22;
+	var colliderOffsetX = -1;
+	var colliderOffsetY = -7;
+	blockedBy = []
+	this.hitbox = new boxColliderClass(this.x, this.y,
+									   colliderWidth, colliderHeight,
+								       colliderOffsetX, colliderOffsetY,
+									   blockedBy);
 	var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
@@ -96,8 +105,9 @@ function playerClass() {
 			isFacing = "West";
 		}
 
-		collider.update(this.x, this.y);
-		var collisions = collider.checkCollider();
+		this.hitbox.update(this.x, this.y);
+		this.collider.update(this.x, this.y);
+		var collisions = this.collider.getTileIndexes();
 
 		for (var index in collisions) {
 			var tileIndex = collisions[index];
@@ -130,8 +140,8 @@ function playerClass() {
 			}
 		}
 
-		player.x = collider.x;
-		player.y = collider.y;
+		player.x = this.collider.x;
+		player.y = this.collider.y;
 
 		choosePlayerAnimation();
 
@@ -147,7 +157,8 @@ function playerClass() {
 	this.draw = function() {
 		sprite.draw(this.x, this.y - 7);
 		canvasContext.strokeStyle = 'yellow';
-		collider.draw();
+		//this.collider.draw();
+		//this.hitbox.draw();
 	}
 
 	function choosePlayerAnimation() {
