@@ -1,4 +1,4 @@
-var _DEBUG_DRAW_COLLIDERS = true;
+var _DEBUG_DRAW_COLLIDERS = false;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
     this.width = width;
@@ -85,14 +85,14 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY, blockedBy) {
     }
 
     this.preventCollision = function(tileType, corner) {
-        var emergencyTimer = 10;
+        var emergencyTimer = 30;
         var originalTileType = tileType;
         var originX = lastX;
         var originY = lastY;
         while (tileType == originalTileType) {
             var angle = Math.atan2(originY - this.y, originX - this.x);
-            this.x += Math.cos(angle);
-            this.y += Math.sin(angle);
+            this.x += Math.cos(angle) * 2;
+            this.y += Math.sin(angle) * 2;
             this.setCollider(this.x, this.y);
             var tileIndex = this.box[corner].index;
             tileType = worldGrid[tileIndex];

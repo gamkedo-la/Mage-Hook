@@ -100,8 +100,10 @@ function playerClass() {
 				this.x += Math.cos(knockbackAngle) * knockbackSpeed;
 				this.y += Math.sin(knockbackAngle) * knockbackSpeed;
 				knockbackSpeed *= FRICTION;
-				this.collider.update();
-				this.hitbox.update();
+				this.collider.update(this.x, this.y);
+				this.hitbox.update(this.x, this.y);
+				player.x = this.collider.x;
+				player.y = this.collider.y;
 			}
 			return;
 		}

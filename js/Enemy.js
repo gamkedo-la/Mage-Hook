@@ -23,7 +23,6 @@ function Enemy(){
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY,
 										blockedBy);
-	this.hitbox.setCollider(this.x, this.y);
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
 
