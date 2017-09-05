@@ -1,7 +1,7 @@
 const PLAYER_MOVE_SPEED = 3;
 const STUN_DURATION = 0.55;
 const INITIAL_KNOCKBACK_SPEED = 8;
-const FRICTION = 0.7;
+const FRICTION = 0.80;
 
 function playerClass() {
 	var isMoving = false;
@@ -44,7 +44,7 @@ function playerClass() {
 										colliderOffsetX, colliderOffsetY,
 										blockedBy);
 	var hitboxWidth = 8;
-	var hitboxHeight = 8;
+	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
 	var hitboxOffsetY = -1;
 	blockedBy = []
@@ -100,6 +100,7 @@ function playerClass() {
 				this.x += Math.cos(knockbackAngle) * knockbackSpeed;
 				this.y += Math.sin(knockbackAngle) * knockbackSpeed;
 				knockbackSpeed *= FRICTION;
+				this.collider.update();
 				this.hitbox.update();
 			}
 			return;

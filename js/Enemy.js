@@ -2,7 +2,6 @@ const MIN_SPEED = .25;
 const MAX_SPEED = .50;
 const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
-const MARGIN = 25;
 
 var testSpritePic
 function Enemy(){
@@ -10,10 +9,10 @@ function Enemy(){
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
-	var colliderWidth = 12;
-	var colliderHeight = 8;
+	var colliderWidth = 20;
+	var colliderHeight = 14;
 	var colliderOffsetX = 1;
-	var colliderOffsetY = 7;
+	var colliderOffsetY = 4;
 	blockedBy = []
 	var blockedBy = [
 		TILE_WALL,
@@ -45,9 +44,7 @@ function Enemy(){
 			}
 			return;
 		}
-		if (directionTimer <= 0 || directionTimer == undefined ||
-			this.x < 0 + MARGIN || this.x > canvas.width - MARGIN ||
-			this.y < 0 + MARGIN || this.y > canvas.height - MARGIN) {
+		if (directionTimer <= 0 || directionTimer == undefined) {
 			resetMovement();
 		}
 		this.x += Math.cos(moveAngle) * moveSpeed;
