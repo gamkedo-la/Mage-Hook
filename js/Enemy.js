@@ -4,7 +4,7 @@ const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
 
 var testSpritePic
-function Enemy(x, y){
+function enemyClass(x, y){
 
 	this.x = x;
 	this.y = y;

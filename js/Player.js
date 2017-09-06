@@ -89,36 +89,6 @@ function playerClass() {
 	}
 
 	this.move = function() {
-		isMoving = false;
-
-		// stuns player when hit by monsters
-		if (this.isStunned) {
-			stunTimer -= TIME_PER_TICK;
-			if (stunTimer <= 0) {
-				this.isStunned = false;
-			} else {
-				var checksPerFrame = 5;
-				var movePerCheck;
-				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
-				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
-				knockbackSpeed *= FRICTION;
-			}
-		}
-
-		if (this.isInvincible) {
-			if (flashTimer <= 0 || flashTimer == undefined) {
-				flashTimer = FLASH_DURATION;
-				drawPlayer = !drawPlayer;
-			}
-			flashTimer -= TIME_PER_TICK;
-			invincibleTimer -= TIME_PER_TICK;
-			if (invincibleTimer <= 0) {
-				this.isInvincible = false;
-				drawPlayer = true;
-			}
-		}
 
 		var checksPerFrame = PLAYER_MOVE_SPEED;
 		var movePerCheck = 1;
@@ -152,12 +122,43 @@ function playerClass() {
 			return;
 		}
 
-
 		choosePlayerAnimation();
 		wasMoving = isMoving;
 		wasFacing = isFacing;
 
-		sprite.update();
+		// stuns player when hit by enemies
+		if (this.isStunned) {
+			stunTimer -= TIME_PER_TICK;
+			if (stunTimer <= 0) {
+				this.isStunned = false;
+			} else {
+				var checksPerFrame = 5;
+				var movePerCheck;
+				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
+				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
+				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
+				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
+				knockbackSpeed *= FRICTION;
+			}
+		} else {
+			isMoving = false;
+			sprite.update();
+		}
+
+		// Prevents player from colliding with enemeies
+		if (this.isInvincible) {
+			if (flashTimer <= 0 || flashTimer == undefined) {
+				flashTimer = FLASH_DURATION;
+				drawPlayer = !drawPlayer;
+			}
+			flashTimer -= TIME_PER_TICK;
+			invincibleTimer -= TIME_PER_TICK;
+			if (invincibleTimer <= 0) {
+				this.isInvincible = false;
+				drawPlayer = true;
+			}
+		}
+
 		this.updateColliders();
 	}
 
@@ -226,7 +227,6 @@ function playerClass() {
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
 				enemy.recoil = true;
-				this.isMoving = true;
 				hitByEnemy = true;
 	        }
 	    }

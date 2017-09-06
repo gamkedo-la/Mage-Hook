@@ -31,7 +31,7 @@ function Room(roomLayout) {
 						this.layout[arrayIndex] = TILE_GROUND;
 						x = eachCol * WORLD_W + WORLD_W/2;
 						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently tall to put next to walls
-						nextEnemy = new Enemy(x, y);
+						nextEnemy = new enemyClass(x, y);
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
 						break;
