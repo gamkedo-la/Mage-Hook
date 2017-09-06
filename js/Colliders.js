@@ -105,8 +105,6 @@ this.collisionHandler = function(tileIndex) {
             break;
         case TILE_KEY:
             break;
-        case TILE_DOOR:
-            break;
         case TILE_SKULL:
             collisionDetected = true;
             break;
