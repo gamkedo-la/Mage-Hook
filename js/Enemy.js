@@ -93,6 +93,10 @@ function Enemy(x, y){
 					this.hitbox.update(this.x, this.y);
 					resetMovement();
 					break;
+				case TILE_SKULL:
+					this.y = originY;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
 				default:
 					break;
 			}
