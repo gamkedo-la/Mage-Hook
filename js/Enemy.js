@@ -13,13 +13,21 @@ function enemyClass(x, y){
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
-	var colliderWidth = 18;
-	var colliderHeight = 14;
-	var colliderOffsetX = 1;
-	var colliderOffsetY = 5;
-	this.collider = new boxColliderClass(this.x, this.y,
-										colliderWidth, colliderHeight,
-										colliderOffsetX, colliderOffsetY);
+
+	var tileColliderWidth = 18;
+	var tileColliderHeight = 4;
+	var tileColliderOffsetX = 1;
+	var tileColliderOffsetY = 10;
+	this.tileCollider = new boxColliderClass(this.x, this.y,
+											 tileColliderWidth, tileColliderHeight,
+											 tileColliderOffsetX, tileColliderOffsetY);
+	var hitboxWidth = 18;
+	var hitboxHeight = 14;
+	var hitboxOffsetX = 1;
+	var hitboxOffsetY = 5;
+	this.hitbox = new boxColliderClass(this.x, this.y,
+									   hitboxWidth, hitboxHeight,
+									   hitboxOffsetX, hitboxOffsetY);
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
 
@@ -27,7 +35,8 @@ function enemyClass(x, y){
 	this.draw = function() {
 		this.sprite.draw(this.x, this.y);
 		if(_DEBUG_DRAW_COLLIDERS) {
-			this.collider.draw();
+			this.hitbox.draw();
+			this.tileCollider.draw();
 		}
 		//colorText(Math.round(directionTimer * 100)/100, this.x, this.y, 'white');
 	}
@@ -47,9 +56,9 @@ function enemyClass(x, y){
 		var checksPerFrame = 5;
 		var movePerCheck;
 		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
+		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
 		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
+		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
 
 		directionTimer -= TIME_PER_TICK;
 		originX = this.x;
@@ -65,7 +74,8 @@ function enemyClass(x, y){
 	}
 
 	this.updateColliders = function() {
-		this.collider.update(this.x, this.y);
+		this.tileCollider.update(this.x, this.y);
+		this.hitbox.update(this.x, this.y);
 	}
 
 	this.collisionHandler = function(tileIndex) {

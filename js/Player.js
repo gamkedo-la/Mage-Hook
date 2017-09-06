@@ -36,13 +36,13 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-	var colliderWidth = 4;
-	var colliderHeight = 4;
-	var colliderOffsetX = -1;
-	var colliderOffsetY = 9;
-	this.collider = new boxColliderClass(this.x, this.y,
-										colliderWidth, colliderHeight,
-										colliderOffsetX, colliderOffsetY);
+	var tileColliderWidth = 4;
+	var tileColliderHeight = 4;
+	var tileColliderOffsetX = -1;
+	var tileColliderOffsetY = 9;
+	this.tileCollider = new boxColliderClass(this.x, this.y,
+											 tileColliderWidth, tileColliderHeight,
+											 tileColliderOffsetX, tileColliderOffsetY);
 	var hitboxWidth = 8;
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
@@ -93,23 +93,23 @@ function playerClass() {
 		var checksPerFrame = PLAYER_MOVE_SPEED;
 		var movePerCheck = 1;
 		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, -movePerCheck, "x");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "x");
 			isMoving = true;
 			isFacing = "West";
 		}
 		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
 			isMoving = true;
 			isFacing = "East";
 		}
 
 		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, -movePerCheck, "y");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "y");
 			isMoving = true;
 			isFacing = "North";
 		}
 		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
 			isMoving = true;
 			isFacing = "South";
 		}
@@ -135,9 +135,9 @@ function playerClass() {
 				var checksPerFrame = 5;
 				var movePerCheck;
 				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
+				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
 				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
+				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
 				knockbackSpeed *= FRICTION;
 			}
 		} else {
@@ -167,7 +167,7 @@ function playerClass() {
 			sprite.draw(this.x, this.y);
 		}
 		if(_DEBUG_DRAW_COLLIDERS) {
-			this.collider.draw();
+			this.tileCollider.draw();
 			this.hitbox.draw();
 		}
 	}
@@ -218,10 +218,10 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
-	        if (this.hitbox.isCollidingWith(enemy.collider)) {
-				x1 = enemy.collider.x;
+	        if (this.hitbox.isCollidingWith(enemy.hitbox)) {
+				x1 = enemy.hitbox.x;
 				x2 = this.hitbox.x;
-				y1 = enemy.collider.y;
+				y1 = enemy.hitbox.y;
 				y2 = this.hitbox.y;
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
@@ -235,7 +235,7 @@ function playerClass() {
 
 	this.updateColliders = function() {
 		this.hitbox.update(this.x, this.y);
-		this.collider.update(this.x, this.y);
+		this.tileCollider.update(this.x, this.y);
 	}
 
 	this.collisionHandler = function(tileIndex) {

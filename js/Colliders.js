@@ -64,7 +64,7 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 }
 
 // NOTE(Cipherpunk): See template below to add to class
-moveOnAxisAndCheckForTileCollisions = function(objectToMove, checksPerFrame, movePerCheck, axis) {
+moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck, checksPerFrame, movePerCheck, axis) {
     for (var i = 0; i < checksPerFrame; i++) {
         var collisionDetected = false;
         var origin = objectToMove[axis];
@@ -72,9 +72,9 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, checksPerFrame, mov
         objectToMove[axis] += movePerCheck;
         objectToMove.updateColliders();
 
-        for (var corner in objectToMove.collider) {
-            var x = objectToMove.collider[corner].x;
-            var y = objectToMove.collider[corner].y;
+        for (var corner in colliderToCheck) {
+            var x = colliderToCheck[corner].x;
+            var y = colliderToCheck[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);
             collisionDetected = objectToMove.collisionHandler(tileIndex);
 
