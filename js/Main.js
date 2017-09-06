@@ -1,10 +1,10 @@
 var canvas, canvasContext;
 var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
-const SPRITE_FRAMES_PER_SECOND = 8;
+const TIME_PER_TICK = 1/FRAMES_PER_SECOND;
 
-var blueWarrior = new warriorClass();
-var testSprite = {}; // test object
+var player = new playerClass();
+var testSprite = {};
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -20,17 +20,15 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
-
-	loadLevel(room1f1.layout);
+	resetAllRooms();
+	loadLevel(room1f1);
 
 }
 
 function loadLevel(whichLevel) {
-	worldGrid = whichLevel.slice();
-	blueWarrior.reset(sprites.Player.standSouth, "Blue Storm");
-
-	var testSpritePic = sprites.Slime.idleAnimation;
-	testSprite = new spriteClass(testSpritePic, 32, 32, 6); // NOTE(Cipherpunk): test object
+	currentRoom = whichLevel;
+	worldGrid = currentRoom.layout;
+	player.reset("Blue Storm");
 }
 
 function updateAll() {
@@ -41,16 +39,17 @@ function updateAll() {
 }
 
 function moveAll() {
-	blueWarrior.move();
-	//console.log(blueWarrior.x);
-	//console.log(blueWarrior.y);
+	player.move();
+	currentRoom.moveMyEnemies();
+	//console.log(player.x);
+	//console.log(player.y);
 }
 
 function drawAll() {
 	canvasContext.save();
-	canvasContext.translate(-camPanX,-camPanY);
+	//canvasContext.translate(-camPanX,-camPanY); //currently causing visual bugs
 	drawWorld();
-	blueWarrior.draw();
-	testSprite.draw(canvas.width/2, canvas.height/2);
+	currentRoom.drawMyEnemies();
+	player.draw();
 	canvasContext.restore();
 }

@@ -5,17 +5,21 @@
 	<meta content="utf-8" http-equiv="encoding">
 </head>
 
-<body style="    height: 100vh;
-    display: flex;">
-<canvas id="gameCanvas" width="800" height="600" style="height: 100%;
-    margin: 0 auto; image-rendering: pixelated;"></canvas>
-<p id="debugText">Key count will be displayed here</p>
+<body style="height: 100vh;"><!--
+    display: flex;-->
+<canvas id="gameCanvas" width="320" height="260" style="height:90%; margin: 0 auto; image-rendering: pixelated;"></canvas>
+<canvas id="notGameCanvas" width="800" height="600" style="height: 100%;
+    margin: 0 auto; image-rendering: pixelated; display:none;"></canvas>
+<p id="debugText" style="float:right">Key count will be displayed here</p>
+
+<script src="js/Colliders.js"></script>
 
 <script src="js/Sprites.js"></script>
 <script src="js/GraphicsCommon.js"></script>
 <script src="js/ImageLoading.js"></script>
+<script src="js/Enemy.js"></script>
 <script src="js/Camera.js"></script>
-<script src="js/Warrior.js"></script>
+<script src="js/Player.js"></script>
 <script src="js/Rooms.js"></script>
 <script src="js/World.js"></script>
 <script src="js/Input.js"></script>

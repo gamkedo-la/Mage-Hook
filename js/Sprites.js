@@ -1,39 +1,103 @@
-// NOTE(Cipherpunk): sprite class for animations (open to suggestions on improving this!)
-function spriteClass(img, width, height, numberOfFrames) {
-	// public variables so that you can change sprites associated with player, enemies etc.
-	this.img = img;
-	this.width = width;
-	this.height = height;
-	this.numberOfFrames = numberOfFrames;
+// class for animations
+function spriteClass() {
+	var spriteSheet;
+	var frameX;
+	var frameY;
+	var frameWidth;
+	var frameHeight;
+	var frameTotal;
+	var frameIndex;
 
-	var frameX = 0;
-	var frameY = 0;
-	var frameIndex = 0;
+	var currentTime;
+	var timePerFrame;
 
-	var currentTick = 0;
-	var timePerFrame = 1/SPRITE_FRAMES_PER_SECOND;
-	var timePerTick = 1/FRAMES_PER_SECOND;
+	// set sprite sheet to draw from and defines animation speed
+	this.setSprite = function(newSpriteSheet,
+						newWidth, newHeight,
+						newTotal, newSpeed) {
 
-	this.draw = function(canvasX, canvasY) {
-		// this version of drawImage is needed to point to different frames in sprite sheet
-		canvasContext.drawImage(this.img,
-								frameX, frameY, this.width, this.height,
-								canvasX, canvasY, this.width, this.height);
-		this.updateFrame();
+		spriteSheet = newSpriteSheet;
+		frameX = 0;
+		frameY = 0;
+		frameWidth = newWidth;
+		frameHeight = newHeight;
+		frameTotal = newTotal;
+		if (newSpeed > 0) {
+			timePerFrame = 1/newSpeed;
+		} else {
+			timePerFrame = 0;
+		}
+		this.reset();
 	}
 
-	this.updateFrame = function() {
-		currentTick += timePerTick;
+	// sets a still frame from a sprite sheet, index goes left to right, top to bottom
+	this.setFrame = function(index) {
+		result = calculateFrameIndex(index);
+		frameX = result.x;
+		frameY = result.y;
+		frameIndex = index % frameTotal;
+		timePerFrame = 0;
+	}
 
-		if(currentTick >= timePerFrame) {
-			currentTick -= timePerFrame;
-			frameIndex++;
+	this.getFrame = function() {
+		return frameIndex;
+	}
 
-			if (frameIndex >= this.numberOfFrames) {
-				frameIndex = 0;
+	this.reset = function() {
+		currentTime = 0;
+		frameIndex = 0;
+		frameX = 0;
+		frameY = 0;
+	}
+
+	// draws current sprite frame
+	this.draw = function(x, y) {
+		var leftEdge = x - frameWidth/2;
+		var topEdge = y - frameHeight/2;
+
+		// this version of drawImage is needed to point to different frames in sprite sheet
+		canvasContext.drawImage(spriteSheet,
+								frameX, frameY,
+								frameWidth, frameHeight,
+								leftEdge, topEdge,
+								frameWidth, frameHeight);
+	}
+
+	// cycles through sprite animations
+	this.update = function() {
+		if (frameTotal > 0 && timePerFrame > 0) {
+			currentTime += TIME_PER_TICK;
+
+			if (currentTime >= timePerFrame) {
+				currentTime -= timePerFrame;
+				frameIndex++;
+				if (frameIndex >= frameTotal) {
+					this.reset();
+					return;
+				}
+
+				frameX += frameWidth;
+
+				if (frameX >= spriteSheet.width) {
+					frameX = 0;
+					frameY += frameHeight;
+
+					if (frameY >= spriteSheet.height) {
+						frameY = 0;
+						frameIndex = 0;
+					}
+				}
 			}
+		}
+	}
 
-			frameX = frameIndex * this.width;
+	// helper function for setting still frames
+	function calculateFrameIndex(index) {
+		var posX = (index * frameWidth) % spriteSheet.width;
+		var posY = (Math.floor(index / (spriteSheet.width / frameWidth)) * frameHeight) % spriteSheet.height;
+		return {
+			x: posX,
+			y: posY
 		}
 	}
 }
