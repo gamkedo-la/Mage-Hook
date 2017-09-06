@@ -16,6 +16,8 @@ function playerClass() {
 	this.y = 120;
 
 	this.name = "Untitled Player";
+	this.maxHealth = 20;
+	this.currentHealth = this.maxHealth;
 	this.keysInInventory = 0;
 	this.isStunned = false;
 	this.isInvincible = false;
@@ -25,6 +27,7 @@ function playerClass() {
 	var drawPlayer = true;
 	var knockbackAngle;
 	var knockbackSpeed;
+
 
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
@@ -219,6 +222,9 @@ function playerClass() {
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
 	        if (this.hitbox.isCollidingWith(enemy.hitbox)) {
+				if (!player.isInvincible) {
+					this.currentHealth--;
+				}
 				x1 = enemy.hitbox.x;
 				x2 = this.hitbox.x;
 				y1 = enemy.hitbox.y;
