@@ -1,4 +1,4 @@
-var _DEBUG_DRAW_COLLIDERS = true;
+var _DEBUG_DRAW_COLLIDERS = false;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.width = width;

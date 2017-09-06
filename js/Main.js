@@ -4,7 +4,7 @@ const FRAMES_PER_SECOND = 30;
 const TIME_PER_TICK = 1/FRAMES_PER_SECOND;
 
 var player = new playerClass();
-var testSprite = {};
+var hud = new hudClass();
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -29,6 +29,7 @@ function loadLevel(whichLevel) {
 	currentRoom = whichLevel;
 	worldGrid = currentRoom.layout;
 	player.reset("Blue Storm");
+	hud.load();
 }
 
 function updateAll() {
@@ -51,5 +52,6 @@ function drawAll() {
 	drawWorld();
 	currentRoom.drawMyEnemies();
 	player.draw();
+	hud.draw();
 	canvasContext.restore();
 }

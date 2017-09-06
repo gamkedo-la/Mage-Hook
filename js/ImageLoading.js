@@ -1,5 +1,4 @@
 var playerPic = document.createElement("img");
-var testSpritePic = document.createElement("img"); // for test object
 var worldPics = [];
 var sprites = {}
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
@@ -41,7 +40,8 @@ function loadImages() {
 		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk North.png"},
 		{set: "Player", name: "walkWest", fileName: "MainChar/playerchar_Walk West.png"},
 
-		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"}, // NOTE(Cipherpunk): added for testing
+		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
+		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
