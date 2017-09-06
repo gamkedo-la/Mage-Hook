@@ -33,16 +33,16 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 	}
     this.setCollider(x, y);
 
-    this.isCollidingWith = function(rectX, rectY, rectWidth, rectHeight) {
+    this.isCollidingWith = function(otherCollider) {
 
         var myLeft = this.box.topLeft.x;
         var myRight = this.box.topLeft.x + this.width;
         var myTop = this.box.topLeft.y;
         var myBottom = this.box.topLeft.y + this.height;
-        var theirLeft = rectX;
-        var theirRight = rectX + rectWidth;
-        var theirTop = rectY;
-        var theirBottom = rectY + rectHeight;
+        var theirLeft = otherCollider.box.topLeft.x;
+        var theirRight = otherCollider.box.topLeft.x + otherCollider.width;
+        var theirTop = otherCollider.box.topLeft.y;
+        var theirBottom = otherCollider.box.topLeft.y + otherCollider.height;
         return ((myLeft > theirRight || // I'm right of them
                 myRight < theirLeft || // I'm left of them
                 myTop > theirBottom || // I'm below them

@@ -208,15 +208,11 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
-			var x = enemy.collider.box.topLeft.x;
-			var y = enemy.collider.box.topLeft.y;
-			var width = enemy.collider.width;
-			var height = enemy.collider.height;
-	        if (this.collider.isCollidingWith(x, y, width, height)) {
+	        if (this.hitbox.isCollidingWith(enemy.collider)) {
 				x1 = enemy.collider.x;
-				x2 = this.collider.x;
+				x2 = this.hitbox.x;
 				y1 = enemy.collider.y;
-				y2 = this.collider.y;
+				y2 = this.hitbox.y;
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);

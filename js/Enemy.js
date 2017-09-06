@@ -56,7 +56,6 @@ function Enemy(x, y){
 		originY = this.y;
 
 		this.sprite.update();
-		this.collider.update(this.x, this.y);
 	}
 
 	function resetMovement() {
