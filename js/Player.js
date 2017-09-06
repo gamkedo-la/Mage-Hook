@@ -1,6 +1,7 @@
 const PLAYER_MOVE_SPEED = 3;
 const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = .7;
+const FLASH_DURATION = .05;
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
 
@@ -20,6 +21,8 @@ function playerClass() {
 	this.isInvincible = false;
 	var stunTimer;
 	var invincibleTimer;
+	var flashTimer;
+	var drawPlayer = true;
 	var knockbackAngle;
 	var knockbackSpeed;
 
@@ -36,14 +39,14 @@ function playerClass() {
 	var colliderWidth = 4;
 	var colliderHeight = 4;
 	var colliderOffsetX = -1;
-	var colliderOffsetY = 2;
+	var colliderOffsetY = 9;
 	this.collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY);
 	var hitboxWidth = 8;
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
-	var hitboxOffsetY = -1;
+	var hitboxOffsetY = 6;
 	blockedBy = [];
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
@@ -105,9 +108,15 @@ function playerClass() {
 		}
 
 		if (this.isInvincible) {
+			if (flashTimer <= 0 || flashTimer == undefined) {
+				flashTimer = FLASH_DURATION;
+				drawPlayer = !drawPlayer;
+			}
+			flashTimer -= TIME_PER_TICK;
 			invincibleTimer -= TIME_PER_TICK;
 			if (invincibleTimer <= 0) {
 				this.isInvincible = false;
+				drawPlayer = true;
 			}
 		}
 
@@ -137,8 +146,8 @@ function playerClass() {
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			this.isStunned = true;
-			stunTimer = STUN_DURATION;
 			this.isInvincible = true;
+			stunTimer = STUN_DURATION;
 			invincibleTimer = INVINCIBLE_DURATION;
 			return;
 		}
@@ -153,11 +162,11 @@ function playerClass() {
 	}
 
 	this.draw = function() {
-		sprite.draw(this.x, this.y - 7);
-		canvasContext.strokeStyle = 'yellow';
-		//colorText(Math.round(stunTimer*100)/100, this.x, this.y, 'white');
+		if (drawPlayer) {
+			sprite.draw(this.x, this.y);
+		}
 		if(_DEBUG_DRAW_COLLIDERS) {
-			//this.collider.draw();
+			this.collider.draw();
 			this.hitbox.draw();
 		}
 	}
