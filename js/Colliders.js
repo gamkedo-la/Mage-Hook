@@ -63,3 +63,62 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         colorRect(this.x, this.y, 1, 1, 'lime');
     }
 }
+
+// NOTE(Cipherpunk): See template below to add to class
+moveOnAxisAndCheckForTileCollisions = function(objectToMove, checksPerFrame, movePerCheck, axis) {
+    for (var i = 0; i < checksPerFrame; i++) {
+        var collisionDetected = false;
+        var origin = objectToMove[axis];
+
+        objectToMove[axis] += movePerCheck;
+        objectToMove.updateColliders();
+
+        for (var corner in objectToMove.collider.box) {
+            var x = objectToMove.collider.box[corner].x;
+            var y = objectToMove.collider.box[corner].y;
+            var tileIndex = getTileIndexAtPixelCoord(x, y);
+            collisionDetected = objectToMove.collisionHandler(tileIndex);
+
+            if (collisionDetected) {
+                objectToMove[axis] = origin;
+                objectToMove.updateColliders();
+                return;
+            }
+        }
+    }
+}
+
+/* NOTE(Cipherpunk): Below is a template to add to each class
+   so that it can use moveOnAxisAndCheckForTileCollisions().
+   Cases that are not needed can be deleted from switch statement.
+
+this.updateColliders = function() {
+    this.collider.update(this.x, this.y);
+    // More colliders can be added here.
+}
+
+this.collisionHandler = function(tileIndex) {
+    var collisionDetected = false;
+    var tileType = worldGrid[tileIndex];
+    switch(tileType) {
+        case TILE_GROUND:
+            break;
+        case TILE_KEY:
+            break;
+        case TILE_DOOR:
+            break;
+        case TILE_SKULL:
+            collisionDetected = true;
+            break;
+        case TILE_DOOR:
+            collisionDetected = true;
+            break;
+        case TILE_WALL:
+            collisionDetected = true;
+            break;
+        default:
+            break;
+    }
+    return collisionDetected;
+}
+*/

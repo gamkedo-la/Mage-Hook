@@ -97,9 +97,9 @@ function playerClass() {
 				var checksPerFrame = 5;
 				var movePerCheck;
 				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "x");
+				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
 				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "y");
+				moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
 				knockbackSpeed *= FRICTION;
 			}
 		}
@@ -111,24 +111,26 @@ function playerClass() {
 			}
 		}
 
+		var checksPerFrame = PLAYER_MOVE_SPEED;
+		var movePerCheck = 1;
 		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
-			this.moveOnAxisAndCheckForCollisions(PLAYER_MOVE_SPEED, -1, "x");
+			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, -movePerCheck, "x");
 			isMoving = true;
 			isFacing = "West";
 		}
 		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
-			this.moveOnAxisAndCheckForCollisions(PLAYER_MOVE_SPEED, 1, "x");
+			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
 			isMoving = true;
 			isFacing = "East";
 		}
 
 		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
-			this.moveOnAxisAndCheckForCollisions(PLAYER_MOVE_SPEED, -1, "y");
+			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, -movePerCheck, "y");
 			isMoving = true;
 			isFacing = "North";
 		}
 		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
-			this.moveOnAxisAndCheckForCollisions(PLAYER_MOVE_SPEED, 1, "y");
+			moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
 			isMoving = true;
 			isFacing = "South";
 		}
@@ -206,15 +208,15 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
-			var x = enemy.hitbox.box.topLeft.x;
-			var y = enemy.hitbox.box.topLeft.y;
-			var width = enemy.hitbox.width;
-			var height = enemy.hitbox.height;
-	        if (this.hitbox.isCollidingWith(x, y, width, height)) {
-				x1 = enemy.hitbox.x;
-				x2 = this.hitbox.x;
-				y1 = enemy.hitbox.y;
-				y2 = this.hitbox.y;
+			var x = enemy.collider.box.topLeft.x;
+			var y = enemy.collider.box.topLeft.y;
+			var width = enemy.collider.width;
+			var height = enemy.collider.height;
+	        if (this.collider.isCollidingWith(x, y, width, height)) {
+				x1 = enemy.collider.x;
+				x2 = this.collider.x;
+				y1 = enemy.collider.y;
+				y2 = this.collider.y;
 				knockbackAngle = Math.atan2(y2-y1, x2-x1);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
@@ -231,52 +233,35 @@ function playerClass() {
 		this.collider.update(this.x, this.y);
 	}
 
-	this.moveOnAxisAndCheckForCollisions = function(checksPerFrame, movePerCheck, axis) {
-		for (var i = 0; i < checksPerFrame; i++) {
-			var collisionDetected = false;
-			var origin;
-			origin = this[axis];
-			this[axis] += movePerCheck;
-			this.updateColliders();
-
-			for (var corner in this.collider.box) {
-				var x = this.collider.box[corner].x;
-				var y = this.collider.box[corner].y;
-				var tileIndex = getTileIndexAtPixelCoord(x, y);
-				var tileType = worldGrid[tileIndex];
-
-				switch(tileType) {
-					case TILE_GROUND:
-						break;
-					case TILE_SKULL:
-						collisionDetected = true;
-						break;
-					case TILE_DOOR:
-						if(this.keysInInventory > 0 && !this.isStunned) {
-							this.keysInInventory--; // one less key
-							this.updateKeyReadout();
-							worldGrid[tileIndex] = TILE_GROUND;
-						} else {
-						collisionDetected = true;
-					}
-						break;
-					case TILE_KEY:
-						this.keysInInventory++; // one more key
-						this.updateKeyReadout();
-						worldGrid[tileIndex] = TILE_GROUND;
-						break;
-					case TILE_WALL:
-						collisionDetected = true;
-						break;
-					default:
-						break;
-				}
+	this.collisionHandler = function(tileIndex) {
+		var collisionDetected = false;
+		var tileType = worldGrid[tileIndex];
+		switch(tileType) {
+			case TILE_GROUND:
+				break;
+			case TILE_SKULL:
+				collisionDetected = true;
+				break;
+			case TILE_DOOR:
+				if(this.keysInInventory > 0 && !this.isStunned) {
+					this.keysInInventory--; // one less key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+				} else {
+				collisionDetected = true;
 			}
-			if (collisionDetected) {
-				this[axis] = origin;
-				this.updateColliders();
-				return;
-			}
+				break;
+			case TILE_KEY:
+				this.keysInInventory++; // one more key
+				this.updateKeyReadout();
+				worldGrid[tileIndex] = TILE_GROUND;
+				break;
+			case TILE_WALL:
+				collisionDetected = true;
+				break;
+			default:
+				break;
 		}
+		return collisionDetected;
 	}
 }

@@ -17,7 +17,7 @@ function Enemy(x, y){
 	var colliderHeight = 14;
 	var colliderOffsetX = 1;
 	var colliderOffsetY = 5;
-	this.hitbox = new boxColliderClass(this.x, this.y,
+	this.collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY);
 	this.sprite = new spriteClass();
@@ -27,7 +27,7 @@ function Enemy(x, y){
 	this.draw = function() {
 		this.sprite.draw(this.x, this.y);
 		if(_DEBUG_DRAW_COLLIDERS) {
-			this.hitbox.draw();
+			this.collider.draw();
 		}
 		//colorText(Math.round(directionTimer * 100)/100, this.x, this.y, 'white');
 	}
@@ -47,16 +47,16 @@ function Enemy(x, y){
 		var checksPerFrame = 5;
 		var movePerCheck;
 		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
-		this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "x");
+		moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "x");
 		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
-		this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "y");
+		moveOnAxisAndCheckForTileCollisions(this, checksPerFrame, movePerCheck, "y");
 
 		directionTimer -= TIME_PER_TICK;
 		originX = this.x;
 		originY = this.y;
 
 		this.sprite.update();
-		this.hitbox.update(this.x, this.y);
+		this.collider.update(this.x, this.y);
 	}
 
 	function resetMovement() {
@@ -66,42 +66,25 @@ function Enemy(x, y){
 	}
 
 	this.updateColliders = function() {
-		this.hitbox.update(this.x, this.y);
+		this.collider.update(this.x, this.y);
 	}
 
-	this.moveOnAxisAndCheckForCollisions = function(checksPerFrame, movePerCheck, axis) {
-		for (var i = 0; i < checksPerFrame; i++) {
-			var collisionDetected = false;
-			var origin;
-			origin = this[axis];
-			this[axis] += movePerCheck;
-			this.updateColliders();
-
-			for (var corner in this.hitbox.box) {
-				var x = this.hitbox.box[corner].x;
-				var y = this.hitbox.box[corner].y;
-				var tileIndex = getTileIndexAtPixelCoord(x, y);
-				var tileType = worldGrid[tileIndex];
-
-				switch(tileType) {
-					case TILE_SKULL:
-						collisionDetected = true;
-						break;
-					case TILE_DOOR:
-						collisionDetected = true;
-						break;
-					case TILE_WALL:
-						collisionDetected = true;
-						break;
-					default:
-						break;
-				}
-			}
-			if (collisionDetected) {
-				this[axis] = origin;
-				this.updateColliders();
-				return;
-			}
+	this.collisionHandler = function(tileIndex) {
+		var collisionDetected = false;
+		var tileType = worldGrid[tileIndex];
+		switch(tileType) {
+			case TILE_SKULL:
+				collisionDetected = true;
+				break;
+			case TILE_DOOR:
+				collisionDetected = true;
+				break;
+			case TILE_WALL:
+				collisionDetected = true;
+				break;
+			default:
+				break;
 		}
+		return collisionDetected;
 	}
 }
