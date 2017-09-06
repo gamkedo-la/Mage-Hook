@@ -130,7 +130,8 @@ function playerClass() {
 				case TILE_GROUND:
 					break;
 				case TILE_SKULL:
-					isMoving = false;
+				this.x = originX;
+				this.updateColliders()
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
@@ -138,7 +139,8 @@ function playerClass() {
 						this.updateKeyReadout();
 						worldGrid[tileIndex] = TILE_GROUND;
 					} else {
-						isMoving = false;
+						this.x = originX;
+						this.updateColliders()
 					}
 					break;
 				case TILE_KEY:
@@ -184,7 +186,8 @@ function playerClass() {
 				case TILE_GROUND:
 					break;
 				case TILE_SKULL:
-					isMoving = false;
+					this.y = originY;
+					this.updateColliders();
 					break;
 				case TILE_DOOR:
 					if(this.keysInInventory > 0) {
@@ -192,7 +195,8 @@ function playerClass() {
 						this.updateKeyReadout();
 						worldGrid[tileIndex] = TILE_GROUND;
 					} else {
-						isMoving = false;
+						this.y = originY;
+						this.updateColliders();
 					}
 					break;
 				case TILE_KEY:

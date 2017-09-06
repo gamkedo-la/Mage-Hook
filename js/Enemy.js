@@ -13,10 +13,10 @@ function Enemy(x, y){
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
-	var colliderWidth = 20;
+	var colliderWidth = 18;
 	var colliderHeight = 14;
 	var colliderOffsetX = 1;
-	var colliderOffsetY = 4;
+	var colliderOffsetY = 5;
 	this.hitbox = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY);
@@ -64,6 +64,10 @@ function Enemy(x, y){
 					this.hitbox.update(this.x, this.y);
 					resetMovement();
 					break;
+				case TILE_SKULL:
+					this.x = originX;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
 				default:
 					break;
 			}
