@@ -5,26 +5,25 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.height = height;
     this.x = x + offsetX;
     this.y = y + offsetY;
-    this.box = {};
 
     this.setCollider = function(posX, posY) {
 
-		this.box.topLeft = {
+		this.topLeft = {
 			x: posX - this.width/2 + offsetX,
 			y: posY - this.height/2 + offsetY
 		}
 
-		this.box.topRight = {
+		this.topRight = {
 			x: posX + this.width/2 + offsetX,
 			y: posY - this.height/2 + offsetY
 		}
 
-		this.box.bottomLeft = {
+		this.bottomLeft = {
 			x: posX - this.width/2 + offsetX,
 			y: posY + this.height/2 + offsetY
 		}
 
-		this.box.bottomRight = {
+		this.bottomRight = {
             x: posX + this.width/2 + offsetX,
 			y: posY + this.height/2 + offsetY
     	}
@@ -35,14 +34,14 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 
     this.isCollidingWith = function(otherCollider) {
 
-        var myLeft = this.box.topLeft.x;
-        var myRight = this.box.topLeft.x + this.width;
-        var myTop = this.box.topLeft.y;
-        var myBottom = this.box.topLeft.y + this.height;
-        var theirLeft = otherCollider.box.topLeft.x;
-        var theirRight = otherCollider.box.topLeft.x + otherCollider.width;
-        var theirTop = otherCollider.box.topLeft.y;
-        var theirBottom = otherCollider.box.topLeft.y + otherCollider.height;
+        var myLeft = this.topLeft.x;
+        var myRight = this.topLeft.x + this.width;
+        var myTop = this.topLeft.y;
+        var myBottom = this.topLeft.y + this.height;
+        var theirLeft = otherCollider.topLeft.x;
+        var theirRight = otherCollider.topLeft.x + otherCollider.width;
+        var theirTop = otherCollider.topLeft.y;
+        var theirBottom = otherCollider.topLeft.y + otherCollider.height;
         return ((myLeft > theirRight || // I'm right of them
                 myRight < theirLeft || // I'm left of them
                 myTop > theirBottom || // I'm below them
@@ -57,8 +56,8 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     }
 
     this.draw = function() {
-        for (var corner in this.box) {
-            colorRect(this.box[corner].x, this.box[corner].y, 1, 1, 'yellow');
+        for (var corner in this) {
+            colorRect(this[corner].x, this[corner].y, 1, 1, 'yellow');
         }
         colorRect(this.x, this.y, 1, 1, 'lime');
     }
@@ -73,9 +72,9 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, checksPerFrame, mov
         objectToMove[axis] += movePerCheck;
         objectToMove.updateColliders();
 
-        for (var corner in objectToMove.collider.box) {
-            var x = objectToMove.collider.box[corner].x;
-            var y = objectToMove.collider.box[corner].y;
+        for (var corner in objectToMove.collider) {
+            var x = objectToMove.collider[corner].x;
+            var y = objectToMove.collider[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);
             collisionDetected = objectToMove.collisionHandler(tileIndex);
 
