@@ -37,8 +37,7 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	cameraLock();
-	room1f1.roomChange();
-	room2f1.roomChange();
+	roomChangeAll();
 }
 
 function moveAll() {

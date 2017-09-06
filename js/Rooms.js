@@ -1,5 +1,11 @@
 var allRooms = [];
 
+function roomChangeAll() {
+	room1f1.roomChange();
+	room2f1.roomChange();
+
+}
+
 function Room() {
 	this.layout = [];
 	this.loaded = true;
