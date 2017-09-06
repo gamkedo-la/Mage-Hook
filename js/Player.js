@@ -167,8 +167,8 @@ function playerClass() {
 			sprite.draw(this.x, this.y);
 		}
 		if(_DEBUG_DRAW_COLLIDERS) {
-			this.tileCollider.draw();
-			this.hitbox.draw();
+			this.hitbox.draw('red');
+			this.tileCollider.draw('blue');
 		}
 	}
 

@@ -1,4 +1,4 @@
-var _DEBUG_DRAW_COLLIDERS = false;
+var _DEBUG_DRAW_COLLIDERS = true;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.width = width;
@@ -55,11 +55,9 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         this.setCollider(posX, posY);
     }
 
-    this.draw = function() {
-        for (var corner in this) {
-            colorRect(this[corner].x, this[corner].y, 1, 1, 'yellow');
-        }
-        colorRect(this.x, this.y, 1, 1, 'lime');
+    this.draw = function(color) {
+        canvasContext.strokeStyle = color;
+        canvasContext.strokeRect(this.topLeft.x, this.topLeft.y, this.width, this.height);
     }
 }
 
