@@ -1,19 +1,13 @@
 
-<<<<<<< HEAD
 function roomChangeAll() {
 	room1f1.roomChange();
 	room2f1.roomChange();
 
 }
 
-function Room() {
-	this.layout = [];
-=======
-
 function Room(roomLayout) {
 	this.originalLayout = roomLayout.slice();
 	this.layout = this.originalLayout.slice();
->>>>>>> 256e5c63d2756e97dfbb641bd98bdfe4cf749a1a
 	this.loaded = true;
 	this.enemyList = [];
 	this.reset = function(){
