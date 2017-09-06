@@ -16,14 +16,14 @@ function enemyClass(x, y){
 
 	var tileColliderWidth = 18;
 	var tileColliderHeight = 4;
-	var tileColliderOffsetX = 1;
+	var tileColliderOffsetX = 2;
 	var tileColliderOffsetY = 11;
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 											 tileColliderWidth, tileColliderHeight,
 											 tileColliderOffsetX, tileColliderOffsetY);
 	var hitboxWidth = 18;
 	var hitboxHeight = 14;
-	var hitboxOffsetX = 1;
+	var hitboxOffsetX = 2;
 	var hitboxOffsetY = 6;
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
