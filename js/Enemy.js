@@ -8,6 +8,8 @@ function Enemy(x, y){
 
 	this.x = x;
 	this.y = y;
+	var originX = this.x;
+	var originY = this.y;
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
@@ -43,8 +45,58 @@ function Enemy(x, y){
 			resetMovement();
 		}
 		this.x += Math.cos(moveAngle) * moveSpeed;
+		this.hitbox.update(this.x, this.y);
+
+		for (var corner in this.hitbox.box) {
+			var x = this.hitbox.box[corner].x;
+			var y = this.hitbox.box[corner].y;
+			var tileIndex = getTileIndexAtPixelCoord(x, y);
+			var tileType = worldGrid[tileIndex];
+
+			switch(tileType) {
+				case TILE_WALL:
+					this.x = originX;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
+					break;
+				case TILE_DOOR:
+					this.x = originX;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
+					break;
+				default:
+					break;
+			}
+		}
+
 		this.y += Math.sin(moveAngle) * moveSpeed;
+		this.hitbox.update(this.x, this.y);
+
+		for (var corner in this.hitbox.box) {
+			var x = this.hitbox.box[corner].x;
+			var y = this.hitbox.box[corner].y;
+			var tileIndex = getTileIndexAtPixelCoord(x, y);
+			var tileType = worldGrid[tileIndex];
+
+			switch(tileType) {
+				case TILE_WALL:
+					this.y = originY;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
+					break;
+				case TILE_DOOR:
+					this.y = originY;
+					this.hitbox.update(this.x, this.y);
+					resetMovement();
+					break;
+				default:
+					break;
+			}
+		}
+
 		directionTimer -= TIME_PER_TICK;
+		originX = this.x;
+		originY = this.y;
 
 		this.sprite.update();
 		this.hitbox.update(this.x, this.y);

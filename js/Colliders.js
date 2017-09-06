@@ -1,4 +1,4 @@
-var _DEBUG_DRAW_COLLIDERS = true;
+var _DEBUG_DRAW_COLLIDERS = false;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.width = width;
@@ -8,39 +8,30 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.box = {};
 
     this.setCollider = function(posX, posY) {
-        var x = posX - this.width/2 + offsetX;
-        var y = posY - this.height/2 + offsetY;
+
 		this.box.topLeft = {
-			x: x,
-			y: y,
+			x: posX - this.width/2 + offsetX,
+			y: posY - this.height/2 + offsetY
 		}
 
-        x = posX + this.width/2 + offsetX;
-        y = posY - this.height/2 + offsetY;
 		this.box.topRight = {
-			x: x,
-			y: y,
+			x: posX + this.width/2 + offsetX,
+			y: posY - this.height/2 + offsetY
 		}
 
-        x = posX - this.width/2 + offsetX;
-        y = posY + this.height/2 + offsetY;
 		this.box.bottomLeft = {
-			x: x,
-			y: y,
+			x: posX - this.width/2 + offsetX,
+			y: posY + this.height/2 + offsetY
 		}
 
-        x = posX + this.width/2 + offsetX;
-        y = posY + this.height/2 + offsetY;
 		this.box.bottomRight = {
-            x: x,
-			y: y,
+            x: posX + this.width/2 + offsetX,
+			y: posY + this.height/2 + offsetY
     	}
         this.x = posX + offsetX;
         this.y = posY + offsetY;
-        //this.centerX = this.x + offsetX;
-        //this.centerY = this.y + offsetY;
 	}
-    this.setCollider(this.x, this.y);
+    this.setCollider(x, y);
 
     this.isCollidingWith = function(rectX, rectY, rectWidth, rectHeight) {
 
@@ -70,6 +61,5 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
             colorRect(this.box[corner].x, this.box[corner].y, 1, 1, 'yellow');
         }
         colorRect(this.x, this.y, 1, 1, 'lime');
-        //colorRect(this.centerX, this.centerY, 1, 1, 'lime');
     }
 }

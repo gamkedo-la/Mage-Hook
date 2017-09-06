@@ -1,5 +1,6 @@
 const PLAYER_MOVE_SPEED = 3;
-const STUN_DURATION = 0.55;
+const STUN_DURATION = 0.45;
+const INVINCIBLE_DURATION = .8;
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
 
@@ -10,13 +11,16 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var playerAtStartingPosition = true;
 
+	var originX, originY;
 	this.x = 110;
 	this.y = 120;
 
 	this.name = "Untitled Player";
 	this.keysInInventory = 0;
 	this.isStunned = false;
+	this.isInvincible = false;
 	var stunTimer;
+	var invincibleTimer;
 	var knockbackAngle;
 	var knockbackSpeed;
 
@@ -30,7 +34,6 @@ function playerClass() {
 	this.controlKeyDown;
 	this.controlKeyLeft;
 
-/*
 	var colliderWidth = 4;
 	var colliderHeight = 4;
 	var colliderOffsetX = -1;
@@ -38,8 +41,6 @@ function playerClass() {
 	this.collider = new boxColliderClass(this.x, this.y,
 										colliderWidth, colliderHeight,
 										colliderOffsetX, colliderOffsetY);
-*/
-
 	var hitboxWidth = 8;
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
@@ -93,85 +94,138 @@ function playerClass() {
 			stunTimer -= TIME_PER_TICK;
 			if (stunTimer <= 0) {
 				this.isStunned = false;
-			} else if (player.isMoving){
+			} else {
 				this.x += Math.cos(knockbackAngle) * knockbackSpeed;
-				this.y += Math.sin(knockbackAngle) * knockbackSpeed;
-				knockbackSpeed *= FRICTION;
-				this.hitbox.update(this.x, this.y);
+				this.updateColliders();
 			}
-			return;
 		}
 
-		if(this.keyHeld_West && !this.keyHeld_East) {
+		if (this.isInvincible) {
+			invincibleTimer -= TIME_PER_TICK;
+			if (invincibleTimer <= 0) {
+				this.isInvincible = false;
+			}
+		}
+
+		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
 			this.x -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "West";
 		}
-		if(this.keyHeld_East && !this.keyHeld_West) {
+		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
 			this.x += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "East";
 		}
 
-		// check collisions
-		// undo x movement if collision
+		this.updateColliders();
 
-		if(this.keyHeld_South && !this.keyHeld_North) {
+		for (var corner in this.collider.box) {
+			var x = this.collider.box[corner].x;
+			var y = this.collider.box[corner].y;
+			var tileIndex = getTileIndexAtPixelCoord(x, y);
+			var tileType = worldGrid[tileIndex];
+
+			switch(tileType) {
+				case TILE_GROUND:
+					break;
+				case TILE_SKULL:
+					isMoving = false;
+					break;
+				case TILE_DOOR:
+					if(this.keysInInventory > 0) {
+						this.keysInInventory--; // one less key
+						this.updateKeyReadout();
+						worldGrid[tileIndex] = TILE_GROUND;
+					} else {
+						isMoving = false;
+					}
+					break;
+				case TILE_KEY:
+					this.keysInInventory++; // one more key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+					break;
+				case TILE_WALL:
+					this.x = originX;
+					this.updateColliders();
+					break;
+				default:
+					break;
+			}
+		}
+
+		if (this.isStunned) {
+			this.y += Math.sin(knockbackAngle) * knockbackSpeed;
+			knockbackSpeed *= FRICTION;
+			this.updateColliders();
+		}
+
+		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
 			this.y += PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "South";
 		}
-		if(this.keyHeld_North && !this.keyHeld_South) {
+		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
 			this.y -= PLAYER_MOVE_SPEED;
 			isMoving = true;
 			isFacing = "North";
 		}
 
-		// check collisions
-		// undo y movement if collision
+		this.updateColliders();
 
-		this.hitbox.update(this.x, this.y);
-		if (this.isCollidingWithEnemy()) {
-			this.isStunned = true;
-			stunTimer = STUN_DURATION;
-			return;
-		}
+		for (var corner in this.collider.box) {
+			var x = this.collider.box[corner].x;
+			var y = this.collider.box[corner].y;
+			var tileIndex = getTileIndexAtPixelCoord(x, y);
+			var tileType = worldGrid[tileIndex];
 
-		switch(TILE_GROUND) {
-			case TILE_GROUND:
-				break;
-			case TILE_SKULL:
-				isMoving = false;
-				break;
-			case TILE_DOOR:
-				if(this.keysInInventory > 0) {
-					this.keysInInventory--; // one less key
+			switch(tileType) {
+				case TILE_GROUND:
+					break;
+				case TILE_SKULL:
+					isMoving = false;
+					break;
+				case TILE_DOOR:
+					if(this.keysInInventory > 0) {
+						this.keysInInventory--; // one less key
+						this.updateKeyReadout();
+						worldGrid[tileIndex] = TILE_GROUND;
+					} else {
+						isMoving = false;
+					}
+					break;
+				case TILE_KEY:
+					this.keysInInventory++; // one more key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
-				} else {
-					isMoving = false;
-				}
-				break;
-			case TILE_KEY:
-				this.keysInInventory++; // one more key
-				this.updateKeyReadout();
-				worldGrid[tileIndex] = TILE_GROUND;
-				break;
-			case TILE_WALL:
-				break;
-			default:
-				break;
+					break;
+				case TILE_WALL:
+					this.y = originY;
+					this.updateColliders();
+					break;
+				default:
+					break;
+			}
+		}
+
+		if (this.isCollidingWithEnemy() && !this.isInvincible) {
+			this.isStunned = true;
+			stunTimer = STUN_DURATION;
+			this.isInvincible = true;
+			invincibleTimer = INVINCIBLE_DURATION;
+			return;
 		}
 
 		choosePlayerAnimation();
 
+		originX = this.x;
+		originY = this.y;
 		wasMoving = isMoving;
 		wasFacing = isFacing;
 
 		sprite.update();
-		this.hitbox.update(this.x, this.y);
-		// logging
-		// console.log(this.x + ": " + this.y);
+		this.updateColliders();
 	}
 
 	this.draw = function() {
@@ -248,5 +302,10 @@ function playerClass() {
 	        }
 	    }
 		return hitByEnemy;
+	}
+
+	this.updateColliders = function() {
+		this.hitbox.update(this.x, this.y);
+		this.collider.update(this.x, this.y);
 	}
 }
