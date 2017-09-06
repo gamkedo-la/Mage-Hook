@@ -252,7 +252,7 @@ function playerClass() {
 						collisionDetected = true;
 						break;
 					case TILE_DOOR:
-						if(this.keysInInventory > 0) {
+						if(this.keysInInventory > 0 && !this.isStunned) {
 							this.keysInInventory--; // one less key
 							this.updateKeyReadout();
 							worldGrid[tileIndex] = TILE_GROUND;

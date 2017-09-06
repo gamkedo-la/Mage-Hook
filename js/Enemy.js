@@ -99,7 +99,6 @@ function Enemy(x, y){
 			}
 			if (collisionDetected) {
 				this[axis] = origin;
-				resetMovement();
 				this.updateColliders();
 				return;
 			}
