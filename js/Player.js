@@ -94,11 +94,12 @@ function playerClass() {
 			if (stunTimer <= 0) {
 				this.isStunned = false;
 			} else {
-				var movePerStep;
-				movePerStep = Math.cos(knockbackAngle) * knockbackSpeed;
-				this.moveOnAxisAndCheckForCollisions(movePerStep, 1, "x");
-				movePerStep = Math.cos(knockbackAngle) * knockbackSpeed;
-				this.moveOnAxisAndCheckForCollisions(movePerStep, 1, "y");
+				var checksPerFrame = 5;
+				var movePerCheck;
+				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
+				this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "x");
+				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
+				this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "y");
 				knockbackSpeed *= FRICTION;
 			}
 		}
@@ -230,12 +231,12 @@ function playerClass() {
 		this.collider.update(this.x, this.y);
 	}
 
-	this.moveOnAxisAndCheckForCollisions = function(movePerFrame, stepsPerMove, axis) {
-		for (var i = 0; i < movePerFrame; i++) {
+	this.moveOnAxisAndCheckForCollisions = function(checksPerFrame, movePerCheck, axis) {
+		for (var i = 0; i < checksPerFrame; i++) {
 			var collisionDetected = false;
 			var origin;
 			origin = this[axis];
-			this[axis] += stepsPerMove;
+			this[axis] += movePerCheck;
 			this.updateColliders();
 
 			for (var corner in this.collider.box) {
@@ -251,8 +252,8 @@ function playerClass() {
 						collisionDetected = true;
 						break;
 					case TILE_DOOR:
-						this.keysInInventory--; // one less key
 						if(this.keysInInventory > 0) {
+							this.keysInInventory--; // one less key
 							this.updateKeyReadout();
 							worldGrid[tileIndex] = TILE_GROUND;
 						} else {

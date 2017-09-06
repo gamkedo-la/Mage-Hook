@@ -44,63 +44,12 @@ function Enemy(x, y){
 		if (directionTimer <= 0 || directionTimer == undefined) {
 			resetMovement();
 		}
-		this.x += Math.cos(moveAngle) * moveSpeed;
-		this.hitbox.update(this.x, this.y);
-
-		for (var corner in this.hitbox.box) {
-			var x = this.hitbox.box[corner].x;
-			var y = this.hitbox.box[corner].y;
-			var tileIndex = getTileIndexAtPixelCoord(x, y);
-			var tileType = worldGrid[tileIndex];
-
-			switch(tileType) {
-				case TILE_WALL:
-					this.x = originX;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-					break;
-				case TILE_DOOR:
-					this.x = originX;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-					break;
-				case TILE_SKULL:
-					this.x = originX;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-				default:
-					break;
-			}
-		}
-
-		this.y += Math.sin(moveAngle) * moveSpeed;
-		this.hitbox.update(this.x, this.y);
-
-		for (var corner in this.hitbox.box) {
-			var x = this.hitbox.box[corner].x;
-			var y = this.hitbox.box[corner].y;
-			var tileIndex = getTileIndexAtPixelCoord(x, y);
-			var tileType = worldGrid[tileIndex];
-
-			switch(tileType) {
-				case TILE_WALL:
-					this.y = originY;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-					break;
-				case TILE_DOOR:
-					this.y = originY;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-					break;
-				case TILE_SKULL:
-					this.y = originY;
-					this.hitbox.update(this.x, this.y);
-					resetMovement();
-				default:
-					break;
-			}
-		}
+		var checksPerFrame = 5;
+		var movePerCheck;
+		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
+		this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "x");
+		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
+		this.moveOnAxisAndCheckForCollisions(checksPerFrame, movePerCheck, "y");
 
 		directionTimer -= TIME_PER_TICK;
 		originX = this.x;
@@ -114,5 +63,46 @@ function Enemy(x, y){
 		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
 		moveAngle = Math.random() * 2*Math.PI;
 		moveSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
+	}
+
+	this.updateColliders = function() {
+		this.hitbox.update(this.x, this.y);
+	}
+
+	this.moveOnAxisAndCheckForCollisions = function(checksPerFrame, movePerCheck, axis) {
+		for (var i = 0; i < checksPerFrame; i++) {
+			var collisionDetected = false;
+			var origin;
+			origin = this[axis];
+			this[axis] += movePerCheck;
+			this.updateColliders();
+
+			for (var corner in this.hitbox.box) {
+				var x = this.hitbox.box[corner].x;
+				var y = this.hitbox.box[corner].y;
+				var tileIndex = getTileIndexAtPixelCoord(x, y);
+				var tileType = worldGrid[tileIndex];
+
+				switch(tileType) {
+					case TILE_SKULL:
+						collisionDetected = true;
+						break;
+					case TILE_DOOR:
+						collisionDetected = true;
+						break;
+					case TILE_WALL:
+						collisionDetected = true;
+						break;
+					default:
+						break;
+				}
+			}
+			if (collisionDetected) {
+				this[axis] = origin;
+				resetMovement();
+				this.updateColliders();
+				return;
+			}
+		}
 	}
 }
