@@ -30,6 +30,7 @@ function playerClass() {
 
 	this.name = "Untitled Player";
 	this.maxHealth = 20;
+	this.enemyHitCount = 0;
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
 	this.inventory.keys = 0;
@@ -162,6 +163,7 @@ function playerClass() {
 			if (this.canHitEnemy())
 			{
 				console.log('WE HIT AN ENEMY!!!!');
+				this.enemyHitCount++; // score?
 			}
 		}
 
@@ -275,7 +277,7 @@ function playerClass() {
 
 	this.canHitEnemy = function() { // used for attacks
 		
-		console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
+		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
 		
 		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
 

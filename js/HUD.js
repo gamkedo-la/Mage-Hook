@@ -41,5 +41,9 @@ function hudClass() {
         var drawY = 12;
         keySprite.draw(drawX, drawY);
         colorText(" x " + player.inventory.keys, drawX + 3, drawY + 5, 'white');
+
+        // (temp?) draw score mostly so we know if attacks are working =)
+        colorText("SCORE: " + player.enemyHitCount + "00", 221, 17, 'white');
+
     }
 }
