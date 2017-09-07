@@ -34,10 +34,12 @@ function enemyClass(x, y){
 	var sprite = new spriteClass();
 	this.draw = function() {
 		this.sprite.draw(this.x, this.y);
-		if(_DEBUG_DRAW_COLLIDERS) {
-			this.hitbox.draw('red', 'red');
-			this.tileCollider.draw('blue', 'blue');
-		}
+		if(_DEBUG_DRAW_TILE_COLLIDERS) {
+            this.tileCollider.draw('lime');
+        }
+        if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
+			this.hitbox.draw('red');
+        }
 	}
 	this.update = function(){
 		if (this.recoil) {

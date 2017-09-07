@@ -9,6 +9,8 @@ const KEY_A = 65;
 const KEY_S = 83;
 const KEY_D = 68;
 const KEY_R = 82;
+const KEY_B = 66;
+const KEY_C = 67;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -58,6 +60,14 @@ function keyPressed(evt) {
 	if(evt.keyCode == KEY_R){
 		validKey = true;
 		resetAllRooms();
+	}
+	if(evt.keyCode == KEY_B) {
+		validKey = true;
+		_DEBUG_DRAW_HITBOX_COLLIDERS = !_DEBUG_DRAW_HITBOX_COLLIDERS;
+	}
+	if(evt.keyCode == KEY_C) {
+		validKey = true;
+		_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
 	}
 	if(validKey){
 		evt.preventDefault();
