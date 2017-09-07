@@ -1,20 +1,14 @@
 const FLOOR_ROOMS_COLS = 2;
 const FLOOR_ROOMS_ROWS = 2;
 
-function roomChangeAll() {
-	room1f1.roomChange();
-	room2f1.roomChange();
-
-}
-
-var currentRoomRow = 0, currentRoomCol = 1
-var currentRoomIndex = roomCoordToIndex();
-
+var currentRoomRow = 0, currentRoomCol = 1;
 
 function roomCoordToIndex()
 {
-	return currentRoomCol + FLOOR_ROOMS_COLS * currentRoomRow;
+	loadLevel(window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)]);
 }
+
+var currentRoomIndex = roomCoordToIndex();
 
 function Room(roomLayout) {
 	this.originalLayout = roomLayout.slice();
@@ -69,67 +63,56 @@ function Room(roomLayout) {
 };
 
 
-var room1f1 = new Room([
+var room1a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
-	1, 0, 4, 6, 4, 0, 1, 0, 2, 0, 1, 0, 1, 4, 4, 1,
-	1, 0, 0, 0, 0, 0, 1, 0, 4, 0, 1, 5, 1, 5, 1, 1,
+	1, 0, 4, 6, 0, 0, 1, 0, 2, 0, 1, 0, 1, 4, 4, 1,
+	1, 0, 4, 0, 0, 0, 1, 0, 4, 0, 1, 5, 1, 5, 1, 1,
 	1, 1, 1, 5, 1, 1, 1, 0, 4, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 1, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 1, 0, 0, 0, 1, 1,
 	1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 4, 0, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 5, 0, 5, 0, 5, 0, 6, 0, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
-room1f1.loaded = true;
-room1f1.roomChange = function () {
-	if (this.loaded == true && player.x > canvas.width){
-			loadLevel(room2f1);
-			player.x -= canvas.width;
-			this.loaded = false;
-			room2f1.loaded = true;
-		}
-		else if (this.loaded == true && player.x < 0){
-			loadLevel(room2f1);
-			player.x += canvas.width;
-			this.loaded = false;
-			room2f1.loaded = true;
-		}
+	1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1]);
+room1a.loaded = true;
+room1a.roomChange = function () {
+	if (this.loaded == true && player.x < 0){
+		currentRoomCol--
+		roomCoordToIndex();
+		player.x += canvas.width;
+		this.loaded = false;
+	}
 }
 
 
-var room2f1 = new Room([
+var room0a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
-	1, 0, 4, 6, 4, 0, 1, 0, 6, 0, 1, 0, 1, 4, 4, 1,
+	1, 0, 4, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
+	1, 0, 4, 6, 0, 0, 1, 0, 6, 0, 1, 0, 1, 4, 4, 1,
 	1, 0, 0, 0, 0, 0, 1, 4, 4, 0, 1, 5, 1, 5, 1, 1,
 	1, 1, 1, 5, 1, 1, 1, 4, 4, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 4, 0, 1, 1,
-	0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 6, 0, 0, 0,
+	1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 6, 0, 0, 0,
 	1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 4, 0, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 5, 0, 5, 0, 5, 6, 3, 0, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 3, 6, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] );
-room2f1.loaded = true;
-room2f1.roomChange = function () {
+room0a.loaded = true;
+room0a.roomChange = function () {
 	if (this.loaded == true && player.x > canvas.width){
-			loadLevel(room1f1);
+			currentRoomCol++
+			//loadLevel(room1f1);
 			player.x -= canvas.width;
 			this.loaded = false;
-			room1f1.loaded = true;
-		}
-		if (this.loaded == true && player.x < 0){
-			loadLevel(room1f1);
-			player.x += canvas.width;
-			this.loaded = false;
-			room1f1.loaded = true;
 		}
 }
-var allRooms = [room1f1, room2f1];
+
+var allRooms = [room0a, room1a];
 var currentRoom = null;
 
 function resetAllRooms(){

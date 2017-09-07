@@ -21,7 +21,6 @@ function imageLoadingDoneSoStartGame() {
 
 	setupInput();
 	resetAllRooms();
-	loadLevel(room1f1);
 
 }
 
@@ -36,7 +35,6 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	cameraLock();
-	roomChangeAll();
 }
 
 function moveAll() {
