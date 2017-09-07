@@ -274,6 +274,8 @@ function playerClass() {
 		
 		console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
 		
+		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
+
 		var hitAnEnemy = false;
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
@@ -300,7 +302,9 @@ function playerClass() {
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
 
-	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
+		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
+
+		for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
 	        if (this.hitbox.isCollidingWith(enemy.hitbox)) {
 				if (!this.isInvincible) {
