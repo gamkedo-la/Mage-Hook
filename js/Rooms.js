@@ -1,14 +1,14 @@
 const FLOOR_ROOMS_COLS = 2;
 const FLOOR_ROOMS_ROWS = 2;
 
-var currentRoomRow = 0, currentRoomCol = 1;
+var currentRoomRow = 0, currentRoomCol = 0;
 
 function roomCoordToIndex()
 {
 	return window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)];
 }
 
-var currentRoomIndex = roomCoordToIndex();
+
 
 function Room(roomLayout) {
 	this.originalLayout = roomLayout.slice();
@@ -119,3 +119,4 @@ function resetAllRooms(){
 	}
 	loadLevel(allRooms[0]);
 }
+var currentRoomIndex = roomCoordToIndex();

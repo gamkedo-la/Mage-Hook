@@ -20,7 +20,10 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
+	loadLevel(currentRoomIndex);
+
 	resetAllRooms();
+
 }
 
 function loadLevel(whichLevel) {
@@ -30,7 +33,7 @@ function loadLevel(whichLevel) {
 	hud.load();
 }
 
-loadLevel(currentRoomIndex);
+
 
 function updateAll() {
 	moveAll();
