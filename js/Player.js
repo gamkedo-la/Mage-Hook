@@ -13,6 +13,9 @@ const SOUTH = 2;
 const EAST = 3;
 const WEST = 4;
 
+const STARTING_POSITION_X = 188;
+const STARTING_POSITION_Y = 86;
+
 function playerClass() {
 	var isMoving = false;
 	var wasMoving = false;
@@ -20,10 +23,10 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var isAttacking = false;
 	var wasAttacking = false;
-	var playerAtStartingPosition = true;
 
-	this.x = 0;
-	this.y = 0;
+	var playerAtStartingPosition = true;
+	this.x = STARTING_POSITION_X;
+	this.y = STARTING_POSITION_Y;
 
 	this.name = "Untitled Player";
 	this.maxHealth = 20;
