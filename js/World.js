@@ -13,6 +13,7 @@ const TILE_SKULL = 3;
 const TILE_KEY = 4;
 const TILE_DOOR = 5;
 const TILE_ENEMYSTART = 6;
+const TILE_TRAP = 7;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
