@@ -12,8 +12,8 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var playerAtStartingPosition = true;
 
-	this.x = 110;
-	this.y = 120;
+	this.x = 0;
+	this.y = 0;
 
 	this.name = "Untitled Player";
 	this.maxHealth = 20;
@@ -67,10 +67,13 @@ function playerClass() {
 
 	this.reset = function(playerName) {
 		this.name = playerName;
-		player.currentHealth = player.maxHealth;
-		player.isFacing = "South";
-		player.isMoving = "false";
-		player.inventory.keys = 0;
+		if (this.currentHealth <=0)
+		{
+			this.inventory.keys = 0;
+		}
+		this.currentHealth = this.maxHealth;
+		this.isFacing = "South";
+		this.isMoving = "false";
 
 		if (playerAtStartingPosition)
 		{
@@ -124,7 +127,7 @@ function playerClass() {
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
-			if (player.currentHealth <= 0) {
+			if (this.currentHealth <= 0) {
 				resetAllRooms();
 			} else {
 				this.isStunned = true;
@@ -234,7 +237,7 @@ function playerClass() {
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
 	        if (this.hitbox.isCollidingWith(enemy.hitbox)) {
-				if (!player.isInvincible) {
+				if (!this.isInvincible) {
 					this.currentHealth--;
 				}
 				x1 = enemy.hitbox.x;
