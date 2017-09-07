@@ -1,11 +1,7 @@
 const FLOOR_ROOMS_COLS = 2;
 const FLOOR_ROOMS_ROWS = 2;
 
-<<<<<<< HEAD
 var currentRoomCol = 1, currentRoomRow = 0;
-=======
-var currentRoomRow = 0, currentRoomCol = 0;
->>>>>>> 483f1fd18f57cd89f793e4f22027db1b6e4b3f46
 
 function roomCoordToIndex()
 {
