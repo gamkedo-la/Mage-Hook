@@ -12,6 +12,8 @@ const KEY_R = 82;
 const KEY_B = 66;
 const KEY_C = 67;
 
+const KEY_SPACE = 32;
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -21,7 +23,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
 }
 
 function updateMousePos(evt) {
@@ -48,6 +50,8 @@ function keySet(keyEvent, setTo) {
 		player.keyHeld_North = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyDown) {
 		player.keyHeld_South = setTo;
+	}else if(keyEvent.keyCode == player.controlKeyAttack) { // HMMMMM
+		player.keyHeld_Attack = setTo;
 	} else {
 		validGameKey = false;
 	}

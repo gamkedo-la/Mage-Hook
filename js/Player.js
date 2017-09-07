@@ -1,7 +1,9 @@
 const PLAYER_MOVE_SPEED = 3;
 const STUN_DURATION = 0.45;
-const INVINCIBLE_DURATION = .7;
-const FLASH_DURATION = .05;
+const INVINCIBLE_DURATION = 0.7;
+const FLASH_DURATION = 0.05;
+const ATTACK_DURATION = 0.5;
+
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
 
@@ -15,6 +17,8 @@ function playerClass() {
 	var wasMoving = false;
 	var isFacing = SOUTH;
 	var wasFacing = isFacing;
+	var isAttacking = false;
+	var wasAttacking = false;
 	var playerAtStartingPosition = true;
 
 	this.x = 0;
@@ -30,6 +34,7 @@ function playerClass() {
 	var stunTimer;
 	var invincibleTimer;
 	var flashTimer;
+	var attackTimer;
 	var drawPlayer = true;
 	var knockbackAngle;
 	var knockbackSpeed;
@@ -39,12 +44,14 @@ function playerClass() {
 	this.keyHeld_South = false;
 	this.keyHeld_West = false;
 	this.keyHeld_East = false;
-
+	this.keyHeld_Attack = false;
+	
 	this.controlKeyUp;
 	this.controlKeyRight;
 	this.controlKeyDown;
 	this.controlKeyLeft;
-
+	this.controlKeyAttack;
+	
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 4;
 	var tileColliderOffsetX = -1;
@@ -63,11 +70,12 @@ function playerClass() {
 									   blockedBy);
 	var sprite = new spriteClass();
 
-	this.setupInput = function(upKey, rightKey, downKey, leftKey) {
+	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;
 		this.controlKeyDown = downKey;
 		this.controlKeyLeft = leftKey;
+		this.controlKeyAttack = attackKey;
 	}
 
 	this.reset = function(playerName) {
@@ -131,6 +139,13 @@ function playerClass() {
 			isFacing = SOUTH;
 		}
 
+		isAttacking = this.keyHeld_Attack;
+		if(isAttacking && !wasAttacking) // only trigger once
+		{
+			attackTimer = ATTACK_DURATION;
+			console.log('attack!');
+		}
+
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (this.currentHealth <= 0) {
 				resetAllRooms();
@@ -146,6 +161,7 @@ function playerClass() {
 		choosePlayerAnimation();
 		wasMoving = isMoving;
 		wasFacing = isFacing;
+		wasAttacking = isAttacking;
 
 		// stuns player when hit by enemies
 		if (this.isStunned) {
