@@ -1,8 +1,19 @@
+const FLOOR_ROOMS_COLS = 2;
+const FLOOR_ROOMS_ROWS = 2;
 
 function roomChangeAll() {
 	room1f1.roomChange();
 	room2f1.roomChange();
 
+}
+
+var currentRoomRow = 0, currentRoomCol = 1
+var currentRoomIndex = roomCoordToIndex();
+
+
+function roomCoordToIndex()
+{
+	return currentRoomCol + FLOOR_ROOMS_COLS * currentRoomRow;
 }
 
 function Room(roomLayout) {
