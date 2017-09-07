@@ -118,11 +118,18 @@ function playerClass() {
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
-			this.isStunned = true;
-			this.isInvincible = true;
-			stunTimer = STUN_DURATION;
-			invincibleTimer = INVINCIBLE_DURATION;
-			return;
+			if (player.currentHealth <= 0) {
+				player.currentHealth = player.maxHealth;
+				player.isFacing = "South";
+				player.isMoving = "false";
+				resetAllRooms();
+			} else {
+				this.isStunned = true;
+				this.isInvincible = true;
+				stunTimer = STUN_DURATION;
+				invincibleTimer = INVINCIBLE_DURATION;
+				return;
+			}
 		}
 
 		choosePlayerAnimation();
