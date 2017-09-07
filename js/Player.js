@@ -18,7 +18,8 @@ function playerClass() {
 	this.name = "Untitled Player";
 	this.maxHealth = 20;
 	this.currentHealth = this.maxHealth;
-	this.keysInInventory = 0;
+	this.inventory = {};
+	this.inventory.keys = 0;
 	this.isStunned = false;
 	this.isInvincible = false;
 	var stunTimer;
@@ -71,7 +72,7 @@ function playerClass() {
 			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0);
 			playerAtStartingPosition = false;
 		}
-		this.keysInInventory = 0;
+		//this.keysInInventory = 0; //disabled so keys persist between rooms
 		this.updateKeyReadout();
 
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
@@ -261,8 +262,8 @@ function playerClass() {
 				collisionDetected = true;
 				break;
 			case TILE_DOOR:
-				if(this.keysInInventory > 0 && !this.isStunned) {
-					this.keysInInventory--; // one less key
+				if(this.inventory.keys > 0 && !this.isStunned) {
+					this.inventory.keys--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				} else {
@@ -270,7 +271,7 @@ function playerClass() {
 			}
 				break;
 			case TILE_KEY:
-				this.keysInInventory++; // one more key
+				this.inventory.keys++; // one more key
 				this.updateKeyReadout();
 				worldGrid[tileIndex] = TILE_GROUND;
 				break;
