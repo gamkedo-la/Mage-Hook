@@ -7,7 +7,13 @@
 
 <body style="height: 100vh;"><!--
     display: flex;-->
-<canvas id="gameCanvas" width="320" height="260" style="height:90%; margin: 0 auto; image-rendering: pixelated;"></canvas>
+<canvas id="gameCanvas" width="320" height="180" style="height:90%; margin: 0 auto; 
+image-rendering: pixelated; -ms-interpolation-mode: nearest-neighbor; 
+image-rendering: -webkit-optimize-contrast; 
+image-rendering: -webkit-crisp-edges; 
+image-rendering: -moz-crisp-edges; 
+image-rendering: -o-crisp-edges;
+image-rendering: pixelated;"></canvas>
 <canvas id="notGameCanvas" width="800" height="600" style="height: 100%;
     margin: 0 auto; image-rendering: pixelated; display:none;"></canvas>
 <p id="debugText" style="float:right">Key count will be displayed here</p>
