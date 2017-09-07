@@ -67,6 +67,11 @@ function playerClass() {
 
 	this.reset = function(playerName) {
 		this.name = playerName;
+		player.currentHealth = player.maxHealth;
+		player.isFacing = "South";
+		player.isMoving = "false";
+		player.inventory.keys = 0;
+
 		if (playerAtStartingPosition)
 		{
 			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0);
@@ -120,9 +125,6 @@ function playerClass() {
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (player.currentHealth <= 0) {
-				player.currentHealth = player.maxHealth;
-				player.isFacing = "South";
-				player.isMoving = "false";
 				resetAllRooms();
 			} else {
 				this.isStunned = true;
