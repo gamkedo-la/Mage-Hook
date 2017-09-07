@@ -20,6 +20,7 @@ function Room(roomLayout) {
 	this.spawnMyEnemies = function(){
 		var nextEnemy = null;
 		var x, y;
+		var offsetX = -3
 		var offsetY = -3;
 		var enemyWasFound = false;
 		do {
@@ -29,7 +30,7 @@ function Room(roomLayout) {
 					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 					if(this.layout[arrayIndex] == TILE_ENEMYSTART) {
 						this.layout[arrayIndex] = TILE_GROUND;
-						x = eachCol * WORLD_W + WORLD_W/2;
+						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
 						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently tall to put next to walls
 						nextEnemy = new enemyClass(x, y);
 						this.enemyList.push(nextEnemy);
