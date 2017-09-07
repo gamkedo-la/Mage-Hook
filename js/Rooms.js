@@ -1,7 +1,7 @@
 const FLOOR_ROOMS_COLS = 2;
 const FLOOR_ROOMS_ROWS = 2;
 
-var currentRoomRow = 0, currentRoomCol = 1;
+var currentRoomCol = 1, currentRoomRow = 0;
 
 function roomCoordToIndex()
 {
@@ -58,8 +58,18 @@ function Room(roomLayout) {
 		}
 	}
 	this.roomChange = function () {
-		return;
-	}
+		if (this.loaded == true && player.x < 0){
+		currentRoomCol--
+		roomCoordToIndex();
+		player.x += canvas.width;
+		this.loaded = false;
+		}
+		else if (this.loaded == true && player.x > canvas.width){
+			currentRoomCol++
+			player.x -= canvas.width;
+			this.loaded = false;
+		}
+	}	
 };
 
 
@@ -77,15 +87,6 @@ var room1a = new Room([
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 1, 1]);
-room1a.loaded = true;
-room1a.roomChange = function () {
-	if (this.loaded == true && player.x < 0){
-		currentRoomCol--
-		roomCoordToIndex();
-		player.x += canvas.width;
-		this.loaded = false;
-	}
-}
 
 var room0a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -101,14 +102,6 @@ var room0a = new Room([
 	1, 0, 1, 0, 1, 0, 1, 0, 3, 6, 1, 1, 1, 1, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] );
-room0a.loaded = true;
-room0a.roomChange = function () {
-	if (this.loaded == true && player.x > canvas.width){
-			currentRoomCol++
-			player.x -= canvas.width;
-			this.loaded = false;
-		}
-}
 
 var allRooms = [room0a, room1a];
 var currentRoom = null;

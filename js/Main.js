@@ -30,7 +30,7 @@ function loadLevel(whichLevel) {
 	hud.load();
 }
 
-loadLevel(currentRoomIndex);
+loadLevel(window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)]);
 
 function updateAll() {
 	moveAll();
