@@ -5,10 +5,15 @@ const FLASH_DURATION = .05;
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
 
+const NORTH = 1;
+const SOUTH = 2;
+const EAST = 3;
+const WEST = 4;
+
 function playerClass() {
 	var isMoving = false;
 	var wasMoving = false;
-	var isFacing = "South";
+	var isFacing = SOUTH;
 	var wasFacing = isFacing;
 	var playerAtStartingPosition = true;
 
@@ -72,8 +77,8 @@ function playerClass() {
 			this.inventory.keys = 0;
 		}
 		this.currentHealth = this.maxHealth;
-		this.isFacing = "South";
-		this.isMoving = "false";
+		this.isFacing = SOUTH;
+		this.isMoving = false;
 
 		if (playerAtStartingPosition)
 		{
@@ -107,23 +112,23 @@ function playerClass() {
 		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
 			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "x");
 			isMoving = true;
-			isFacing = "West";
+			isFacing = WEST;
 		}
 		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
 			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
 			isMoving = true;
-			isFacing = "East";
+			isFacing = EAST;
 		}
 
 		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
 			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "y");
 			isMoving = true;
-			isFacing = "North";
+			isFacing = NORTH;
 		}
 		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
 			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
 			isMoving = true;
-			isFacing = "South";
+			isFacing = SOUTH;
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
@@ -197,32 +202,32 @@ function playerClass() {
 			var playerPic;
 
 			if (isMoving) {
-				if (isFacing == "South") {
+				if (isFacing == SOUTH) {
 					playerPic = sprites.Player.walkSouth;
 
-				} else if (isFacing == "East") {
+				} else if (isFacing == EAST) {
 					playerPic = sprites.Player.walkEast;
 
-				} else if (isFacing == "North") {
+				} else if (isFacing == NORTH) {
 					playerPic = sprites.Player.walkNorth;
 
-				} else if (isFacing == "West") {
+				} else if (isFacing == WEST) {
 					playerPic = sprites.Player.walkWest;
 				}
 
 				sprite.setSprite(playerPic, 32, 32, 7, 12);
 
 			} else {
- 				if (isFacing == "South") {
+ 				if (isFacing == SOUTH) {
 					playerPic = sprites.Player.standSouth;
 
-				} else if (isFacing == "East") {
+				} else if (isFacing == EAST) {
 					playerPic = sprites.Player.standEast;
 
-				} else if (isFacing == "North") {
+				} else if (isFacing == NORTH) {
 					playerPic = sprites.Player.standNorth;
 
-				} else if (isFacing == "West") {
+				} else if (isFacing == WEST) {
 					playerPic = sprites.Player.standWest;
 				}
 
