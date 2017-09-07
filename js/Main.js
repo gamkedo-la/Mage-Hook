@@ -12,7 +12,6 @@ window.onload = function() {
 
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
-
 	loadImages();
 }
 
@@ -33,11 +32,8 @@ function loadLevel(whichLevel) {
 	hud.load();
 }
 
-<<<<<<< HEAD
-loadLevel(window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)]);
-=======
 
->>>>>>> 483f1fd18f57cd89f793e4f22027db1b6e4b3f46
+
 
 function updateAll() {
 	moveAll();
