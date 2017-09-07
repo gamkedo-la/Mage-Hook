@@ -21,7 +21,6 @@ function imageLoadingDoneSoStartGame() {
 
 	setupInput();
 	resetAllRooms();
-
 }
 
 function loadLevel(whichLevel) {
@@ -30,6 +29,8 @@ function loadLevel(whichLevel) {
 	player.reset("Blue Storm");
 	hud.load();
 }
+
+loadLevel(currentRoomIndex);
 
 function updateAll() {
 	moveAll();

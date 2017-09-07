@@ -5,7 +5,7 @@ var currentRoomRow = 0, currentRoomCol = 1;
 
 function roomCoordToIndex()
 {
-	loadLevel(window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)]);
+	return window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)];
 }
 
 var currentRoomIndex = roomCoordToIndex();
@@ -87,7 +87,6 @@ room1a.roomChange = function () {
 	}
 }
 
-
 var room0a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 0, 4, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
@@ -106,7 +105,6 @@ room0a.loaded = true;
 room0a.roomChange = function () {
 	if (this.loaded == true && player.x > canvas.width){
 			currentRoomCol++
-			//loadLevel(room1f1);
 			player.x -= canvas.width;
 			this.loaded = false;
 		}
