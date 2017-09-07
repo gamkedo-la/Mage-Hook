@@ -50,7 +50,7 @@ function keySet(keyEvent, setTo) {
 		player.keyHeld_North = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyDown) {
 		player.keyHeld_South = setTo;
-	}else if(keyEvent.keyCode == player.controlKeyAttack) { // HMMMMM
+	}else if(keyEvent.keyCode == player.controlKeyAttack) {
 		player.keyHeld_Attack = setTo;
 	} else {
 		validGameKey = false;

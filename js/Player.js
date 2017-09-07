@@ -3,6 +3,7 @@ const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
+const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
@@ -68,7 +69,18 @@ function playerClass() {
 									   hitboxWidth, hitboxHeight,
 								       hitboxOffsetX, hitboxOffsetY,
 									   blockedBy);
-	var sprite = new spriteClass();
+   
+	var attackhitboxWidth = 24;
+	var attackhitboxHeight = 24;
+	var attackhitboxOffsetX = 0;
+	var attackhitboxOffsetY = 0;
+	attackblockedBy = [];
+	this.attackhitbox = new boxColliderClass(this.x, this.y,
+		attackhitboxWidth, attackhitboxHeight,
+		attackhitboxOffsetX, attackhitboxOffsetY,
+		attackblockedBy);
+ 
+   var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey) {
 		this.controlKeyUp = upKey;
@@ -85,7 +97,7 @@ function playerClass() {
 			this.inventory.keys = 0;
 		}
 		this.currentHealth = this.maxHealth;
-		this.isFacing = SOUTH;
+		this.isFacing = SOUTH; // FIXME possible bug? this.?
 		this.isMoving = false;
 
 		if (playerAtStartingPosition)
@@ -144,6 +156,10 @@ function playerClass() {
 		{
 			attackTimer = ATTACK_DURATION;
 			console.log('attack!');
+			if (this.canHitEnemy())
+			{
+				console.log('WE HIT AN ENEMY!!!!');
+			}
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
@@ -208,6 +224,8 @@ function playerClass() {
 		}
 		if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
 			this.hitbox.draw('red');
+			if (this.keyHeld_Attack)
+				 this.attackhitbox.draw('yellow');
 		}
 	}
 
@@ -252,6 +270,33 @@ function playerClass() {
 		}
 	}
 
+	this.canHitEnemy = function() { // used for attacks
+		
+		console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
+		
+		var hitAnEnemy = false;
+
+	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
+			var enemy = currentRoom.enemyList[i];
+	        if (this.attackhitbox.isCollidingWith(enemy.hitbox)) {
+				//x1 = enemy.hitbox.x;
+				//x2 = this.attackhitbox.x;
+				//y1 = enemy.hitbox.y;
+				//y2 = this.attackhitbox.y;
+				//enemyknockbackAngle = Math.atan2(y2-y1, x2-x1);
+				//enemyknockbackSpeed = INITIAL_KNOCKBACK_SPEED;
+				enemy.sprite.setFrame(5);
+				enemy.recoil = true;
+				hitAnEnemy = true;
+				// TODO:
+				// reduce enemy health / destroy / etc
+				// give score / item drops / etc
+				// particle effect / sound / etc
+	        }
+	    }
+		return hitAnEnemy;
+	}
+	
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
 
@@ -278,6 +323,32 @@ function playerClass() {
 	this.updateColliders = function() {
 		this.hitbox.update(this.x, this.y);
 		this.tileCollider.update(this.x, this.y);
+		
+		// where the attack hitbox is depends on what direction we are facing
+		var attackoffsetx = 0;
+		var attackoffsety = 0;
+		switch (isFacing) {
+			case NORTH: 
+				attackoffsetx = 0;
+				attackoffsety = -ATTACK_DISTANCE;
+				break;
+			case SOUTH: 
+				attackoffsetx = 0;
+				attackoffsety = ATTACK_DISTANCE;
+				break;
+			case EAST: 
+				attackoffsetx = ATTACK_DISTANCE;
+				attackoffsety = 0;
+				break;
+			case WEST: 
+				attackoffsetx = -ATTACK_DISTANCE;
+				attackoffsety = 0;
+				break;
+			default:
+				attackoffsetx = 0;
+				attackoffsety = 0;
+			}
+		this.attackhitbox.update(this.x+attackoffsetx, this.y+attackoffsety);
 	}
 
 	this.collisionHandler = function(tileIndex) {
