@@ -20,7 +20,6 @@ function imageLoadingDoneSoStartGame() {
 
 	setupInput();
 	loadLevel();
-
 	resetAllRooms();
 
 }

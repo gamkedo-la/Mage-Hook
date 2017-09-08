@@ -1,8 +1,5 @@
-const FLOOR_ROOMS_COLS = 2;
-const FLOOR_ROOMS_ROWS = 2;
-
-var currentRoomCol = 0, currentRoomRow = 0;
-var lastValidCurrentRoomCol = 0, lastValidCurrentRoomRow = 0;
+var currentRoomCol = 1, currentRoomRow = 0;
+var lastValidCurrentRoomCol = 1, lastValidCurrentRoomRow = 0;
 
 function roomCoordToVar()
 {
@@ -68,6 +65,16 @@ function Room(roomLayout) {
 			loadLevel();
 			player.x -= canvas.width;
 		}
+		if (player.y < 0){
+			currentRoomRow--;
+			loadLevel();
+			player.x += canvas.height;
+		}
+		else if (player.y > canvas.height){
+			currentRoomRow++;
+			loadLevel();
+			player.y -= canvas.height;
+		}
 	}	
 };
 
@@ -75,7 +82,7 @@ function Room(roomLayout) {
 var room0a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
-	1, 0, 4, 6, 0, 0, 1, 0, 2, 0, 1, 0, 1, 4, 4, 1,
+	1, 0, 4, 6, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4, 4, 1,
 	1, 0, 4, 0, 0, 0, 1, 0, 4, 0, 1, 5, 1, 5, 1, 1,
 	1, 1, 1, 5, 1, 1, 1, 0, 4, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0, 1, 1,
@@ -89,12 +96,12 @@ var room0a = new Room([
 
 var room1a = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	1, 0, 4, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
+	1, 0, 4, 0, 0, 0, 1, 0, 2, 0, 5, 0, 1, 1, 1, 1,
 	1, 0, 4, 6, 0, 0, 1, 0, 6, 0, 1, 0, 1, 4, 4, 1,
 	1, 0, 0, 0, 0, 0, 1, 4, 4, 0, 1, 5, 1, 5, 1, 1,
 	1, 1, 1, 5, 1, 1, 1, 4, 4, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 4, 0, 1, 1,
-	0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 6, 0, 0, 0,
+	0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 0, 6, 0, 1, 1,
 	1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 4, 0, 1, 1,
 	1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1,
 	1, 0, 5, 0, 5, 0, 5, 6, 3, 0, 1, 1, 1, 1, 1, 1,
@@ -109,6 +116,7 @@ function resetAllRooms(){
 	for(var i = 0; i< allRooms.length; i++){
 		allRooms[i].reset();
 	}
-	currentRoomCol = currentRoomRow = 0;
+	currentRoomCol = 1;
+	currentRoomRow = 0;
 	loadLevel();
 }
