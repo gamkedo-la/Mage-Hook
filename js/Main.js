@@ -36,6 +36,7 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	cameraLock();
+	updateScreenshake();
 }
 
 function moveAll() {

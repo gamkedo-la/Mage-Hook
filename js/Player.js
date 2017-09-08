@@ -315,6 +315,7 @@ function playerClass() {
 				if (!this.isInvincible) {
 					this.currentHealth--;
 				}
+				screenshake(5);
 				x1 = enemy.hitbox.x;
 				x2 = this.hitbox.x;
 				y1 = enemy.hitbox.y;
