@@ -107,7 +107,7 @@ function playerClass() {
 
 		if (playerAtStartingPosition)
 		{
-			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0);
+			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0, true);
 			playerAtStartingPosition = false;
 		}
 		//this.keysInInventory = 0; //disabled so keys persist between rooms
@@ -257,7 +257,7 @@ function playerClass() {
 					playerPic = sprites.Player.walkWest;
 				}
 
-				sprite.setSprite(playerPic, 32, 32, 7, 12);
+				sprite.setSprite(playerPic, 32, 32, 7, 12, true);
 
 			} else {
  				if (isFacing == SOUTH) {
@@ -273,7 +273,7 @@ function playerClass() {
 					playerPic = sprites.Player.standWest;
 				}
 
-				sprite.setSprite(playerPic, 32, 32, 1, 0);
+				sprite.setSprite(playerPic, 32, 32, 1, 0, true);
 			}
 		}
 	}

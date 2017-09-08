@@ -33,26 +33,25 @@ function enemyClass(x, y){
 									   hitboxWidth, hitboxHeight,
 									   hitboxOffsetX, hitboxOffsetY);
 	this.sprite = new spriteClass();
-	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
+	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9, true);
 
 	var sprite = new spriteClass();
-	
+
 	this.die = function() {
 		console.log('An enemy died!');
 
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;
-		
+
 		// remove from enemy list
 		var foundHere = currentRoom.enemyList.indexOf(this);
 		if (foundHere > -1) {
 			currentRoom.enemyList.splice(foundHere, 1);
 		}
 	}
-	
+
 	this.draw = function() {
-		
 		if (!this.isAlive) return;
 
 		this.sprite.draw(this.x, this.y);
@@ -73,7 +72,7 @@ function enemyClass(x, y){
 
 		if (this.recoil) {
 			if (!player.isStunned) {
-				this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
+				this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9, true);
 				resetMovement();
 				this.recoil = false;
 			}

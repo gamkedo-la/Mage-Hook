@@ -7,14 +7,16 @@ function spriteClass() {
 	var frameHeight;
 	var frameTotal;
 	var frameIndex;
-
+	var loopFrames;
+	var drawFrame;
 	var currentTime;
 	var timePerFrame;
 
 	// set sprite sheet to draw from and defines animation speed
 	this.setSprite = function(newSpriteSheet,
 						newWidth, newHeight,
-						newTotal, newSpeed) {
+						newTotal, newSpeed,
+						loop) {
 
 		spriteSheet = newSpriteSheet;
 		frameX = 0;
@@ -27,6 +29,8 @@ function spriteClass() {
 		} else {
 			timePerFrame = 0;
 		}
+		loopFrames = loop;
+		drawFrame = true;
 		this.reset();
 	}
 
@@ -37,6 +41,7 @@ function spriteClass() {
 		frameY = result.y;
 		frameIndex = index % frameTotal;
 		timePerFrame = 0;
+		drawFrame = true;
 	}
 
 	this.getFrame = function() {
@@ -55,12 +60,14 @@ function spriteClass() {
 		var leftEdge = x - frameWidth/2;
 		var topEdge = y - frameHeight/2;
 
-		// this version of drawImage is needed to point to different frames in sprite sheet
-		canvasContext.drawImage(spriteSheet,
-								frameX, frameY,
-								frameWidth, frameHeight,
-								leftEdge, topEdge,
-								frameWidth, frameHeight);
+		if (drawFrame) {
+			// this version of drawImage is needed to point to different frames in sprite sheet
+			canvasContext.drawImage(spriteSheet,
+				frameX, frameY,
+				frameWidth, frameHeight,
+				leftEdge, topEdge,
+				frameWidth, frameHeight);
+		}
 	}
 
 	// cycles through sprite animations
@@ -70,11 +77,18 @@ function spriteClass() {
 
 			if (currentTime >= timePerFrame) {
 				currentTime -= timePerFrame;
-				frameIndex++;
-				if (frameIndex >= frameTotal) {
-					this.reset();
-					return;
+
+				if (frameIndex+1 >= frameTotal) {
+					if (loopFrames) {
+						this.reset();
+						return;
+					} else {
+						this.setFrame(frameIndex);
+						drawFrame = false;
+						return;
+					}
 				}
+				frameIndex++;
 
 				frameX += frameWidth;
 
