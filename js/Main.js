@@ -5,6 +5,7 @@ const TIME_PER_TICK = 1/FRAMES_PER_SECOND;
 
 var player = new playerClass();
 var hud = new hudClass();
+var particleList = [];
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -51,6 +52,7 @@ function updateAll() {
 function moveAll() {
 	player.move();
 	currentRoom.moveMyEnemies();
+	updateParticles();
 	//console.log(player.x);
 	//console.log(player.y);
 }
@@ -61,6 +63,7 @@ function drawAll() {
 	drawWorld();
 	currentRoom.drawMyEnemies();
 	player.draw();
+	drawParticles();
 	hud.draw();
 	canvasContext.restore();
 }

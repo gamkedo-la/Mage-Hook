@@ -4,6 +4,7 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
+const PARTICLES_PER_ATTACK = 100;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;
@@ -50,13 +51,13 @@ function playerClass() {
 	this.keyHeld_West = false;
 	this.keyHeld_East = false;
 	this.keyHeld_Attack = false;
-	
+
 	this.controlKeyUp;
 	this.controlKeyRight;
 	this.controlKeyDown;
 	this.controlKeyLeft;
 	this.controlKeyAttack;
-	
+
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 4;
 	var tileColliderOffsetX = -1;
@@ -73,7 +74,7 @@ function playerClass() {
 									   hitboxWidth, hitboxHeight,
 								       hitboxOffsetX, hitboxOffsetY,
 									   blockedBy);
-   
+
 	var attackhitboxWidth = 24;
 	var attackhitboxHeight = 24;
 	var attackhitboxOffsetX = 0;
@@ -83,7 +84,7 @@ function playerClass() {
 		attackhitboxWidth, attackhitboxHeight,
 		attackhitboxOffsetX, attackhitboxOffsetY,
 		attackblockedBy);
- 
+
    var sprite = new spriteClass();
 
 	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey) {
@@ -278,9 +279,9 @@ function playerClass() {
 	}
 
 	this.canHitEnemy = function() { // used for attacks, returns the enemy
-		
+
 		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
-		
+
 		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
 
 		var hitAnEnemy = null;
@@ -301,11 +302,15 @@ function playerClass() {
 				// reduce enemy health / destroy / etc
 				// give score / item drops / etc
 				// particle effect / sound / etc
+				for (var i = 0; i < PARTICLES_PER_ATTACK; i++) {
+					var tempParticle = new particleClass(enemy.hitbox.x, enemy.hitbox.y);
+					particle.push(tempParticle);
+				}
 	        }
 	    }
 		return hitAnEnemy;
 	}
-	
+
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
 
@@ -335,24 +340,24 @@ function playerClass() {
 	this.updateColliders = function() {
 		this.hitbox.update(this.x, this.y);
 		this.tileCollider.update(this.x, this.y);
-		
+
 		// where the attack hitbox is depends on what direction we are facing
 		var attackoffsetx = 0;
 		var attackoffsety = 0;
 		switch (isFacing) {
-			case NORTH: 
+			case NORTH:
 				attackoffsetx = 0;
 				attackoffsety = -ATTACK_DISTANCE;
 				break;
-			case SOUTH: 
+			case SOUTH:
 				attackoffsetx = 0;
 				attackoffsety = ATTACK_DISTANCE;
 				break;
-			case EAST: 
+			case EAST:
 				attackoffsetx = ATTACK_DISTANCE;
 				attackoffsety = 0;
 				break;
-			case WEST: 
+			case WEST:
 				attackoffsetx = -ATTACK_DISTANCE;
 				attackoffsety = 0;
 				break;
