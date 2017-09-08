@@ -4,7 +4,7 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
-const PARTICLES_PER_ATTACK = 100;
+const PARTICLES_PER_ATTACK = 500;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 const FRICTION = 0.80;

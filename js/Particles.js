@@ -1,20 +1,22 @@
-const MIN_DECAY_TIME = .2;
-const MAX_DECAY_TIME = .4;
-const MIN_PARTICLE_VELOCITY = -1;
-const MAX_PARTICLE_VELOCITY = 1;
+const MIN_DECAY_TIME = .25;
+const MAX_DECAY_TIME = .50;
+const MIN_PARTICLE_SPEED = .1;
+const MAX_PARTICLE_SPEED = 1;
 const PARTICLE_SIZE = 1;
+const GRAVITY = .03;
 
 var particle = [];
 
 function particleClass(posX, posY) {
 
-    var size;
     var x = posX;
     var y = posY;
+    var size = PARTICLE_SIZE;
     var decayTimer = MIN_DECAY_TIME + Math.random() * MAX_DECAY_TIME;
-    var velX = MIN_PARTICLE_VELOCITY + Math.random() * MAX_PARTICLE_VELOCITY;
-    var velY = MIN_PARTICLE_VELOCITY + Math.random() * MAX_PARTICLE_VELOCITY;
+    var speed = MIN_PARTICLE_SPEED + Math.random() * MAX_PARTICLE_SPEED;
     var angle = Math.random() * Math.PI * 2;
+    var velX = Math.cos(angle) * speed;
+    var velY = Math.sin(angle) * speed;
 
     var red = Math.round(Math.random() * 255);
     var blue = Math.round(Math.random() * 255);
@@ -25,13 +27,14 @@ function particleClass(posX, posY) {
 
     this.update = function() {
         decayTimer -= TIME_PER_TICK;
-        size = PARTICLE_SIZE;
         if (decayTimer <= 0) {
             this.remove = true;
         }
 
-        x += Math.cos(angle) * velX;
-        y += Math.sin(angle) * velY;
+
+        x += velX;
+        y += velY;
+        velY += GRAVITY;
     }
 
     this.draw = function() {
