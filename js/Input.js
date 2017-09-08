@@ -61,18 +61,38 @@ function keySet(keyEvent, setTo) {
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
-	if(evt.keyCode == KEY_R){
-		validKey = true;
-		resetAllRooms();
+
+	var otherKeyPressed = true;
+	switch(evt.keyCode) {
+		case KEY_R:
+			resetAllRooms();
+			break;
+		case KEY_B:
+			_DEBUG_DRAW_HITBOX_COLLIDERS = !_DEBUG_DRAW_HITBOX_COLLIDERS;
+			break;
+		case KEY_C:
+			_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
+			break;
+		case KEY_W:
+			console.log("Room change North");
+			break;
+		case KEY_A:
+			console.log("Room change West");
+			break;
+		case KEY_S:
+			console.log("Room change South");
+			break;
+		case KEY_D:
+			console.log("Room change East");
+			break;
+		default:
+			otherKeyPressed=false;
+			break;
 	}
-	if(evt.keyCode == KEY_B) {
+	if(otherKeyPressed) {
 		validKey = true;
-		_DEBUG_DRAW_HITBOX_COLLIDERS = !_DEBUG_DRAW_HITBOX_COLLIDERS;
 	}
-	if(evt.keyCode == KEY_C) {
-		validKey = true;
-		_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
-	}
+
 	if(validKey){
 		evt.preventDefault();
 	}
