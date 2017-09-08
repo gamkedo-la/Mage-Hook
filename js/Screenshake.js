@@ -7,7 +7,7 @@ var screen_shake_pivot_y = 0;
 var screen_shake_me = document.getElementById('gameCanvas');
 function screenshake(howmany)
 {
-	console.log('screenshake ' + howmany);
+	//console.log('screenshake ' + howmany);
 	if (!screen_shake_me)
 	{
 		console.log('ERROR: screenshake does not know which element to shake!')
