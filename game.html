@@ -3,20 +3,35 @@
 <head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
+	<style>
+		body { height:100%; width:100%; margin:0; padding:0; overflow:hidden; }
+		
+		#gameCanvas { 
+			height:100vh;
+			max-width:100%;
+			margin:auto;
+			padding:0;
+			outline:0;
+			image-rendering: pixelated; 
+			-ms-interpolation-mode: nearest-neighbor; 
+			image-rendering: -webkit-optimize-contrast; 
+			image-rendering: -webkit-crisp-edges; 
+			image-rendering: -moz-crisp-edges; 
+			image-rendering: -o-crisp-edges;
+			image-rendering: pixelated;
+		} 
+
+		#debugText {
+			float:right;
+			display:none;
+		}
+	</style>
 </head>
 
-<body style="height:100%; width:100%; margin:0; padding:0;">
-<canvas id="gameCanvas" width="320" height="180" style="height:100vh; max-width:100%; margin:auto; padding:0; outline:0;
-image-rendering: pixelated; 
--ms-interpolation-mode: nearest-neighbor; 
-image-rendering: -webkit-optimize-contrast; 
-image-rendering: -webkit-crisp-edges; 
-image-rendering: -moz-crisp-edges; 
-image-rendering: -o-crisp-edges;
-image-rendering: pixelated;"></canvas>
-<canvas id="notGameCanvas" width="800" height="600" style="height: 100%;
-    margin: 0 auto; image-rendering: pixelated; display:none;"></canvas>
-<p id="debugText" style="float:right; display:none;">Key count will be displayed here</p>
+<body>
+
+<canvas id="gameCanvas" width="320" height="180"></canvas>
+<p id="debugText">Key count will be displayed here</p>
 
 <script src="js/Colliders.js"></script>
 <script src="js/Trap.js"></script>
@@ -28,7 +43,6 @@ image-rendering: pixelated;"></canvas>
 <script src="js/Camera.js"></script>
 <script src="js/Rooms.js"></script>
 <script src="js/Player.js"></script>
-
 <script src="js/World.js"></script>
 <script src="js/Input.js"></script>
 <script src="js/GamepadSupport.js"></script>
