@@ -14,6 +14,10 @@ function enemyClass(x, y){
 	var directionTimer;
 	var moveAngle;
 
+	this.maxHealth = 3; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+	this.isAlive = true;
+
 	var tileColliderWidth = 18;
 	var tileColliderHeight = 4;
 	var tileColliderOffsetX = 2;
@@ -32,7 +36,25 @@ function enemyClass(x, y){
 	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);
 
 	var sprite = new spriteClass();
+	
+	this.die = function() {
+		console.log('An enemy died!');
+
+		this.isAlive = false;
+		this.x = -99999999;
+		this.y = -99999999;
+		
+		// remove from enemy list
+		var foundHere = currentRoom.enemyList.indexOf(this);
+		if (foundHere > -1) {
+			currentRoom.enemyList.splice(foundHere, 1);
+		}
+	}
+	
 	this.draw = function() {
+		
+		if (!this.isAlive) return;
+
 		this.sprite.draw(this.x, this.y);
 		if(_DEBUG_DRAW_TILE_COLLIDERS) {
             this.tileCollider.draw('lime');
@@ -42,6 +64,13 @@ function enemyClass(x, y){
         }
 	}
 	this.update = function(){
+
+		if (this.currentHealth <= 0)
+		{
+			this.die();
+			return;
+		}
+
 		if (this.recoil) {
 			if (!player.isStunned) {
 				this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9);

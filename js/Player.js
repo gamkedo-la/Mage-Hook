@@ -160,10 +160,12 @@ function playerClass() {
 		{
 			attackTimer = ATTACK_DURATION;
 			console.log('attack!');
-			if (this.canHitEnemy())
+			var hitOne = this.canHitEnemy();
+			if (hitOne)
 			{
 				console.log('WE HIT AN ENEMY!!!!');
 				this.enemyHitCount++; // score?
+				hitOne.currentHealth--;
 			}
 		}
 
@@ -275,13 +277,13 @@ function playerClass() {
 		}
 	}
 
-	this.canHitEnemy = function() { // used for attacks
+	this.canHitEnemy = function() { // used for attacks, returns the enemy
 		
 		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
 		
 		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
 
-		var hitAnEnemy = false;
+		var hitAnEnemy = null;
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
@@ -294,7 +296,7 @@ function playerClass() {
 				//enemyknockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
 				enemy.recoil = true;
-				hitAnEnemy = true;
+				hitAnEnemy = enemy;
 				// TODO:
 				// reduce enemy health / destroy / etc
 				// give score / item drops / etc
