@@ -69,21 +69,17 @@ function playerClass() {
 	var hitboxHeight = 10;
 	var hitboxOffsetX = -1;
 	var hitboxOffsetY = 6;
-	blockedBy = [];
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
-								       hitboxOffsetX, hitboxOffsetY,
-									   blockedBy);
+								       hitboxOffsetX, hitboxOffsetY);
 
 	var attackhitboxWidth = 24;
 	var attackhitboxHeight = 24;
 	var attackhitboxOffsetX = 0;
 	var attackhitboxOffsetY = 0;
-	attackblockedBy = [];
 	this.attackhitbox = new boxColliderClass(this.x, this.y,
-		attackhitboxWidth, attackhitboxHeight,
-		attackhitboxOffsetX, attackhitboxOffsetY,
-		attackblockedBy);
+											 attackhitboxWidth, attackhitboxHeight,
+											 attackhitboxOffsetX, attackhitboxOffsetY);
 
    var sprite = new spriteClass();
 

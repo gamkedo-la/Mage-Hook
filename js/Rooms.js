@@ -15,6 +15,7 @@ function Room(roomLayout) {
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
+		this.itemOnGround = [];
 		this.spawnMyEnemies();
 		console.log(this.layout);
 	}
@@ -75,7 +76,7 @@ function Room(roomLayout) {
 			loadLevel();
 			player.y -= canvas.height;
 		}
-	}	
+	}
 };
 
 var room0a = new Room([

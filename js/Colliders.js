@@ -1,5 +1,8 @@
+const X_AXIS = "x";
+const Y_AXIS = "y";
 var _DEBUG_DRAW_TILE_COLLIDERS = false;
 var _DEBUG_DRAW_HITBOX_COLLIDERS = false;
+
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.width = width;

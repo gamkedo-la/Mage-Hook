@@ -67,6 +67,9 @@ function enemyClass(x, y){
 		if (this.currentHealth <= 0)
 		{
 			this.die();
+			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
+				createItem(this.hitbox.x, this.hitbox.y);
+			}
 			return;
 		}
 

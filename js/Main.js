@@ -52,6 +52,7 @@ function updateAll() {
 function moveAll() {
 	player.move();
 	currentRoom.moveMyEnemies();
+	updateItems();
 	updateParticles();
 	//console.log(player.x);
 	//console.log(player.y);
@@ -63,6 +64,7 @@ function drawAll() {
 	drawWorld();
 	currentRoom.drawMyEnemies();
 	player.draw();
+	drawItems();
 	drawParticles();
 	hud.draw();
 	canvasContext.restore();
