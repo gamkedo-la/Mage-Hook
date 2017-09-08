@@ -2,18 +2,18 @@ const FLOOR_ROOMS_COLS = 2;
 const FLOOR_ROOMS_ROWS = 2;
 
 var currentRoomCol = 0, currentRoomRow = 0;
+var lastValidCurrentRoomCol = 0, lastValidCurrentRoomRow = 0;
 
-function roomCoordToIndex()
+function roomCoordToVar()
 {
-	return window["room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow)];
+	var varName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow);
+	console.log("Loading room from var named "+varName);
+	return window[varName];
 }
-
-
 
 function Room(roomLayout) {
 	this.originalLayout = roomLayout.slice();
 	this.layout = this.originalLayout.slice();
-	this.loaded = true;
 	this.enemyList = [];
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
@@ -57,17 +57,16 @@ function Room(roomLayout) {
 			this.enemyList[i].update();
 		}
 	}
-	this.roomChange = function () {
-		if (this.loaded == true && player.x < 0){
-		currentRoomCol--
-		roomCoordToIndex();
-		player.x += canvas.width;
-		this.loaded = false;
+	this.considerRoomChange = function () {
+		if (player.x < 0){
+			currentRoomCol--;
+			loadLevel();
+			player.x += canvas.width;
 		}
-		else if (this.loaded == true && player.x > canvas.width){
-			currentRoomCol++
+		else if (player.x > canvas.width){
+			currentRoomCol++;
+			loadLevel();
 			player.x -= canvas.width;
-			this.loaded = false;
 		}
 	}	
 };
@@ -110,6 +109,6 @@ function resetAllRooms(){
 	for(var i = 0; i< allRooms.length; i++){
 		allRooms[i].reset();
 	}
-	loadLevel(allRooms[0]);
+	currentRoomCol = currentRoomRow = 0;
+	loadLevel();
 }
-var currentRoomIndex = roomCoordToIndex();

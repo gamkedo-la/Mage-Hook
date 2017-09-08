@@ -75,15 +75,23 @@ function keyPressed(evt) {
 			break;
 		case KEY_W:
 			console.log("Room change North");
+			currentRoomRow--;
+			loadLevel(roomCoordToVar);
 			break;
 		case KEY_A:
 			console.log("Room change West");
+			currentRoomCol--;
+			loadLevel(roomCoordToVar);
 			break;
 		case KEY_S:
 			console.log("Room change South");
+			currentRoomRow++;
+			loadLevel(roomCoordToVar);
 			break;
 		case KEY_D:
 			console.log("Room change East");
+			currentRoomCol++;
+			loadLevel(roomCoordToVar);
 			break;
 		default:
 			otherKeyPressed=false;

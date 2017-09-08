@@ -19,14 +19,23 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
-	loadLevel(currentRoomIndex);
+	loadLevel();
 
 	resetAllRooms();
 
 }
 
-function loadLevel(whichLevel) {
-	currentRoom = whichLevel;
+function loadLevel() {
+	var nextRoom = roomCoordToVar();
+	if(nextRoom==undefined) {
+		console.log("NO SUCH ROOM IS DEFINED, undoing room change");
+		currentRoomCol = lastValidCurrentRoomCol;
+		currentRoomRow = lastValidCurrentRoomRow;
+		return;
+	}
+	lastValidCurrentRoomCol = currentRoomCol;
+	lastValidCurrentRoomRow = currentRoomRow;
+	currentRoom = nextRoom;
 	worldGrid = currentRoom.layout;
 	player.reset("Blue Storm");
 	hud.load();
@@ -37,6 +46,7 @@ function updateAll() {
 	drawAll();
 	cameraLock();
 	updateScreenshake();
+	currentRoom.considerRoomChange();
 }
 
 function moveAll() {
