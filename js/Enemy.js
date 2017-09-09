@@ -8,8 +8,6 @@ function enemyClass(x, y){
 
 	this.x = x;
 	this.y = y;
-	var originX = this.x;
-	var originY = this.y;
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
@@ -93,8 +91,6 @@ function enemyClass(x, y){
 		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
 
 		directionTimer -= TIME_PER_TICK;
-		originX = this.x;
-		originY = this.y;
 
 		this.sprite.update();
 	}

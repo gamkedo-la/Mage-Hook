@@ -22,3 +22,11 @@ function colorText(showWords, textX,textY, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.fillText(showWords, textX, textY);
 }
+
+function colorLine(startX, startY, endX, endY, color) {
+	canvasContext.beginPath();
+	canvasContext.strokeStyle = color;
+	canvasContext.moveTo(startX, startY);
+	canvasContext.lineTo(endX, endY);
+	canvasContext.stroke();
+}

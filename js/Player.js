@@ -321,11 +321,7 @@ function playerClass() {
 					this.currentHealth--;
 				}
 				screenshake(5);
-				x1 = enemy.hitbox.x;
-				x2 = this.hitbox.x;
-				y1 = enemy.hitbox.y;
-				y2 = this.hitbox.y;
-				knockbackAngle = Math.atan2(y2-y1, x2-x1);
+				knockbackAngle = calculateAngleFrom(enemy.hitbox, this.hitbox);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
 				enemy.recoil = true;
