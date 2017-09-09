@@ -30,7 +30,7 @@ function playerClass() {
 	this.y = STARTING_POSITION_Y;
 
 	this.name = "Untitled Player";
-	this.maxHealth = 20;
+	this.maxHealth = 4;
 	this.enemyHitCount = 0;
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
