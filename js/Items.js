@@ -183,7 +183,8 @@ function pickUpItems(collider) {
             switch(item.type) {
                 case ITEM_KEY:
                 	player.inventory.keys++; // one more key
-                	// this.updateKeyReadout();
+                    // this.updateKeyReadout();
+                    Sound.play('key_pickup');
                 break;
             }
         }
