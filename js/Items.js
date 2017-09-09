@@ -1,7 +1,8 @@
 const ITEMS_DROPPED_PER_KILL = 20;
 const MIN_ITEM_SPEED = 2;
 const MAX_ITEM_SPEED = 4;
-const UNTANGLE_SPEED = .3;
+const UNTANGLE_SPEED = .5;
+const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
 const ITEM_KEY = 4; // temporary value just so it matches TILE_KEY;
@@ -36,14 +37,12 @@ function itemClass(posX, posY, speed) {
 
         movePerCheck = velX / checksPerFrame;
         if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                checksPerFrame, movePerCheck,
-                                                X_AXIS)) {
+                                                checksPerFrame, movePerCheck, X_AXIS)) {
             velX = -velX;
         }
         movePerCheck = velY / checksPerFrame;
         if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                checksPerFrame, movePerCheck,
-                                                Y_AXIS)) {
+                                                checksPerFrame, movePerCheck, Y_AXIS)) {
             velY = -velY;
         }
 
@@ -54,8 +53,37 @@ function itemClass(posX, posY, speed) {
         // I realize it might unnecessary. I mostly wanted to see if I
         // could do it. =D
         if (untangleTimer > 0) {
+            for (var corner in this.collider.box) {
+                var tileIndex = getTileIndexAtPixelCoord(this.collider.box[corner].x,
+                                                         this.collider.box[corner].y);
+                if (worldGrid[tileIndex] != TILE_WALL) {
+                    continue;
+                }
+                var result = calculateOriginCoordOfTileIndex(tileIndex);
+                var wall = {box: {
+                                topLeft: {
+                                    x: result.x,
+                                    y: result.y
+                                },
+                                x: result.x + WORLD_W/2,
+                                y: result.y + WORLD_H/2
+                            },
+                            width: WORLD_W,
+                            height: WORLD_H };
+
+                if (this.collider.isCollidingWith(wall)) {
+                    var angle = calculateAngleFrom(wall.box, this.collider);
+                    var moveX = Math.cos(angle) * WALL_PUSH_SPEED;
+                    var moveY = Math.sin(angle) * WALL_PUSH_SPEED;
+
+                    this.x += moveX;
+                    this.y += moveY;
+                    this.updateColliders();
+                }
+            }
             for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
                 var item = currentRoom.itemOnGround[i];
+
                 if (this != item && this.collider.isCollidingWith(item.collider)) {
                     var angle = calculateAngleFrom(item.collider, this.collider);
                     var moveX = Math.cos(angle) * UNTANGLE_SPEED;
@@ -171,25 +199,11 @@ function calculateAngleFrom(object1, object2) {
     return angle;
 }
 
-// TODO: Add checks to move objects out of walls
-function pushColliderOutOfTile(object, wall) {
-    var speed = 3;
-    var angle = calculateAngleFrom(wall, object.collider);
-    var velX = Math.cos(angle) * speed;
-    var velY = Math.sin(angle) * speed;
-
-    object.x += velX;
-    object.y += velY;
-    object.updateColliders();
-}
-
-function calculateCenterCoordOfTileIndex(tileIndex) {
+function calculateOriginCoordOfTileIndex(tileIndex) {
     var topLeftX = (tileIndex % WORLD_COLS) * WORLD_W;
-    var topLeftY = (tileIndex % WORLD_ROWS) * WORLD_H;
-    var centerX = topLeftX + WORLD_W/2;
-    var centerY = topLeftY + WORLD_H/2;
+    var topLeftY = Math.floor(tileIndex / WORLD_COLS) * WORLD_H;
     return {
-        x: centerX,
-        y: centerY
+        x: topLeftX,
+        y: topLeftY
     };
 }

@@ -48,8 +48,8 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
-			checkTileType == TILE_DOOR || 
-			checkTileType == TILE_CHAIN || 
+			checkTileType == TILE_DOOR ||
+			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE ||
 			checkTileType == TILE_WEB ||
 			checkTileType == TILE_DOOR);
@@ -72,6 +72,7 @@ function drawWorld() {
 			}
 
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
+			// colorText(arrayIndex, drawTileX, drawTileY+12, 'white');
 
 			drawTileX += WORLD_W;
 			arrayIndex++;

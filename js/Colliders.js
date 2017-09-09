@@ -37,7 +37,6 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.setCollider(x, y);
 
     this.isCollidingWith = function(otherCollider) {
-
         var myLeft = this.box.topLeft.x;
         var myRight = this.box.topLeft.x + this.width;
         var myTop = this.box.topLeft.y;
@@ -51,7 +50,6 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
                 myTop > theirBottom || // I'm below them
                 myBottom < theirTop) // I'm above them
                 == false); // if none of the above are true, boxes don't overlap
-
         // NOTE(Cipherpunk): Thanks, Chris!
     }
 
