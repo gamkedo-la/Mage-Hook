@@ -380,11 +380,11 @@ function playerClass() {
 				collisionDetected = true;
 			}
 				break;
-			case TILE_KEY:
-				this.inventory.keys++; // one more key
-				this.updateKeyReadout();
-				worldGrid[tileIndex] = TILE_GROUND;
-				break;
+			// case TILE_KEY:
+			// 	this.inventory.keys++; // one more key
+			// 	this.updateKeyReadout();
+			// 	worldGrid[tileIndex] = TILE_GROUND;
+			// 	break;
 			case TILE_WALL:
 				collisionDetected = true;
 				break;

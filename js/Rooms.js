@@ -17,8 +17,24 @@ function Room(roomLayout) {
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
 		this.itemOnGround = [];
+		this.spawnItems();
 		this.spawnMyEnemies();
 		console.log(this.layout);
+	}
+
+	this.spawnItems = function() {
+
+		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+				if(this.layout[arrayIndex] == TILE_KEY) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y);
+				} // end of player start if
+			} // end of col for
+		}
 	}
 
 	this.spawnMyEnemies = function(){
@@ -35,7 +51,7 @@ function Room(roomLayout) {
 					if(this.layout[arrayIndex] == TILE_ENEMYSTART) {
 						this.layout[arrayIndex] = TILE_GROUND;
 						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
-						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently tall to put next to walls
+						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently too tall to put next to walls
 						nextEnemy = new enemyClass(x, y);
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
