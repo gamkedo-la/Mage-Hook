@@ -34,14 +34,14 @@ function hudClass() {
                 heartHalfSprite.draw(drawX, drawY);
             } else if (i > currentFullHearts)
             {
-                colorRect(drawX, drawY, 7, 7, 'black');
+                heartEmptySprite.draw(drawX, drawY);
             } else {
-                colorRect(drawX, drawY, 7, 7, 'red');
+                heartFullSprite.draw(drawX, drawY);
             }
-            drawX += heartPic.width + DRAW_GAP;
-            if (i > 0 && i%10 == 0) {
-                drawX = DRAW_OFFSET_X;
-                drawY += heartPic.height + DRAW_GAP;
+            drawX += heartEmptyPic.width + DRAW_GAP;
+            if (i > 0 && i%5 == 0) {
+                drawX = DRAW_OFFSET_X + DRAW_GAP*2;
+                drawY += heartEmptyPic.height + DRAW_GAP;
             }
         }
 
