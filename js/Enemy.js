@@ -3,6 +3,7 @@ const MAX_SPEED = .50;
 const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
 
+
 var testSpritePic
 function enemyClass(x, y){
 
@@ -66,7 +67,7 @@ function enemyClass(x, y){
 		{
 			this.die();
 			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
-				createItem(this.tileCollider.x, this.tileCollider.y);
+				dropItem(this.tileCollider.x, this.tileCollider.y);
 			}
 			return;
 		}

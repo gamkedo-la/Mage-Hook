@@ -44,7 +44,6 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
-			checkTileType == TILE_KEY ||
 			checkTileType == TILE_DOOR);
 }
 
