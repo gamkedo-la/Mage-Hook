@@ -152,6 +152,8 @@ function playerClass() {
 			isFacing = SOUTH;
 		}
 
+		pickUpItems(this.hitbox);
+
 		isAttacking = this.keyHeld_Attack;
 		if(isAttacking && !wasAttacking) // only trigger once
 		{

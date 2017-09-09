@@ -95,3 +95,14 @@ function drawItems() {
         currentRoom.itemOnGround[i].draw();
     }
 }
+
+function pickUpItems(collider) {
+    if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
+
+    for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
+        var item = currentRoom.itemOnGround[i];
+        if (collider.isCollidingWith(item.collider)) {
+            item.remove = true;
+        }
+    }
+}
