@@ -12,6 +12,7 @@ function Room(roomLayout) {
 	this.originalLayout = roomLayout.slice();
 	this.layout = this.originalLayout.slice();
 	this.enemyList = [];
+	this.itemOnGround = [];
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
