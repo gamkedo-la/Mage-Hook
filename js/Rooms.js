@@ -144,7 +144,7 @@ var room1b = new Room([
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
 
-var allRooms = [room0a, room1a, room1b];
+var allRooms = [room0a, room1a, room0b, room1b];
 var currentRoom = null;
 
 function resetAllRooms(){
