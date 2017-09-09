@@ -1,10 +1,10 @@
 const ITEMS_DROPPED_PER_KILL = 3;
-const MIN_ITEM_SPEED = 5;
-const MAX_ITEM_SPEED = 10;
+const MIN_ITEM_SPEED = 1.5;
+const MAX_ITEM_SPEED = 4.5;
 
 function itemClass(posX, posY) {
-    var x = posX;
-    var y = posY;
+    this.x = posX;
+    this.y = posY;
     var speed = MIN_ITEM_SPEED + Math.random() * MAX_ITEM_SPEED;
     var angle = Math.random() * Math.PI * 2;
     var velX = Math.cos(angle) * speed;
@@ -12,21 +12,34 @@ function itemClass(posX, posY) {
 
     this.sprite = new spriteClass();
 
-    var colliderWidth = 5;
-	var colliderHeight = 10;
+    var colliderWidth = 4;
+	var colliderHeight = 4;
 	var colliderOffsetX = 0;
 	var colliderOffsetY = 0;
 
-	this.collider = new boxColliderClass(x, y,
+	this.collider = new boxColliderClass(this.x, this.y,
 								         colliderWidth, colliderHeight,
 						                 colliderOffsetX, colliderOffsetY);
 
     this.update = function() {
         var checksPerFrame = 5;
-        var movePerCheck = velX / checksPerFrame;
-        moveOnAxisAndCheckForTileCollisions(this, this.collider, checksPerFrame, movePerCheck, X_AXIS);
+        var movePerCheck;
+
+        movePerCheck = velX / checksPerFrame;
+        if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                            checksPerFrame, movePerCheck,
+                                            X_AXIS)) {
+            velX = -velX;
+        }
         movePerCheck = velY / checksPerFrame;
-        moveOnAxisAndCheckForTileCollisions(this, this.collider, checksPerFrame, movePerCheck, Y_AXIS);
+        if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                            checksPerFrame, movePerCheck,
+                                            Y_AXIS)) {
+            velY = -velY;
+        }
+
+        velX *= FRICTION;
+        velY *= FRICTION;
     }
 
     this.draw = function() {
@@ -37,7 +50,7 @@ function itemClass(posX, posY) {
     }
 
     this.updateColliders = function() {
-        this.collider.update(x, y);
+        this.collider.update(this.x, this.y);
     }
 
     this.collisionHandler = function(tileIndex) {

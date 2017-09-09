@@ -83,7 +83,7 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck, ch
             if (collisionDetected) {
                 objectToMove[axis] = origin;
                 objectToMove.updateColliders();
-                return;
+                return collisionDetected;
             }
         }
     }

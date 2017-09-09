@@ -68,7 +68,7 @@ function enemyClass(x, y){
 		{
 			this.die();
 			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
-				createItem(this.hitbox.x, this.hitbox.y);
+				createItem(this.tileCollider.x, this.tileCollider.y);
 			}
 			return;
 		}
