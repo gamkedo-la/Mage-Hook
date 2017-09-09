@@ -75,21 +75,25 @@ function Room(roomLayout) {
 	this.considerRoomChange = function () {
 		if (player.x < 0){
 			currentRoomCol--;
+			Sound.play("room_change",false,0.05);
 			loadLevel();
 			player.x += canvas.width;
 		}
 		else if (player.x > canvas.width){
 			currentRoomCol++;
+			Sound.play("room_change",false,0.05);
 			loadLevel();
 			player.x -= canvas.width;
 		}
 		if (player.y < 0){
 			currentRoomRow--;
+			Sound.play("room_change",false,0.05);
 			loadLevel();
 			player.y += canvas.height;
 		}
 		else if (player.y > canvas.height){
 			currentRoomRow++;
+			Sound.play("room_change",false,0.05);
 			loadLevel();
 			player.y -= canvas.height;
 		}
