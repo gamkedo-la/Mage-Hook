@@ -4,26 +4,35 @@ function hudClass() {
     const DRAW_OFFSET_Y = 5;
     var heartPic;
     var heartsToDraw;
-    var heartSprite = new spriteClass();
+    var heartFullSprite = new spriteClass();
+	var heartHalfSprite = new spriteClass();
+	var heartEmptySprite = new spriteClass();
     var keySprite = new spriteClass();
 
     this.load = function() {
-        heartPic = sprites.Hud.blueHeart;
+        heartEmptyPic = sprites.Hud.heartEmpty;
+		heartFullPic = sprites.Hud.heartFull;
+		heartHalfPic = sprites.Hud.heartHalf;
         keyPic = worldPics[TILE_KEY];
-        heartSprite.setSprite(heartPic, 7, 7, 1, 0);
+        heartEmptySprite.setSprite(heartEmptyPic, 7, 7, 1, 0);
+		heartFullSprite.setSprite(heartFullPic, 7, 7, 1, 0);
+		heartHalfSprite.setSprite(heartHalfPic, 7, 7, 1, 0);
         keySprite.setSprite(keyPic, 20, 20, 1, 0);
     }
 
     this.draw = function() {
-        heartsToDraw = player.maxHealth;
+        heartsToDraw = Math.floor(player.maxHealth/2);
+		currentFullHearts = Math.floor(player.currentHealth/2);
         keysToDraw = player.inventory.keys;
         var drawX = DRAW_OFFSET_X;
         var drawY = DRAW_OFFSET_Y;
 
         // Draw hearts
-        for (var i = 1; i <= heartsToDraw; i++) {
-            //heartSprite.draw(drawX, drawY); // disabled because sprite isn't reading well
-            if (i > player.currentHealth)
+        for (var i = 1; i <= heartsToDraw; i+=1) {
+			if (player.currentHealth%2==1 && i==currentFullHearts+1)
+			{
+                heartHalfSprite.draw(drawX, drawY);
+            } else if (i > currentFullHearts)
             {
                 colorRect(drawX, drawY, 7, 7, 'black');
             } else {

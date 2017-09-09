@@ -42,6 +42,9 @@ function loadImages() {
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
+		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
+		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},
+		{set: "Hud", name: "heartHalf", fileName: "heartHalf.png"},
 
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
