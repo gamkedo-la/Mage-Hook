@@ -100,7 +100,7 @@ function itemClass(posX, posY) {
 
     this.draw = function() {
         this.sprite.draw(this.x, this.y);
-        if(_DEBUG_DRAW_TILE_COLLIDERS) {
+        if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
             this.collider.draw('lime');
         }
     }
