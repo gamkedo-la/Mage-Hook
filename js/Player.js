@@ -131,23 +131,27 @@ function playerClass() {
 		var checksPerFrame = PLAYER_MOVE_SPEED;
 		var movePerCheck = 1;
 		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "x");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+												checksPerFrame, -movePerCheck, X_AXIS);
 			isMoving = true;
 			isFacing = WEST;
 		}
 		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+												checksPerFrame, movePerCheck, X_AXIS);
 			isMoving = true;
 			isFacing = EAST;
 		}
 
 		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, -movePerCheck, "y");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+												checksPerFrame, -movePerCheck, Y_AXIS);
 			isMoving = true;
 			isFacing = NORTH;
 		}
 		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
+			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+												checksPerFrame, movePerCheck, Y_AXIS);
 			isMoving = true;
 			isFacing = SOUTH;
 		}

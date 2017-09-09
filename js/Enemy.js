@@ -87,9 +87,12 @@ function enemyClass(x, y){
 		var checksPerFrame = 5;
 		var movePerCheck;
 		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
+		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+											checksPerFrame, movePerCheck, X_AXIS);
+
 		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
+		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+											checksPerFrame, movePerCheck, Y_AXIS);
 
 		directionTimer -= TIME_PER_TICK;
 

@@ -65,15 +65,12 @@ function itemClass(posX, posY, speed) {
                     var movePerCheck;
 
                     movePerCheck = moveX / checksPerFrame;
-                    if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                            checksPerFrame, movePerCheck,
-                                                            X_AXIS)) {
-                    }
+                    moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                                        checksPerFrame, movePerCheck, X_AXIS);
+
                     movePerCheck = moveY / checksPerFrame;
-                    if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                            checksPerFrame, movePerCheck,
-                                                            Y_AXIS)) {
-                    }
+                    moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                                        checksPerFrame, movePerCheck, Y_AXIS);
                 }
             }
 
