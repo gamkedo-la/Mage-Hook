@@ -184,7 +184,7 @@ function pickUpItems(collider) {
                 case ITEM_KEY:
                 	player.inventory.keys++; // one more key
                     // this.updateKeyReadout();
-                    Sound.play('key_pickup');
+                    Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
                 break;
             }
         }
