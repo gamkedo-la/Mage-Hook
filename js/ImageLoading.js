@@ -51,7 +51,11 @@ function loadImages() {
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
 		{worldType: TILE_KEY, theFile: "world_key.png"},
-		{worldType: TILE_DOOR, theFile: "world_door.png"}
+		{worldType: TILE_DOOR, theFile: "world_door.png"},
+		{worldType: TILE_CHAIN, theFile: "world_chains.png"},
+		{worldType: TILE_OOZE, theFile: "world_ooze.png"},
+		{worldType: TILE_WEB, theFile: "world_web.png"},
+		{worldType: TILE_BOX, theFile: "world_box.png"}
 	];
 
 	picsToLoad = imageList.length;

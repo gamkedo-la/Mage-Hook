@@ -14,6 +14,10 @@ const TILE_KEY = 4;
 const TILE_DOOR = 5;
 const TILE_ENEMYSTART = 6;
 const TILE_TRAP = 7;
+const TILE_CHAIN = 8;
+const TILE_OOZE = 9;
+const TILE_WEB = 10;
+const TILE_BOX = 11;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -44,6 +48,10 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
+			checkTileType == TILE_DOOR || 
+			checkTileType == TILE_CHAIN || 
+			checkTileType == TILE_OOZE ||
+			checkTileType == TILE_WEB ||
 			checkTileType == TILE_DOOR);
 }
 
