@@ -64,7 +64,7 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         canvasContext.lineWidth = 1;
         var x = Math.floor(this.box.topLeft.x) + .5;
         var y = Math.floor(this.box.topLeft.y) + .5;
-        // canvasContext.strokeRect(x, y, this.width, this.height);
+        canvasContext.strokeRect(x, y, this.width, this.height);
     }
 }
 

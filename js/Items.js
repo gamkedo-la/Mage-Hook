@@ -123,10 +123,10 @@ function dropItem(x, y) {
     currentRoom.itemOnGround.push(tempItem);
 }
 
-function placeItem(x, y) {
+function placeItem(x, y, room) {
     var speed = 0;
     var tempItem = new itemClass(x, y, speed);
-    currentRoom.itemOnGround.push(tempItem);
+    room.itemOnGround.push(tempItem);
 }
 
 function updateItems() {

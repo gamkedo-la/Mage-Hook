@@ -31,7 +31,7 @@ function Room(roomLayout) {
 					this.layout[arrayIndex] = TILE_GROUND;
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
-					placeItem(x, y);
+					placeItem(x, y, this);
 				} // end of player start if
 			} // end of col for
 		}
