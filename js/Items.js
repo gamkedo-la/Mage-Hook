@@ -11,6 +11,7 @@ function itemClass(posX, posY) {
     var velY = Math.sin(angle) * speed;
 
     this.sprite = new spriteClass();
+    this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
 
     var colliderWidth = 4;
 	var colliderHeight = 4;
@@ -43,7 +44,7 @@ function itemClass(posX, posY) {
     }
 
     this.draw = function() {
-        // add sprites later
+        this.sprite.draw(this.x, this.y);
         if(_DEBUG_DRAW_TILE_COLLIDERS) {
             this.collider.draw('lime');
         }
