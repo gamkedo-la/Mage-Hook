@@ -1,7 +1,7 @@
 const ITEMS_DROPPED_PER_KILL = 20;
 const MIN_ITEM_SPEED = 2;
 const MAX_ITEM_SPEED = 4;
-const UNTANGLE_SPEED = 1;
+const UNTANGLE_SPEED = .1;
 const GIVE_UP_UNTANGLE = 2;
 
 function itemClass(posX, posY) {
@@ -26,6 +26,7 @@ function itemClass(posX, posY) {
 						                 colliderOffsetX, colliderOffsetY);
 
     this.update = function() {
+
         var checksPerFrame = 5;
         var movePerCheck;
 
@@ -149,4 +150,15 @@ function calculateAngleFrom(object1, object2) {
     var y2 = object2.y;
     var angle = Math.atan2(y2-y1,x2-x1);
     return angle;
+}
+
+// TODO: Add checks to move objects out of walls
+function pushOutOfWall(object, wall, speed) {
+    var angle = calculateAngleFrom(wall, object);
+    var velX = Math.cos(angle) * speed;
+    var velY = Math.sin(angle) * speed;
+
+    object.x += velX;
+    object.y += velY;
+    object.updateColliders();
 }
