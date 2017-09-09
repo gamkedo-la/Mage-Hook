@@ -75,6 +75,9 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck, ch
         objectToMove.updateColliders();
 
         for (var corner in colliderToCheck) {
+            if (colliderToCheck[corner].x == undefined) {
+                continue;
+            }
             var x = colliderToCheck[corner].x;
             var y = colliderToCheck[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);

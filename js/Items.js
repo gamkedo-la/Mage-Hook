@@ -1,12 +1,14 @@
 const ITEMS_DROPPED_PER_KILL = 20;
 const MIN_ITEM_SPEED = 2;
 const MAX_ITEM_SPEED = 4;
-const UNTANGLE_SPEED = .1;
-const GIVE_UP_UNTANGLE = 2;
+const UNTANGLE_SPEED = .3;
+const GIVE_UP_UNTANGLE = 1.5;
+const ITEM_FRICTION = .92;
 
 function itemClass(posX, posY) {
     this.x = posX;
     this.y = posY;
+    this.canBePickedUp = false;
     var giveUpTimer = GIVE_UP_UNTANGLE;
     var speed = MIN_ITEM_SPEED + Math.random() * MAX_ITEM_SPEED;
     var angle = Math.random() * Math.PI * 2;
@@ -17,7 +19,7 @@ function itemClass(posX, posY) {
     this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
 
     var colliderWidth = 10;
-	var colliderHeight = 14;
+	var colliderHeight = 12;
 	var colliderOffsetX = 0;
 	var colliderOffsetY = 0;
 
@@ -26,6 +28,20 @@ function itemClass(posX, posY) {
 						                 colliderOffsetX, colliderOffsetY);
 
     this.update = function() {
+        /*
+        for (var corner in this.collider) {
+            if (this.collider[corner].x == undefined) {
+                continue;
+            }
+            var tileIndex = getTileIndexAtPixelCoord(this.collider[corner].x,
+                this.collider[corner].y);
+            if (worldGrid[tileIndex] == TILE_WALL) {
+                var wall = calculateCenterCoordOfTileIndex(tileIndex);
+                pushColliderOutOfTile(this, wall);
+                return;
+            }
+        }
+        */
 
         var checksPerFrame = 5;
         var movePerCheck;
@@ -43,8 +59,8 @@ function itemClass(posX, posY) {
             velY = -velY;
         }
 
-        velX *= FRICTION;
-        velY *= FRICTION;
+        velX *= ITEM_FRICTION;
+        velY *= ITEM_FRICTION;
 
         // Code below is to visually and physically untangle items but
         // I realize it might unnecessary. I mostly wanted to see if I
@@ -75,6 +91,10 @@ function itemClass(posX, posY) {
 
             giveUpTimer -= TIME_PER_TICK;
 
+        } else if (!this.canBePickedUp) {
+            velX = 0;
+            velY = 0;
+            this.canBePickedUp = true;
         }
     }
 
@@ -137,7 +157,7 @@ function pickUpItems(collider) {
 
     for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
         var item = currentRoom.itemOnGround[i];
-        if (collider.isCollidingWith(item.collider)) {
+        if (item.canBePickedUp && collider.isCollidingWith(item.collider)) {
             item.remove = true;
         }
     }
@@ -153,12 +173,24 @@ function calculateAngleFrom(object1, object2) {
 }
 
 // TODO: Add checks to move objects out of walls
-function pushOutOfWall(object, wall, speed) {
-    var angle = calculateAngleFrom(wall, object);
+function pushColliderOutOfTile(object, wall) {
+    var speed = 3;
+    var angle = calculateAngleFrom(wall, object.collider);
     var velX = Math.cos(angle) * speed;
     var velY = Math.sin(angle) * speed;
 
     object.x += velX;
     object.y += velY;
     object.updateColliders();
+}
+
+function calculateCenterCoordOfTileIndex(tileIndex) {
+    var topLeftX = (tileIndex % WORLD_COLS) * WORLD_W;
+    var topLeftY = (tileIndex % WORLD_ROWS) * WORLD_H;
+    var centerX = topLeftX + WORLD_W/2;
+    var centerY = topLeftY + WORLD_H/2;
+    return {
+        x: centerX,
+        y: centerY
+    };
 }
