@@ -111,6 +111,9 @@ function itemClass(posX, posY, speed) {
             case TILE_WALL:
                 collisionDetected = true;
                 break;
+            case TILE_WEB:
+                untangleTimer -= .005;
+                break;
             default:
                 break;
         }
