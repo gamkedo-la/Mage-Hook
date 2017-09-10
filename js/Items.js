@@ -5,12 +5,13 @@ const UNTANGLE_SPEED = .5;
 const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
-const ITEM_KEY = 4; // temporary value just so it matches TILE_KEY;
+const ITEM_KEY = 1;
+const ITEM_POTION = 2;
 
-function itemClass(posX, posY, speed) {
+function itemClass(posX, posY, speed, type) {
     this.x = posX;
     this.y = posY;
-    this.type = ITEM_KEY;
+    this.type = type;
     this.canBePickedUp = false;
     var untangleTimer = UNTANGLE_TIME_LIMIT;
     var speed = speed;
@@ -19,7 +20,14 @@ function itemClass(posX, posY, speed) {
     var velY = Math.sin(angle) * speed;
 
     this.sprite = new spriteClass();
-    this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+	switch (type){
+		case(ITEM_KEY):
+			this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+			break;
+		case(ITEM_POTION):
+			this.sprite.setSprite(heartHalfPic, 7, 7, 1, 0);
+			break;
+	}
 
     var colliderWidth = 10;
 	var colliderHeight = 14;
@@ -121,15 +129,15 @@ function itemClass(posX, posY, speed) {
     }
 }
 
-function dropItem(x, y) {
+function dropItem(x, y, type) {
     var speed = MIN_ITEM_SPEED + Math.random() * MAX_ITEM_SPEED;
-    var tempItem = new itemClass(x, y, speed);
+    var tempItem = new itemClass(x, y, speed, type);
     currentRoom.itemOnGround.push(tempItem);
 }
 
-function placeItem(x, y, room) {
+function placeItem(x, y, room, type) {
     var speed = 0;
-    var tempItem = new itemClass(x, y, speed);
+    var tempItem = new itemClass(x, y, speed, type);
     room.itemOnGround.push(tempItem);
 }
 
@@ -164,7 +172,12 @@ function pickUpItems(collider) {
                 	player.inventory.keys++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
-                break;
+					break;
+				case ITEM_POTION:
+					if (player.currentHealth < player.maxHealth)
+						player.currentHealth++;
+					Sound.play('key_pickup', false, 0.1);
+					break;
             }
         }
     }

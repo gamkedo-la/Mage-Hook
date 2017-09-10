@@ -2,7 +2,8 @@ const MIN_SPEED = .25;
 const MAX_SPEED = .50;
 const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
-
+const ITEM_KEY_DROP_PERCENT = 80;
+const ITEM_POTION_DROP_PERCENT = 20;
 
 var testSpritePic
 function enemyClass(x, y){
@@ -67,7 +68,13 @@ function enemyClass(x, y){
 		{
 			this.die();
 			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
-				dropItem(this.hitbox.x, this.hitbox.y);
+				var dropType = Math.random() * 100;
+				if (dropType <= ITEM_KEY_DROP_PERCENT)
+					dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY);
+				else
+					dropType -= ITEM_KEY_DROP_PERCENT;
+				if (dropType <= ITEM_POTION_DROP_PERCENT)
+					dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
 				// dropItem(this.tileCollider.x, this.tileCollider.y);
 			}
 			return;
