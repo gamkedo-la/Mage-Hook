@@ -56,8 +56,8 @@ function itemClass(posX, posY, speed, type) {
 		this.sprite.setSprite(worldPics[TILE_CRYSTAL], 20, 20, 1, 0);
             var colliderWidth = 10;
             var colliderHeight = 10;
-            var colliderOffsetX = 5;
-            var colliderOffsetY = 5;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
 			break;
 	}
 
