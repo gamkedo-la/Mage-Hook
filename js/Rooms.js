@@ -27,11 +27,11 @@ function Room(roomLayout) {
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-				if(this.layout[arrayIndex] == TILE_KEY) {
+				if(this.layout[arrayIndex] == TILE_KEY_COMMON) {
 					this.layout[arrayIndex] = TILE_GROUND;
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
-					placeItem(x, y, this, ITEM_KEY);
+					placeItem(x, y, this, ITEM_KEY_COMMON);
 				} // end of player start if
 			} // end of col for
 		}

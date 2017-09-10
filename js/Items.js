@@ -5,10 +5,10 @@ const UNTANGLE_SPEED = .5;
 const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
-const ITEM_KEY = 1;
+const ITEM_KEY_COMMON = 1;
 const ITEM_POTION = 2;
-const ITEM_KEY_RUBY = 3;
-const ITEM_KEY_EMERALD = 4;
+const ITEM_KEY_RARE = 3;
+const ITEM_KEY_EPIC = 4;
 
 function itemClass(posX, posY, speed, type) {
     this.x = posX;
@@ -23,22 +23,22 @@ function itemClass(posX, posY, speed, type) {
 
     this.sprite = new spriteClass();
 	switch (type){
-		case(ITEM_KEY):
-            this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+		case(ITEM_KEY_COMMON):
+            this.sprite.setSprite(worldPics[TILE_KEY_COMMON], 20, 20, 1, 0, true);
             var colliderWidth = 10;
             var colliderHeight = 14;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
 			break;
-		case(ITEM_KEY_RUBY):
-            this.sprite.setSprite(worldPics[TILE_KEY_RUBY], 20, 20, 1, 0, true);
+		case(ITEM_KEY_RARE):
+            this.sprite.setSprite(worldPics[TILE_KEY_RARE], 20, 20, 1, 0, true);
             var colliderWidth = 10;
             var colliderHeight = 14;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
 			break;
-		case(ITEM_KEY_EMERALD):
-            this.sprite.setSprite(worldPics[TILE_KEY_EMERALD], 20, 20, 1, 0, true);
+		case(ITEM_KEY_EPIC):
+            this.sprite.setSprite(worldPics[TILE_KEY_EPIC], 20, 20, 1, 0, true);
             var colliderWidth = 10;
             var colliderHeight = 14;
             var colliderOffsetX = 0;
@@ -132,11 +132,11 @@ function itemClass(posX, posY, speed, type) {
         switch(tileType) {
             case TILE_SKULL:
                 break;
-            case TILE_DOOR:
+            case TILE_DOOR_COMMON:
                 break;
-			case TILE_DOOR_RUBY:
+			case TILE_DOOR_RARE:
                 break;
-			case TILE_DOOR_EMERALD:
+			case TILE_DOOR_EPIC:
                 break;
             case TILE_WALL:
                 break;
@@ -202,8 +202,8 @@ function pickUpItems(collider) {
             item.remove = true;
 
             switch(item.type) {
-                case ITEM_KEY:
-                	player.inventory.keys++; // one more key
+                case ITEM_KEY_COMMON:
+                	player.inventory.keysCommon++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
 					break;
@@ -212,13 +212,13 @@ function pickUpItems(collider) {
 						player.currentHealth++;
 					Sound.play('key_pickup', false, 0.1);
 					break;
-				case ITEM_KEY_RUBY:
-                	player.inventory.keysRuby++; // one more key
+				case ITEM_KEY_RARE:
+                	player.inventory.keysRare++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
 					break;
-				case ITEM_KEY_EMERALD:
-                	player.inventory.keysEmerald++; // one more key
+				case ITEM_KEY_EPIC:
+                	player.inventory.keysEpic++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
 					break;
