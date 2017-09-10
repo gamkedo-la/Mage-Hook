@@ -13,6 +13,7 @@ function enemyClass(x, y){
 	this.recoil = false;
 	var directionTimer;
 	var moveAngle;
+	var currentSpeed;
 
 	this.maxHealth = 3; // how many hits till it dies
 	this.currentHealth = this.maxHealth;
@@ -96,24 +97,25 @@ function enemyClass(x, y){
 		var movePerCheck;
 
 		// movePerCheck = 1; // for testing collisions
-		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
+		movePerCheck = (Math.cos(moveAngle) * currentSpeed)/checksPerFrame;
 		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
 											checksPerFrame, movePerCheck, X_AXIS);
 
 		// movePerCheck = 1; // for testing collisions
-		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
+		movePerCheck = (Math.sin(moveAngle) * currentSpeed)/checksPerFrame;
 		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
 											checksPerFrame, movePerCheck, Y_AXIS);
 
 		directionTimer -= TIME_PER_TICK;
 
 		this.sprite.update();
-	}
+		this.tileBehaviorHandler();
+	} // end of this.update()
 
 	function resetMovement() {
 		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
 		moveAngle = Math.random() * 2*Math.PI;
-		moveSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
+		currentSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
 	}
 
 	this.updateColliders = function() {
@@ -122,21 +124,47 @@ function enemyClass(x, y){
 	}
 
 	this.collisionHandler = function(tileIndex) {
-		var collisionDetected = false;
+		var collisionDetected = true;
 		var tileType = worldGrid[tileIndex];
 		switch(tileType) {
 			case TILE_SKULL:
-				collisionDetected = true;
 				break;
 			case TILE_DOOR:
-				collisionDetected = true;
 				break;
 			case TILE_WALL:
-				collisionDetected = true;
 				break;
 			default:
+				collisionDetected = false;
 				break;
 		}
 		return collisionDetected;
+	}
+
+	this.tileBehaviorHandler = function() {
+		// default behaviors go here
+		enemyFriction = FRICTION;
+		sprite.setSpeed(9);
+
+		var types = this.tileCollider.checkTileTypes();
+		for (var i = 0; i < types.length; i++) {
+			switch (types[i]) {
+				case TILE_OOZE:
+					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
+						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+						particle.push(tempParticle);
+					}
+					break;
+				case TILE_WEB:
+					enemyFriction = WEB_FRICTION;
+					sprite.setSpeed(4.5)
+					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
+						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lightGrey');
+						particle.push(tempParticle);
+					}
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }
