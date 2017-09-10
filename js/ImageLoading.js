@@ -50,7 +50,7 @@ function loadImages() {
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
-		{worldType: TILE_KEY, theFile: "world_key.png"},
+		{worldType: TILE_KEY, theFile: "world_key_gold.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"},
 		{worldType: TILE_CHAIN, theFile: "world_chains.png"},
 		{worldType: TILE_OOZE, theFile: "world_ooze.png"},
