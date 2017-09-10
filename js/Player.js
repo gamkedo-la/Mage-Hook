@@ -39,6 +39,8 @@ function playerClass() {
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
 	this.inventory.keys = 0;
+	this.inventory.keysRuby = 0;
+	this.inventory.keysEmerald = 0;
 	this.isStunned = false;
 	this.isInvincible = false;
 	var stunTimer;
@@ -100,6 +102,8 @@ function playerClass() {
 		if (this.currentHealth <=0)
 		{
 			this.inventory.keys = 0;
+			this.inventory.keysRuby = 0;
+			this.inventory.keysEmerald = 0;
 		}
 		this.currentHealth = this.maxHealth;
 		this.isFacing = SOUTH; // FIXME possible bug? this.?

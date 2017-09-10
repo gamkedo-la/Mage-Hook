@@ -8,16 +8,22 @@ function hudClass() {
 	var heartHalfSprite = new spriteClass();
 	var heartEmptySprite = new spriteClass();
     var keySprite = new spriteClass();
+	var keyRubySprite = new spriteClass();
+	var keyEmeraldSprite = new spriteClass();
 
     this.load = function() {
         heartEmptyPic = sprites.Hud.heartEmpty;
 		heartFullPic = sprites.Hud.heartFull;
 		heartHalfPic = sprites.Hud.heartHalf;
         keyPic = worldPics[TILE_KEY];
+		keyRubyPic = worldPics[TILE_KEY_RUBY];
+		keyEmeraldPic = worldPics[TILE_KEY_EMERALD];
         heartEmptySprite.setSprite(heartEmptyPic, 7, 7, 1, 0);
 		heartFullSprite.setSprite(heartFullPic, 7, 7, 1, 0);
 		heartHalfSprite.setSprite(heartHalfPic, 7, 7, 1, 0);
         keySprite.setSprite(keyPic, 20, 20, 1, 0);
+		keyRubySprite.setSprite(keyRubyPic, 20, 20, 1, 0);
+		keyEmeraldSprite.setSprite(keyEmeraldPic, 20, 20, 1, 0);
     }
 
     this.draw = function() {
@@ -50,9 +56,16 @@ function hudClass() {
         var drawY = 12;
         keySprite.draw(drawX, drawY);
         colorText(" x " + player.inventory.keys, drawX + 3, drawY + 5, 'white');
-
+		drawX -= 31;
+		keyRubySprite.draw(drawX, drawY);
+        colorText(" x " + player.inventory.keysRuby, drawX + 3, drawY + 5, 'white');
+		drawX -= 31;
+		keyEmeraldSprite.draw(drawX, drawY);
+        colorText(" x " + player.inventory.keysEmerald, drawX + 3, drawY + 5, 'white');
         // (temp?) draw score mostly so we know if attacks are working =)
-        colorText("SCORE: " + player.enemyHitCount + "00", 221, 17, 'white');
+		drawX = canvas.width - 69;
+		drawY += 17;
+        colorText("SCORE: " + player.enemyHitCount + "00", drawX, drawY, 'white');
 
     }
 }
