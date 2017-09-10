@@ -421,6 +421,22 @@ function playerClass() {
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
 				break;
+			case TILE_DOOR_RUBY:
+				if(this.inventory.keysRuby > 0 && !this.isStunned) {
+					Sound.play("door_open");
+					this.inventory.keysRuby--; // one less key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+				}
+				break;
+			case TILE_DOOR_EMERALD:
+				if(this.inventory.keysEmerald > 0 && !this.isStunned) {
+					Sound.play("door_open");
+					this.inventory.keysEmerald--; // one less key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+				}
+				break;
 			case TILE_SKULL:
 				break;
 			case TILE_WALL:
