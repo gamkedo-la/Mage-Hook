@@ -30,7 +30,7 @@ function playerClass() {
 	this.y = STARTING_POSITION_Y;
 
 	this.name = "Untitled Player";
-	this.maxHealth = 20;
+	this.maxHealth = 4;
 	this.enemyHitCount = 0;
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
@@ -161,6 +161,7 @@ function playerClass() {
 		isAttacking = this.keyHeld_Attack;
 		if(isAttacking && !wasAttacking) // only trigger once
 		{
+			Sound.play("player_attack");
 			attackTimer = ATTACK_DURATION;
 			console.log('attack!');
 			var hitOne = this.canHitEnemy();
@@ -169,13 +170,16 @@ function playerClass() {
 				console.log('WE HIT AN ENEMY!!!!');
 				this.enemyHitCount++; // score?
 				hitOne.currentHealth--;
+				Sound.play("enemy_hit"); // TODO: after a delay?
 			}
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (this.currentHealth <= 0) {
 				resetAllRooms();
+				Sound.play("player_die");
 			} else {
+				Sound.play("player_hit");
 				this.isStunned = true;
 				this.isInvincible = true;
 				stunTimer = STUN_DURATION;
@@ -377,6 +381,7 @@ function playerClass() {
 				break;
 			case TILE_DOOR:
 				if(this.inventory.keys > 0 && !this.isStunned) {
+					Sound.play("door_open");
 					this.inventory.keys--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
@@ -385,6 +390,7 @@ function playerClass() {
 			}
 				break;
 			// case TILE_KEY:
+			//  Sound.play("key_pickup");
 			// 	this.inventory.keys++; // one more key
 			// 	this.updateKeyReadout();
 			// 	worldGrid[tileIndex] = TILE_GROUND;
