@@ -18,6 +18,10 @@ const TILE_CHAIN = 8;
 const TILE_OOZE = 9;
 const TILE_WEB = 10;
 const TILE_BOX = 11;
+const TILE_KEY_RUBY = 12;
+const TILE_KEY_EMERALD = 13;
+const TILE_DOOR_RUBY = 14;
+const TILE_DOOR_EMERALD = 15;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
