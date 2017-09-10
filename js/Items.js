@@ -22,7 +22,7 @@ function itemClass(posX, posY, speed) {
     this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
 
     var colliderWidth = 10;
-	var colliderHeight = 12;
+	var colliderHeight = 14;
 	var colliderOffsetX = 0;
 	var colliderOffsetY = 0;
 
@@ -53,34 +53,6 @@ function itemClass(posX, posY, speed) {
         // I realize it might unnecessary. I mostly wanted to see if I
         // could do it. =D
         if (untangleTimer > 0) {
-            for (var corner in this.collider.box) {
-                var tileIndex = getTileIndexAtPixelCoord(this.collider.box[corner].x,
-                                                         this.collider.box[corner].y);
-                if (worldGrid[tileIndex] != TILE_WALL) {
-                    continue;
-                }
-                var result = calculateOriginCoordOfTileIndex(tileIndex);
-                var wall = {box: {
-                                topLeft: {
-                                    x: result.x,
-                                    y: result.y
-                                },
-                                x: result.x + WORLD_W/2,
-                                y: result.y + WORLD_H/2
-                            },
-                            width: WORLD_W,
-                            height: WORLD_H };
-
-                if (this.collider.isCollidingWith(wall)) {
-                    var angle = calculateAngleFrom(wall.box, this.collider);
-                    var moveX = Math.cos(angle) * WALL_PUSH_SPEED;
-                    var moveY = Math.sin(angle) * WALL_PUSH_SPEED;
-
-                    this.x += moveX;
-                    this.y += moveY;
-                    this.updateColliders();
-                }
-            }
             for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
                 var item = currentRoom.itemOnGround[i];
 
@@ -93,12 +65,16 @@ function itemClass(posX, posY, speed) {
                     var movePerCheck;
 
                     movePerCheck = moveX / checksPerFrame;
-                    moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                        checksPerFrame, movePerCheck, X_AXIS);
+                    if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                                            checksPerFrame, movePerCheck, X_AXIS)) {
+                        velX = -velX;
+                    }
 
                     movePerCheck = moveY / checksPerFrame;
-                    moveOnAxisAndCheckForTileCollisions(this, this.collider,
-                                                        checksPerFrame, movePerCheck, Y_AXIS);
+                    if (moveOnAxisAndCheckForTileCollisions(this, this.collider,
+                                                            checksPerFrame, movePerCheck, Y_AXIS)) {
+                        velY = -velY;
+                    }
                 }
             }
 
@@ -188,22 +164,4 @@ function pickUpItems(collider) {
             }
         }
     }
-}
-
-function calculateAngleFrom(object1, object2) {
-    var x1 = object1.x;
-    var x2 = object2.x;
-    var y1 = object1.y;
-    var y2 = object2.y;
-    var angle = Math.atan2(y2-y1,x2-x1);
-    return angle;
-}
-
-function calculateOriginCoordOfTileIndex(tileIndex) {
-    var topLeftX = (tileIndex % WORLD_COLS) * WORLD_W;
-    var topLeftY = Math.floor(tileIndex / WORLD_COLS) * WORLD_H;
-    return {
-        x: topLeftX,
-        y: topLeftY
-    };
 }

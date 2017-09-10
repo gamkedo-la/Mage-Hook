@@ -66,31 +66,77 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     }
 }
 
+function calculateAngleFrom(object1, object2) {
+    var x1 = object1.x;
+    var x2 = object2.x;
+    var y1 = object1.y;
+    var y2 = object2.y;
+    var angle = Math.atan2(y2-y1,x2-x1);
+    return angle;
+}
+
+function calculateCenterCoordOfTileIndex(tileIndex) {
+    var topLeftX = (tileIndex % WORLD_COLS) * WORLD_W;
+    var topLeftY = Math.floor(tileIndex / WORLD_COLS) * WORLD_H;
+    var centerX = topLeftX + WORLD_W/2;
+    var centerY = topLeftY + WORLD_H/2;
+    return {
+        x: centerX,
+        y: centerY
+    };
+}
+
 // NOTE(Cipherpunk): See template below to add to class
-moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck, checksPerFrame, movePerCheck, axis) {
+moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
+                                               checksPerFrame, movePerCheck, axis) {
     for (var i = 0; i < checksPerFrame; i++) {
         var collisionDetected = false;
+        var wallCollisionDetected = false;
         var origin = objectToMove[axis];
 
         objectToMove[axis] += movePerCheck;
         objectToMove.updateColliders();
 
+
         for (var corner in colliderToCheck.box) {
-            if (colliderToCheck.box[corner].x == undefined) {
-                continue;
-            }
             var x = colliderToCheck.box[corner].x;
             var y = colliderToCheck.box[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);
+            // check if there's a collision at the new corner coord
             collisionDetected = objectToMove.collisionHandler(tileIndex);
 
             if (collisionDetected) {
+                // revert object position
                 objectToMove[axis] = origin;
                 objectToMove.updateColliders();
+
+                // make another check to see if this started in wall
+                x = colliderToCheck.box[corner].x;
+                y = colliderToCheck.box[corner].y;
+                tileIndex = getTileIndexAtPixelCoord(x, y);
+                wallCollisionDetected = objectToMove.collisionHandler(tileIndex);
+
+                if (wallCollisionDetected) {
+                    //TODO: Set this[axis] to the edge of the wall
+                    var offset;
+                    var result = calculateCenterCoordOfTileIndex(tileIndex);
+                    if (axis == X_AXIS) {
+                        offset = colliderToCheck.width/2 + WORLD_W/2;
+                    } else {
+                        offset = colliderToCheck.height/2 + WORLD_H/2;
+                    }
+                    if (colliderToCheck[axis] > result[axis]) {
+                        objectToMove[axis] = result[axis] + offset;
+                    } else {
+                        objectToMove[axis] = result[axis] - offset;
+                    }
+                    objectToMove.updateColliders();
+                }
                 return collisionDetected;
             }
         }
     }
+    return collisionDetected;
 }
 
 /* NOTE(Cipherpunk): Below is a template to add to each class

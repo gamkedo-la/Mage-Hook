@@ -67,7 +67,8 @@ function enemyClass(x, y){
 		{
 			this.die();
 			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
-				dropItem(this.tileCollider.x, this.tileCollider.y);
+				dropItem(this.hitbox.x, this.hitbox.y);
+				// dropItem(this.tileCollider.x, this.tileCollider.y);
 			}
 			return;
 		}
@@ -86,10 +87,13 @@ function enemyClass(x, y){
 		}
 		var checksPerFrame = 5;
 		var movePerCheck;
+
+		// movePerCheck = 1; // for testing collisions
 		movePerCheck = (Math.cos(moveAngle) * moveSpeed)/checksPerFrame;
 		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
 											checksPerFrame, movePerCheck, X_AXIS);
 
+		// movePerCheck = 1; // for testing collisions
 		movePerCheck = (Math.sin(moveAngle) * moveSpeed)/checksPerFrame;
 		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
 											checksPerFrame, movePerCheck, Y_AXIS);

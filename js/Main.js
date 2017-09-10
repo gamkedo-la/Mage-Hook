@@ -62,8 +62,8 @@ function drawAll() {
 	canvasContext.save();
 	//canvasContext.translate(-camPanX,-camPanY); //currently causing visual bugs
 	drawWorld();
-	currentRoom.drawMyEnemies();
 	drawItems();
+	currentRoom.drawMyEnemies();
 	player.draw();
 	drawParticles();
 	hud.draw();
