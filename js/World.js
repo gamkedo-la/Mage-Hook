@@ -52,21 +52,13 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
-<<<<<<< HEAD
-			checkTileType == TILE_DOOR  ||
-			checkTileType == TILE_CHAIN ||
-			checkTileType == TILE_OOZE  ||
-			checkTileType == TILE_WEB   ||
-			checkTileType == TILE_BOX   ||
-			checkTileType == TILE_DOOR);
-=======
 			checkTileType == TILE_DOOR_COMMON ||
 			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE ||
 			checkTileType == TILE_WEB ||
+			checkTileType == TILE_BOX ||
 			checkTileType == TILE_DOOR_EPIC ||
 			checkTileType == TILE_DOOR_RARE);
->>>>>>> fada8d7ff948352ed9ea57b0df72b777165e2989
 }
 
 function drawWorld() {

@@ -53,15 +53,10 @@ function loadImages() {
 		{worldType: TILE_KEY_COMMON, theFile: "world_key_bronze.png"},
 		{worldType: TILE_KEY_RARE, theFile: "world_key_silver.png"},
 		{worldType: TILE_KEY_EPIC, theFile: "world_key_gold.png"},
-<<<<<<< HEAD
-		{worldType: TILE_DOOR_COMMON, theFile: "world_door.png"},
-		{worldType: TILE_DOOR_RARE, theFile: "world_door_ruby.png"},
-		{worldType: TILE_DOOR_EPIC, theFile: "world_door_emerald.png"},
-=======
+
 		{worldType: TILE_DOOR_COMMON, theFile: "world_door_bronze.png"},
 		{worldType: TILE_DOOR_RARE, theFile: "world_door_silver.png"},
 		{worldType: TILE_DOOR_EPIC, theFile: "world_door_gold.png"},
->>>>>>> fada8d7ff948352ed9ea57b0df72b777165e2989
 		{worldType: TILE_CHAIN, theFile: "world_chains.png"},
 		{worldType: TILE_OOZE, theFile: "world_ooze.png"},
 		{worldType: TILE_WEB, theFile: "world_web.png"},

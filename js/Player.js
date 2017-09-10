@@ -414,47 +414,8 @@ function playerClass() {
 		var tileType = worldGrid[tileIndex];
 
 		switch(tileType) {
-<<<<<<< HEAD
-			case TILE_BOX:
-				if(this.inventory.keys > 0 && !this.isStunned) {
-					this.inventory.keys--; // one less key
-					this.updateKeyReadout();
-					worldGrid[tileIndex] = TILE_GROUND;
-					var result = calculateCenterCoordOfTileIndex(tileIndex);
-					for (var i = 0; i < PARTICLES_PER_BOX; i++) {
-						var tempParticle = new particleClass(result.x, result.y, 'gold');
-						particle.push(tempParticle);
-					}
-					for (var i = 0; i < 50; i++) {
-						var dropType = Math.random() * 100;
-						if (dropType <= ITEM_KEY_DROP_PERCENT)
-							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY);
-						else
-							dropType -= ITEM_KEY_DROP_PERCENT;
-
-						if (dropType <= ITEM_POTION_DROP_PERCENT)
-							dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
-						else
-							dropType -= ITEM_POTION_DROP_PERCENT;
-
-						if (dropType <= ITEM_KEY_RUBY_DROP_PERCENT)
-							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_RUBY);
-						else
-							dropType -= ITEM_KEY_RUBY_DROP_PERCENT;
-
-						if (dropType <= ITEM_KEY_EMERALD_DROP_PERCENT)
-							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_EMERALD);
-						else
-							dropType -= ITEM_KEY_EMERALD_DROP_PERCENT;
-					}
-				}
-				break;
-			case TILE_DOOR:
-				if(this.inventory.keys > 0 && !this.isStunned) {
-=======
 			case TILE_DOOR_COMMON:
 				if(this.inventory.keysCommon > 0 && !this.isStunned) {
->>>>>>> fada8d7ff948352ed9ea57b0df72b777165e2989
 					Sound.play("door_open");
 					this.inventory.keysCommon--; // one less key
 					this.updateKeyReadout();
