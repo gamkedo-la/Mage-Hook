@@ -112,6 +112,7 @@ function itemClass(posX, posY, speed, type) {
             velY = 0;
             this.canBePickedUp = true;
         }
+        this.tileBehaviorHandler();
     }
 
     this.draw = function() {
@@ -140,6 +141,21 @@ function itemClass(posX, posY, speed, type) {
                 break;
         }
         return collisionDetected;
+    }
+
+    this.tileBehaviorHandler = function() {
+
+        var types = this.collider.checkTileTypes();
+        for (var i = 0; i < types.length; i++) {
+            switch (types[i]) {
+                case TILE_WEB:
+                    velX *= WEB_FRICTION;
+                    velY *= WEB_FRICTION
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 

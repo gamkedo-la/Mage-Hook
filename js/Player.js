@@ -236,7 +236,8 @@ function playerClass() {
 
 		this.updateColliders();
 		this.tileBehaviorHandler();
-	}
+		isMoving = false;
+	}  // end of this.update()
 
 	this.draw = function() {
 		if (drawPlayer) {
@@ -378,6 +379,12 @@ function playerClass() {
 	    for (var i = 0; i < types.length; i++) {
 		    switch (types[i]) {
 				case TILE_OOZE:
+					if (!this.isInvincible) {
+						this.currentHealth--;
+						this.isInvincible = true;
+						invincibleTimer = INVINCIBLE_DURATION;
+					}
+
 					if (isMoving) {
 						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
 							var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
