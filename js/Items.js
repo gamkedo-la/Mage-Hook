@@ -80,6 +80,7 @@ function itemClass(posX, posY, speed, type) {
         // I realize it might unnecessary. I mostly wanted to see if I
         // could do it. =D
         if (untangleTimer > 0) {
+
             for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
                 var item = currentRoom.itemOnGround[i];
 
@@ -103,6 +104,8 @@ function itemClass(posX, posY, speed, type) {
                         velY = -velY;
                     }
                 }
+
+                this.tileBehaviorHandler();
             }
 
             untangleTimer -= TIME_PER_TICK;
@@ -112,7 +115,6 @@ function itemClass(posX, posY, speed, type) {
             velY = 0;
             this.canBePickedUp = true;
         }
-        this.tileBehaviorHandler();
     }
 
     this.draw = function() {
