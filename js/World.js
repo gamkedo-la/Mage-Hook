@@ -52,10 +52,11 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
-			checkTileType == TILE_DOOR ||
+			checkTileType == TILE_DOOR  ||
 			checkTileType == TILE_CHAIN ||
-			checkTileType == TILE_OOZE ||
-			checkTileType == TILE_WEB ||
+			checkTileType == TILE_OOZE  ||
+			checkTileType == TILE_WEB   ||
+			checkTileType == TILE_BOX   ||
 			checkTileType == TILE_DOOR);
 }
 

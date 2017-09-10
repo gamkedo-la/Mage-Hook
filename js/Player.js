@@ -5,6 +5,7 @@ const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
 const PARTICLES_PER_ATTACK = 200;
+const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
 const POISON_DURATION = 1;
 const FRICTION = 0.80;
@@ -413,6 +414,40 @@ function playerClass() {
 		var tileType = worldGrid[tileIndex];
 
 		switch(tileType) {
+			case TILE_BOX:
+				if(this.inventory.keys > 0 && !this.isStunned) {
+					this.inventory.keys--; // one less key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+					var result = calculateCenterCoordOfTileIndex(tileIndex);
+					for (var i = 0; i < PARTICLES_PER_BOX; i++) {
+						var tempParticle = new particleClass(result.x, result.y, 'gold');
+						particle.push(tempParticle);
+					}
+					for (var i = 0; i < 50; i++) {
+						var dropType = Math.random() * 100;
+						if (dropType <= ITEM_KEY_DROP_PERCENT)
+							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY);
+						else
+							dropType -= ITEM_KEY_DROP_PERCENT;
+
+						if (dropType <= ITEM_POTION_DROP_PERCENT)
+							dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
+						else
+							dropType -= ITEM_POTION_DROP_PERCENT;
+
+						if (dropType <= ITEM_KEY_RUBY_DROP_PERCENT)
+							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_RUBY);
+						else
+							dropType -= ITEM_KEY_RUBY_DROP_PERCENT;
+
+						if (dropType <= ITEM_KEY_EMERALD_DROP_PERCENT)
+							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_EMERALD);
+						else
+							dropType -= ITEM_KEY_EMERALD_DROP_PERCENT;
+					}
+				}
+				break;
 			case TILE_DOOR:
 				if(this.inventory.keys > 0 && !this.isStunned) {
 					Sound.play("door_open");

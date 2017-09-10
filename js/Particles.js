@@ -41,11 +41,6 @@ function particleClass(posX, posY, color) {
 
     this.draw = function() {
         colorRect(x, y, size, size, color);
-        // canvasContext.strokeStyle = color;
-        // canvasContext.lineWidth = 1;
-        // var x = Math.floor(x) + .5;
-        // var y = Math.floor(y) + .5;
-        // canvasContext.strokeRect(x, y, size, size);
     }
 }
 
