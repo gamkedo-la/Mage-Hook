@@ -414,6 +414,41 @@ function playerClass() {
 		var tileType = worldGrid[tileIndex];
 
 		switch(tileType) {
+			case TILE_BOX:
+				if(this.inventory.keysRare > 0 && !this.isStunned) {
+					this.inventory.keysRare--; // one less key
+					this.updateKeyReadout();
+					worldGrid[tileIndex] = TILE_GROUND;
+					var result = calculateCenterCoordOfTileIndex(tileIndex);
+					for (var i = 0; i < PARTICLES_PER_BOX; i++) {
+						var tempParticle = new particleClass(result.x, result.y, 'gold');
+						particle.push(tempParticle);
+					}
+					for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
+						var dropType = Math.random() * 100;
+						//in order of most common to least common
+						if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
+							dropItem(result.x, result.y, ITEM_KEY_COMMON);
+						else
+							dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
+
+						if (dropType <= ITEM_POTION_DROP_PERCENT)
+							dropItem(result.x, result.y, ITEM_POTION);
+						else
+							dropType -= ITEM_POTION_DROP_PERCENT;
+
+						if (dropType <= ITEM_KEY_RARE_DROP_PERCENT)
+							dropItem(result.x, result.y, ITEM_KEY_RARE);
+						else
+							dropType -= ITEM_KEY_RARE_DROP_PERCENT;
+
+						if (dropType <= ITEM_KEY_EPIC_DROP_PERCENT)
+							dropItem(result.x, result.y, ITEM_KEY_EPIC);
+						else
+							dropType -= ITEM_KEY_EPIC_DROP_PERCENT;
+					}
+				}
+				break;
 			case TILE_DOOR_COMMON:
 				if(this.inventory.keysCommon > 0 && !this.isStunned) {
 					Sound.play("door_open");
