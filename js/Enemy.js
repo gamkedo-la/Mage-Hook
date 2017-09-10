@@ -77,7 +77,7 @@ function enemyClass(x, y){
 					dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_COMMON);
 				else
 					dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
-				
+
 				if (dropType <= ITEM_POTION_DROP_PERCENT)
 					dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
 				else
@@ -169,7 +169,7 @@ function enemyClass(x, y){
 			switch (types[i]) {
 				case TILE_OOZE:
 					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+						var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lime');
 						particle.push(tempParticle);
 					}
 					break;
@@ -177,7 +177,7 @@ function enemyClass(x, y){
 					enemyFriction = WEB_FRICTION;
 					sprite.setSpeed(4.5)
 					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lightGrey');
+						var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lightGrey');
 						particle.push(tempParticle);
 					}
 					break;
