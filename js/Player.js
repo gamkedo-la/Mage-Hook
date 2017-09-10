@@ -424,7 +424,7 @@ function playerClass() {
 						var tempParticle = new particleClass(result.x, result.y, 'gold');
 						particle.push(tempParticle);
 					}
-					for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
+					for (var i = 0; i < 100; i++) {
 						var dropType = Math.random() * 100;
 						//in order of most common to least common
 						if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
