@@ -4,7 +4,9 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
-const PARTICLES_PER_ATTACK = 500;
+const PARTICLES_PER_ATTACK = 200;
+const PARTICLES_PER_OOZE_STEP = 3;
+const POISON_DURATION = 1;
 const FRICTION = 0.80;
 const WEB_FRICTION = 0.15;
 
@@ -312,7 +314,7 @@ function playerClass() {
 				// give score / item drops / etc
 				// particle effect / sound / etc
 				for (var i = 0; i < PARTICLES_PER_ATTACK; i++) {
-					var tempParticle = new particleClass(enemy.hitbox.x, enemy.hitbox.y);
+					var tempParticle = new particleClass(enemy.hitbox.x, enemy.hitbox.y, 'red');
 					particle.push(tempParticle);
 				}
 	        }
@@ -401,6 +403,13 @@ function playerClass() {
 				break;
 			case TILE_WALL:
 				collisionDetected = true;
+				break;
+			case TILE_OOZE:
+				player.poisonTimer = POISON_DURATION;
+				for (var i = 0; i < PARTICLES_PER_OOZE_STEP; i++) {
+					var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+					particle.push(tempParticle);
+				}
 				break;
 			default:
 				break;

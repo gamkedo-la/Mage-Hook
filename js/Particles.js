@@ -7,7 +7,7 @@ const GRAVITY = .03;
 
 var particle = [];
 
-function particleClass(posX, posY) {
+function particleClass(posX, posY, color) {
 
     var x = posX;
     var y = posY;
@@ -17,11 +17,13 @@ function particleClass(posX, posY) {
     var angle = Math.random() * Math.PI * 2;
     var velX = Math.cos(angle) * speed;
     var velY = Math.sin(angle) * speed;
+    var color = color;
+    
+    // var red = Math.round(Math.random() * 255);
+    // var blue = Math.round(Math.random() * 255);
+    // var green = Math.round(Math.random() * 255);
+    // var color = "rgb(" + red + "," + blue + "," + green + ")";
 
-    var red = Math.round(Math.random() * 255);
-    var blue = Math.round(Math.random() * 255);
-    var green = Math.round(Math.random() * 255);
-    var color = "rgb(" + red + "," + blue + "," + green + ")";
 
     this.remove = false;
 

@@ -102,9 +102,13 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
             var x = colliderToCheck.box[corner].x;
             var y = colliderToCheck.box[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);
+            var uniqueTileTypes = [];
             // check if there's a collision at the new corner coord
             collisionDetected = objectToMove.collisionHandler(tileIndex);
-
+            // TODO: Add tileBehavior functions and checks
+            if (!uniqueTileTypes.indexOf(worldGrid[tileIndex])) {
+                uniqueTileTypes.push(worldGrid[tileIndex]);
+            }
             if (collisionDetected) {
                 // revert object position
                 objectToMove[axis] = origin;
@@ -132,7 +136,7 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
                     }
                     objectToMove.updateColliders();
                 }
-                return collisionDetected;
+                // return collisionDetected;
             }
         }
     }
