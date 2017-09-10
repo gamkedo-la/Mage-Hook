@@ -387,7 +387,7 @@ function playerClass() {
 
 					if (isMoving) {
 						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-							var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+							var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lime');
 							particle.push(tempParticle);
 						}
 					}
@@ -397,7 +397,7 @@ function playerClass() {
 					sprite.setSpeed(6)
 					if (isMoving) {
 						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-							var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lightGrey');
+							var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lightGrey');
 							particle.push(tempParticle);
 						}
 					}
