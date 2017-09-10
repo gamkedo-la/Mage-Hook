@@ -51,7 +51,7 @@ function loadImages() {
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
 		{worldType: TILE_KEY, theFile: "world_key_gold.png"},
-		{worldType: TILE_KEY_RUBY, theFile: "world_key_gold.png"},
+		{worldType: TILE_KEY_RUBY, theFile: "world_key_ruby.png"},
 		{worldType: TILE_KEY_EMERALD, theFile: "world_key_emerald.png"},
 		{worldType: TILE_DOOR, theFile: "world_door.png"},
 		{worldType: TILE_DOOR_RUBY, theFile: "world_door_ruby.png"},

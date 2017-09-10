@@ -7,6 +7,8 @@ const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
 const ITEM_KEY = 1;
 const ITEM_POTION = 2;
+const ITEM_KEY_RUBY = 3;
+const ITEM_KEY_EMERALD = 4;
 
 function itemClass(posX, posY, speed, type) {
     this.x = posX;
@@ -23,6 +25,20 @@ function itemClass(posX, posY, speed, type) {
 	switch (type){
 		case(ITEM_KEY):
             this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+            var colliderWidth = 10;
+            var colliderHeight = 14;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
+			break;
+		case(ITEM_KEY_RUBY):
+            this.sprite.setSprite(worldPics[TILE_KEY_RUBY], 20, 20, 1, 0, true);
+            var colliderWidth = 10;
+            var colliderHeight = 14;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
+			break;
+		case(ITEM_KEY_EMERALD):
+            this.sprite.setSprite(worldPics[TILE_KEY_EMERALD], 20, 20, 1, 0, true);
             var colliderWidth = 10;
             var colliderHeight = 14;
             var colliderOffsetX = 0;
@@ -191,6 +207,16 @@ function pickUpItems(collider) {
 					if (player.currentHealth < player.maxHealth)
 						player.currentHealth++;
 					Sound.play('key_pickup', false, 0.1);
+					break;
+				case ITEM_KEY_RUBY:
+                	player.inventory.keysRuby++; // one more key
+                    // this.updateKeyReadout();
+                    Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
+					break;
+				case ITEM_KEY_EMERALD:
+                	player.inventory.keysEmerald++; // one more key
+                    // this.updateKeyReadout();
+                    Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
 					break;
             }
         }
