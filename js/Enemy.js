@@ -145,6 +145,10 @@ function enemyClass(x, y){
 				break;
 			case TILE_DOOR:
 				break;
+			case TILE_DOOR_RUBY:
+                break;
+			case TILE_DOOR_EMERALD:
+                break;
 			case TILE_WALL:
 				break;
 			default:

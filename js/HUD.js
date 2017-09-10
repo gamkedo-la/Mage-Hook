@@ -56,15 +56,15 @@ function hudClass() {
         var drawY = 12;
         keySprite.draw(drawX, drawY);
         colorText(" x " + player.inventory.keys, drawX + 3, drawY + 5, 'white');
-		drawX -= 31;
+		drawY += 15;
 		keyRubySprite.draw(drawX, drawY);
         colorText(" x " + player.inventory.keysRuby, drawX + 3, drawY + 5, 'white');
-		drawX -= 31;
+		drawY += 15;
 		keyEmeraldSprite.draw(drawX, drawY);
         colorText(" x " + player.inventory.keysEmerald, drawX + 3, drawY + 5, 'white');
         // (temp?) draw score mostly so we know if attacks are working =)
-		drawX = canvas.width - 69;
-		drawY += 17;
+		drawX = canvas.width - 100;
+		drawY = 12;
         colorText("SCORE: " + player.enemyHitCount + "00", drawX, drawY, 'white');
 
     }
