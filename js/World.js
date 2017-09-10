@@ -10,18 +10,18 @@ const TILE_GROUND = 0;
 const TILE_WALL = 1;
 const TILE_PLAYERSTART = 2;
 const TILE_SKULL = 3;
-const TILE_KEY = 4;
-const TILE_DOOR = 5;
+const TILE_KEY_COMMON = 4;
+const TILE_DOOR_COMMON = 5;
 const TILE_ENEMYSTART = 6;
 const TILE_TRAP = 7;
 const TILE_CHAIN = 8;
 const TILE_OOZE = 9;
 const TILE_WEB = 10;
 const TILE_BOX = 11;
-const TILE_KEY_RUBY = 12;
-const TILE_KEY_EMERALD = 13;
-const TILE_DOOR_RUBY = 14;
-const TILE_DOOR_EMERALD = 15;
+const TILE_KEY_RARE = 12;
+const TILE_KEY_EPIC = 13;
+const TILE_DOOR_RARE = 14;
+const TILE_DOOR_EPIC = 15;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -52,12 +52,21 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
+<<<<<<< HEAD
 			checkTileType == TILE_DOOR  ||
 			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE  ||
 			checkTileType == TILE_WEB   ||
 			checkTileType == TILE_BOX   ||
 			checkTileType == TILE_DOOR);
+=======
+			checkTileType == TILE_DOOR_COMMON ||
+			checkTileType == TILE_CHAIN ||
+			checkTileType == TILE_OOZE ||
+			checkTileType == TILE_WEB ||
+			checkTileType == TILE_DOOR_EPIC ||
+			checkTileType == TILE_DOOR_RARE);
+>>>>>>> fada8d7ff948352ed9ea57b0df72b777165e2989
 }
 
 function drawWorld() {

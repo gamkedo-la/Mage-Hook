@@ -39,9 +39,9 @@ function playerClass() {
 	this.enemyHitCount = 0;
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
-	this.inventory.keys = 0;
-	this.inventory.keysRuby = 0;
-	this.inventory.keysEmerald = 0;
+	this.inventory.keysCommon = 0;
+	this.inventory.keysRare = 0;
+	this.inventory.keysEpic = 0;
 	this.isStunned = false;
 	this.isInvincible = false;
 	var stunTimer;
@@ -102,9 +102,9 @@ function playerClass() {
 		this.name = playerName;
 		if (this.currentHealth <=0)
 		{
-			this.inventory.keys = 0;
-			this.inventory.keysRuby = 0;
-			this.inventory.keysEmerald = 0;
+			this.inventory.keysCommon = 0;
+			this.inventory.keysRare = 0;
+			this.inventory.keysEpic = 0;
 		}
 		this.currentHealth = this.maxHealth;
 		this.isFacing = SOUTH; // FIXME possible bug? this.?
@@ -414,6 +414,7 @@ function playerClass() {
 		var tileType = worldGrid[tileIndex];
 
 		switch(tileType) {
+<<<<<<< HEAD
 			case TILE_BOX:
 				if(this.inventory.keys > 0 && !this.isStunned) {
 					this.inventory.keys--; // one less key
@@ -450,24 +451,28 @@ function playerClass() {
 				break;
 			case TILE_DOOR:
 				if(this.inventory.keys > 0 && !this.isStunned) {
+=======
+			case TILE_DOOR_COMMON:
+				if(this.inventory.keysCommon > 0 && !this.isStunned) {
+>>>>>>> fada8d7ff948352ed9ea57b0df72b777165e2989
 					Sound.play("door_open");
-					this.inventory.keys--; // one less key
+					this.inventory.keysCommon--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
 				break;
-			case TILE_DOOR_RUBY:
-				if(this.inventory.keysRuby > 0 && !this.isStunned) {
+			case TILE_DOOR_RARE:
+				if(this.inventory.keysRare > 0 && !this.isStunned) {
 					Sound.play("door_open");
-					this.inventory.keysRuby--; // one less key
+					this.inventory.keysRare--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
 				break;
-			case TILE_DOOR_EMERALD:
-				if(this.inventory.keysEmerald > 0 && !this.isStunned) {
+			case TILE_DOOR_EPIC:
+				if(this.inventory.keysEpic > 0 && !this.isStunned) {
 					Sound.play("door_open");
-					this.inventory.keysEmerald--; // one less key
+					this.inventory.keysEpic--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
