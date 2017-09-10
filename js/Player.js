@@ -232,7 +232,8 @@ function playerClass() {
 
 		this.updateColliders();
 		this.tileBehaviorHandler();
-	}
+		isMoving = false;
+	}  // end of this.update()
 
 	this.draw = function() {
 		if (drawPlayer) {
