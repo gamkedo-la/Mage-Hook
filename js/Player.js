@@ -1,13 +1,14 @@
-const PLAYER_MOVE_SPEED = 3;
+const PLAYER_MOVE_SPEED = 4;
 const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
 const PARTICLES_PER_ATTACK = 500;
+const FRICTION = 0.80;
+const WEB_FRICTION = 0.15;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
-const FRICTION = 0.80;
 
 const NORTH = 1;
 const SOUTH = 2;
@@ -24,6 +25,7 @@ function playerClass() {
 	var wasFacing = isFacing;
 	var isAttacking = false;
 	var wasAttacking = false;
+	var playerFriction = FRICTION;
 
 	var playerAtStartingPosition = true;
 	this.x = STARTING_POSITION_X;
@@ -128,8 +130,9 @@ function playerClass() {
 
 	this.move = function() {
 
-		var checksPerFrame = PLAYER_MOVE_SPEED;
-		var movePerCheck = 1;
+		var speed = PLAYER_MOVE_SPEED * playerFriction;
+		var checksPerFrame = 5;
+		var movePerCheck = speed/checksPerFrame;
 		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
 			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
 												checksPerFrame, -movePerCheck, X_AXIS);
@@ -373,6 +376,9 @@ function playerClass() {
 	this.collisionHandler = function(tileIndex) {
 		var collisionDetected = false;
 		var tileType = worldGrid[tileIndex];
+		playerFriction = FRICTION;
+		sprite.setSpeed(12);
+
 		switch(tileType) {
 			case TILE_GROUND:
 				break;
@@ -386,15 +392,13 @@ function playerClass() {
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				} else {
-				collisionDetected = true;
-			}
+					collisionDetected = true;
+				}
 				break;
-			// case TILE_KEY:
-			//  Sound.play("key_pickup");
-			// 	this.inventory.keys++; // one more key
-			// 	this.updateKeyReadout();
-			// 	worldGrid[tileIndex] = TILE_GROUND;
-			// 	break;
+			case TILE_WEB:
+				playerFriction = WEB_FRICTION;
+				sprite.setSpeed(6)
+				break;
 			case TILE_WALL:
 				collisionDetected = true;
 				break;
