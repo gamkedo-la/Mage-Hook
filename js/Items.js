@@ -11,6 +11,13 @@ const ITEM_KEY_RARE = 3;
 const ITEM_KEY_EPIC = 4;
 const ITEM_CRYSTAL = 5;
 
+const ITEM_SUCCESS_CHANCE = .70; // affects item drop rate
+const ITEM_CRYSTAL_DROP_PERCENT = 80; //al item drop rates should add up to 100
+const ITEM_POTION_DROP_PERCENT = 10;
+const ITEM_KEY_COMMON_DROP_PERCENT = 5;
+const ITEM_KEY_RARE_DROP_PERCENT = 4;
+const ITEM_KEY_EPIC_DROP_PERCENT = 1;
+
 function itemClass(posX, posY, speed, type) {
     this.x = posX;
     this.y = posY;
@@ -171,6 +178,19 @@ function itemClass(posX, posY, speed, type) {
             }
         }
     }
+}
+
+function rollItemQuantity(baseItemAmount, capItemAmount, adjustQuantityByPercentage) {
+    var totalItems = baseItemAmount;
+    while (Math.random() < ITEM_SUCCESS_CHANCE) {
+        totalItems++;
+    }
+    totalItems *= adjustQuantityByPercentage;
+    if (totalItems > capItemAmount) {
+        totalItems = capItemAmount;
+    }
+	console.log(totalItems + " Items Dropped");
+    return Math.floor(totalItems);
 }
 
 function dropItem(x, y, type) {

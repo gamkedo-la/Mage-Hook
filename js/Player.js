@@ -424,7 +424,8 @@ function playerClass() {
 						var tempParticle = new particleClass(result.x, result.y, 'gold');
 						particle.push(tempParticle);
 					}
-					for (var i = 0; i < 100; i++) {
+					var totalItems = rollItemQuantity(10, 100, 2.5);
+					for (var i = 0; i < totalItems; i++) {
 						var dropType = Math.random() * 100;
 						//in order of most common to least common
 						if (dropType <= ITEM_CRYSTAL_DROP_PERCENT)
@@ -436,17 +437,17 @@ function playerClass() {
 							dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
 						else
 							dropType -= ITEM_POTION_DROP_PERCENT;
-						
+
 						if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
 							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_COMMON);
 						else
 							dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
-						
+
 						if (dropType <= ITEM_KEY_RARE_DROP_PERCENT)
 							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_RARE);
 						else
 							dropType -= ITEM_KEY_RARE_DROP_PERCENT;
-						
+
 						if (dropType <= ITEM_KEY_EPIC_DROP_PERCENT)
 							dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_EPIC);
 						else
