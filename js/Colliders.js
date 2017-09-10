@@ -9,7 +9,6 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.x = x + offsetX;
     this.y = y + offsetY;
     this.box = {};
-    this.uniqueTileTypes = [];
 
     this.setCollider = function(posX, posY) {
 
@@ -65,6 +64,20 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         var y = Math.floor(this.box.topLeft.y) + .5;
         canvasContext.strokeRect(x, y, this.width, this.height);
     }
+
+    this.checkTileTypes = function() {
+        var uniqueTileTypes = [];
+        for (var corner in this.box) {
+            var x = this.box[corner].x;
+            var y = this.box[corner].y;
+            var tileIndex = getTileIndexAtPixelCoord(x, y);
+
+            if (uniqueTileTypes.indexOf(worldGrid[tileIndex]) == -1) {
+                uniqueTileTypes.push(worldGrid[tileIndex]);
+            }
+        }
+        return uniqueTileTypes;
+    }
 }
 
 function calculateAngleFrom(object1, object2) {
@@ -106,12 +119,6 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
             // check if there's a collision at the new corner coord
             collisionDetected = objectToMove.collisionHandler(tileIndex);
 
-            if (this.uniqueTileTypes == undefined) {
-                this.uniqueTileTypes = [];
-            }
-            if (this.uniqueTileTypes.indexOf(worldGrid[tileIndex]) != -1) {
-                this.uniqueTileTypes.push(worldGrid[tileIndex]);
-            }
             if (collisionDetected) {
                 // revert object position
                 objectToMove[axis] = origin;

@@ -379,9 +379,10 @@ function playerClass() {
 	this.tileBehaviorHandler = function() {
 		playerFriction = FRICTION;
 		sprite.setSpeed(12);
-
-	    for (var i = 0; i < this.tileCollider.uniqueTileTypes.length; i++) {
-	        switch (collidedWithTheseTileTypes[i]) {
+		var types = this.tileCollider.checkTileTypes();
+	    for (var i = 0; i < types.length; i++) {
+			console.log(types[i]);
+		    switch (types) {
 				case TILE_OOZE:
 					player.poisonTimer = POISON_DURATION;
 					for (var i = 0; i < PARTICLES_PER_OOZE_STEP; i++) {
@@ -399,7 +400,6 @@ function playerClass() {
 	                break;
 	        }
 	    }
-	    this.tileCollider.uniqueTileTypes = [];
 	}
 
 	this.collisionHandler = function(tileIndex) {
