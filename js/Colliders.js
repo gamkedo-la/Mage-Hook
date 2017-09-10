@@ -121,9 +121,9 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
                     var offset;
                     var result = calculateCenterCoordOfTileIndex(tileIndex);
                     if (axis == X_AXIS) {
-                        offset = colliderToCheck.width/2 + WORLD_W/2;
+                        offset = colliderToCheck.width/2 + WORLD_W/2 + 1;
                     } else {
-                        offset = colliderToCheck.height/2 + WORLD_H/2;
+                        offset = colliderToCheck.height/2 + WORLD_H/2 + 1;
                     }
                     if (colliderToCheck[axis] > result[axis]) {
                         objectToMove[axis] = result[axis] + offset;
