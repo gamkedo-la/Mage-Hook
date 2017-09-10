@@ -232,6 +232,7 @@ function playerClass() {
 		}
 
 		this.updateColliders();
+		this.tileBehaviorHandler();
 	}
 
 	this.draw = function() {
@@ -375,17 +376,38 @@ function playerClass() {
 		this.attackhitbox.update(this.x+attackoffsetx, this.y+attackoffsety);
 	}
 
-	this.collisionHandler = function(tileIndex) {
-		var collisionDetected = false;
-		var tileType = worldGrid[tileIndex];
+	this.tileBehaviorHandler = function() {
 		playerFriction = FRICTION;
 		sprite.setSpeed(12);
 
+	    for (var i = 0; i < this.tileCollider.uniqueTileTypes.length; i++) {
+	        switch (collidedWithTheseTileTypes[i]) {
+				case TILE_OOZE:
+					player.poisonTimer = POISON_DURATION;
+					for (var i = 0; i < PARTICLES_PER_OOZE_STEP; i++) {
+						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+						particle.push(tempParticle);
+					}
+					break;
+				case TILE_WEB:
+					playerFriction = WEB_FRICTION;
+					sprite.setSpeed(6)
+					break;
+	            case TILE_DOOR:
+	                break;
+	            default:
+	                break;
+	        }
+	    }
+	    this.tileCollider.uniqueTileTypes = [];
+	}
+
+	this.collisionHandler = function(tileIndex) {
+		var collisionDetected = true;
+		var tileType = worldGrid[tileIndex];
+
 		switch(tileType) {
-			case TILE_GROUND:
-				break;
 			case TILE_SKULL:
-				collisionDetected = true;
 				break;
 			case TILE_DOOR:
 				if(this.inventory.keys > 0 && !this.isStunned) {
@@ -393,25 +415,12 @@ function playerClass() {
 					this.inventory.keys--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
-				} else {
-					collisionDetected = true;
 				}
-				break;
-			case TILE_WEB:
-				playerFriction = WEB_FRICTION;
-				sprite.setSpeed(6)
 				break;
 			case TILE_WALL:
-				collisionDetected = true;
-				break;
-			case TILE_OOZE:
-				player.poisonTimer = POISON_DURATION;
-				for (var i = 0; i < PARTICLES_PER_OOZE_STEP; i++) {
-					var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
-					particle.push(tempParticle);
-				}
 				break;
 			default:
+				collisionDetected = false;
 				break;
 		}
 		return collisionDetected;

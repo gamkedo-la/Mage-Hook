@@ -22,17 +22,20 @@ function itemClass(posX, posY, speed, type) {
     this.sprite = new spriteClass();
 	switch (type){
 		case(ITEM_KEY):
-			this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+            this.sprite.setSprite(worldPics[TILE_KEY], 20, 20, 1, 0, true);
+            var colliderWidth = 10;
+            var colliderHeight = 14;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
 			break;
 		case(ITEM_POTION):
-			this.sprite.setSprite(heartHalfPic, 7, 7, 1, 0);
+            this.sprite.setSprite(heartHalfPic, 7, 7, 1, 0);
+            var colliderWidth = 7;
+            var colliderHeight = 7;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
 			break;
 	}
-
-    var colliderWidth = 10;
-	var colliderHeight = 14;
-	var colliderOffsetX = 0;
-	var colliderOffsetY = 0;
 
 	this.collider = new boxColliderClass(this.x, this.y,
 								         colliderWidth, colliderHeight,
@@ -107,22 +110,17 @@ function itemClass(posX, posY, speed, type) {
     }
 
     this.collisionHandler = function(tileIndex) {
-        var collisionDetected = false;
+        var collisionDetected = true;
         var tileType = worldGrid[tileIndex];
         switch(tileType) {
             case TILE_SKULL:
-                collisionDetected = true;
                 break;
             case TILE_DOOR:
-                collisionDetected = true;
                 break;
             case TILE_WALL:
-                collisionDetected = true;
-                break;
-            case TILE_WEB:
-                untangleTimer -= .005;
                 break;
             default:
+                collisionDetected = false;
                 break;
         }
         return collisionDetected;

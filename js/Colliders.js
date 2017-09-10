@@ -9,6 +9,7 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
     this.x = x + offsetX;
     this.y = y + offsetY;
     this.box = {};
+    this.uniqueTileTypes = [];
 
     this.setCollider = function(posX, posY) {
 
@@ -102,12 +103,14 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
             var x = colliderToCheck.box[corner].x;
             var y = colliderToCheck.box[corner].y;
             var tileIndex = getTileIndexAtPixelCoord(x, y);
-            var uniqueTileTypes = [];
             // check if there's a collision at the new corner coord
             collisionDetected = objectToMove.collisionHandler(tileIndex);
-            // TODO: Add tileBehavior functions and checks
-            if (!uniqueTileTypes.indexOf(worldGrid[tileIndex])) {
-                uniqueTileTypes.push(worldGrid[tileIndex]);
+
+            if (this.uniqueTileTypes == undefined) {
+                this.uniqueTileTypes = [];
+            }
+            if (this.uniqueTileTypes.indexOf(worldGrid[tileIndex]) != -1) {
+                this.uniqueTileTypes.push(worldGrid[tileIndex]);
             }
             if (collisionDetected) {
                 // revert object position
@@ -136,7 +139,7 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
                     }
                     objectToMove.updateColliders();
                 }
-                // return collisionDetected;
+                return collisionDetected;
             }
         }
     }
@@ -150,6 +153,26 @@ moveOnAxisAndCheckForTileCollisions = function(objectToMove, colliderToCheck,
 this.updateColliders = function() {
     this.collider.update(this.x, this.y);
     // More colliders can be added here.
+}
+
+this.tileBehaviorHandler = function() {
+    for (var i = 0; i < this.uniqueTileTypes.length; i++) {
+        switch (collidedWithTheseTileTypes[i]) {
+            case TILE_GROUND:
+                break;
+            case TILE_WALL:
+                break;
+            case TILE_OOZE:
+                break;
+            case TILE_WEB:
+                break;
+            case TILE_DOOR:
+                break;
+            default:
+                break;
+        }
+    }
+    this.uniqueTileTypes = [];
 }
 
 this.collisionHandler = function(tileIndex) {
