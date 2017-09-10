@@ -9,6 +9,7 @@ const ITEM_KEY_COMMON = 1;
 const ITEM_POTION = 2;
 const ITEM_KEY_RARE = 3;
 const ITEM_KEY_EPIC = 4;
+const ITEM_CRYSTAL = 5;
 
 function itemClass(posX, posY, speed, type) {
     this.x = posX;
@@ -50,6 +51,13 @@ function itemClass(posX, posY, speed, type) {
             var colliderHeight = 7;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
+			break;
+		case(ITEM_CRYSTAL):
+		this.sprite.setSprite(worldPics[TILE_CRYSTAL], 20, 20, 1, 0);
+            var colliderWidth = 10;
+            var colliderHeight = 10;
+            var colliderOffsetX = 5;
+            var colliderOffsetY = 5;
 			break;
 	}
 
@@ -209,11 +217,6 @@ function pickUpItems(collider) {
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
 					break;
-				case ITEM_POTION:
-					if (player.currentHealth < player.maxHealth)
-						player.currentHealth++;
-					Sound.play('key_pickup', false, 0.1);
-					break;
 				case ITEM_KEY_RARE:
                 	player.inventory.keysRare++; // one more key
                     // this.updateKeyReadout();
@@ -223,6 +226,15 @@ function pickUpItems(collider) {
                 	player.inventory.keysEpic++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
+					break;
+				case ITEM_POTION:
+					if (player.currentHealth < player.maxHealth)
+						player.currentHealth++;
+					Sound.play('key_pickup', false, 0.1);
+					break;
+				case ITEM_CRYSTAL:
+					player.enemyHitCount++;
+					Sound.play('key_pickup', false, 0.1);
 					break;
             }
         }

@@ -57,6 +57,7 @@ function loadImages() {
 		{worldType: TILE_DOOR_COMMON, theFile: "world_door_bronze.png"},
 		{worldType: TILE_DOOR_RARE, theFile: "world_door_silver.png"},
 		{worldType: TILE_DOOR_EPIC, theFile: "world_door_gold.png"},
+		{worldType: TILE_CRYSTAL, theFile: "world_crystal.png"},
 		{worldType: TILE_CHAIN, theFile: "world_chains.png"},
 		{worldType: TILE_OOZE, theFile: "world_ooze.png"},
 		{worldType: TILE_WEB, theFile: "world_web.png"},

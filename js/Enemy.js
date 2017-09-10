@@ -2,9 +2,10 @@ const MIN_SPEED = .25;
 const MAX_SPEED = .50;
 const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
-const ITEM_KEY_COMMON_DROP_PERCENT = 70; //al item drop rates should add up to 100
-const ITEM_POTION_DROP_PERCENT = 15;
-const ITEM_KEY_RARE_DROP_PERCENT = 13;
+const ITEM_CRYSTAL_DROP_PERCENT = 80; //al item drop rates should add up to 100
+const ITEM_POTION_DROP_PERCENT = 10;
+const ITEM_KEY_COMMON_DROP_PERCENT = 5;
+const ITEM_KEY_RARE_DROP_PERCENT = 4;
 const ITEM_KEY_EPIC_DROP_PERCENT = 1;
 
 var testSpritePic
@@ -73,15 +74,20 @@ function enemyClass(x, y){
 			for (var i = 0; i < ITEMS_DROPPED_PER_KILL; i++) {
 				var dropType = Math.random() * 100;
 				//in order of most common to least common
-				if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
-					dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_COMMON);
+				if (dropType <= ITEM_CRYSTAL_DROP_PERCENT)
+					dropItem(this.hitbox.x, this.hitbox.y, ITEM_CRYSTAL);
 				else
-					dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
+					dropType -= ITEM_CRYSTAL_DROP_PERCENT;
 
 				if (dropType <= ITEM_POTION_DROP_PERCENT)
 					dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
 				else
 					dropType -= ITEM_POTION_DROP_PERCENT;
+				
+				if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
+					dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_COMMON);
+				else
+					dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
 				
 				if (dropType <= ITEM_KEY_RARE_DROP_PERCENT)
 					dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_RARE);

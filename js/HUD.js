@@ -64,7 +64,7 @@ function hudClass() {
         // (temp?) draw score mostly so we know if attacks are working =)
 		drawX = canvas.width - 100;
 		drawY = 12;
-        colorText("SCORE: " + player.enemyHitCount + "00", drawX, drawY, 'white');
+        colorText("XP: " + player.enemyHitCount + "00", drawX, drawY, 'white');
 
     }
 }

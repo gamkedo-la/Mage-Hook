@@ -22,6 +22,7 @@ const TILE_KEY_RARE = 12;
 const TILE_KEY_EPIC = 13;
 const TILE_DOOR_RARE = 14;
 const TILE_DOOR_EPIC = 15;
+const TILE_CRYSTAL = 16;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
