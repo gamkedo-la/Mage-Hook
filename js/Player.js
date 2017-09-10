@@ -5,7 +5,7 @@ const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
 const PARTICLES_PER_ATTACK = 200;
-const PARTICLES_PER_OOZE_STEP = 3;
+const PARTICLES_PER_TICK = 3;
 const POISON_DURATION = 1;
 const FRICTION = 0.80;
 const WEB_FRICTION = 0.15;
@@ -213,7 +213,6 @@ function playerClass() {
 				knockbackSpeed *= FRICTION;
 			}
 		} else {
-			isMoving = false;
 			sprite.update();
 		}
 
@@ -301,19 +300,9 @@ function playerClass() {
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
 	        if (this.attackhitbox.isCollidingWith(enemy.hitbox)) {
-				//x1 = enemy.hitbox.x;
-				//x2 = this.attackhitbox.x;
-				//y1 = enemy.hitbox.y;
-				//y2 = this.attackhitbox.y;
-				//enemyknockbackAngle = Math.atan2(y2-y1, x2-x1);
-				//enemyknockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
 				enemy.recoil = true;
 				hitAnEnemy = enemy;
-				// TODO:
-				// reduce enemy health / destroy / etc
-				// give score / item drops / etc
-				// particle effect / sound / etc
 				for (var i = 0; i < PARTICLES_PER_ATTACK; i++) {
 					var tempParticle = new particleClass(enemy.hitbox.x, enemy.hitbox.y, 'red');
 					particle.push(tempParticle);
@@ -377,25 +366,31 @@ function playerClass() {
 	}
 
 	this.tileBehaviorHandler = function() {
+		// default behaviors go here
 		playerFriction = FRICTION;
 		sprite.setSpeed(12);
+
 		var types = this.tileCollider.checkTileTypes();
 	    for (var i = 0; i < types.length; i++) {
-			console.log(types[i]);
-		    switch (types) {
+		    switch (types[i]) {
 				case TILE_OOZE:
-					player.poisonTimer = POISON_DURATION;
-					for (var i = 0; i < PARTICLES_PER_OOZE_STEP; i++) {
-						var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
-						particle.push(tempParticle);
+					if (isMoving) {
+						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
+							var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lime');
+							particle.push(tempParticle);
+						}
 					}
 					break;
 				case TILE_WEB:
 					playerFriction = WEB_FRICTION;
 					sprite.setSpeed(6)
+					if (isMoving) {
+						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
+							var tempParticle = new particleClass(player.hitbox.x, player.hitbox.y, 'lightGrey');
+							particle.push(tempParticle);
+						}
+					}
 					break;
-	            case TILE_DOOR:
-	                break;
 	            default:
 	                break;
 	        }
@@ -407,8 +402,6 @@ function playerClass() {
 		var tileType = worldGrid[tileIndex];
 
 		switch(tileType) {
-			case TILE_SKULL:
-				break;
 			case TILE_DOOR:
 				if(this.inventory.keys > 0 && !this.isStunned) {
 					Sound.play("door_open");
@@ -416,6 +409,8 @@ function playerClass() {
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
+				break;
+			case TILE_SKULL:
 				break;
 			case TILE_WALL:
 				break;

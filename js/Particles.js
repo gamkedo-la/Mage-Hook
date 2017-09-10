@@ -18,7 +18,7 @@ function particleClass(posX, posY, color) {
     var velX = Math.cos(angle) * speed;
     var velY = Math.sin(angle) * speed;
     var color = color;
-    
+
     // var red = Math.round(Math.random() * 255);
     // var blue = Math.round(Math.random() * 255);
     // var green = Math.round(Math.random() * 255);
@@ -41,6 +41,11 @@ function particleClass(posX, posY, color) {
 
     this.draw = function() {
         colorRect(x, y, size, size, color);
+        // canvasContext.strokeStyle = color;
+        // canvasContext.lineWidth = 1;
+        // var x = Math.floor(x) + .5;
+        // var y = Math.floor(y) + .5;
+        // canvasContext.strokeRect(x, y, size, size);
     }
 }
 
