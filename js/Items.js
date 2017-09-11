@@ -156,6 +156,14 @@ function itemClass(posX, posY, speed, type) {
 			case TILE_DOOR_EPIC:
                 break;
             case TILE_WALL:
+			case TILE_WALL_NORTH:
+			case TILE_WALL_SOUTH:
+			case TILE_WALL_WEST:
+			case TILE_WALL_EAST:
+			case TILE_WALL_CORNER_NE:
+			case TILE_WALL_CORNER_NW:
+			case TILE_WALL_CORNER_SE:
+			case TILE_WALL_CORNER_SW:
                 break;
             default:
                 collisionDetected = false;
