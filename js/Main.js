@@ -31,10 +31,12 @@ function loadLevel() {
 		console.log("NO SUCH ROOM IS DEFINED, undoing room change");
 		currentRoomCol = lastValidCurrentRoomCol;
 		currentRoomRow = lastValidCurrentRoomRow;
+		currentFloor = lastValidCurrentFloor;
 		return;
 	}
 	lastValidCurrentRoomCol = currentRoomCol;
 	lastValidCurrentRoomRow = currentRoomRow;
+	lastValidCurrentFloor = currentFloor;
 	currentRoom = nextRoom;
 	worldGrid = currentRoom.layout;
 	player.reset("Blue Storm");

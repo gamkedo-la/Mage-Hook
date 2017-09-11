@@ -479,6 +479,15 @@ function playerClass() {
 					worldGrid[tileIndex] = TILE_GROUND;
 				}
 				break;
+			case TILE_STAIRS:
+				if(!this.isStunned) { // possible other conditions to do before stairs can be used?
+					Sound.play("room_change",false,0.1);
+					currentFloor++;
+					loadLevel();
+					player.x = canvas.width/2;
+					player.y = canvas.height/2;
+				}
+				break;
 			case TILE_SKULL:
 				break;
 			case TILE_WALL:

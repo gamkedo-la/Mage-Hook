@@ -23,6 +23,7 @@ const TILE_KEY_EPIC = 13;
 const TILE_DOOR_RARE = 14;
 const TILE_DOOR_EPIC = 15;
 const TILE_CRYSTAL = 16;
+const TILE_STAIRS = 17;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -30,7 +31,7 @@ function returnTileTypeAtColRow(col, row) {
 		 var worldIndexUnderCoord = rowColToArrayIndex(col, row);
 		 return worldGrid[worldIndexUnderCoord];
 	} else {
-		return WORLD_WALL;
+		return TILE_WALL;
 	}
 }
 
@@ -57,6 +58,7 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE ||
 			checkTileType == TILE_WEB ||
+			checkTileType == TILE_STAIRS ||
 			checkTileType == TILE_BOX ||
 			checkTileType == TILE_DOOR_EPIC ||
 			checkTileType == TILE_DOOR_RARE);

@@ -61,7 +61,9 @@ function loadImages() {
 		{worldType: TILE_CHAIN, theFile: "world_chains.png"},
 		{worldType: TILE_OOZE, theFile: "world_ooze.png"},
 		{worldType: TILE_WEB, theFile: "world_web.png"},
-		{worldType: TILE_BOX, theFile: "world_box.png"}
+		{worldType: TILE_BOX, theFile: "world_box.png"},
+		{worldType: TILE_STAIRS, theFile: "world_stairs.png"},
+
 	];
 
 	picsToLoad = imageList.length;
