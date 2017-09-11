@@ -32,6 +32,10 @@ const TILE_WALL_CORNER_SW = 22;
 const TILE_WALL_CORNER_SE = 23;
 const TILE_WALL_CORNER_NW = 24;
 const TILE_WALL_CORNER_NE = 25;
+const TILE_ROOM_DOOR_NORTH = 26;
+const TILE_ROOM_DOOR_SOUTH = 27;
+const TILE_ROOM_DOOR_EAST = 28;
+const TILE_ROOM_DOOR_WEST = 29;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -69,7 +73,11 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_STAIRS ||
 			checkTileType == TILE_BOX ||
 			checkTileType == TILE_DOOR_EPIC ||
-			checkTileType == TILE_DOOR_RARE);
+			checkTileType == TILE_DOOR_RARE ||
+			checkTileType == TILE_ROOM_DOOR_NORTH ||
+			checkTileType == TILE_ROOM_DOOR_SOUTH ||
+			checkTileType == TILE_ROOM_DOOR_EAST ||
+			checkTileType == TILE_ROOM_DOOR_WEST);
 }
 
 function drawWorld() {

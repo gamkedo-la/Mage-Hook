@@ -70,7 +70,11 @@ function loadImages() {
 		{worldType: TILE_WALL_CORNER_NE, theFile: "world_brick_corner_north_east.png"},
 		{worldType: TILE_WALL_CORNER_NW, theFile: "world_brick_corner_north_west.png"},
 		{worldType: TILE_WALL_CORNER_SE, theFile: "world_brick_corner_south_east.png"},
-		{worldType: TILE_WALL_CORNER_SW, theFile: "world_brick_corner_south_west.png"}
+		{worldType: TILE_WALL_CORNER_SW, theFile: "world_brick_corner_south_west.png"},
+		{worldType: TILE_ROOM_DOOR_NORTH, theFile: "world_room_door_north.png"},
+		{worldType: TILE_ROOM_DOOR_SOUTH, theFile: "world_room_door_south.png"},
+		{worldType: TILE_ROOM_DOOR_EAST, theFile: "world_room_door_east.png"},
+		{worldType: TILE_ROOM_DOOR_WEST, theFile: "world_room_door_west.png"}
 	];
 
 	picsToLoad = imageList.length;
