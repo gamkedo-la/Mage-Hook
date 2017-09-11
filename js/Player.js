@@ -1,4 +1,5 @@
 const PLAYER_MOVE_SPEED = 4;
+const PLAYER_MOVE_CHECKS_PER_TICK = 5;
 const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
@@ -68,7 +69,7 @@ function playerClass() {
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 4;
 	var tileColliderOffsetX = -1;
-	var tileColliderOffsetY = 9;
+	var tileColliderOffsetY = 10;
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 											 tileColliderWidth, tileColliderHeight,
 											 tileColliderOffsetX, tileColliderOffsetY);
@@ -137,34 +138,96 @@ function playerClass() {
 
 	this.move = function() {
 
-		var speed = PLAYER_MOVE_SPEED * playerFriction;
-		var checksPerFrame = 5;
-		var movePerCheck = speed/checksPerFrame;
-		if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-												checksPerFrame, -movePerCheck, X_AXIS);
-			isMoving = true;
-			isFacing = WEST;
-		}
-		if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-												checksPerFrame, movePerCheck, X_AXIS);
-			isMoving = true;
-			isFacing = EAST;
-		}
+		// var speed = PLAYER_MOVE_SPEED * playerFriction;
+		// var checksPerFrame = 5;
+		// var movePerCheck = speed/checksPerFrame;
+		// if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
+		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+		// 										checksPerFrame, -movePerCheck, X_AXIS);
+		// 	isMoving = true;
+		// 	isFacing = WEST;
+		// }
+		// if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
+		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+		// 										checksPerFrame, movePerCheck, X_AXIS);
+		// 	isMoving = true;
+		// 	isFacing = EAST;
+		// }
+		//
+		// if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
+		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+		// 										checksPerFrame, -movePerCheck, Y_AXIS);
+		// 	isMoving = true;
+		// 	isFacing = NORTH;
+		// }
+		// if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
+		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+		// 										checksPerFrame, movePerCheck, Y_AXIS);
+		// 	isMoving = true;
+		// 	isFacing = SOUTH;
+		// }
 
-		if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-												checksPerFrame, -movePerCheck, Y_AXIS);
-			isMoving = true;
+		// Movement optimizations based on feedback from Christer
+		target = { x: this.x, y: this.y };
+
+		if (this.keyHeld_West) {
+			isFacing = WEST;
+			target.x -= PLAYER_MOVE_SPEED;
+		}
+		if (this.keyHeld_East) {
+			isFacing = EAST;
+			target.x += PLAYER_MOVE_SPEED;
+		}
+		if (this.keyHeld_North) {
 			isFacing = NORTH;
+			target.y -= PLAYER_MOVE_SPEED;
 		}
-		if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
-			moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-												checksPerFrame, movePerCheck, Y_AXIS);
-			isMoving = true;
+		if (this.keyHeld_South) {
 			isFacing = SOUTH;
+			target.y += PLAYER_MOVE_SPEED;
 		}
+		if (target.x != this.x || target.y != this.y) {
+			isMoving = true;
+		}
+		if (isMoving) {
+			var checksPerTick;
+			var movePerCheck;
+			var angle = calculateAngleFrom(this, target);
+			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
+			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
+
+			if(velX != 0) {
+				checksPerTick = PLAYER_MOVE_CHECKS_PER_TICK;
+				movePerCheck = velX / checksPerTick;
+				while (Math.abs(movePerCheck) < 1) {
+					checksPerTick--;
+					if (checksPerTick <= 1) {
+						checksPerTick = 1;
+						movePerCheck = velX / checksPerTick;
+						break;
+					}
+					movePerCheck = velX / checksPerTick;
+				}
+				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+													checksPerTick, movePerCheck, X_AXIS);
+			}
+
+			if(velY != 0) {
+				checksPerTick = PLAYER_MOVE_CHECKS_PER_TICK;
+				movePerCheck = velY / checksPerTick;
+				while (Math.abs(movePerCheck) < 1) {
+					checksPerTick--;
+					if (checksPerTick <= 1) {
+						checksPerTick = 1;
+						movePerCheck = velY / checksPerTick;
+						break;
+					}
+					movePerCheck = velY / checksPerTick;
+				}
+				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
+													checksPerTick, movePerCheck, Y_AXIS);
+			}
+		} // end of if (isMoving)
 
 		pickUpItems(this.hitbox);
 
