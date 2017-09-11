@@ -11,6 +11,7 @@ const KEY_D = 68;
 const KEY_R = 82;
 const KEY_B = 66;
 const KEY_C = 67;
+const KEY_Q = 81;
 
 const KEY_SPACE = 32;
 
@@ -73,6 +74,10 @@ function keyPressed(evt) {
 		case KEY_C:
 			_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
 			break;
+		case KEY_Q:
+			_DEBUG_ENABLE_TILE_EDITOR = !_DEBUG_ENABLE_TILE_EDITOR;
+			console.log(_DEBUG_ENABLE_TILE_EDITOR);
+		break;
 		case KEY_W:
 			console.log("Room change North");
 			currentRoomRow--;
