@@ -63,7 +63,14 @@ function loadImages() {
 		{worldType: TILE_WEB, theFile: "world_web.png"},
 		{worldType: TILE_BOX, theFile: "world_box.png"},
 		{worldType: TILE_STAIRS, theFile: "world_stairs.png"},
-
+		{worldType: TILE_WALL_NORTH, theFile: "world_brick_north.png"},
+		{worldType: TILE_WALL_SOUTH, theFile: "world_brick_south.png"},
+		{worldType: TILE_WALL_WEST, theFile: "world_brick_west.png"},
+		{worldType: TILE_WALL_EAST, theFile: "world_brick_east.png"},
+		{worldType: TILE_WALL_CORNER_NE, theFile: "world_brick_corner_north_east.png"},
+		{worldType: TILE_WALL_CORNER_NW, theFile: "world_brick_corner_north_west.png"},
+		{worldType: TILE_WALL_CORNER_SE, theFile: "world_brick_corner_south_east.png"},
+		{worldType: TILE_WALL_CORNER_SW, theFile: "world_brick_corner_south_west.png"}
 	];
 
 	picsToLoad = imageList.length;
