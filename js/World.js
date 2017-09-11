@@ -24,14 +24,14 @@ const TILE_DOOR_RARE = 14;
 const TILE_DOOR_EPIC = 15;
 const TILE_CRYSTAL = 16;
 const TILE_STAIRS = 17;
-const TILE_WALL_NORTH = 18;
-const TILE_WALL_SOUTH = 19;
-const TILE_WALL_EAST = 20;
-const TILE_WALL_WEST = 21;
-const TILE_WALL_CORNER_NE = 22;
-const TILE_WALL_CORNER_NW = 23;
-const TILE_WALL_CORNER_SE = 24;
-const TILE_WALL_CORNER_SW = 25;
+const TILE_WALL_SOUTH = 18;
+const TILE_WALL_NORTH = 19;
+const TILE_WALL_WEST = 20;
+const TILE_WALL_EAST = 21;
+const TILE_WALL_CORNER_SW = 22;
+const TILE_WALL_CORNER_SE = 23;
+const TILE_WALL_CORNER_NW = 24;
+const TILE_WALL_CORNER_NE = 25;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
