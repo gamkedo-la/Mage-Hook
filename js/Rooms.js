@@ -160,7 +160,7 @@ var room1b2 = new Room([
 	01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,
 	01,01,01,01,01,01,01,01,01,01,01,01,01,01,01,01]);
 
-var allRooms = [room0a1, room1a1, room0b1, room1b1];
+var allRooms = [room0a1, room1a1, room0b1, room1b1, room1b2];
 var currentRoom = null;
 
 function resetAllRooms(){
