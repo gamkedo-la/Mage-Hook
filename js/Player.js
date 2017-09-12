@@ -106,8 +106,9 @@ function playerClass() {
 			this.inventory.keysCommon = 0;
 			this.inventory.keysRare = 0;
 			this.inventory.keysEpic = 0;
+			this.currentHealth = this.maxHealth;
 		}
-		this.currentHealth = this.maxHealth;
+		
 		this.isFacing = SOUTH; // FIXME possible bug? this.?
 		this.isMoving = false;
 
