@@ -53,31 +53,33 @@ function enemyClass(x, y){
 		// drop items
 		var totalItems = rollItemQuantity(0, 99, enemyLootModifier);
 		console.log(totalItems + " Items Dropped");
+		var tileIndex = getTileIndexAtPixelCoord(this.hitbox.x, this.hitbox.y);
+		var coord = calculateCenterCoordOfTileIndex(tileIndex); // to prevent items from spawning in walls
 		for (var i = 0; i < totalItems; i++) {
 			var dropType = Math.random() * 100;
 			//in order of most common to least common
 			if (dropType <= ITEM_CRYSTAL_DROP_PERCENT)
-				dropItem(this.hitbox.x, this.hitbox.y, ITEM_CRYSTAL);
+				dropItem(coord.x, coord.y, ITEM_CRYSTAL);
 			else
 				dropType -= ITEM_CRYSTAL_DROP_PERCENT;
 
 			if (dropType <= ITEM_POTION_DROP_PERCENT)
-				dropItem(this.hitbox.x, this.hitbox.y, ITEM_POTION);
+				dropItem(coord.x, coord.y, ITEM_POTION);
 			else
 				dropType -= ITEM_POTION_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
-				dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_COMMON);
+				dropItem(coord.x, coord.y, ITEM_KEY_COMMON);
 			else
 				dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_RARE_DROP_PERCENT)
-				dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_RARE);
+				dropItem(coord.x, coord.y, ITEM_KEY_RARE);
 			else
 				dropType -= ITEM_KEY_RARE_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_EPIC_DROP_PERCENT)
-				dropItem(this.hitbox.x, this.hitbox.y, ITEM_KEY_EPIC);
+				dropItem(coord.x, coord.y, ITEM_KEY_EPIC);
 			else
 				dropType -= ITEM_KEY_EPIC_DROP_PERCENT;
 		}
@@ -126,13 +128,13 @@ function enemyClass(x, y){
 
 	function resetMovement() {
 
+		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
 		var speed = MIN_SPEED + Math.random() * MAX_SPEED;
 		var angle = Math.random() * 2*Math.PI;
 
 		velX = Math.cos(angle) * speed;
 		velY = Math.sin(angle) * speed;
 
-		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
 	}
 
 	this.updateColliders = function() {

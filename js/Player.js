@@ -165,14 +165,9 @@ function playerClass() {
 			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
 			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
 
-			if(velX != 0) {
-				this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-			}
-
-			if(velY != 0) {
-				this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
-			}
-		} // end of if (isMoving)
+			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+		}
 
 		pickUpItems(this.hitbox);
 

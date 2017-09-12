@@ -1,5 +1,6 @@
 const X_AXIS = "x";
 const Y_AXIS = "y";
+const COLLISION_CHECKS_PER_TICK = 5;
 var _DEBUG_DRAW_TILE_COLLIDERS = false;
 var _DEBUG_DRAW_HITBOX_COLLIDERS = false;
 
@@ -84,12 +85,20 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 
     // NOTE(Cipherpunk): See template below to add to class
     this.moveOnAxis = function(objectToMove, velocity, axis) {
+        var collisionDetected = false;
 
-        var checksPerFrame = 5;
-        var movePerCheck = velocity/checksPerFrame;
+        if (velocity == 0) {
+            return collisionDetected;
+        }
 
-        for (var i = 0; i < checksPerFrame; i++) {
-            var collisionDetected = false;
+        var checksPerTick = COLLISION_CHECKS_PER_TICK;
+        var movePerCheck = velocity/checksPerTick;
+        while (Math.abs(movePerCheck) < 1 && checksPerTick > 1) {
+            checksPerTick--;
+            movePerCheck = velocity/checksPerTick;
+        }
+
+        for (var i = 0; i < checksPerTick; i++) {
 
             objectToMove[axis] += movePerCheck;
             objectToMove.updateColliders();
@@ -98,7 +107,7 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
                 var x = this.box[corner].x;
                 var y = this.box[corner].y;
                 var tileIndex = getTileIndexAtPixelCoord(x, y);
-                // check if there's a collision at the new corner coord
+
                 collisionDetected = objectToMove.collisionHandler(tileIndex);
 
                 if (collisionDetected) {

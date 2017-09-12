@@ -5,6 +5,7 @@ const UNTANGLE_SPEED = .5;
 const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
+const ITEM_WEB_FRICTION = .75;
 const ITEM_KEY_COMMON = 1;
 const ITEM_POTION = 2;
 const ITEM_KEY_RARE = 3;
@@ -131,13 +132,9 @@ function itemClass(posX, posY, speed, type) {
         var tileType = worldGrid[tileIndex];
         switch(tileType) {
             case TILE_SKULL:
-                break;
             case TILE_DOOR_COMMON:
-                break;
 			case TILE_DOOR_RARE:
-                break;
 			case TILE_DOOR_EPIC:
-                break;
             case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:
@@ -147,6 +144,10 @@ function itemClass(posX, posY, speed, type) {
 			case TILE_WALL_CORNER_NW:
 			case TILE_WALL_CORNER_SE:
 			case TILE_WALL_CORNER_SW:
+            case TILE_ROOM_DOOR_NORTH:
+            case TILE_ROOM_DOOR_SOUTH:
+            case TILE_ROOM_DOOR_EAST:
+            case TILE_ROOM_DOOR_WEST:
                 break;
             default:
                 collisionDetected = false;
@@ -161,8 +162,8 @@ function itemClass(posX, posY, speed, type) {
         for (var i = 0; i < types.length; i++) {
             switch (types[i]) {
                 case TILE_WEB:
-                    velX *= WEB_FRICTION;
-                    velY *= WEB_FRICTION
+                    velX *= ITEM_WEB_FRICTION;
+                    velY *= ITEM_WEB_FRICTION
                     break;
                 default:
                     break;
