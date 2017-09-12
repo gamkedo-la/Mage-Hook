@@ -3,7 +3,7 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
-
+const KEY_9 = 57;
 const KEY_W = 87;
 const KEY_A = 65;
 const KEY_S = 83;
@@ -30,15 +30,8 @@ function setupInput() {
 function updateMousePos(evt) {
 	var rect = canvas.getBoundingClientRect();
 	var root = document.documentElement;
-
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
 	mouseY = evt.clientY - rect.top - root.scrollTop;
-
-	// cheat / hack to test car in any position
-	/*carX = mouseX;
-	carY = mouseY;
-	carSpeedX = 4;
-	carSpeedY = -4;*/
 }
 
 function keySet(keyEvent, setTo) {
@@ -65,6 +58,8 @@ function keyPressed(evt) {
 
 	var otherKeyPressed = true;
 	switch(evt.keyCode) {
+		case KEY_9:
+			break;
 		case KEY_R:
 			resetAllRooms();
 			break;
@@ -76,8 +71,8 @@ function keyPressed(evt) {
 			break;
 		case KEY_Q:
 			_DEBUG_ENABLE_TILE_EDITOR = !_DEBUG_ENABLE_TILE_EDITOR;
-			console.log(_DEBUG_ENABLE_TILE_EDITOR);
-		break;
+			console.log("Tile Editor is" + " " +_DEBUG_ENABLE_TILE_EDITOR)
+			break;
 		case KEY_W:
 			console.log("Room change North");
 			currentRoomRow--;

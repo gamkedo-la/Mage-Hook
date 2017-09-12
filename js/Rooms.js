@@ -20,7 +20,6 @@ function Room(roomLayout) {
 		this.itemOnGround = [];
 		this.spawnItems();
 		this.spawnMyEnemies();
-		console.log(this.layout);
 	}
 
 	this.spawnItems = function() {

@@ -20,9 +20,9 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
+	//updateMousePos();
 	loadLevel();
 	resetAllRooms();
-
 }
 
 function loadLevel() {
@@ -47,6 +47,7 @@ function updateAll() {
 	moveAll();
 	drawAll();
 	cameraLock();
+	updateMousePos();
 	updateScreenshake();
 	currentRoom.considerRoomChange();
 }
