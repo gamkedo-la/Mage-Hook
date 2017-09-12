@@ -5,38 +5,38 @@ var _DEBUG_DRAW_TILE_COLLIDERS = false;
 var _DEBUG_DRAW_HITBOX_COLLIDERS = false;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
-    var offsetX = offsetX;
-    var offsetY = offsetY;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
 
     this.width = width;
     this.height = height;
-    this.x = x + offsetX;
-    this.y = y + offsetY;
+    this.x = x + this.offsetX;
+    this.y = y + this.offsetY;
     this.box = {};
 
     this.setCollider = function(posX, posY) {
 
 		this.box.topLeft = {
-			x: posX - this.width/2 + offsetX,
-			y: posY - this.height/2 + offsetY
+			x: posX - this.width/2 + this.offsetX,
+			y: posY - this.height/2 + this.offsetY
 		}
 
 		this.box.topRight = {
-			x: posX + this.width/2 + offsetX,
-			y: posY - this.height/2 + offsetY
+			x: posX + this.width/2 + this.offsetX,
+			y: posY - this.height/2 + this.offsetY
 		}
 
 		this.box.bottomLeft = {
-			x: posX - this.width/2 + offsetX,
-			y: posY + this.height/2 + offsetY
+			x: posX - this.width/2 + this.offsetX,
+			y: posY + this.height/2 + this.offsetY
 		}
 
 		this.box.bottomRight = {
-            x: posX + this.width/2 + offsetX,
-			y: posY + this.height/2 + offsetY
+            x: posX + this.width/2 + this.offsetX,
+			y: posY + this.height/2 + this.offsetY
     	}
-        this.x = posX + offsetX;
-        this.y = posY + offsetY;
+        this.x = posX + this.offsetX;
+        this.y = posY + this.offsetY;
 	}
     this.setCollider(x, y);
 
@@ -125,15 +125,15 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 
         if (axis == X_AXIS) {
             if (velocity > 0) {
-                snapPoint = tileEdge.x - this.width/2 - offsetX - 1;
+                snapPoint = tileEdge.x - this.width/2 - this.offsetX - 1;
             } else if (velocity < 0) {
-                snapPoint = tileEdge.x + WORLD_W + this.width/2 - offsetX;
+                snapPoint = tileEdge.x + WORLD_W + this.width/2 - this.offsetX;
             }
         } else if (axis == Y_AXIS) {
             if (velocity > 0) {
-                snapPoint = tileEdge.y - this.height/2 - offsetY - 1;
+                snapPoint = tileEdge.y - this.height/2 - this.offsetY - 1;
             } else if (velocity < 0) {
-                snapPoint = tileEdge.y + this.height/2 + WORLD_H - offsetY;
+                snapPoint = tileEdge.y + this.height/2 + WORLD_H - this.offsetY;
             }
         }
         objectToMove[axis] = snapPoint;

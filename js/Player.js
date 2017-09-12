@@ -174,17 +174,7 @@ function playerClass() {
 		isAttacking = this.keyHeld_Attack;
 		if(isAttacking && !wasAttacking) // only trigger once
 		{
-			Sound.play("player_attack");
-			attackTimer = ATTACK_DURATION;
-			console.log('attack!');
-			var hitOne = this.canHitEnemy();
-			if (hitOne)
-			{
-				console.log('WE HIT AN ENEMY!!!!');
-				this.enemyHitCount++; // score?
-				hitOne.currentHealth--;
-				Sound.play("enemy_hit"); // TODO: after a delay?
-			}
+			this.anchorAttack();
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
@@ -294,6 +284,78 @@ function playerClass() {
 				sprite.setSprite(playerPic, 32, 32, 1, 0, true);
 			}
 		}
+	}
+	
+	this.anchorAttack = function(){
+		Sound.play("player_attack");
+		attackTimer = ATTACK_DURATION;
+		console.log('attack!');
+		this.registerAttack( this.x + 10, this.y, sprites.Player.anchorAttack, {
+			5: {x1: 0, y1: 0, x2: 10, y2:10 },
+			6: {x1: 0, y1: 0, x2: 10, y2:10 },
+			7: {x1: 0, y1: 0, x2: 10, y2:10 }
+		});
+		var hitOne = this.canHitEnemy();
+		if (hitOne)
+		{
+			console.log('WE HIT AN ENEMY!!!!');
+			this.enemyHitCount++; // score?
+			hitOne.currentHealth--;
+			Sound.play("enemy_hit"); // TODO: after a delay?
+		}
+	}
+	//TODO: refractor out into attack.js
+	//TODO: pass in a sprite, not an img
+	this.registerAttack = function( x, y, animation, attackFrames){
+		var ctrl = {}
+		ctrl.x = x;
+		ctrl.y = y;
+		ctrl.maxHealth = 3;
+		ctrl.attackFrames = {
+			4: {x1: 0, y1: 0, x2: 10, y2:10 },
+			5: {x1: 0, y1: 0, x2: 10, y2:10 },
+			6: {x1: 0, y1: 0, x2: 10, y2:10 }
+		};
+
+		var tileColliderWidth = 0, tileColliderHeight = 0, tileColliderOffsetX = 0, tileColliderOffsetY = 0
+		ctrl.collider = new boxColliderClass(
+			ctrl.x, ctrl.y,
+			tileColliderWidth, tileColliderHeight,
+			tileColliderOffsetX, tileColliderOffsetY
+		);
+		ctrl.sprite = new spriteClass();
+		ctrl.sprite.setSprite(sprites.Player.anchorAttack, 32, 32, 6, 9, false);
+		ctrl.draw = function(){
+			ctrl.sprite.draw(this.x, this.y);
+			if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
+				ctrl.collider.draw('red');
+	        }
+		}
+		ctrl.update = function(){
+			if(ctrl.sprite.isDone()){
+				var index = currentRoom.magic.indexOf(ctrl);
+				if(index !== -1) {
+					currentRoom.magic.splice(index, 1);
+			  		console.log("attack removed")
+			  		return;
+				}				
+			}
+			var frame = ctrl.sprite.getFrame()
+			if(ctrl.attackFrames[frame]){
+				ctrl.collider.offsetX = ctrl.attackFrames[frame].x1;
+    			ctrl.collider.offsetY = ctrl.attackFrames[frame].y1;
+				ctrl.collider.width = ctrl.attackFrames[frame].x2;
+				ctrl.collider.height = ctrl.attackFrames[frame].y2;
+			} else {
+				ctrl.collider.offsetX = 0;
+    			ctrl.collider.offsetY = 0;
+				ctrl.collider.width = 0;
+				ctrl.collider.height = 0;
+			}
+			ctrl.collider.setCollider(this.x, this.y);
+			ctrl.sprite.update();
+		}
+		currentRoom.magic.push(ctrl)
 	}
 
 	this.canHitEnemy = function() { // used for attacks, returns the enemy

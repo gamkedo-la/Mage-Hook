@@ -48,6 +48,10 @@ function spriteClass() {
 		return frameIndex;
 	}
 
+	this.isDone = function(){
+		return ((frameTotal - frameIndex - 1) == 0);
+	}
+
 	this.setSpeed = function (newSpeed) {
 		if (newSpeed > 0) {
 			timePerFrame = 1/newSpeed;
