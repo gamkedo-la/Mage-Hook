@@ -4,6 +4,9 @@ var _DEBUG_DRAW_TILE_COLLIDERS = false;
 var _DEBUG_DRAW_HITBOX_COLLIDERS = false;
 
 function boxColliderClass(x, y, width, height, offsetX, offsetY) {
+    var offsetX = offsetX;
+    var offsetY = offsetY;
+
     this.width = width;
     this.height = height;
     this.x = x + offsetX;
@@ -46,8 +49,8 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         var theirTop = otherCollider.box.topLeft.y;
         var theirBottom = otherCollider.box.topLeft.y + otherCollider.height;
         return ((myLeft > theirRight || // I'm right of them
-                myRight < theirLeft || // I'm left of them
-                myTop > theirBottom || // I'm below them
+                myRight < theirLeft  || // I'm left of them
+                myTop > theirBottom  || // I'm below them
                 myBottom < theirTop) // I'm above them
                 == false); // if none of the above are true, boxes don't overlap
         // NOTE(Cipherpunk): Thanks, Chris!
@@ -87,14 +90,9 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
 
         for (var i = 0; i < checksPerFrame; i++) {
             var collisionDetected = false;
-            var wallCollisionDetected = false;
-            var origin = objectToMove[axis];
-
-            // add code here to calculate move distance
 
             objectToMove[axis] += movePerCheck;
             objectToMove.updateColliders();
-
 
             for (var corner in this.box) {
                 var x = this.box[corner].x;
@@ -104,20 +102,7 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
                 collisionDetected = objectToMove.collisionHandler(tileIndex);
 
                 if (collisionDetected) {
-                    // revert object position
-                    objectToMove[axis] = origin;
-                    objectToMove.updateColliders();
-
-                    // make another check to see if this started in wall
-                    x = this.box[corner].x;
-                    y = this.box[corner].y;
-                    tileIndex = getTileIndexAtPixelCoord(x, y);
-                    wallCollisionDetected = objectToMove.collisionHandler(tileIndex);
-
-                    if (wallCollisionDetected) {
-                        //TODO: Set this[axis] to the edge of the wall
-                        this.snapObjectToTileEdge(objectToMove, axis, tileIndex);
-                    }
+                    this.snapObjectToTileEdge(objectToMove, velocity, axis, tileIndex);
                     return collisionDetected;
                 }
             }
@@ -125,21 +110,24 @@ function boxColliderClass(x, y, width, height, offsetX, offsetY) {
         return collisionDetected;
     }
 
-    this.snapObjectToTileEdge = function(objectToMove, axis, tileIndex) {
-
-        var offset;
-        var result = calculateCenterCoordOfTileIndex(tileIndex);
+    this.snapObjectToTileEdge = function(objectToMove, velocity, axis, tileIndex) {
+        var tileEdge = calculateTopLeftCoordOfTileIndex(tileIndex);
+        var snapPoint;
 
         if (axis == X_AXIS) {
-            offset = this.width/2 + WORLD_W/2 + 1;
-        } else {
-            offset = this.height/2 + WORLD_H/2 + 1;
+            if (velocity > 0) {
+                snapPoint = tileEdge.x - this.width/2 - offsetX - 1;
+            } else if (velocity < 0) {
+                snapPoint = tileEdge.x + WORLD_W + this.width/2 - offsetX;
+            }
+        } else if (axis == Y_AXIS) {
+            if (velocity > 0) {
+                snapPoint = tileEdge.y - this.height/2 - offsetY - 1;
+            } else if (velocity < 0) {
+                snapPoint = tileEdge.y + this.height/2 + WORLD_H - offsetY;
+            }
         }
-        if (this[axis] > result[axis]) {
-            objectToMove[axis] = result[axis] + offset;
-        } else {
-            objectToMove[axis] = result[axis] - offset;
-        }
+        objectToMove[axis] = snapPoint;
         objectToMove.updateColliders();
     }
 }
@@ -151,6 +139,15 @@ function calculateAngleFrom(object1, object2) {
     var y2 = object2.y;
     var angle = Math.atan2(y2-y1,x2-x1);
     return angle;
+}
+
+function calculateTopLeftCoordOfTileIndex(tileIndex) {
+    var topLeftX = (tileIndex % WORLD_COLS) * WORLD_W;
+    var topLeftY = Math.floor(tileIndex / WORLD_COLS) * WORLD_H;
+    return {
+        x: topLeftX,
+        y: topLeftY
+    };
 }
 
 function calculateCenterCoordOfTileIndex(tileIndex) {
@@ -165,14 +162,15 @@ function calculateCenterCoordOfTileIndex(tileIndex) {
 }
 
 /* NOTE(Cipherpunk): Below is a template to add to each class
-   so that it can use moveOnAxisAndCheckForTileCollisions().
-   Cases that are not needed can be deleted from switch statement.
+   so that it can use moveOnAxis().
+   Cases that are not needed can be deleted from switch statements.
 
 this.updateColliders = function() {
     this.collider.update(this.x, this.y);
     // More colliders can be added here.
 }
 
+// used for behaviors that should only be called once per tick
 this.tileBehaviorHandler = function() {
     for (var i = 0; i < this.uniqueTileTypes.length; i++) {
         switch (collidedWithTheseTileTypes[i]) {
@@ -193,24 +191,17 @@ this.tileBehaviorHandler = function() {
     this.uniqueTileTypes = [];
 }
 
+// used mainly to handle wall collision but has other uses
 this.collisionHandler = function(tileIndex) {
-    var collisionDetected = false;
+    var collisionDetected = true;
     var tileType = worldGrid[tileIndex];
     switch(tileType) {
         case TILE_GROUND:
-            break;
-        case TILE_KEY:
-            break;
         case TILE_SKULL:
-            collisionDetected = true;
-            break;
         case TILE_DOOR:
-            collisionDetected = true;
-            break;
         case TILE_WALL:
-            collisionDetected = true;
-            break;
         default:
+            collisionDetected = false;
             break;
     }
     return collisionDetected;

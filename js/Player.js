@@ -66,16 +66,16 @@ function playerClass() {
 	this.controlKeyAttack;
 
 	var tileColliderWidth = 4;
-	var tileColliderHeight = 4;
-	var tileColliderOffsetX = -1;
-	var tileColliderOffsetY = 10;
+	var tileColliderHeight = 2;
+	var tileColliderOffsetX = -0.5;
+	var tileColliderOffsetY = 10.5;
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 											 tileColliderWidth, tileColliderHeight,
 											 tileColliderOffsetX, tileColliderOffsetY);
 	var hitboxWidth = 8;
 	var hitboxHeight = 10;
-	var hitboxOffsetX = -1;
-	var hitboxOffsetY = 6;
+	var hitboxOffsetX = -0.5;
+	var hitboxOffsetY = 6.5;
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
 								       hitboxOffsetX, hitboxOffsetY);
@@ -421,8 +421,8 @@ function playerClass() {
 
 		switch(tileType) {
 			case TILE_BOX:
-				if(this.inventory.keysRare > 0 && !this.isStunned) {
-					this.inventory.keysRare--; // one less key
+				if(this.inventory.keysEpic > 0 && !this.isStunned) {
+					this.inventory.keysEpic--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 					var result = calculateCenterCoordOfTileIndex(tileIndex);
