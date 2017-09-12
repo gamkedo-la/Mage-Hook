@@ -51,9 +51,9 @@ function enemyClass(x, y){
 		}
 
 		// drop items
-		var totalItems = rollItemQuantity(0, 99, enemyLootModifier);
+		var totalItems = rollItemQuantity(10, 99, enemyLootModifier);
 		console.log(totalItems + " Items Dropped");
-		var tileIndex = getTileIndexAtPixelCoord(this.hitbox.x, this.hitbox.y);
+		var tileIndex = getTileIndexAtPixelCoord(this.tileCollider.x, this.tileCollider.y);
 		var coord = calculateCenterCoordOfTileIndex(tileIndex); // to prevent items from spawning in walls
 		for (var i = 0; i < totalItems; i++) {
 			var dropType = Math.random() * 100;
@@ -147,13 +147,9 @@ function enemyClass(x, y){
 		var tileType = worldGrid[tileIndex];
 		switch(tileType) {
 			case TILE_SKULL:
-				break;
 			case TILE_DOOR_COMMON:
-				break;
 			case TILE_DOOR_RARE:
-                break;
 			case TILE_DOOR_EPIC:
-                break;
 			case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:
@@ -163,6 +159,10 @@ function enemyClass(x, y){
 			case TILE_WALL_CORNER_NW:
 			case TILE_WALL_CORNER_SE:
 			case TILE_WALL_CORNER_SW:
+			case TILE_ROOM_DOOR_NORTH:
+			case TILE_ROOM_DOOR_SOUTH:
+			case TILE_ROOM_DOOR_EAST:
+			case TILE_ROOM_DOOR_WEST:
 				break;
 			default:
 				collisionDetected = false;

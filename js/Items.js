@@ -1,4 +1,3 @@
-const ITEMS_DROPPED_PER_KILL = 20;
 const MIN_ITEM_SPEED = 2;
 const MAX_ITEM_SPEED = 4;
 const UNTANGLE_SPEED = .5;
