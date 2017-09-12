@@ -53,7 +53,6 @@ function playerClass() {
 	var knockbackAngle;
 	var knockbackSpeed;
 
-
 	this.keyHeld_North = false;
 	this.keyHeld_South = false;
 	this.keyHeld_West = false;
@@ -108,7 +107,7 @@ function playerClass() {
 			this.inventory.keysEpic = 0;
 			this.currentHealth = this.maxHealth;
 		}
-		
+
 		this.isFacing = SOUTH; // FIXME possible bug? this.?
 		this.isMoving = false;
 
@@ -139,35 +138,6 @@ function playerClass() {
 
 	this.move = function() {
 
-		// var speed = PLAYER_MOVE_SPEED * playerFriction;
-		// var checksPerFrame = 5;
-		// var movePerCheck = speed/checksPerFrame;
-		// if(this.keyHeld_West && !this.keyHeld_East && !this.isStunned) {
-		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-		// 										checksPerFrame, -movePerCheck, X_AXIS);
-		// 	isMoving = true;
-		// 	isFacing = WEST;
-		// }
-		// if(this.keyHeld_East && !this.keyHeld_West && !this.isStunned) {
-		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-		// 										checksPerFrame, movePerCheck, X_AXIS);
-		// 	isMoving = true;
-		// 	isFacing = EAST;
-		// }
-		//
-		// if(this.keyHeld_North && !this.keyHeld_South && !this.isStunned) {
-		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-		// 										checksPerFrame, -movePerCheck, Y_AXIS);
-		// 	isMoving = true;
-		// 	isFacing = NORTH;
-		// }
-		// if(this.keyHeld_South && !this.keyHeld_North && !this.isStunned) {
-		// 	moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-		// 										checksPerFrame, movePerCheck, Y_AXIS);
-		// 	isMoving = true;
-		// 	isFacing = SOUTH;
-		// }
-
 		// Movement optimizations based on feedback from Christer
 		target = { x: this.x, y: this.y };
 
@@ -191,42 +161,16 @@ function playerClass() {
 			isMoving = true;
 		}
 		if (isMoving) {
-			var checksPerTick;
-			var movePerCheck;
 			var angle = calculateAngleFrom(this, target);
 			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
 			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
 
 			if(velX != 0) {
-				checksPerTick = PLAYER_MOVE_CHECKS_PER_TICK;
-				movePerCheck = velX / checksPerTick;
-				while (Math.abs(movePerCheck) < 1) {
-					checksPerTick--;
-					if (checksPerTick <= 1) {
-						checksPerTick = 1;
-						movePerCheck = velX / checksPerTick;
-						break;
-					}
-					movePerCheck = velX / checksPerTick;
-				}
-				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-													checksPerTick, movePerCheck, X_AXIS);
+				this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			}
 
 			if(velY != 0) {
-				checksPerTick = PLAYER_MOVE_CHECKS_PER_TICK;
-				movePerCheck = velY / checksPerTick;
-				while (Math.abs(movePerCheck) < 1) {
-					checksPerTick--;
-					if (checksPerTick <= 1) {
-						checksPerTick = 1;
-						movePerCheck = velY / checksPerTick;
-						break;
-					}
-					movePerCheck = velY / checksPerTick;
-				}
-				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-													checksPerTick, movePerCheck, Y_AXIS);
+				this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 			}
 		} // end of if (isMoving)
 
@@ -273,12 +217,10 @@ function playerClass() {
 			if (stunTimer <= 0) {
 				this.isStunned = false;
 			} else {
-				var checksPerFrame = 5;
-				var movePerCheck;
-				movePerCheck = (Math.cos(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "x");
-				movePerCheck = (Math.sin(knockbackAngle) * knockbackSpeed)/checksPerFrame;
-				moveOnAxisAndCheckForTileCollisions(this, this.tileCollider, checksPerFrame, movePerCheck, "y");
+				var velX = Math.cos(knockbackAngle) * knockbackSpeed;
+				var velY = Math.sin(knockbackAngle) * knockbackSpeed;
+				this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+				this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 				knockbackSpeed *= FRICTION;
 			}
 		} else {

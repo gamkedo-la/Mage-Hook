@@ -9,9 +9,9 @@ function enemyClass(x, y){
 	this.x = x;
 	this.y = y;
 	this.recoil = false;
+	var velX;
+	var velY;
 	var directionTimer;
-	var moveAngle;
-	var currentSpeed;
 	var enemyLootModifier = 1.0;
 
 	this.maxHealth = 3; // how many hits till it dies
@@ -114,18 +114,9 @@ function enemyClass(x, y){
 		if (directionTimer <= 0 || directionTimer == undefined) {
 			resetMovement();
 		}
-		var checksPerFrame = 5;
-		var movePerCheck;
 
-		// movePerCheck = 1; // for testing collisions
-		movePerCheck = (Math.cos(moveAngle) * currentSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-											checksPerFrame, movePerCheck, X_AXIS);
-
-		// movePerCheck = 1; // for testing collisions
-		movePerCheck = (Math.sin(moveAngle) * currentSpeed)/checksPerFrame;
-		moveOnAxisAndCheckForTileCollisions(this, this.tileCollider,
-											checksPerFrame, movePerCheck, Y_AXIS);
+		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 
 		directionTimer -= TIME_PER_TICK;
 
@@ -134,9 +125,14 @@ function enemyClass(x, y){
 	} // end of this.update()
 
 	function resetMovement() {
+
+		var speed = MIN_SPEED + Math.random() * MAX_SPEED;
+		var angle = Math.random() * 2*Math.PI;
+
+		velX = Math.cos(angle) * speed;
+		velY = Math.sin(angle) * speed;
+
 		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
-		moveAngle = Math.random() * 2*Math.PI;
-		currentSpeed = MIN_SPEED + Math.random() * MAX_SPEED;
 	}
 
 	this.updateColliders = function() {
