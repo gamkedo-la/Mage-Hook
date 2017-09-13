@@ -72,6 +72,25 @@ function Room(roomLayout) {
 			this.magic[i].draw();
 		}
 	}
+	
+	this.drawDynamic = function() {
+		var objects = [];
+		for(var i = 0; i<this.enemyList.length; i++){
+			objects.push({"y":this.enemyList[i].y , "object": this.enemyList[i]});
+		}
+		for(var i = 0; i<this.magic.length; i++){
+			objects.push({"y":this.magic[i].y , "object": this.magic[i]});
+		}
+		objects.push({"y":player.y, "object": player});
+		
+		objects.sort(function(a, b) {
+			return a.y-b.y;
+		});
+		
+		for(var i = 0; i<objects.length; i++){
+			objects[i].object.draw();
+		}
+	}
 
 	this.moveMyEnemies = function(){
 		for(var i = 0; i<this.enemyList.length; i++){

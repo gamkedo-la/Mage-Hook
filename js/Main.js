@@ -68,9 +68,10 @@ function drawAll() {
 	//canvasContext.translate(-camPanX,-camPanY); //currently causing visual bugs
 	drawWorld();
 	drawItems();
-	currentRoom.drawMyEnemies();
-	currentRoom.drawMagic();
-	player.draw();
+	//currentRoom.drawMyEnemies();
+	//currentRoom.drawMagic();
+	//player.draw();
+	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
 	canvasContext.restore();
