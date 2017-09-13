@@ -109,6 +109,16 @@ function Room(roomLayout) {
 			loadLevel();
 			player.y -= canvas.height;
 		}
+		if (lastValidCurrentFloor != currentFloor) {
+			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
+				player.x += 30; //Offset for stairs
+			}
+			else if ((currentFloor-lastValidCurrentFloor) == -1) { //Going down
+				player.x -= 30; //Offset for stairs
+			}
+			Sound.play("room_change",false,0.1);
+			loadLevel();
+		}
 	}
 };
 
@@ -165,7 +175,7 @@ var room1b2 = new Room([
 	20,10,08,10,00,10,00,00,00,00,00,00,00,00,00,21,
 	20,10,00,10,00,10,00,00,00,00,09,00,00,00,00,21,
 	20,10,10,10,00,10,00,00,00,00,00,00,00,00,00,21,
-	20,10,00,10,00,10,00,00,00,00,00,00,00,30,00,21,
+	20,10,00,10,00,10,00,00,00,00,00,00,30,00,00,21,
 	20,10,00,10,00,10,00,00,00,00,10,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,08,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,

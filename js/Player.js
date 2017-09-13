@@ -544,16 +544,12 @@ function playerClass() {
 				break;
 			case TILE_STAIRS_UP:
 				if(!this.isStunned && isFacing==EAST) { // possible other conditions to do before stairs can be used?
-					Sound.play("room_change",false,0.1);
-					currentFloor++;
-					loadLevel();
+					currentFloor++;					
 				}
 				break;
 			case TILE_STAIRS_DOWN:
 				if(!this.isStunned && isFacing==WEST) { // possible other conditions to do before stairs can be used?
-					Sound.play("room_change",false,0.1);
 					currentFloor--;
-					loadLevel();
 				}
 				break;
 			case TILE_SKULL:
