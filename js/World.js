@@ -23,7 +23,7 @@ const TILE_KEY_EPIC = 13;
 const TILE_DOOR_RARE = 14;
 const TILE_DOOR_EPIC = 15;
 const TILE_CRYSTAL = 16;
-const TILE_STAIRS = 17;
+const TILE_STAIRS_UP = 17;
 const TILE_WALL_SOUTH = 18;
 const TILE_WALL_NORTH = 19;
 const TILE_WALL_WEST = 20;
@@ -36,6 +36,7 @@ const TILE_ROOM_DOOR_NORTH = 26;
 const TILE_ROOM_DOOR_SOUTH = 27;
 const TILE_ROOM_DOOR_EAST = 28;
 const TILE_ROOM_DOOR_WEST = 29;
+const TILE_STAIRS_DOWN = 30;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -70,7 +71,8 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE ||
 			checkTileType == TILE_WEB ||
-			checkTileType == TILE_STAIRS ||
+			checkTileType == TILE_STAIRS_UP ||
+			checkTileType == TILE_STAIRS_DOWN ||
 			checkTileType == TILE_BOX ||
 			checkTileType == TILE_DOOR_EPIC ||
 			checkTileType == TILE_DOOR_RARE ||
