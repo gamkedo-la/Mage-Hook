@@ -310,6 +310,22 @@ function playerClass() {
 		var ctrl = {}
 		ctrl.x = x;
 		ctrl.y = y;
+		switch(isFacing) { //Draw attack in facing dirction
+			case NORTH:
+				ctrl.x -= 16;
+				ctrl.y -= 16;
+				break;
+			case SOUTH:
+				ctrl.x -= 16;
+				ctrl.y += 16;
+				break;
+			case EAST:
+				ctrl.x += 3;
+				break;
+			case WEST:
+				ctrl.x -= 35;
+				break;
+		}
 		ctrl.maxHealth = 3;
 		ctrl.attackFrames = {
 			4: {x1: 0, y1: 0, x2: 10, y2:10 },
