@@ -8,6 +8,6 @@ function roomTileCoordinate() {
    // var tileX = (roomCol * WORLD_W);
    // var tileY = (roomRow * WORLD_H);
 
-    //var tileUnderMouse = rowColToArrayIndex(roomCol, roomRow);
-    console.log(mouseX, mouseY,roomCol,roomRow);
+    tileUnderMouse = rowColToArrayIndex(roomCol, roomRow);
+    console.log(roomCol, roomRow, worldGrid[tileUnderMouse]);
 }
