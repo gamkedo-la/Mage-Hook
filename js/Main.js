@@ -20,7 +20,6 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
-	//updateMousePos();
 	loadLevel();
 	resetAllRooms();
 }
@@ -46,8 +45,10 @@ function loadLevel() {
 function updateAll() {
 	moveAll();
 	drawAll();
-	cameraLock();
-	updateMousePos();
+	//cameraLock();
+	if (_DEBUG_ENABLE_TILE_EDITOR == true) {
+    roomTileCoordinate();
+  	}
 	updateScreenshake();
 	currentRoom.considerRoomChange();
 }

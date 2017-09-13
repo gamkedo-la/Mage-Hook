@@ -1,4 +1,4 @@
-var camPanX = 0.0;
+/*var camPanX = 0.0;
 var camPanY = 0.0;
 
 function cameraLock() {
@@ -16,4 +16,4 @@ function cameraLock() {
     if(camPanY > maxPanTop) {
       camPanY = maxPanTop;
     }
-  }
+  }*/
