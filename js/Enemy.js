@@ -1,24 +1,11 @@
-const MIN_SPEED = .25;
-const MAX_SPEED = .50;
-const MIN_MOVE_TIME = 1.5;
-const MAX_MOVE_TIME = 2.5;
-
-var testSpritePic
 function enemyClass(newEnemy){
 
 	this.x = newEnemy.x;
 	this.y = newEnemy.y;
-
 	this.maxHealth = newEnemy.maxHealth; // how many hits till it dies
 	this.currentHealth = this.maxHealth;
-
-	var lootModifier = newEnemy.lootModifier;
-
+	this.lootModifier = newEnemy.lootModifier;
 	this.recoil = false;
-	var velX;
-	var velY;
-	var directionTimer;
-
 	this.isAlive = true;
 
 	this.tileCollider = new boxColliderClass(this.x, this.y,
@@ -48,7 +35,7 @@ function enemyClass(newEnemy){
 		}
 
 		// drop items
-		var totalItems = rollItemQuantity(10, 99, lootModifier);
+		var totalItems = rollItemQuantity(10, 99, this.lootModifier);
 		console.log(totalItems + " Items Dropped");
 		var tileIndex = getTileIndexAtPixelCoord(this.tileCollider.x, this.tileCollider.y);
 		var coord = calculateCenterCoordOfTileIndex(tileIndex); // to prevent items from spawning in walls
@@ -94,44 +81,11 @@ function enemyClass(newEnemy){
 			this.hitbox.draw('red');
         }
 	}
-	this.update = function(){
 
-		if (this.currentHealth <= 0)
-		{
-			this.die();
-		}
-
-		if (this.recoil) {
-			if (!player.isStunned) {
-				this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9, true);
-				resetMovement();
-				this.recoil = false;
-			}
-			return;
-		}
-
-		if (directionTimer <= 0 || directionTimer == undefined) {
-			resetMovement();
-		}
-
-		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
-
-		directionTimer -= TIME_PER_TICK;
-
+	this.update = function() {
+		newEnemy.update();
 		this.sprite.update();
 		this.tileBehaviorHandler();
-	} // end of this.update()
-
-	function resetMovement() {
-
-		directionTimer = MIN_MOVE_TIME + Math.random() * MAX_MOVE_TIME;
-		var speed = MIN_SPEED + Math.random() * MAX_SPEED;
-		var angle = Math.random() * 2*Math.PI;
-
-		velX = Math.cos(angle) * speed;
-		velY = Math.sin(angle) * speed;
-
 	}
 
 	this.updateColliders = function() {
@@ -200,10 +154,55 @@ function slimeMonster(x, y) {
 	this.hitboxOffsetY = 6;
 
 	this.spriteSheet = sprites.Slime.idleAnimation;
-  	this.spriteWidth = 32;
+	this.spriteWidth = 32;
 	this.spriteHeight = 32;
-  	this.spriteFrames = 6;
+	this.spriteFrames = 6;
 	this.spriteSpeed = 9;
 
-	return new enemyClass(this);
+	this = new enemyClass(this);
+
+	var velX;
+	var velY;
+	var directionTimer;
+	var minSpeed = .25;
+	var maxSpeed = .50;
+	var minMoveTime = 1.5;
+	var maxMoveTime = 2.5;
+
+	this.update = function(){
+
+		if (this.currentHealth <= 0) {
+			this.die();
+		}
+
+		if (this.recoil) {
+			if (!player.isStunned) {
+				resetMovement();
+				this.recoil = false;
+				this.sprite.setSprite(this.spriteSheet,
+									  this.spriteWidth, this.spriteHeight,
+									  this.spriteFrames, this.spriteHeight, true);
+			}
+			return;
+		}
+
+		if (directionTimer <= 0 || directionTimer == undefined) {
+			resetMovement();
+		}
+
+		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+
+		directionTimer -= TIME_PER_TICK;
+	} // end of this.update()
+
+	resetMovement() {
+
+		directionTimer = minMoveTime + Math.random() * maxMoveTime;
+		var speed = minSpeed + Math.random() * maxSpeed;
+		var angle = Math.random() * 2*Math.PI;
+
+		velX = Math.cos(angle) * speed;
+		velY = Math.sin(angle) * speed;
+	}
 }
