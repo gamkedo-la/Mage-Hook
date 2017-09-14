@@ -30,5 +30,9 @@ function editTileOnMouseClick(evt) {
 	}
 }
 
-function outputRoomGrid() {
+function copyToClipboard() {  
+	if (_DEBUG_ENABLE_TILE_EDITOR) {
+		window.prompt(roomName + "      "+ "Ctrl+C then Enter to close window" +":", 
+		currentRoom.layout);
+	}
 }

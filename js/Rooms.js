@@ -1,11 +1,11 @@
 var currentRoomCol = 1,currentRoomRow = 1, currentFloor = 1;
 var lastValidCurrentRoomCol = 1,lastValidCurrentRoomRow = 1, lastValidCurrentFloor = 1;
-
+var roomName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow) + "" + currentFloor;
 function roomCoordToVar()
 {
-	var varName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow) + "" + currentFloor;
-	console.log("Loading room from var named "+varName);
-	return window[varName];
+	roomName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow) + "" + currentFloor;
+	console.log("Loading room from var named "+roomName);
+	return window[roomName];
 }
 
 function Room(roomLayout) {
