@@ -1,5 +1,13 @@
 function enemyClass(newEnemy){
 
+	var velX;
+	var velY;
+	var directionTimer;
+	var minSpeed = .25;
+	var maxSpeed = .50;
+	var minMoveTime = 1.5;
+	var maxMoveTime = 2.5;
+
 	this.x = newEnemy.x;
 	this.y = newEnemy.y;
 	this.maxHealth = newEnemy.maxHealth; // how many hits till it dies
@@ -70,6 +78,46 @@ function enemyClass(newEnemy){
 		return;
 	}
 
+	this.update = function(){
+
+		if (this.currentHealth <= 0) {
+			this.die();
+		}
+
+		if (this.recoil) {
+			if (!player.isStunned) {
+				resetMovement();
+				this.recoil = false;
+				this.sprite.setSprite(newEnemy.spriteSheet,
+									  newEnemy.spriteWidth, newEnemy.spriteHeight,
+									  newEnemy.spriteFrames, newEnemy.spriteHeight, true);
+			}
+			return;
+		}
+
+		if (directionTimer <= 0 || directionTimer == undefined) {
+			resetMovement();
+		}
+
+		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+
+		directionTimer -= TIME_PER_TICK;
+
+		this.sprite.update();
+		this.tileBehaviorHandler();
+	} // end of this.update()
+
+	function resetMovement() {
+
+		directionTimer = minMoveTime + Math.random() * maxMoveTime;
+		var speed = minSpeed + Math.random() * maxSpeed;
+		var angle = Math.random() * 2*Math.PI;
+
+		velX = Math.cos(angle) * speed;
+		velY = Math.sin(angle) * speed;
+	}
+
 	this.draw = function() {
 		if (!this.isAlive) return;
 
@@ -80,12 +128,6 @@ function enemyClass(newEnemy){
         if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
 			this.hitbox.draw('red');
         }
-	}
-
-	this.update = function() {
-		newEnemy.update();
-		this.sprite.update();
-		this.tileBehaviorHandler();
 	}
 
 	this.updateColliders = function() {
@@ -159,50 +201,5 @@ function slimeMonster(x, y) {
 	this.spriteFrames = 6;
 	this.spriteSpeed = 9;
 
-	this = new enemyClass(this);
-
-	var velX;
-	var velY;
-	var directionTimer;
-	var minSpeed = .25;
-	var maxSpeed = .50;
-	var minMoveTime = 1.5;
-	var maxMoveTime = 2.5;
-
-	this.update = function(){
-
-		if (this.currentHealth <= 0) {
-			this.die();
-		}
-
-		if (this.recoil) {
-			if (!player.isStunned) {
-				resetMovement();
-				this.recoil = false;
-				this.sprite.setSprite(this.spriteSheet,
-									  this.spriteWidth, this.spriteHeight,
-									  this.spriteFrames, this.spriteHeight, true);
-			}
-			return;
-		}
-
-		if (directionTimer <= 0 || directionTimer == undefined) {
-			resetMovement();
-		}
-
-		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
-
-		directionTimer -= TIME_PER_TICK;
-	} // end of this.update()
-
-	resetMovement() {
-
-		directionTimer = minMoveTime + Math.random() * maxMoveTime;
-		var speed = minSpeed + Math.random() * maxSpeed;
-		var angle = Math.random() * 2*Math.PI;
-
-		velX = Math.cos(angle) * speed;
-		velY = Math.sin(angle) * speed;
-	}
+	return new enemyClass(this);
 }
