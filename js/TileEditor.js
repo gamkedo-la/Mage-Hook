@@ -18,9 +18,5 @@ function editTileOnMouseClick(evt) {
 		worldGrid[tileUnderMouse]++;
 		if (worldGrid[tileUnderMouse] > HIGHEST_TILE_NUMBER)
 			worldGrid[tileUnderMouse] = 0;
-		if (worldGrid[tileUnderMouse] == 2)
-			worldGrid[tileUnderMouse]++;
-		if (worldGrid[tileUnderMouse] == 6)
-			worldGrid[tileUnderMouse]++;
 	}
 }
