@@ -60,6 +60,7 @@ function keyPressed(evt) {
 	var otherKeyPressed = true;
 	switch(evt.keyCode) {
 		case KEY_9:
+			outputRoomGrid();
 			break;
 		case KEY_R:
 			resetAllRooms();
