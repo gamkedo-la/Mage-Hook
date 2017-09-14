@@ -20,6 +20,7 @@ var mouseY = 0;
 
 function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
+	canvas.addEventListener('mousedown',editTileOnMouseClick);
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
