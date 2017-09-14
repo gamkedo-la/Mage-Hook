@@ -4,38 +4,35 @@ const MIN_MOVE_TIME = 1.5;
 const MAX_MOVE_TIME = 2.5;
 
 var testSpritePic
-function enemyClass(x, y){
+function enemyClass(newEnemy){
 
-	this.x = x;
-	this.y = y;
+	this.x = newEnemy.x;
+	this.y = newEnemy.y;
+
+	this.maxHealth = newEnemy.maxHealth; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+
+	var lootModifier = newEnemy.lootModifier;
+
 	this.recoil = false;
 	var velX;
 	var velY;
 	var directionTimer;
-	var enemyLootModifier = 1.0;
 
-	this.maxHealth = 3; // how many hits till it dies
-	this.currentHealth = this.maxHealth;
 	this.isAlive = true;
 
-	var tileColliderWidth = 18;
-	var tileColliderHeight = 4;
-	var tileColliderOffsetX = 2;
-	var tileColliderOffsetY = 11;
 	this.tileCollider = new boxColliderClass(this.x, this.y,
-											 tileColliderWidth, tileColliderHeight,
-											 tileColliderOffsetX, tileColliderOffsetY);
-	var hitboxWidth = 18;
-	var hitboxHeight = 14;
-	var hitboxOffsetX = 2;
-	var hitboxOffsetY = 6;
-	this.hitbox = new boxColliderClass(this.x, this.y,
-									   hitboxWidth, hitboxHeight,
-									   hitboxOffsetX, hitboxOffsetY);
-	this.sprite = new spriteClass();
-	this.sprite.setSprite(sprites.Slime.idleAnimation, 32, 32, 6, 9, true);
+											 newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
+											 newEnemy.tileColliderOffsetX, newEnemy.tileColliderOffsetY);
 
-	var sprite = new spriteClass();
+	this.hitbox = new boxColliderClass(this.x, this.y,
+									   newEnemy.hitboxWidth, newEnemy.hitboxHeight,
+									   newEnemy.hitboxOffsetX, newEnemy.hitboxOffsetY);
+
+	this.sprite = new spriteClass();
+	this.sprite.setSprite(newEnemy.spriteSheet,
+						  newEnemy.spriteWidth, newEnemy.spriteHeight,
+						  newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
 
 	this.die = function() {
 		console.log('An enemy died!');
@@ -51,7 +48,7 @@ function enemyClass(x, y){
 		}
 
 		// drop items
-		var totalItems = rollItemQuantity(10, 99, enemyLootModifier);
+		var totalItems = rollItemQuantity(10, 99, lootModifier);
 		console.log(totalItems + " Items Dropped");
 		var tileIndex = getTileIndexAtPixelCoord(this.tileCollider.x, this.tileCollider.y);
 		var coord = calculateCenterCoordOfTileIndex(tileIndex); // to prevent items from spawning in walls
@@ -172,30 +169,41 @@ function enemyClass(x, y){
 	}
 
 	this.tileBehaviorHandler = function() {
-		// default behaviors go here
-		enemyFriction = FRICTION;
-		sprite.setSpeed(9);
 
 		var types = this.tileCollider.checkTileTypes();
 		for (var i = 0; i < types.length; i++) {
 			switch (types[i]) {
-				case TILE_OOZE:
-					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-						var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lime');
-						particle.push(tempParticle);
-					}
-					break;
-				case TILE_WEB:
-					enemyFriction = WEB_FRICTION;
-					sprite.setSpeed(4.5)
-					for (var i = 0; i < PARTICLES_PER_TICK; i++) {
-						var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lightGrey');
-						particle.push(tempParticle);
-					}
-					break;
 				default:
 					break;
 			}
 		}
 	}
+}
+
+function slimeMonster(x, y) {
+
+	this.x = x;
+	this.y = y;
+
+	this.maxHealth = 3; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+	this.lootModifier = 1.0;
+
+	this.tileColliderWidth = 18;
+	this.tileColliderHeight = 4;
+	this.tileColliderOffsetX = 2;
+	this.tileColliderOffsetY = 11;
+
+	this.hitboxWidth = 18;
+	this.hitboxHeight = 14;
+	this.hitboxOffsetX = 2;
+	this.hitboxOffsetY = 6;
+
+	this.spriteSheet = sprites.Slime.idleAnimation;
+  	this.spriteWidth = 32;
+	this.spriteHeight = 32;
+  	this.spriteFrames = 6;
+	this.spriteSpeed = 9;
+
+	return new enemyClass(this);
 }

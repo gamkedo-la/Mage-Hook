@@ -52,7 +52,7 @@ function Room(roomLayout) {
 						this.layout[arrayIndex] = TILE_GROUND;
 						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
 						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently too tall to put next to walls
-						nextEnemy = new enemyClass(x, y);
+						nextEnemy = new slimeMonster(x, y);
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
 						break;
@@ -72,7 +72,7 @@ function Room(roomLayout) {
 			this.magic[i].draw();
 		}
 	}
-	
+
 	this.drawDynamic = function() {
 		var objects = [];
 		for(var i = 0; i<this.enemyList.length; i++){
@@ -82,11 +82,11 @@ function Room(roomLayout) {
 			objects.push({"y":this.magic[i].y , "object": this.magic[i]});
 		}
 		objects.push({"y":player.y, "object": player});
-		
+
 		objects.sort(function(a, b) {
 			return a.y-b.y;
 		});
-		
+
 		for(var i = 0; i<objects.length; i++){
 			objects[i].object.draw();
 		}
