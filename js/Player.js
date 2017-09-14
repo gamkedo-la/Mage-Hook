@@ -291,9 +291,9 @@ function playerClass() {
 		attackTimer = ATTACK_DURATION;
 		console.log('attack!');
 		this.registerAttack( this.x + 10, this.y, sprites.Player.anchorAttack, {
-			5: {x1: 0, y1: 0, x2: 10, y2:10 },
-			6: {x1: 0, y1: 0, x2: 10, y2:10 },
-			7: {x1: 0, y1: 0, x2: 10, y2:10 }
+			4: {x1: 5, y1: 8, x2: 20, y2:10 },
+			5: {x1: 5, y1: 8, x2: 20, y2:10 },
+			6: {x1: 5, y1: 8, x2: 20, y2:10 }
 		});
 		return;
 		var hitOne = this.canHitEnemy();
@@ -328,11 +328,17 @@ function playerClass() {
 				break;
 		}
 		ctrl.maxHealth = 3;
-		ctrl.attackFrames = {
-			4: {x1: 0, y1: 0, x2: 10, y2:10 },
-			5: {x1: 0, y1: 0, x2: 10, y2:10 },
-			6: {x1: 0, y1: 0, x2: 10, y2:10 }
-		};
+		if(!attackFrames){
+			//waaaa??
+			ctrl.attackFrames = {
+				4: {x1: 0, y1: 0, x2: 10, y2:10 },
+				5: {x1: 0, y1: 0, x2: 10, y2:10 },
+				6: {x1: 0, y1: 0, x2: 10, y2:10 }
+			};
+		} else {
+			ctrl.attackFrames = attackFrames
+		}
+		
 
 		var tileColliderWidth = 0, tileColliderHeight = 0, tileColliderOffsetX = 0, tileColliderOffsetY = 0
 		ctrl.collider = new boxColliderClass(
@@ -387,7 +393,6 @@ function playerClass() {
 	this.canHitEnemy = function(collider) { // used for attacks, returns the enemy
 
 		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
-
 		if (!currentRoom) { console.log("ERROR: currentRoom is null."); return false; }
 
 		var hitAnEnemy = null;
