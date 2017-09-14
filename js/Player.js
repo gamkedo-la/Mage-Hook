@@ -295,6 +295,7 @@ function playerClass() {
 			6: {x1: 0, y1: 0, x2: 10, y2:10 },
 			7: {x1: 0, y1: 0, x2: 10, y2:10 }
 		});
+		return;
 		var hitOne = this.canHitEnemy();
 		if (hitOne)
 		{
@@ -347,6 +348,7 @@ function playerClass() {
 				ctrl.collider.draw('red');
 	        }
 		}
+
 		ctrl.update = function(){
 			if(ctrl.sprite.isDone()){
 				var index = currentRoom.magic.indexOf(ctrl);
@@ -362,6 +364,14 @@ function playerClass() {
     			ctrl.collider.offsetY = ctrl.attackFrames[frame].y1;
 				ctrl.collider.width = ctrl.attackFrames[frame].x2;
 				ctrl.collider.height = ctrl.attackFrames[frame].y2;
+				var hitOne = player.canHitEnemy(ctrl.collider)
+				if (hitOne)
+				{
+					console.log('WE HIT AN ENEMY!!!!');
+					this.enemyHitCount++; // score?
+					hitOne.currentHealth--;
+					Sound.play("enemy_hit"); // TODO: after a delay?
+				}
 			} else {
 				ctrl.collider.offsetX = 0;
     			ctrl.collider.offsetY = 0;
@@ -374,7 +384,7 @@ function playerClass() {
 		currentRoom.magic.push(ctrl)
 	}
 
-	this.canHitEnemy = function() { // used for attacks, returns the enemy
+	this.canHitEnemy = function(collider) { // used for attacks, returns the enemy
 
 		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
 
@@ -384,10 +394,10 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
-	        if (this.attackhitbox.isCollidingWith(enemy.hitbox)) {
+	        if (collider.isCollidingWith(enemy.hitbox)) {
 				enemy.sprite.setFrame(5);
 				enemy.recoil = true;
-				hitAnEnemy = enemy;
+				hitAnEnemy = enemy; //TODO: make this a list so we can hit more than one enemy
 				for (var i = 0; i < PARTICLES_PER_ATTACK; i++) {
 					var tempParticle = new particleClass(enemy.hitbox.x, enemy.hitbox.y, 'red');
 					particle.push(tempParticle);
