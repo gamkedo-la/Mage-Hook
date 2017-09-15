@@ -42,7 +42,7 @@ function loadImages() {
 		{set: "Player", name: "anchorAttack", fileName: "MainChar/Anchor Attack.png"},
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
-		{set: "Slug", name: "walkAnimation", fileName: "SlugBuddy.png"},
+		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},
