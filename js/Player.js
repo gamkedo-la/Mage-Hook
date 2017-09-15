@@ -5,7 +5,7 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
 const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
-const ATTACK_ANIMATION_SPEED = 45; // in FPS
+const ATTACK_ANIMATION_SPEED = 13; // in FPS
 const PARTICLES_PER_ATTACK = 200;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
@@ -349,7 +349,7 @@ function playerClass() {
 			tileColliderOffsetX, tileColliderOffsetY
 		);
 		ctrl.sprite = new spriteClass();
-		ctrl.sprite.setSprite(sprites.Player.anchorAttack, 32, 32, 6, 9, false);
+		ctrl.sprite.setSprite(sprites.Player.anchorAttack, 32, 32, 7, 9, false);
 		ctrl.sprite.setSpeed(ATTACK_ANIMATION_SPEED);
 
 		ctrl.draw = function(){
