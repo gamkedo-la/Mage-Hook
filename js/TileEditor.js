@@ -44,7 +44,7 @@ function copyToClipboard() {
 	
 	layoutString = layoutString.slice(0,-1);
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
-		window.prompt(roomName + "      "+ "Ctrl+C then Enter to close window" +":", 
-		layoutString);
+		window.prompt("Ctrl+C then Enter to close window" + "\n"+ 
+		roomName + ":", layoutString);
 	}
 }

@@ -45,7 +45,6 @@ function loadLevel() {
 function updateAll() {
 	moveAll();
 	drawAll();
-	//cameraLock();
 	if (_DEBUG_ENABLE_TILE_EDITOR == true) {
     roomTileCoordinate();
   	}
@@ -64,8 +63,6 @@ function moveAll() {
 }
 
 function drawAll() {
-	canvasContext.save();
-	//canvasContext.translate(-camPanX,-camPanY); //currently causing visual bugs
 	drawWorld();
 	drawItems();
 	//currentRoom.drawMyEnemies();
@@ -74,5 +71,4 @@ function drawAll() {
 	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
-	canvasContext.restore();
 }
