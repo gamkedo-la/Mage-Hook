@@ -41,7 +41,7 @@ function copyToClipboard() {
 			layoutString += currentRoom.layout[i] + ",";
 		}
 	}
-	
+		
 	layoutString = layoutString.slice(0,-1);
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
 		window.prompt("Ctrl+C then Enter to close window" + "\n"+ 
