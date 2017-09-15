@@ -31,8 +31,20 @@ function editTileOnMouseClick(evt) {
 }
 
 function copyToClipboard() {  
+	var layoutString = "";
+	for(var i=0; i<currentRoom.layout.length; i++) {
+		if (i%16==0)
+			layoutString += "\n";
+		if (currentRoom.layout[i] < 10) {
+			layoutString += "0" + currentRoom.layout[i].toString() + ",";
+		} else {
+			layoutString += currentRoom.layout[i] + ",";
+		}
+	}
+	
+	layoutString = layoutString.slice(0,-1);
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
 		window.prompt(roomName + "      "+ "Ctrl+C then Enter to close window" +":", 
-		currentRoom.layout);
+		layoutString);
 	}
 }
