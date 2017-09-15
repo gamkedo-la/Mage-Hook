@@ -43,6 +43,7 @@ function loadImages() {
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
+		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},

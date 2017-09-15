@@ -238,3 +238,31 @@ function slugMonster(x, y) {
 
 	return new enemyClass(this);
 }
+
+function armsBro(x, y) {
+
+	this.x = x;
+	this.y = y;
+
+	this.maxHealth = 5; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+	this.lootModifier = 1.0;
+
+	this.tileColliderWidth = 18;
+	this.tileColliderHeight = 4;
+	this.tileColliderOffsetX = 2;
+	this.tileColliderOffsetY = 11;
+
+	this.hitboxWidth = 18;
+	this.hitboxHeight = 14;
+	this.hitboxOffsetX = 2;
+	this.hitboxOffsetY = 6;
+
+	this.spriteSheet = sprites.ArmsBro.idle;
+	this.spriteWidth = 32;
+	this.spriteHeight = 32;
+	this.spriteFrames = 6;
+	this.spriteSpeed = 9;
+
+	return new enemyClass(this);
+}
