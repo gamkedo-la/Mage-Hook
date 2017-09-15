@@ -207,3 +207,31 @@ function slimeMonster(x, y) {
 
 	return new enemyClass(this);
 }
+
+function slugMonster(x, y) {
+
+	this.x = x;
+	this.y = y;
+
+	this.maxHealth = 2; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+	this.lootModifier = 1.0;
+
+	this.tileColliderWidth = 16;
+	this.tileColliderHeight = 4;
+	this.tileColliderOffsetX = 0;
+	this.tileColliderOffsetY = 11;
+
+	this.hitboxWidth = 16;
+	this.hitboxHeight = 10;
+	this.hitboxOffsetX = 0;
+	this.hitboxOffsetY = 6;
+
+	this.spriteSheet = sprites.Slug.walkAnimation;
+	this.spriteWidth = 32;
+	this.spriteHeight = 32;
+	this.spriteFrames = 4;
+	this.spriteSpeed = 5;
+
+	return new enemyClass(this);
+}

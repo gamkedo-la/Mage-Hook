@@ -52,7 +52,11 @@ function Room(roomLayout) {
 						this.layout[arrayIndex] = TILE_GROUND;
 						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
 						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently too tall to put next to walls
-						nextEnemy = new slimeMonster(x, y);
+						var enemyType = Math.random() * 2;
+						if (enemyType > 1)
+							nextEnemy = new slugMonster(x, y);
+						else
+							nextEnemy = new slimeMonster(x, y);
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
 						break;
