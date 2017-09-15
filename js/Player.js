@@ -498,7 +498,8 @@ function playerClass() {
 						invincibleTimer = INVINCIBLE_DURATION;
 					}
 					screenShake(5);
-					this.isStunned = true;
+					this.isStunned = true
+					stunTimer = STUN_DURATION;
 					knockbackAngle = calculateAngleFrom(this.tileCollider, this.hitbox);
 					knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 					hitByEnemy = true;
