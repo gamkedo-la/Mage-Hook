@@ -27,7 +27,9 @@ function itemClass(posX, posY, speed, type, angle) {
     var speed = speed;
     
     if (angle==undefined)
-        angle = Math.random() * Math.PI * 2;
+        angle = Math.random() * Math.PI * 2; // random direction
+    //else
+    //    console.log("Item spawning with an angle of " + angle); // angle of attacker
 
     var velX = Math.cos(angle) * speed;
     var velY = Math.sin(angle) * speed;

@@ -50,7 +50,10 @@ function enemyClass(newEnemy){
 		var itemAngle = undefined; // TODO this is WIP code
 		for (var i = 0; i < totalItems; i++) {
 			if (attackedBy != undefined)
+			{
 				itemAngle = Math.atan2(coord.y-attackedBy.y,coord.x-attackedBy.x);
+				//console.log("Item dropping in this direction: " + itemAngle);
+			}
 			// TODO: pass attack to this function so we know angle of the HIT, then pass itemAngle to dropItem
 			var dropType = Math.random() * 100;
 			//in order of most common to least common
@@ -85,7 +88,7 @@ function enemyClass(newEnemy){
 	this.update = function(){
 
 		if (this.currentHealth <= 0) {
-			this.die();
+			this.die(this.lastHitBy || player); // if unknown. assume the player hit us
 		}
 
 		if (this.recoil) {

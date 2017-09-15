@@ -303,6 +303,7 @@ function playerClass() {
 			console.log('WE HIT AN ENEMY!!!!');
 			this.enemyHitCount++; // score?
 			hitOne.currentHealth--;
+			hitOne.lastHitBy = this; // the player
 			Sound.play("enemy_hit"); // TODO: after a delay?
 		}
 	}
