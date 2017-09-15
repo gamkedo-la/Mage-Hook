@@ -427,7 +427,7 @@ function playerClass() {
 				if (!this.isInvincible) {
 					this.currentHealth--;
 				}
-				screenshake(5);
+				screenShake(5);
 				knockbackAngle = calculateAngleFrom(enemy.hitbox, this.hitbox);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
@@ -490,6 +490,18 @@ function playerClass() {
 							particle.push(tempParticle);
 						}
 					}
+					break;
+				case TILE_TRAP:
+					if (!this.isInvincible) {
+						this.currentHealth--;
+						this.isInvincible = true;
+						invincibleTimer = INVINCIBLE_DURATION;
+					}
+					screenShake(5);
+					this.isStunned = true;
+					knockbackAngle = calculateAngleFrom(this.tileCollider, this.hitbox);
+					knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
+					hitByEnemy = true;
 					break;
 				case TILE_WEB:
 					playerFriction = WEB_FRICTION;

@@ -5,7 +5,7 @@ var screen_shakes = 0; // frames of screenshake used as player feedback for when
 var screen_shake_pivot_x = 0;
 var screen_shake_pivot_y = 0;
 var screen_shake_me = document.getElementById('gameCanvas');
-function screenshake(howmany)
+function screenShake(howmany)
 {
 	//console.log('screenshake ' + howmany);
 	if (!screen_shake_me)
