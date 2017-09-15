@@ -29,7 +29,7 @@ function enemyClass(newEnemy){
 						  newEnemy.spriteWidth, newEnemy.spriteHeight,
 						  newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
 
-	this.die = function() {
+	this.die = function(attackedBy) {
 		console.log('An enemy died!');
 
 		this.isAlive = false;
@@ -47,31 +47,35 @@ function enemyClass(newEnemy){
 		console.log(totalItems + " Items Dropped");
 		var tileIndex = getTileIndexAtPixelCoord(this.tileCollider.x, this.tileCollider.y);
 		var coord = calculateCenterCoordOfTileIndex(tileIndex); // to prevent items from spawning in walls
+		var itemAngle = undefined; // TODO this is WIP code
 		for (var i = 0; i < totalItems; i++) {
+			if (attackedBy != undefined)
+				itemAngle = Math.atan2(coord.y-attackedBy.y,coord.x-attackedBy.x);
+			// TODO: pass attack to this function so we know angle of the HIT, then pass itemAngle to dropItem
 			var dropType = Math.random() * 100;
 			//in order of most common to least common
 			if (dropType <= ITEM_CRYSTAL_DROP_PERCENT)
-				dropItem(coord.x, coord.y, ITEM_CRYSTAL);
+				dropItem(coord.x, coord.y, ITEM_CRYSTAL,itemAngle);
 			else
 				dropType -= ITEM_CRYSTAL_DROP_PERCENT;
 
 			if (dropType <= ITEM_POTION_DROP_PERCENT)
-				dropItem(coord.x, coord.y, ITEM_POTION);
+				dropItem(coord.x, coord.y, ITEM_POTION,itemAngle);
 			else
 				dropType -= ITEM_POTION_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_COMMON_DROP_PERCENT)
-				dropItem(coord.x, coord.y, ITEM_KEY_COMMON);
+				dropItem(coord.x, coord.y, ITEM_KEY_COMMON,itemAngle);
 			else
 				dropType -= ITEM_KEY_COMMON_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_RARE_DROP_PERCENT)
-				dropItem(coord.x, coord.y, ITEM_KEY_RARE);
+				dropItem(coord.x, coord.y, ITEM_KEY_RARE,itemAngle);
 			else
 				dropType -= ITEM_KEY_RARE_DROP_PERCENT;
 
 			if (dropType <= ITEM_KEY_EPIC_DROP_PERCENT)
-				dropItem(coord.x, coord.y, ITEM_KEY_EPIC);
+				dropItem(coord.x, coord.y, ITEM_KEY_EPIC,itemAngle);
 			else
 				dropType -= ITEM_KEY_EPIC_DROP_PERCENT;
 		}

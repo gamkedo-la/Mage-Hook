@@ -18,14 +18,17 @@ const ITEM_KEY_COMMON_DROP_PERCENT = 5;
 const ITEM_KEY_RARE_DROP_PERCENT = 4;
 const ITEM_KEY_EPIC_DROP_PERCENT = 1;
 
-function itemClass(posX, posY, speed, type) {
+function itemClass(posX, posY, speed, type, angle) {
     this.x = posX;
     this.y = posY;
     this.type = type;
     this.canBePickedUp = false;
     var untangleTimer = UNTANGLE_TIME_LIMIT;
     var speed = speed;
-    var angle = Math.random() * Math.PI * 2;
+    
+    if (angle==undefined)
+        angle = Math.random() * Math.PI * 2;
+
     var velX = Math.cos(angle) * speed;
     var velY = Math.sin(angle) * speed;
 
@@ -184,9 +187,9 @@ function rollItemQuantity(baseItemAmount, capItemAmount, adjustQuantityByPercent
     return Math.floor(totalItems);
 }
 
-function dropItem(x, y, type) {
+function dropItem(x, y, type, angle) {
     var speed = MIN_ITEM_SPEED + Math.random() * MAX_ITEM_SPEED;
-    var tempItem = new itemClass(x, y, speed, type);
+    var tempItem = new itemClass(x, y, speed, type, angle);
     currentRoom.itemOnGround.push(tempItem);
 }
 
