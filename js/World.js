@@ -37,7 +37,8 @@ const TILE_ROOM_DOOR_SOUTH = 27;
 const TILE_ROOM_DOOR_EAST = 28;
 const TILE_ROOM_DOOR_WEST = 29;
 const TILE_STAIRS_DOWN = 30;
-const HIGHEST_TILE_NUMBER = 30;
+const TILE_NOTHING = 31;
+const HIGHEST_TILE_NUMBER = 31;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&

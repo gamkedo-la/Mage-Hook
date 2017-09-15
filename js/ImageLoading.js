@@ -51,6 +51,7 @@ function loadImages() {
 
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
+		{worldType: TILE_NOTHING, theFile: "world_nothingness.png"},
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
 		{worldType: TILE_KEY_COMMON, theFile: "world_key_bronze.png"},
