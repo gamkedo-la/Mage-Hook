@@ -598,6 +598,10 @@ function playerClass() {
 			case TILE_WALL_CORNER_NW:
 			case TILE_WALL_CORNER_SE:
 			case TILE_WALL_CORNER_SW:
+			case TILE_WALL_OUTCORNER_SW:
+			case TILE_WALL_OUTCORNER_SE:
+			case TILE_WALL_OUTCORNER_NW:
+			case TILE_WALL_OUTCORNER_NE:
 				break;
 			default:
 				collisionDetected = false;
