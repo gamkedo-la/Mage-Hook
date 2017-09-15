@@ -4,6 +4,8 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
 const KEY_9 = 57;
+const KEY_PLUS = 187;
+const KEY_MINUS = 189;
 const KEY_W = 87;
 const KEY_A = 65;
 const KEY_S = 83;
@@ -62,6 +64,12 @@ function keyPressed(evt) {
 		case KEY_9:
 			copyToClipboard();
 			break;
+		case KEY_PLUS:
+			editTileOnMouseClick();
+			break
+		case KEY_MINUS:
+			editTileonMouseReverse();
+			break
 		case KEY_R:
 			resetAllRooms();
 			break;

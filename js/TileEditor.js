@@ -30,6 +30,21 @@ function editTileOnMouseClick(evt) {
 	}
 }
 
+function editTileonMouseReverse() {
+	if(_DEBUG_ENABLE_TILE_EDITOR) {
+		worldGrid[tileUnderMouse]--;
+		if (worldGrid[tileUnderMouse] < 0) {
+			worldGrid[tileUnderMouse] = HIGHEST_TILE_NUMBER;
+		}
+		if (worldGrid[tileUnderMouse] == 2) {
+			worldGrid[tileUnderMouse]--;
+		}
+		if (worldGrid[tileUnderMouse] == 6) {
+			worldGrid[tileUnderMouse]--;
+		}
+	}
+}
+
 function copyToClipboard() {  
 	var layoutString = "";
 	for(var i=0; i<currentRoom.layout.length; i++) {
@@ -41,7 +56,7 @@ function copyToClipboard() {
 			layoutString += currentRoom.layout[i] + ",";
 		}
 	}
-		
+
 	layoutString = layoutString.slice(0,-1);
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
 		window.prompt("Ctrl+C then Enter to close window" + "\n"+ 
