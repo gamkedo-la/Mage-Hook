@@ -125,24 +125,32 @@ function keyPressed(evt) {
 			console.log("Tile Editor is" + " " +_DEBUG_ENABLE_TILE_EDITOR)
 			break;
 		case KEY_W:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change North");
 			currentRoomRow--;
 			loadLevel(roomCoordToVar);
+			//}
 			break;
 		case KEY_A:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change West");
 			currentRoomCol--;
 			loadLevel(roomCoordToVar);
+			//}
 			break;
 		case KEY_S:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change South");
 			currentRoomRow++;
 			loadLevel(roomCoordToVar);
+			//}
 			break;
 		case KEY_D:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change East");
 			currentRoomCol++;
 			loadLevel(roomCoordToVar);
+			//}
 			break;
 		default:
 			otherKeyPressed=false;

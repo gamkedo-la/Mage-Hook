@@ -1,6 +1,5 @@
 var currentRoomCol = 1,currentRoomRow = 1, currentFloor = 1;
 var lastValidCurrentRoomCol = 1,lastValidCurrentRoomRow = 1, lastValidCurrentFloor = 1;
-var roomName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow) + "" + currentFloor;
 
 function roomCoordToVar()
 {
@@ -118,7 +117,7 @@ function Room(roomLayout) {
 		}
 	}
 	this.considerRoomChange = function () {
-		if (player.x < 0){
+		if (player.x < 0) {
 			currentRoomCol--;
 			Sound.play("room_change",false,0.05);
 			loadLevel();
@@ -190,8 +189,8 @@ var room0b1 =[
 	
 var room1b1 = [
 	24,19,19,19,19,19,19,19,26,19,19,19,19,19,19,25,
-	20,10,08,00,00,00,00,00,00,00,00,00,00,00,00,21,
-	20,00,00,00,00,00,00,00,00,03,09,00,00,00,00,21,
+	20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
+	20,00,00,00,00,00,00,04,00,03,09,00,00,00,00,21,
 	20,07,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	29,00,00,00,00,10,00,00,00,00,00,00,17,00,00,21,
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
@@ -238,7 +237,7 @@ function restoreRoomDataBackup() {
 	console.log("calling restoreRoomDataBackup")
 	allRooms = JSON.parse(JSON.stringify(allRoomsBackup));
 	resetAllRooms();
-	console.log("room reset")
+	console.log("room reset");
 }
 
 function resetAllRooms(){
@@ -256,8 +255,5 @@ function resetAllRooms(){
 			}
 		}
 	}
-	currentRoomCol = 1;
-	currentRoomRow = 1;
-	currentFloor = 1;
 	loadLevel();
 }
