@@ -19,12 +19,14 @@ function Room(roomLayout) {
 	this.enemyList = [];
 	this.magic = [];
 	this.itemOnGround = [];
+	this.floorTraps = [];
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
 		this.itemOnGround = [];
-		if (!_DEBUG_ENABLE_TILE_EDITOR) { 
+		if (!_DEBUG_ENABLE_TILE_EDITOR) {
 			this.spawnItems();
+			this.spawnTraps();
 			this.spawnMyEnemies();
 		}
 	}
@@ -39,6 +41,24 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_KEY_COMMON);
+				} // end of player start if
+			} // end of col for
+		}
+	}
+
+	this.spawnTraps = function() {
+		var nextTrap = null;
+		var x, y;
+
+		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+				if(this.layout[arrayIndex] == TILE_TRAP) {
+					x = eachCol * WORLD_W + WORLD_W/2;
+					y = eachRow * WORLD_H + WORLD_H/2; //monsters are currently too tall to put next to walls
+					trapWasFound = true;
+					nextTrap = new trap(x, y);
+					this.floorTraps.push(nextTrap);
 				} // end of player start if
 			} // end of col for
 		}
@@ -84,6 +104,14 @@ function Room(roomLayout) {
 	this.drawMagic = function(){
 		for(var i = 0; i<this.magic.length; i++){
 			this.magic[i].draw();
+		}
+	}
+
+	this.drawTraps = function() {
+		for (var i = 0; i < this.floorTraps.length; i++) {
+			var trap = this.floorTraps[i];
+			trap.update();
+			trap.draw();
 		}
 	}
 
@@ -187,7 +215,7 @@ var room0b1 =[
 	20,00,32,19,19,19,19,19,33,00,21,31,31,31,31,31,
 	20,00,00,00,00,00,00,00,00,00,21,31,31,31,31,31,
 	22,18,18,18,18,18,18,18,27,18,23,31,31,31,31,31];
-	
+
 var room1b1 = [
 	24,19,19,19,19,19,19,19,26,19,19,19,19,19,19,25,
 	20,10,08,00,00,00,00,00,00,00,00,00,00,00,00,21,
@@ -198,7 +226,7 @@ var room1b1 = [
 	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
 	31,31,31,31,31,31,22,18,18,18,18,18,18,18,18,23];
-	
+
 var room0c1 = [
 	24,19,19,19,19,19,19,19,26,19,19,19,19,19,19,25,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
@@ -250,7 +278,7 @@ function resetAllRooms(){
 				if (window[eachRoom] != undefined) {
 					console.log("room found");
 					var tempRoom = new Room (window[eachRoom]);
-					tempRoom.reset(); 
+					tempRoom.reset();
 					allRoomsData[eachRoom] = tempRoom;
 				}
 			}

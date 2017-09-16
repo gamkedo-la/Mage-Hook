@@ -266,3 +266,20 @@ function armsBro(x, y) {
 
 	return new enemyClass(this);
 }
+
+function trap(x, y) { // most functionality of traps is contained in the player.js tileBehaviorHandler
+	var trapImage = worldPics[TILE_TRAP];
+	var sprite = new spriteClass();
+	this.x = x;
+	this.y = y;
+
+	sprite.setSprite(trapImage, 20, 20, 10, 9, true);
+
+	this.update = function() {
+		sprite.update();
+	}
+
+	this.draw = function() {
+		sprite.draw(this.x, this.y);
+	}
+}
