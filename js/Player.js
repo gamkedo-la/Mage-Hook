@@ -15,6 +15,7 @@ const PARTICLES_PER_TICK = 3;
 const POISON_DURATION = 1;
 const FRICTION = 0.80;
 const WEB_FRICTION = 0.15;
+const RANGED_ATTACK_SPEED = 10;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 
@@ -23,6 +24,7 @@ const SOUTH = 2;
 const EAST = 3;
 const WEST = 4;
 const ATTACK = 5; // used in input.js for future double tap logic
+const RANGED_ATTACK = 6;
 
 const STARTING_POSITION_X = 188;
 const STARTING_POSITION_Y = 86;
@@ -35,6 +37,7 @@ function playerClass() {
 	var isAttacking = false;
 	var wasAttacking = false;
 	var playerFriction = FRICTION;
+	var rangeAttackDir = 0;
 
 	var playerAtStartingPosition = true;
 	this.x = STARTING_POSITION_X;
@@ -65,6 +68,7 @@ function playerClass() {
 	this.keyHeld_Attack = false;
 	this.keyHeld_Dash = false;
 	this.lastDashTime = 0;
+	this.keyHeld_Ranged_Attack = false;
 	//this.dashPending = []; // eg player.dashPending[NORTH] = true;
 
 	this.controlKeyUp;
@@ -73,6 +77,7 @@ function playerClass() {
 	this.controlKeyLeft;
 	this.controlKeyAttack;
 	this.controlKeyDash;
+	this.controlKeyRangeAttack;
 	
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 2;
@@ -99,13 +104,14 @@ function playerClass() {
 
    var sprite = new spriteClass();
 
-	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey, dashKey) {
+	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey, dashKey, rangedAttackKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;
 		this.controlKeyDown = downKey;
 		this.controlKeyLeft = leftKey;
 		this.controlKeyAttack = attackKey;
 		this.controlKeyDash = dashKey;
+		this.controlKeyRangeAttack = rangedAttackKey;
 	}
 
 	this.reset = function(playerName) {
@@ -206,6 +212,13 @@ function playerClass() {
 			this.anchorAttack();
 		}
 
+		isUsingRangedAttack = this.keyHeld_Ranged_Attack;
+		if(isUsingRangedAttack && !wasAttacking)	//either melee attack or ranged attack
+		{
+			rangeAttackDir = isFacing;
+			this.RangedAttack();
+		}
+
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (this.currentHealth <= 0) {
 				resetAllRooms();
@@ -223,7 +236,7 @@ function playerClass() {
 		choosePlayerAnimation();
 		wasMoving = isMoving;
 		wasFacing = isFacing;
-		wasAttacking = isAttacking;
+		wasAttacking = isAttacking | isUsingRangedAttack;
 
 		// stuns player when hit by enemies
 		if (this.isStunned) {
@@ -335,28 +348,59 @@ function playerClass() {
 			Sound.play("enemy_hit"); // TODO: after a delay?
 		}
 	}
+
+	//testing range attack
+	this.RangedAttack = function() {
+		Sound.play("player_attack");
+		attackTimer = ATTACK_DURATION;
+		console.log('ranged attack!');
+		switch(rangeAttackDir) {
+			case (NORTH):
+				break;
+			case(SOUTH):
+				break;
+			case(EAST):
+				break;
+			case(WEST):
+				break;
+			default:
+				console.log("Shouldn't come here...\n");
+				break;
+		}
+		this.registerAttack( this.x + 10, this.y, sprites.Player.RangedAttack, {
+			0: {x1: 5, y1: 8, x2: 20, y2:10 },
+			1: {x1: 5, y1: 8, x2: 20, y2:10 },
+			2: {x1: 5, y1: 8, x2: 20, y2:10 },
+			3: {x1: 5, y1: 8, x2: 20, y2:10 }
+		});
+		return;
+	}
+
 	//TODO: refractor out into attack.js
 	//TODO: pass in a sprite, not an img
 	this.registerAttack = function( x, y, animation, attackFrames){
 		var ctrl = {}
 		ctrl.x = x;
 		ctrl.y = y;
-		switch(isFacing) { //Draw attack in facing dirction
-			case NORTH:
-				ctrl.x -= 16;
-				ctrl.y -= 16;
-				break;
-			case SOUTH:
-				ctrl.x -= 16;
-				ctrl.y += 16;
-				break;
-			case EAST:
-				ctrl.x += 3;
-				break;
-			case WEST:
-				ctrl.x -= 35;
-				break;
+		if(animation == sprites.Player.anchorAttack) {
+			switch(isFacing) { //Draw attack in facing dirction
+				case NORTH:
+					ctrl.x -= 16;
+					ctrl.y -= 16;
+					break;
+				case SOUTH:
+					ctrl.x -= 16;
+					ctrl.y += 16;
+					break;
+				case EAST:
+					ctrl.x += 3;
+					break;
+				case WEST:
+					ctrl.x -= 35;
+					break;
+			}
 		}
+		
 		ctrl.maxHealth = 3;
 		if(!attackFrames){
 			//waaaa??
@@ -377,7 +421,35 @@ function playerClass() {
 			tileColliderOffsetX, tileColliderOffsetY
 		);
 		ctrl.sprite = new spriteClass();
-		ctrl.sprite.setSprite(sprites.Player.anchorAttack, 32, 32, 7, 9, false);
+		var animFrame = 0;
+		//can also set different animation speed and sprite size
+		if(animation == sprites.Player.anchorAttack){
+			ctrl.attackDir = [0,0];
+			animFrame = 7;
+		}
+		else if(animation == sprites.Player.RangedAttack){
+			animFrame = 4;
+			switch(rangeAttackDir) {
+				case (NORTH):
+					ctrl.attackDir = [0,-1];
+					break;
+				case(SOUTH):
+					ctrl.attackDir = [0,1];
+					break;
+				case(EAST):
+					ctrl.attackDir = [1,0];
+					break;
+				case(WEST):
+					ctrl.attackDir = [-1,0];
+					break;
+				default:
+					console.log("Shouldn't come here...\n");
+					break;
+			}
+		}
+			
+		//console.log(animFrame);
+		ctrl.sprite.setSprite(/*sprites.Player.anchorAttack*/animation, 32, 32, animFrame, 9, false);
 		ctrl.sprite.setSpeed(ATTACK_ANIMATION_SPEED);
 
 		ctrl.draw = function(){
@@ -396,6 +468,8 @@ function playerClass() {
 			  		return;
 				}				
 			}
+			ctrl.x += ctrl.attackDir[0]*RANGED_ATTACK_SPEED;
+			ctrl.y += ctrl.attackDir[1]*RANGED_ATTACK_SPEED;
 			var frame = ctrl.sprite.getFrame();
 			if(ctrl.attackFrames[frame]){
 				ctrl.collider.offsetX = ctrl.attackFrames[frame].x1;

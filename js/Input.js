@@ -20,6 +20,7 @@ const KEY_B = 66;
 const KEY_C = 67;
 const KEY_Q = 81;
 const KEY_Z = 90; // dash
+const KEY_L = 76; // range attack
 
 const KEY_SPACE = 32;
 
@@ -33,7 +34,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE, KEY_Z);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE, KEY_Z, KEY_L);
 }
 
 function updateMousePos(evt) {
@@ -83,7 +84,10 @@ function keySet(keyEvent, setTo) {
 	}else if(keyEvent.keyCode == player.controlKeyAttack) {
 		if (!setTo) checkDoubleTap(ATTACK);
 		player.keyHeld_Attack = setTo;
-	} else {
+	} else if(keyEvent.keyCode == player.controlKeyRangeAttack) {
+		if (!setTo) checkDoubleTap(RANGED_ATTACK);
+		player.keyHeld_Ranged_Attack = setTo;
+	}else {
 		validGameKey = false;
 	}
 	return validGameKey;
