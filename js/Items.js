@@ -152,6 +152,10 @@ function itemClass(posX, posY, speed, type, angle) {
             case TILE_ROOM_DOOR_SOUTH:
             case TILE_ROOM_DOOR_EAST:
             case TILE_ROOM_DOOR_WEST:
+            case TILE_WALL_OUTCORNER_SW:
+            case TILE_WALL_OUTCORNER_SE:
+            case TILE_WALL_OUTCORNER_NW:
+            case TILE_WALL_OUTCORNER_NE:
                 break;
             default:
                 collisionDetected = false;
