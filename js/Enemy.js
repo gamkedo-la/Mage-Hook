@@ -15,6 +15,7 @@ function enemyClass(newEnemy){
 	this.lootModifier = newEnemy.lootModifier;
 	this.recoil = false;
 	this.isAlive = true;
+	this.droppedTile = newEnemy.droppedTile;
 
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 											 newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
@@ -35,7 +36,7 @@ function enemyClass(newEnemy){
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;
-
+		
 		// remove from enemy list
 		var foundHere = currentRoom.enemyList.indexOf(this);
 		if (foundHere > -1) {
@@ -81,6 +82,14 @@ function enemyClass(newEnemy){
 				dropItem(coord.x, coord.y, ITEM_KEY_EPIC,itemAngle);
 			else
 				dropType -= ITEM_KEY_EPIC_DROP_PERCENT;
+		}
+		// drop tile on death
+		if (newEnemy.droppedTile == undefined) {
+			console.log(this.droppedTile)
+			return;
+		} else if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
+			worldGrid[tileIndex] = this.droppedTile;
+			console.log(this.droppedTile);
 		}
 		return;
 	}
@@ -195,6 +204,7 @@ function slimeMonster(x, y) {
 	this.maxHealth = 3; // how many hits till it dies
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
+	this.droppedTile = undefined;
 
 	this.tileColliderWidth = 18;
 	this.tileColliderHeight = 4;
@@ -223,6 +233,7 @@ function slugMonster(x, y) {
 	this.maxHealth = 2; // how many hits till it dies
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
+	this.droppedTile = TILE_OOZE;
 
 	this.tileColliderWidth = 16;
 	this.tileColliderHeight = 4;
@@ -251,6 +262,7 @@ function armsBro(x, y) {
 	this.maxHealth = 5; // how many hits till it dies
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
+	this.droppedTile = TILE_SKULL;
 
 	this.tileColliderWidth = 18;
 	this.tileColliderHeight = 4;
