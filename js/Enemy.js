@@ -41,7 +41,7 @@ function enemyClass(newEnemy){
 		if (foundHere > -1) {
 			currentRoom.enemyList.splice(foundHere, 1);
 		}
-
+		
 		// drop items
 		var totalItems = rollItemQuantity(10, 99, this.lootModifier);
 		console.log(totalItems + " Items Dropped");
