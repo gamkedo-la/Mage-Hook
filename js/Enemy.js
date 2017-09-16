@@ -87,13 +87,21 @@ function enemyClass(newEnemy){
 		if (newEnemy.droppedTile == undefined) {
 			console.log("undefined: no tile dropped");
 			return;
-		} else if (worldGrid[tileIndex - WORLD_COLS] == TILE_ROOM_DOOR_NORTH ||
-				   worldGrid[tileIndex + WORLD_COLS] == TILE_ROOM_DOOR_SOUTH ||
-				   worldGrid[tileIndex + 1] == TILE_ROOM_DOOR_EAST ||
-				   worldGrid[tileIndex - 1] == TILE_ROOM_DOOR_WEST) {
-			console.log("in front of door: no tile dropped")
+		} 
+		var tileSouthOfEnemy = worldGrid[tileIndex + WORLD_COLS];
+		var tileNorthOfEnemy = worldGrid[tileIndex - WORLD_COLS];
+		var tileWestOfEnemy = worldGrid[tileIndex - 1];
+		var tileEastOfEnemy = worldGrid[tileIndex + 1];
+		var interactiveTiles = [TILE_ROOM_DOOR_NORTH,TILE_ROOM_DOOR_SOUTH,TILE_ROOM_DOOR_EAST,TILE_ROOM_DOOR_WEST,
+								TILE_STAIRS_UP,TILE_STAIRS_DOWN,TILE_DOOR_COMMON,TILE_DOOR_RARE,TILE_DOOR_EPIC];
+		if ((interactiveTiles.indexOf(tileSouthOfEnemy) > -1) ||
+			(interactiveTiles.indexOf(tileNorthOfEnemy) > -1) ||	
+			(interactiveTiles.indexOf(tileEastOfEnemy) > -1)  ||
+			(interactiveTiles.indexOf(tileWestOfEnemy) > -1)){
+			console.log("infront of door/stairs: no tile dropped")
 			return;
-		} else if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
+		}
+		if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
 			worldGrid[tileIndex] = this.droppedTile;
 			console.log("dropped tile = " + this.droppedTile);
 			}	
@@ -178,6 +186,8 @@ function enemyClass(newEnemy){
 			case TILE_ROOM_DOOR_SOUTH:
 			case TILE_ROOM_DOOR_EAST:
 			case TILE_ROOM_DOOR_WEST:
+			case TILE_STAIRS_UP:
+			case TILE_STAIRS_DOWN:
 			case TILE_WALL_OUTCORNER_SW:
             case TILE_WALL_OUTCORNER_SE:
             case TILE_WALL_OUTCORNER_NW:

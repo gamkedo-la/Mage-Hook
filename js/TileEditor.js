@@ -42,8 +42,9 @@ function editTileonMouseReverse() {
 function copyToClipboard() {  
 	var layoutString = "";
 	for(var i=0; i<currentRoom.layout.length; i++) {
-		if (i%16==0)
+		if (i%16==0 && i>0) {
 			layoutString += "\n" + "	";
+		}
 		if (currentRoom.layout[i] < 10) {
 			layoutString += "0" + currentRoom.layout[i].toString() + ",";
 		} else {
