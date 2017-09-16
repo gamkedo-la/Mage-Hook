@@ -40,6 +40,7 @@ function loadImages() {
 		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk North.png"},
 		{set: "Player", name: "walkWest", fileName: "MainChar/playerchar_Walk West.png"},
 		{set: "Player", name: "anchorAttack", fileName: "MainChar/Anchor Attack.png"},
+		{set: "Player", name: "RangedAttack", fileName: "MainChar/Anchor Ranged Attack.png"},
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
