@@ -87,10 +87,10 @@ function enemyClass(newEnemy){
 		if (newEnemy.droppedTile == undefined) {
 			console.log("undefined: no tile dropped");
 			return;
-		} else if (worldGrid[tileIndex - WORLD_COLS] == TILE_ROOM_DOOR_NORTH) {
-			console.log("in front of door: no tile dropped")
-			return;
-		} else if (worldGrid[tileIndex + WORLD_COLS] == TILE_ROOM_DOOR_SOUTH) {
+		} else if (worldGrid[tileIndex - WORLD_COLS] == TILE_ROOM_DOOR_NORTH ||
+				   worldGrid[tileIndex + WORLD_COLS] == TILE_ROOM_DOOR_SOUTH ||
+				   worldGrid[tileIndex + 1] == TILE_ROOM_DOOR_EAST ||
+				   worldGrid[tileIndex - 1] == TILE_ROOM_DOOR_WEST) {
 			console.log("in front of door: no tile dropped")
 			return;
 		} else if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
