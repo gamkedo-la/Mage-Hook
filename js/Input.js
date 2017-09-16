@@ -1,3 +1,8 @@
+const USE_DOUBLE_TAP_DASH = false; // still work in progress: a bit buggy
+const DOUBLE_TAP_TIMESPAN = 250; // time in ms between consecutive move presses for DASH
+var keyTime = []; // used for double tap detection
+keyTime[NORTH] = keyTime[SOUTH] = keyTime[EAST] = keyTime[WEST] = 0; // avoid undefined
+
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
@@ -37,17 +42,39 @@ function updateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
+function checkDoubleTap(NSEW)
+{
+	if (!USE_DOUBLE_TAP_DASH) return;
+	var now = performance.now();
+	var timespan = now - keyTime[NSEW];
+	if (timespan < DOUBLE_TAP_TIMESPAN)
+	{
+		console.log('DOUBLE TAPPED DIRECTION '+NSEW+' in ' + timespan);
+		player.dashing[NSEW] = true;
+	}
+	else
+	{
+		player.dashing[NSEW] = false;
+	}
+	keyTime[NSEW] = now;
+}
+
 function keySet(keyEvent, setTo) {
 	var validGameKey = true;
 	if(keyEvent.keyCode == player.controlKeyLeft) {
+		if (setTo) checkDoubleTap(WEST);
 		player.keyHeld_West = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyRight) {
+		if (setTo) checkDoubleTap(EAST);
 		player.keyHeld_East = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyUp) {
+		if (setTo) checkDoubleTap(NORTH);
 		player.keyHeld_North = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyDown) {
+		if (setTo) checkDoubleTap(SOUTH);
 		player.keyHeld_South = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyAttack) {
+		if (setTo) checkDoubleTap(ATTACK);
 		player.keyHeld_Attack = setTo;
 	} else {
 		validGameKey = false;
@@ -56,7 +83,7 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
-	// console.log("Key pressed: "+evt.keyCode);
+	//console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
 
 	var otherKeyPressed = true;
