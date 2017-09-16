@@ -67,6 +67,7 @@ function moveAll() {
 function drawAll() {
 	drawWorld();
 	drawItems();
+	currentRoom.drawTraps();
 	//currentRoom.drawMyEnemies();
 	//currentRoom.drawMagic();
 	//player.draw();

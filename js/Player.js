@@ -188,6 +188,7 @@ function playerClass() {
 			// we may dash for several frames
 			if (this.lastDashTime + DASH_TIMESPAN_MS > performance.now())
 			{
+				this.anchorAttack(); // FIXME: we may want a different attack here?
 				//console.log('still dashing!');
 				velX *= PLAYER_DASH_SPEED_SCALE;
 				velY *= PLAYER_DASH_SPEED_SCALE;
