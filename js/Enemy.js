@@ -82,17 +82,23 @@ function enemyClass(newEnemy){
 				dropItem(coord.x, coord.y, ITEM_KEY_EPIC,itemAngle);
 			else
 				dropType -= ITEM_KEY_EPIC_DROP_PERCENT;
-		}
+		} // end of total items to drop
 		// drop tile on death
 		if (newEnemy.droppedTile == undefined) {
-			console.log(this.droppedTile)
+			console.log("undefined: no tile dropped");
+			return;
+		} else if (worldGrid[tileIndex - WORLD_COLS] == TILE_ROOM_DOOR_NORTH) {
+			console.log("in front of door: no tile dropped")
+			return;
+		} else if (worldGrid[tileIndex + WORLD_COLS] == TILE_ROOM_DOOR_SOUTH) {
+			console.log("in front of door: no tile dropped")
 			return;
 		} else if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
 			worldGrid[tileIndex] = this.droppedTile;
-			console.log(this.droppedTile);
-		}
+			console.log("dropped tile = " + this.droppedTile);
+			}	
 		return;
-	}
+	} // end of this.die function
 
 	this.update = function(){
 
