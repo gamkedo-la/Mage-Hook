@@ -1,5 +1,6 @@
 const PLAYER_MOVE_SPEED = 4;
 const PLAYER_DASH_SPEED_SCALE = 4.0;
+const DASH_TIMESPAN_MS = 250; // how long to dash
 const PLAYER_MOVE_CHECKS_PER_TICK = 5;
 const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
@@ -61,7 +62,7 @@ function playerClass() {
 	this.keyHeld_West = false;
 	this.keyHeld_East = false;
 	this.keyHeld_Attack = false;
-	this.dashing = []; // eg player.dashing[NORTH] = true;
+	this.dashPending = []; // eg player.dashPending[NORTH] = true;
 
 	this.controlKeyUp;
 	this.controlKeyRight;
@@ -169,12 +170,19 @@ function playerClass() {
 			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
 			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
 
-			if (this.dashing[isFacing])
+			if (this.dashPending[isFacing]) // is a dash pending?
 			{
+				this.dashPending[isFacing] = false; // reset the trigger
+				this.dashEndtime = performance.now() + DASH_TIMESPAN_MS;
+			}
+			// we may dash for several frames
+			if (performance.now() <= this.dashEndtime)
+			{
+				console.log('DASHING!');
 				velX *= PLAYER_DASH_SPEED_SCALE;
 				velY *= PLAYER_DASH_SPEED_SCALE;
 			}
-			
+		
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 		}

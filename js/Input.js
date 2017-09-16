@@ -42,6 +42,9 @@ function updateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
+// Note, due to browser silliness, keydown events fire repeatedly while keys are held, 
+// but keyup fires once as expected, no matter how long you held the key down.
+// So we detect in UP event: you dash if you release the movement key twice fast.
 function checkDoubleTap(NSEW)
 {
 	if (!USE_DOUBLE_TAP_DASH) return;
@@ -49,32 +52,33 @@ function checkDoubleTap(NSEW)
 	var timespan = now - keyTime[NSEW];
 	if (timespan < DOUBLE_TAP_TIMESPAN)
 	{
-		console.log('DOUBLE TAPPED DIRECTION '+NSEW+' in ' + timespan);
-		player.dashing[NSEW] = true;
-	}
-	else
-	{
-		player.dashing[NSEW] = false;
+		console.log('DOUBLE TAPPED DIR '+NSEW+' in ' + timespan + 'ms');
+		player.dashPending[NSEW] = true; // pending
 	}
 	keyTime[NSEW] = now;
+	// reset others
+	if (NSEW!=NORTH) keyTime[NORTH] = 0;
+	if (NSEW!=SOUTH) keyTime[SOUTH] = 0;
+	if (NSEW!=EAST) keyTime[EAST] = 0;
+	if (NSEW!=WEST) keyTime[WEST] = 0;
 }
 
 function keySet(keyEvent, setTo) {
 	var validGameKey = true;
 	if(keyEvent.keyCode == player.controlKeyLeft) {
-		if (setTo) checkDoubleTap(WEST);
+		if (!setTo) checkDoubleTap(WEST);
 		player.keyHeld_West = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyRight) {
-		if (setTo) checkDoubleTap(EAST);
+		if (!setTo) checkDoubleTap(EAST);
 		player.keyHeld_East = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyUp) {
-		if (setTo) checkDoubleTap(NORTH);
+		if (!setTo) checkDoubleTap(NORTH);
 		player.keyHeld_North = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyDown) {
-		if (setTo) checkDoubleTap(SOUTH);
+		if (!setTo) checkDoubleTap(SOUTH);
 		player.keyHeld_South = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyAttack) {
-		if (setTo) checkDoubleTap(ATTACK);
+		if (!setTo) checkDoubleTap(ATTACK);
 		player.keyHeld_Attack = setTo;
 	} else {
 		validGameKey = false;
@@ -83,7 +87,7 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
-	//console.log("Key pressed: "+evt.keyCode);
+	console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
 
 	var otherKeyPressed = true;
@@ -151,6 +155,6 @@ function keyPressed(evt) {
 }
 
 function keyReleased(evt) {
-	// console.log("Key pressed: "+evt.keyCode);
+	//console.log("Key released: "+evt.keyCode);
 	keySet(evt, false);
 }
