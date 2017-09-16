@@ -81,6 +81,13 @@ function keyPressed(evt) {
 			break;
 		case KEY_Q:
 			_DEBUG_ENABLE_TILE_EDITOR = !_DEBUG_ENABLE_TILE_EDITOR;
+			if (_DEBUG_ENABLE_TILE_EDITOR == false) {
+				backupRoomData();
+			}
+			else {
+				restoreRoomDataBackup();
+				
+			}
 			console.log("Tile Editor is" + " " +_DEBUG_ENABLE_TILE_EDITOR)
 			break;
 		case KEY_W:

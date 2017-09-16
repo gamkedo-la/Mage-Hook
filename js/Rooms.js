@@ -4,9 +4,13 @@ var roomName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRo
 
 function roomCoordToVar()
 {
-	roomName = "room"+currentRoomCol + "" + String.fromCharCode(97+currentRoomRow) + "" + currentFloor;
+	roomName = roomCoordToString(currentRoomCol, currentRoomRow, currentFloor);
 	console.log("Loading room from var named "+roomName);
-	return window[roomName];
+	return allRoomsData[roomName];
+}
+
+function roomCoordToString(c, r,f) {
+	return "room"+c + "" + String.fromCharCode(97+r) + "" + f;
 }
 
 function Room(roomLayout) {
@@ -19,8 +23,10 @@ function Room(roomLayout) {
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
 		this.itemOnGround = [];
-		this.spawnItems();
-		this.spawnMyEnemies();
+		if (!_DEBUG_ENABLE_TILE_EDITOR) { 
+			this.spawnItems();
+			this.spawnMyEnemies();
+		}
 	}
 
 	this.spawnItems = function() {
@@ -149,7 +155,7 @@ function Room(roomLayout) {
 	}
 };
 
-var room0a1 = new Room([
+var room0a1 =[
 	24,19,19,19,19,19,19,19,19,19,19,19,19,19,19,25,
 	20,00,00,00,00,08,01,00,00,00,05,00,01,01,01,21,
 	20,00,00,06,00,00,01,00,00,00,01,00,01,04,04,21,
@@ -158,9 +164,9 @@ var room0a1 = new Room([
 	20,00,00,00,00,00,00,00,00,00,01,00,04,00,00,21,
 	20,00,00,00,00,00,00,00,00,06,01,00,00,00,00,28,
 	20,00,00,00,00,00,00,00,00,00,01,00,04,00,00,21,
-	22,18,18,18,18,18,18,18,27,18,18,18,18,18,18,23]);
+	22,18,18,18,18,18,18,18,27,18,18,18,18,18,18,23];
 
-var room1a1 = new Room([
+var room1a1 =[
 	24,19,19,19,19,19,19,19,19,19,19,19,19,19,19,25,
 	20,10,00,00,00,00,01,00,00,00,05,00,01,01,01,21,
 	20,00,00,06,00,00,01,00,06,00,01,00,01,04,04,21,
@@ -169,9 +175,9 @@ var room1a1 = new Room([
 	20,00,00,00,00,00,00,09,03,00,01,09,04,00,00,21,
 	29,00,00,04,00,00,00,00,00,00,01,00,06,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,01,00,04,00,00,21,
-	22,18,18,18,18,18,18,18,27,18,18,18,18,18,18,23]);
+	22,18,18,18,18,18,18,18,27,18,18,18,18,18,18,23];
 
-var room0b1 = new Room([
+var room0b1 =[
 	24,19,19,19,19,19,19,19,26,25,31,31,31,31,31,31,
 	20,00,00,00,00,00,00,00,00,21,31,31,31,31,31,31,
 	20,00,34,18,18,18,18,18,18,23,31,31,31,31,31,31,
@@ -180,9 +186,9 @@ var room0b1 = new Room([
 	20,00,21,31,31,31,31,31,20,00,34,18,18,18,18,23,
 	20,00,32,19,19,19,19,19,33,00,21,31,31,31,31,31,
 	20,00,00,00,00,00,00,00,00,00,21,31,31,31,31,31,
-	22,18,18,18,18,18,18,18,27,18,23,31,31,31,31,31]);
+	22,18,18,18,18,18,18,18,27,18,23,31,31,31,31,31];
 	
-var room1b1 = new Room([
+var room1b1 = [
 	24,19,19,19,19,19,19,19,26,19,19,19,19,19,19,25,
 	20,10,08,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,03,09,00,00,00,00,21,
@@ -191,9 +197,9 @@ var room1b1 = new Room([
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
 	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
-	31,31,31,31,31,31,22,18,18,18,18,18,18,18,18,23]);
+	31,31,31,31,31,31,22,18,18,18,18,18,18,18,18,23];
 	
-var room0c1 = new Room([
+var room0c1 = [
 	24,19,19,19,19,19,19,19,26,19,19,19,19,19,19,25,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
@@ -202,9 +208,9 @@ var room0c1 = new Room([
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
-	22,18,18,18,18,18,18,18,18,18,18,18,18,18,18,23]);
+	22,18,18,18,18,18,18,18,18,18,18,18,18,18,18,23];
 
-var room1b2 = new Room([
+var room1b2 = [
 	24,19,19,19,19,19,19,19,19,19,19,19,19,19,19,25,
 	20,10,08,10,00,10,00,00,00,00,00,00,00,00,00,21,
 	20,10,00,10,00,10,00,00,00,00,09,00,00,00,00,21,
@@ -213,14 +219,42 @@ var room1b2 = new Room([
 	20,10,00,10,00,10,00,00,00,00,10,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,08,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
-	22,18,18,18,18,18,18,18,18,18,18,18,18,18,18,23]);
+	22,18,18,18,18,18,18,18,18,18,18,18,18,18,18,23];
 
 var allRooms = [room0a1, room1a1, room0b1, room1b1, room0c1, room1b2];
+var roomCols = 3; //maximum col of rooms
+var roomRows = 3; // maximum row of rooms
+var roomFloors = 3; // maximum floor of rooms
+var allRoomsData = {};
+var allRoomsBackup = [];
 var currentRoom = null;
 
+function backupRoomData () {
+	console.log("calling backupRoomData")
+	allRoomsBackup = JSON.parse(JSON.stringify(allRooms));
+}
+
+function restoreRoomDataBackup() {
+	console.log("calling restoreRoomDataBackup")
+	allRooms = JSON.parse(JSON.stringify(allRoomsBackup));
+	resetAllRooms();
+	console.log("room reset")
+}
+
 function resetAllRooms(){
-	for(var i = 0; i< allRooms.length; i++){
-		allRooms[i].reset();
+	allRoomsData = {};
+	for (var c = 0; c<roomCols; c++) {
+		for ( var r =0; r<roomRows; r++) {
+			for (var f=0; f<roomFloors; f++) {
+				var eachRoom = roomCoordToString(c,r,f);
+				if (window[eachRoom] != undefined) {
+					console.log("room found");
+					var tempRoom = new Room (window[eachRoom]);
+					tempRoom.reset(); 
+					allRoomsData[eachRoom] = tempRoom;
+				}
+			}
+		}
 	}
 	currentRoomCol = 1;
 	currentRoomRow = 1;

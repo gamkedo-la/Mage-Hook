@@ -57,6 +57,7 @@ function loadImages() {
 		{worldType: TILE_KEY_COMMON, theFile: "world_key_bronze.png"},
 		{worldType: TILE_KEY_RARE, theFile: "world_key_silver.png"},
 		{worldType: TILE_KEY_EPIC, theFile: "world_key_gold.png"},
+		{worldType: TILE_ENEMYSTART, theFile: "slimeIdle.png"},
 
 		{worldType: TILE_DOOR_COMMON, theFile: "world_door_bronze.png"},
 		{worldType: TILE_DOOR_RARE, theFile: "world_door_silver.png"},

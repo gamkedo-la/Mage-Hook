@@ -20,11 +20,13 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();
+	backupRoomData(); // should do before any numbers are replaced and load level etc.
 	loadLevel();
 	resetAllRooms();
 }
 
 function loadLevel() {
+	console.log("loading level");
 	var nextRoom = roomCoordToVar();
 	if(nextRoom==undefined) {
 		console.log("NO SUCH ROOM IS DEFINED, undoing room change");
