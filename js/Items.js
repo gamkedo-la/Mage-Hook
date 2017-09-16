@@ -171,7 +171,7 @@ function itemClass(posX, posY, speed, type, angle) {
             switch (types[i]) {
                 case TILE_WEB:
                     velX *= ITEM_WEB_FRICTION;
-                    velY *= ITEM_WEB_FRICTION
+                    velY *= ITEM_WEB_FRICTION;
                     break;
                 default:
                     break;

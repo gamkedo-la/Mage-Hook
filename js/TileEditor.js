@@ -36,9 +36,6 @@ function editTileonMouseReverse() {
 		if (worldGrid[tileUnderMouse] == 2) {
 			worldGrid[tileUnderMouse]--;
 		}
-		if (worldGrid[tileUnderMouse] == 6) {
-			worldGrid[tileUnderMouse]--;
-		}
 	}
 }
 
