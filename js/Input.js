@@ -19,6 +19,7 @@ const KEY_R = 82;
 const KEY_B = 66;
 const KEY_C = 67;
 const KEY_Q = 81;
+const KEY_Z = 90; // dash
 
 const KEY_SPACE = 32;
 
@@ -32,7 +33,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE, KEY_Z);
 }
 
 function updateMousePos(evt) {
@@ -65,7 +66,9 @@ function checkDoubleTap(NSEW)
 
 function keySet(keyEvent, setTo) {
 	var validGameKey = true;
-	if(keyEvent.keyCode == player.controlKeyLeft) {
+	if(keyEvent.keyCode == player.controlKeyDash) {
+		player.keyHeld_Dash = setTo;
+	}else if(keyEvent.keyCode == player.controlKeyLeft) {
 		if (!setTo) checkDoubleTap(WEST);
 		player.keyHeld_West = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyRight) {
@@ -87,7 +90,7 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
-	console.log("Key pressed: "+evt.keyCode);
+	//console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
 
 	var otherKeyPressed = true;

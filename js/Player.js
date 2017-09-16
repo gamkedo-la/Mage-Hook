@@ -1,6 +1,7 @@
 const PLAYER_MOVE_SPEED = 4;
 const PLAYER_DASH_SPEED_SCALE = 4.0;
-const DASH_TIMESPAN_MS = 250; // how long to dash
+const DASH_TIMESPAN_MS = 250; // how long to dash for
+const MS_BETWEEN_DASHES = 1000; // minimum time between dashes
 const PLAYER_MOVE_CHECKS_PER_TICK = 5;
 const STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
@@ -62,14 +63,17 @@ function playerClass() {
 	this.keyHeld_West = false;
 	this.keyHeld_East = false;
 	this.keyHeld_Attack = false;
-	this.dashPending = []; // eg player.dashPending[NORTH] = true;
+	this.keyHeld_Dash = false;
+	this.lastDashTime = 0;
+	//this.dashPending = []; // eg player.dashPending[NORTH] = true;
 
 	this.controlKeyUp;
 	this.controlKeyRight;
 	this.controlKeyDown;
 	this.controlKeyLeft;
 	this.controlKeyAttack;
-
+	this.controlKeyDash;
+	
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 2;
 	var tileColliderOffsetX = -0.5;
@@ -95,12 +99,13 @@ function playerClass() {
 
    var sprite = new spriteClass();
 
-	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey) {
+	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey, dashKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;
 		this.controlKeyDown = downKey;
 		this.controlKeyLeft = leftKey;
 		this.controlKeyAttack = attackKey;
+		this.controlKeyDash = dashKey;
 	}
 
 	this.reset = function(playerName) {
@@ -170,15 +175,20 @@ function playerClass() {
 			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
 			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
 
-			if (this.dashPending[isFacing]) // is a dash pending?
+			if (this.keyHeld_Dash)
 			{
-				this.dashPending[isFacing] = false; // reset the trigger
-				this.dashEndtime = performance.now() + DASH_TIMESPAN_MS;
+				//console.log("keyHeld_Dash while moving!");
+				if ((performance.now() - this.lastDashTime) > MS_BETWEEN_DASHES)
+				{
+					console.log("DASH STARTING!");
+					this.lastDashTime = performance.now();
+				}
 			}
+			
 			// we may dash for several frames
-			if (performance.now() <= this.dashEndtime)
+			if (this.lastDashTime + DASH_TIMESPAN_MS > performance.now())
 			{
-				console.log('DASHING!');
+				//console.log('still dashing!');
 				velX *= PLAYER_DASH_SPEED_SCALE;
 				velY *= PLAYER_DASH_SPEED_SCALE;
 			}
