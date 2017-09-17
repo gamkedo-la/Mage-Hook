@@ -7,6 +7,11 @@ var debugPanel = {
 	buffer: "",
 	button: [
 		{ name: "Move Speed: ", value: eval(makePtr("_PLAYER_MOVE_SPEED")) },
+		{ name: "Dash Speed: ", value: eval(makePtr("_PLAYER_DASH_SPEED_SCALE")) },
+		{ name: "Dash Reset: ", value: eval(makePtr("_MS_BETWEEN_DASHES")) },
+		{ name: "Double Tap: ", value: eval(makePtr("_DOUBLE_TAP_TIMESPAN")) },
+		{ name: "Stun Time:  ", value: eval(makePtr("_STUN_DURATION")) },
+		{ name: "Web Speed:  ", value: eval(makePtr("_WEB_FRICTION")) },
 		{ name: "Comm Keys:  ", value: eval(makePtr("player.inventory.keysCommon")) },
 		{ name: "Rare Keys:  ", value: eval(makePtr("player.inventory.keysRare")) },
 		{ name: "Epic Keys:  ", value: eval(makePtr("player.inventory.keysEpic")) },
@@ -141,12 +146,9 @@ function panelKeyCapture(panel, evt)
             var number = Number(panel.buffer);
             if (!isNaN(number) && panel.buffer != "") {
                 panel.selected.value(number);
-                panel.selected = undefined;
             }
-            else
-            {
-                panel.selected = undefined;
-            }
+
+			panel.selected = undefined;
             panel.buffer = "";
         }
     }

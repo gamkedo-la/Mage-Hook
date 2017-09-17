@@ -1,9 +1,9 @@
 var _PLAYER_MOVE_SPEED = 4;
-const PLAYER_DASH_SPEED_SCALE = 4.0;
+var _PLAYER_DASH_SPEED_SCALE = 4.0;
 const DASH_TIMESPAN_MS = 250; // how long to dash for
-const MS_BETWEEN_DASHES = 1000; // minimum time between dashes
+var _MS_BETWEEN_DASHES = 1000; // minimum time between dashes
 const PLAYER_MOVE_CHECKS_PER_TICK = 5;
-const STUN_DURATION = 0.45;
+var _STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
@@ -14,7 +14,7 @@ const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
 const POISON_DURATION = 1;
 const FRICTION = 0.80;
-const WEB_FRICTION = 0.15;
+var _WEB_FRICTION = 0.15;
 const RANGED_ATTACK_SPEED = 10;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
@@ -184,7 +184,7 @@ function playerClass() {
 			if (this.keyHeld_Dash)
 			{
 				//console.log("keyHeld_Dash while moving!");
-				if ((performance.now() - this.lastDashTime) > MS_BETWEEN_DASHES)
+				if ((performance.now() - this.lastDashTime) > _MS_BETWEEN_DASHES)
 				{
 					console.log("DASH STARTING!");
 					this.lastDashTime = performance.now();
@@ -196,8 +196,8 @@ function playerClass() {
 			{
 				this.anchorAttack(); // FIXME: we may want a different attack here?
 				//console.log('still dashing!');
-				velX *= PLAYER_DASH_SPEED_SCALE;
-				velY *= PLAYER_DASH_SPEED_SCALE;
+				velX *= _PLAYER_DASH_SPEED_SCALE;
+				velY *= _PLAYER_DASH_SPEED_SCALE;
 			}
 
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
@@ -227,7 +227,7 @@ function playerClass() {
 				Sound.play("player_hit");
 				this.isStunned = true;
 				this.isInvincible = true;
-				stunTimer = STUN_DURATION;
+				stunTimer = _STUN_DURATION;
 				invincibleTimer = INVINCIBLE_DURATION;
 				return;
 			}
@@ -601,13 +601,13 @@ function playerClass() {
 					}
 					screenShake(5);
 					this.isStunned = true
-					stunTimer = STUN_DURATION;
+					stunTimer = _STUN_DURATION;
 					knockbackAngle = calculateAngleFrom(this.tileCollider, this.hitbox);
 					knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 					hitByEnemy = true;
 					break;
 				case TILE_WEB:
-					playerFriction = WEB_FRICTION;
+					playerFriction = _WEB_FRICTION;
 					sprite.setSpeed(6)
 					if (isMoving) {
 						for (var i = 0; i < PARTICLES_PER_TICK; i++) {

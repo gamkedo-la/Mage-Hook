@@ -1,5 +1,5 @@
 const USE_DOUBLE_TAP_DASH = false; // still work in progress: a bit buggy
-const DOUBLE_TAP_TIMESPAN = 250; // time in ms between consecutive move presses for DASH
+var _DOUBLE_TAP_TIMESPAN = 250; // time in ms between consecutive move presses for DASH
 var keyTime = []; // used for double tap detection
 keyTime[NORTH] = keyTime[SOUTH] = keyTime[EAST] = keyTime[WEST] = 0; // avoid undefined
 
@@ -64,7 +64,7 @@ function checkDoubleTap(NSEW)
 	if (!USE_DOUBLE_TAP_DASH) return;
 	var now = performance.now();
 	var timespan = now - keyTime[NSEW];
-	if (timespan < DOUBLE_TAP_TIMESPAN)
+	if (timespan < _DOUBLE_TAP_TIMESPAN)
 	{
 		console.log('DOUBLE TAPPED DIR '+NSEW+' in ' + timespan + 'ms');
 		player.dashPending[NSEW] = true; // pending
