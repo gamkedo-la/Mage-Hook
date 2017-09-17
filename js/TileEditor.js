@@ -15,18 +15,6 @@ function roomTileCoordinate() {
     canvasContext.lineWidth = 1;
 }
 
-function editTileOnMouseClick(evt) {
-	if(_DEBUG_ENABLE_TILE_EDITOR) {
-		worldGrid[tileUnderMouse]++;
-		if (worldGrid[tileUnderMouse] > HIGHEST_TILE_NUMBER) {
-			worldGrid[tileUnderMouse] = TILE_GROUND;
-		}
-		if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
-			worldGrid[tileUnderMouse]++;
-		}
-	}
-}
-
 function editTileonMouseReverse() {
 	if(_DEBUG_ENABLE_TILE_EDITOR) {
 		worldGrid[tileUnderMouse]--;

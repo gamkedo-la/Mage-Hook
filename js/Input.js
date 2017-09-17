@@ -30,11 +30,10 @@ var mouseX = 0;
 var mouseY = 0;
 var mouseHeld = false;
 var mouseCanvasY = 0;
-var mouseCanvasX = 0; 
+var mouseCanvasX = 0;
 
 function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
-	canvas.addEventListener('mousedown',editTileOnMouseClick);
 	canvas.addEventListener('mousedown',mousePressed);
 	canvas.addEventListener('mouseup',mouseReleased);
 
@@ -194,6 +193,15 @@ function keyReleased(evt) {
 function mousePressed(evt)
 {
 	mouseHeld = true;
+	if(_DEBUG_ENABLE_TILE_EDITOR) {
+		worldGrid[tileUnderMouse]++;
+		if (worldGrid[tileUnderMouse] > HIGHEST_TILE_NUMBER) {
+			worldGrid[tileUnderMouse] = TILE_GROUND;
+		}
+		if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
+			worldGrid[tileUnderMouse]++;
+		}
+	}
 }
 
 function mouseReleased(evt)
