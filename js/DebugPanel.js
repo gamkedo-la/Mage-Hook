@@ -1,3 +1,4 @@
+var _DEBUG_CHEAT_CONSOLE = false;
 const NUMBER = "number";
 const PRECISION = 100;
 
@@ -6,23 +7,33 @@ var debugPanel = {
 	buffer: "",
 	button: [
 		{ name: "Move Speed: ", value: eval(makePtr("_PLAYER_MOVE_SPEED")) },
+		{ name: "Comm Keys:  ", value: eval(makePtr("player.inventory.keysCommon")) },
+		{ name: "Rare Keys:  ", value: eval(makePtr("player.inventory.keysRare")) },
+		{ name: "Epic Keys:  ", value: eval(makePtr("player.inventory.keysEpic")) },
+		{ name: "Cur Health: ", value: eval(makePtr("player.currentHealth")) },
+		{ name: "Max Health: ", value: eval(makePtr("player.maxHealth")) },
 	],
 
 	selected: undefined,
 	highlighted: undefined,
 
-	x: 10,
-	y: 20,
-	offsetY: 15,
-	width: 150,
+	x: 2,
+	y: 25,
+	offsetY: 8,
+	width: 80,
 
-	font: '15px Consolas',
+	font: '10px Consolas',
 	color: 'lime',
 	highlightColor: 'yellow',
 };
 
 function drawPanelWithButtons(panel, precision)
 {
+	if (!_DEBUG_CHEAT_CONSOLE)
+	{
+		return;
+	}
+
 	var x = panel.x;
 	var y = panel.y;
 
@@ -63,8 +74,16 @@ function drawPanelWithButtons(panel, precision)
 
 function panelUpdate(panel)
 {
+	if (!_DEBUG_CHEAT_CONSOLE)
+	{
+		return;
+	}
+
     var x = panel.x;
     var y = panel.y;
+	var screenToCanvasRatio = (canvas.width/canvas.clientWidth);
+	var scaledMouseX = mouseX * screenToCanvasRatio;
+	var scaledMouseY = mouseY * screenToCanvasRatio;
 
     panel.highlighted = undefined;
 	for (var i = 0; i < panel.button.length; i++)
@@ -73,12 +92,13 @@ function panelUpdate(panel)
 		var buttonY = y - panel.offsetY;
 		var color = panel.color;
 
-		if (mouseX > panel.x &&
-			mouseX < panel.x + panel.width &&
-			mouseY > buttonY &&
-			mouseY < buttonY + panel.offsetY)
+		if (scaledMouseX > panel.x &&
+			scaledMouseX < panel.x + panel.width &&
+			scaledMouseY > buttonY &&
+			scaledMouseY < buttonY + panel.offsetY)
 		{
-			if (mouseLeftHeld)
+			console.log(mouseHeld);
+			if (mouseHeld)
 			{
 				panel.selected = button;
 			}
@@ -90,6 +110,11 @@ function panelUpdate(panel)
 
 function panelKeyCapture(panel, evt)
 {
+	if (!_DEBUG_CHEAT_CONSOLE)
+	{
+		return;
+	}
+
     if (panel.selected != undefined) {
 
         var key = evt.keyCode;
@@ -125,7 +150,7 @@ function panelKeyCapture(panel, evt)
             {
                 panel.selected = undefined;
             }
-            panel.buffer = ""
+            panel.buffer = "";
         }
     }
 }

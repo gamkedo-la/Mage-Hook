@@ -39,7 +39,7 @@ function editTileonMouseReverse() {
 	}
 }
 
-function copyToClipboard() {  
+function copyToClipboard() {
 	var layoutString = "";
 	for(var i=0; i<currentRoom.layout.length; i++) {
 		if (i%16==0 && i>0) {
@@ -54,7 +54,7 @@ function copyToClipboard() {
 
 	layoutString = layoutString.slice(0,-1);
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
-		window.prompt("Ctrl+C then Enter to close window" + "\n"+ 
+		window.prompt("Ctrl+C then Enter to close window" + "\n"+
 		roomName + ":", layoutString);
 	}
 }

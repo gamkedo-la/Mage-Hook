@@ -8,6 +8,7 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
+const KEY_GRAVE = 96;
 const KEY_9 = 57;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
@@ -19,6 +20,7 @@ const KEY_R = 82;
 const KEY_B = 66;
 const KEY_C = 67;
 const KEY_Q = 81;
+const KEY_O = 79; // cheat console
 const KEY_Z = 90; // dash
 const KEY_L = 76; // range attack
 
@@ -26,10 +28,13 @@ const KEY_SPACE = 32;
 
 var mouseX = 0;
 var mouseY = 0;
+var mouseHeld = false;
 
 function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('mousedown',editTileOnMouseClick);
+	canvas.addEventListener('mousedown',mousePressed);
+	canvas.addEventListener('mouseup',mouseReleased);
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
@@ -100,6 +105,9 @@ function keyPressed(evt) {
 
 	var otherKeyPressed = true;
 	switch(evt.keyCode) {
+		case KEY_O:
+			_DEBUG_CHEAT_CONSOLE = !_DEBUG_CHEAT_CONSOLE;
+			break;
 		case KEY_9:
 			copyToClipboard();
 			break;
@@ -173,4 +181,14 @@ function keyPressed(evt) {
 function keyReleased(evt) {
 	//console.log("Key released: "+evt.keyCode);
 	keySet(evt, false);
+}
+
+function mousePressed(evt)
+{
+	mouseHeld = true;
+}
+
+function mouseReleased(evt)
+{
+	mouseHeld = false;
 }
