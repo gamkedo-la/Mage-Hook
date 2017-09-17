@@ -15,7 +15,7 @@ const PARTICLES_PER_TICK = 3;
 const POISON_DURATION = 1;
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
-const RANGED_ATTACK_SPEED = 10;
+const RANGED_ATTACK_SPEED = 5;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 
@@ -368,10 +368,10 @@ function playerClass() {
 				break;
 		}
 		this.registerAttack( this.x + 10, this.y, sprites.Player.RangedAttack, {
-			0: {x1: 5, y1: 8, x2: 20, y2:10 },
-			1: {x1: 5, y1: 8, x2: 20, y2:10 },
-			2: {x1: 5, y1: 8, x2: 20, y2:10 },
-			3: {x1: 5, y1: 8, x2: 20, y2:10 }
+			0: {x1: 0, y1: 0, x2: 20, y2:20 },
+			1: {x1: 0, y1: 0, x2: 20, y2:20 },
+			2: {x1: 0, y1: 0, x2: 20, y2:20 },
+			3: {x1: 0, y1: 0, x2: 20, y2:20 }
 		});
 		return;
 	}
@@ -382,24 +382,24 @@ function playerClass() {
 		var ctrl = {}
 		ctrl.x = x;
 		ctrl.y = y;
-		if(animation == sprites.Player.anchorAttack) {
-			switch(isFacing) { //Draw attack in facing dirction
-				case NORTH:
-					ctrl.x -= 16;
-					ctrl.y -= 16;
-					break;
-				case SOUTH:
-					ctrl.x -= 16;
-					ctrl.y += 16;
-					break;
-				case EAST:
-					ctrl.x += 3;
-					break;
-				case WEST:
-					ctrl.x -= 35;
-					break;
-			}
+
+		switch(isFacing) { //Draw attack in facing dirction
+			case NORTH:
+				ctrl.x -= 16;
+				ctrl.y -= 16;
+				break;
+			case SOUTH:
+				ctrl.x -= 16;
+				ctrl.y += 16;
+				break;
+			case EAST:
+				ctrl.x += 3;
+				break;
+			case WEST:
+				ctrl.x -= 35;
+				break;
 		}
+		
 
 		ctrl.maxHealth = 3;
 		if(!attackFrames){
@@ -437,10 +437,10 @@ function playerClass() {
 					ctrl.attackDir = [0,1];
 					break;
 				case(EAST):
-					ctrl.attackDir = [1,0];
+					ctrl.attackDir = [2,0];
 					break;
 				case(WEST):
-					ctrl.attackDir = [-1,0];
+					ctrl.attackDir = [-2,0];
 					break;
 				default:
 					console.log("Shouldn't come here...\n");
@@ -449,7 +449,7 @@ function playerClass() {
 		}
 
 		//console.log(animFrame);
-		ctrl.sprite.setSprite(/*sprites.Player.anchorAttack*/animation, 32, 32, animFrame, 9, false);
+		ctrl.sprite.setSprite(animation, 32, 32, animFrame, 9, false);
 		ctrl.sprite.setSpeed(ATTACK_ANIMATION_SPEED);
 
 		ctrl.draw = function(){
