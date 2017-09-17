@@ -139,7 +139,7 @@ function panelKeyCapture(panel, evt)
         }
         if (key == 13) {
             var number = Number(panel.buffer);
-            if (!isNaN(number)) {
+            if (!isNaN(number) && panel.buffer != "") {
                 panel.selected.value(number);
                 panel.selected = undefined;
             }
