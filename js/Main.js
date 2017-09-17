@@ -60,6 +60,7 @@ function moveAll() {
 	currentRoom.moveMagic();
 	updateItems();
 	updateParticles();
+	updatePanel(debugPanel);
 	//console.log(player.x);
 	//console.log(player.y);
 }
@@ -74,4 +75,5 @@ function drawAll() {
 	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
+	drawPanelWithButtons(debugPanel);
 }

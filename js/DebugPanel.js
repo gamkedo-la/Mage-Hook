@@ -32,7 +32,7 @@ var debugPanel = {
 	highlightColor: 'yellow',
 };
 
-function drawPanelWithButtons(panel, precision)
+function drawPanelWithButtons(panel)
 {
 	if (!_DEBUG_CHEAT_CONSOLE)
 	{
@@ -41,6 +41,7 @@ function drawPanelWithButtons(panel, precision)
 
 	var x = panel.x;
 	var y = panel.y;
+	var precision = PRECISION;
 
 	for (var i = 0; i < panel.button.length; i++)
 	{
@@ -77,7 +78,7 @@ function drawPanelWithButtons(panel, precision)
 	}
 }
 
-function panelUpdate(panel)
+function updatePanel(panel)
 {
 	if (!_DEBUG_CHEAT_CONSOLE)
 	{
