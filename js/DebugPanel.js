@@ -84,14 +84,13 @@ function panelUpdate(panel)
 		return;
 	}
 
-    var x = panel.x;
-    var y = panel.y;
+	var currentY = panel.y;
 
     panel.highlighted = undefined;
 	for (var i = 0; i < panel.button.length; i++)
 	{
 		var button = panel.button[i];
-		var buttonY = y - panel.offsetY;
+		var buttonY = currentY - panel.offsetY;
 		var color = panel.color;
 
 		if (mouseCanvasX > panel.x &&
@@ -103,10 +102,11 @@ function panelUpdate(panel)
 			if (mouseHeld)
 			{
 				panel.selected = button;
+				panel.buffer = "";
 			}
 			panel.highlighted = button;
 		}
-		y += panel.offsetY;
+		currentY += panel.offsetY;
 	}
 }
 
@@ -120,29 +120,33 @@ function panelKeyCapture(panel, evt)
     if (panel.selected != undefined) {
 
         var key = evt.keyCode;
-        if (key >= 96 && key <= 106)
+		if (key == KEY_ESCAPE) {
+			panel.selected = undefined;
+			panel.buffer = "";
+		}
+        if (key >= KEY_NUMPAD_0 && key <= KEY_NUMPAD_9)
         {
             var num = key-96;
             panel.buffer += num.toString();
         }
-        if (key >= 48 && key <= 58)
+        if (key >= KEY_0 && key <= KEY_9)
         {
             var num = key-48;
             panel.buffer += num.toString();
         }
-        if (key == 109 || key == 189)
+        if (key == KEY_MINUS || key == KEY_NUMPAD_MINUS)
         {
             panel.buffer += "-";
         }
-        if (key == 110 || key == 190)
+        if (key == KEY_PERIOD || key == KEY_NUMPAD_PERIOD)
         {
             panel.buffer += ".";
         }
-        if (key == 8)
+        if (key == KEY_BACKSPACE)
         {
             panel.buffer = panel.buffer.slice(0, -1);
         }
-        if (key == 13) {
+        if (key == KEY_ENTER) {
             var number = Number(panel.buffer);
             if (!isNaN(number) && panel.buffer != "") {
                 panel.selected.value(number);

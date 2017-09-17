@@ -8,10 +8,24 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
-const KEY_GRAVE = 96;
+const KEY_NUMPAD_0 = 96;
+const KEY_NUMPAD_9 = 105;
+const KEY_NUMPAD_PLUS = 107;
+const KEY_NUMPAD_MINUS = 109;
+const KEY_NUMPAD_PERIOD = 110;
+
+const KEY_BACKSPACE = 8
+const KEY_ENTER = 13;
+const KEY_ESCAPE = 27;
+const KEY_SPACE = 32;
+
+const KEY_0 = 48;
 const KEY_9 = 57;
 const KEY_PLUS = 187;
 const KEY_MINUS = 189;
+const KEY_PERIOD = 190;
+const KEY_TILDE = 192; // cheat console
+
 const KEY_W = 87;
 const KEY_A = 65;
 const KEY_S = 83;
@@ -20,11 +34,8 @@ const KEY_R = 82;
 const KEY_B = 66;
 const KEY_C = 67;
 const KEY_Q = 81;
-const KEY_O = 79; // cheat console
 const KEY_Z = 90; // dash
 const KEY_L = 76; // range attack
-
-const KEY_SPACE = 32;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -106,13 +117,14 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
+	console.log(evt.keyCode);
 	panelKeyCapture(debugPanel, evt);
 	//console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
 
 	var otherKeyPressed = true;
 	switch(evt.keyCode) {
-		case KEY_O:
+		case KEY_TILDE:
 			_DEBUG_CHEAT_CONSOLE = !_DEBUG_CHEAT_CONSOLE;
 			break;
 		case KEY_9:
@@ -193,15 +205,6 @@ function keyReleased(evt) {
 function mousePressed(evt)
 {
 	mouseHeld = true;
-	if(_DEBUG_ENABLE_TILE_EDITOR) {
-		worldGrid[tileUnderMouse]++;
-		if (worldGrid[tileUnderMouse] > HIGHEST_TILE_NUMBER) {
-			worldGrid[tileUnderMouse] = TILE_GROUND;
-		}
-		if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
-			worldGrid[tileUnderMouse]++;
-		}
-	}
 }
 
 function mouseReleased(evt)
