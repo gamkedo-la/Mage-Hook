@@ -1,4 +1,4 @@
-const PLAYER_MOVE_SPEED = 4;
+var _PLAYER_MOVE_SPEED = 4;
 const PLAYER_DASH_SPEED_SCALE = 4.0;
 const DASH_TIMESPAN_MS = 250; // how long to dash for
 const MS_BETWEEN_DASHES = 1000; // minimum time between dashes
@@ -78,7 +78,7 @@ function playerClass() {
 	this.controlKeyAttack;
 	this.controlKeyDash;
 	this.controlKeyRangeAttack;
-	
+
 	var tileColliderWidth = 4;
 	var tileColliderHeight = 2;
 	var tileColliderOffsetX = -0.5;
@@ -159,27 +159,27 @@ function playerClass() {
 
 		if (this.keyHeld_West) {
 			isFacing = WEST;
-			target.x -= PLAYER_MOVE_SPEED;
+			target.x -= _PLAYER_MOVE_SPEED;
 		}
 		if (this.keyHeld_East) {
 			isFacing = EAST;
-			target.x += PLAYER_MOVE_SPEED;
+			target.x += _PLAYER_MOVE_SPEED;
 		}
 		if (this.keyHeld_North) {
 			isFacing = NORTH;
-			target.y -= PLAYER_MOVE_SPEED;
+			target.y -= _PLAYER_MOVE_SPEED;
 		}
 		if (this.keyHeld_South) {
 			isFacing = SOUTH;
-			target.y += PLAYER_MOVE_SPEED;
+			target.y += _PLAYER_MOVE_SPEED;
 		}
 		if (target.x != this.x || target.y != this.y) {
 			isMoving = true;
 		}
 		if (isMoving) {
 			var angle = calculateAngleFrom(this, target);
-			var velX = Math.cos(angle) * PLAYER_MOVE_SPEED * playerFriction;
-			var velY = Math.sin(angle) * PLAYER_MOVE_SPEED * playerFriction;
+			var velX = Math.cos(angle) * _PLAYER_MOVE_SPEED * playerFriction;
+			var velY = Math.sin(angle) * _PLAYER_MOVE_SPEED * playerFriction;
 
 			if (this.keyHeld_Dash)
 			{
@@ -190,7 +190,7 @@ function playerClass() {
 					this.lastDashTime = performance.now();
 				}
 			}
-			
+
 			// we may dash for several frames
 			if (this.lastDashTime + DASH_TIMESPAN_MS > performance.now())
 			{
@@ -199,7 +199,7 @@ function playerClass() {
 				velX *= PLAYER_DASH_SPEED_SCALE;
 				velY *= PLAYER_DASH_SPEED_SCALE;
 			}
-		
+
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 		}
@@ -327,7 +327,7 @@ function playerClass() {
 			}
 		}
 	}
-	
+
 	this.anchorAttack = function(){
 		Sound.play("player_attack");
 		attackTimer = ATTACK_DURATION;
@@ -400,7 +400,7 @@ function playerClass() {
 					break;
 			}
 		}
-		
+
 		ctrl.maxHealth = 3;
 		if(!attackFrames){
 			//waaaa??
@@ -412,7 +412,7 @@ function playerClass() {
 		} else {
 			ctrl.attackFrames = attackFrames
 		}
-		
+
 
 		var tileColliderWidth = 0, tileColliderHeight = 0, tileColliderOffsetX = 0, tileColliderOffsetY = 0
 		ctrl.collider = new boxColliderClass(
@@ -447,7 +447,7 @@ function playerClass() {
 					break;
 			}
 		}
-			
+
 		//console.log(animFrame);
 		ctrl.sprite.setSprite(/*sprites.Player.anchorAttack*/animation, 32, 32, animFrame, 9, false);
 		ctrl.sprite.setSpeed(ATTACK_ANIMATION_SPEED);
@@ -466,7 +466,7 @@ function playerClass() {
 					currentRoom.magic.splice(index, 1);
 			  		console.log("attack removed")
 			  		return;
-				}				
+				}
 			}
 			ctrl.x += ctrl.attackDir[0]*RANGED_ATTACK_SPEED;
 			ctrl.y += ctrl.attackDir[1]*RANGED_ATTACK_SPEED;
@@ -694,7 +694,7 @@ function playerClass() {
 				break;
 			case TILE_STAIRS_UP:
 				if(!this.isStunned && isFacing==EAST) { // possible other conditions to do before stairs can be used?
-					currentFloor++;					
+					currentFloor++;
 				}
 				break;
 			case TILE_STAIRS_DOWN:

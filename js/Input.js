@@ -44,7 +44,7 @@ function updateMousePos(evt) {
 	mouseY = evt.clientY - rect.top - root.scrollTop;
 }
 
-// Note, due to browser silliness, keydown events fire repeatedly while keys are held, 
+// Note, due to browser silliness, keydown events fire repeatedly while keys are held,
 // but keyup fires once as expected, no matter how long you held the key down.
 // So we detect in UP event: you dash if you release the movement key twice fast.
 function checkDoubleTap(NSEW)
@@ -94,6 +94,7 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
+	panelKeyCapture(debugPanel, evt);
 	//console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
 
@@ -124,7 +125,7 @@ function keyPressed(evt) {
 			}
 			else {
 				restoreRoomDataBackup();
-				
+
 			}
 			console.log("Tile Editor is" + " " +_DEBUG_ENABLE_TILE_EDITOR)
 			break;

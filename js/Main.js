@@ -62,6 +62,7 @@ function moveAll() {
 	updateParticles();
 	//console.log(player.x);
 	//console.log(player.y);
+	panelUpdate(debugPanel);
 }
 
 function drawAll() {
@@ -74,4 +75,5 @@ function drawAll() {
 	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
+	drawPanelWithButtons(debugPanel, PRECISION);
 }
