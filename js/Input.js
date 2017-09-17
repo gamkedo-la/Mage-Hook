@@ -26,6 +26,9 @@ const KEY_SPACE = 32;
 
 var mouseX = 0;
 var mouseY = 0;
+// scaled for canvas pixel coordinates
+var mouseCanvasX = 0; 
+var mouseCanvasY = 0;
 
 function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
@@ -42,6 +45,12 @@ function updateMousePos(evt) {
 	var root = document.documentElement;
 	mouseX = evt.clientX - rect.left - root.scrollLeft;
 	mouseY = evt.clientY - rect.top - root.scrollTop;
+	
+	mouseCanvasX = Math.floor(mouseX * (canvas.width/canvas.clientWidth)); 
+	mouseCanvasY = Math.floor(mouseY * (canvas.height/canvas.clientHeight)); 
+
+	//console.log('Mouse move: screen='+mouseX+','+mouseY+' canvas='+mouseCanvasX+','+mouseCanvasY);
+	
 }
 
 // Note, due to browser silliness, keydown events fire repeatedly while keys are held, 
