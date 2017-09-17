@@ -81,9 +81,6 @@ function panelUpdate(panel)
 
     var x = panel.x;
     var y = panel.y;
-	var screenToCanvasRatio = (canvas.width/canvas.clientWidth);
-	var scaledMouseX = mouseX * screenToCanvasRatio;
-	var scaledMouseY = mouseY * screenToCanvasRatio;
 
     panel.highlighted = undefined;
 	for (var i = 0; i < panel.button.length; i++)
@@ -92,10 +89,10 @@ function panelUpdate(panel)
 		var buttonY = y - panel.offsetY;
 		var color = panel.color;
 
-		if (scaledMouseX > panel.x &&
-			scaledMouseX < panel.x + panel.width &&
-			scaledMouseY > buttonY &&
-			scaledMouseY < buttonY + panel.offsetY)
+		if (mouseCanvasX > panel.x &&
+			mouseCanvasX < panel.x + panel.width &&
+			mouseCanvasY > buttonY &&
+			mouseCanvasY < buttonY + panel.offsetY)
 		{
 			console.log(mouseHeld);
 			if (mouseHeld)
