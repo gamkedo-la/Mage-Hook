@@ -98,13 +98,15 @@ function enemyClass(newEnemy){
 			(interactiveTiles.indexOf(tileNorthOfEnemy) > -1) ||	
 			(interactiveTiles.indexOf(tileEastOfEnemy) > -1)  ||
 			(interactiveTiles.indexOf(tileWestOfEnemy) > -1)){
-			console.log("infront of door/stairs: no tile dropped")
+			console.log("infront of door/stairs: no tile dropped");
 			return;
 		}
 		if (newEnemy.droppedTile != undefined && worldGrid[tileIndex] == 0) {	
 			worldGrid[tileIndex] = this.droppedTile;
 			console.log("dropped tile = " + this.droppedTile);
-			}	
+			} else {
+			console.log("tile detected: no tile dropped");	
+			}
 		return;
 	} // end of this.die function
 

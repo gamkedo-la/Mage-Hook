@@ -17,23 +17,23 @@ const KEY_NUMPAD_PERIOD = 110;
 const KEY_BACKSPACE = 8
 const KEY_ENTER = 13;
 const KEY_ESCAPE = 27;
-const KEY_SPACE = 32;
+const KEY_SPACE = 32; // attack
 
-const KEY_0 = 48;
-const KEY_9 = 57;
-const KEY_PLUS = 187;
-const KEY_MINUS = 189;
-const KEY_PERIOD = 190;
+const KEY_0 = 48; // ???
+const KEY_9 = 57; // print room array when in editor mode
+const KEY_PLUS = 187; // +1 to current tile id # when in editor mode
+const KEY_MINUS = 189; // -1 to current tile id # when in editor mode
+const KEY_PERIOD = 190; // ???
 const KEY_TILDE = 192; // cheat console
 
-const KEY_W = 87;
-const KEY_A = 65;
-const KEY_S = 83;
-const KEY_D = 68;
-const KEY_R = 82;
-const KEY_B = 66;
-const KEY_C = 67;
-const KEY_Q = 81;
+const KEY_W = 87; // move up a room when in editor mode
+const KEY_A = 65; // move a room to the left when in editor mode
+const KEY_S = 83; // move down a room when in editor mode 
+const KEY_D = 68; // move a room to the right when in editor mode
+const KEY_R = 82; // reset currentRoom
+const KEY_B = 66; // draw hitboxes 
+const KEY_C = 67; // draw collision boxes
+const KEY_Q = 81; // tile editor
 const KEY_Z = 90; // dash
 const KEY_L = 76; // range attack
 
@@ -47,6 +47,7 @@ function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
 	canvas.addEventListener('mousedown',mousePressed);
 	canvas.addEventListener('mouseup',mouseReleased);
+	canvas.addEventListener('mouseup',editTileOnMouseClick);
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
@@ -134,7 +135,7 @@ function keyPressed(evt) {
 			editTileOnMouseClick();
 			break
 		case KEY_MINUS:
-			editTileonMouseReverse();
+			editTileReverse();
 			break
 		case KEY_R:
 			resetAllRooms();

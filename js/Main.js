@@ -62,18 +62,16 @@ function moveAll() {
 	updateParticles();
 	//console.log(player.x);
 	//console.log(player.y);
-	panelUpdate(debugPanel);
 }
 
 function drawAll() {
 	drawWorld();
-	drawItems();
 	currentRoom.drawTraps();
+	drawItems();
 	//currentRoom.drawMyEnemies();
 	//currentRoom.drawMagic();
 	//player.draw();
 	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
-	drawPanelWithButtons(debugPanel, PRECISION);
 }

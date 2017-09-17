@@ -27,13 +27,13 @@ function editTileOnMouseClick() {
     }
 }
 
-function editTileonMouseReverse() {
+function editTileReverse() {
 	if(_DEBUG_ENABLE_TILE_EDITOR) {
 		worldGrid[tileUnderMouse]--;
-		if (worldGrid[tileUnderMouse] < 0) {
+		if (worldGrid[tileUnderMouse] < TILE_GROUND) {
 			worldGrid[tileUnderMouse] = HIGHEST_TILE_NUMBER;
 		}
-		if (worldGrid[tileUnderMouse] == 2) {
+		if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
 			worldGrid[tileUnderMouse]--;
 		}
 	}

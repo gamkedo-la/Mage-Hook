@@ -12,7 +12,7 @@ const ITEM_KEY_EPIC = 4;
 const ITEM_CRYSTAL = 5;
 
 const ITEM_SUCCESS_CHANCE = .70; // affects item drop rate
-const ITEM_CRYSTAL_DROP_PERCENT = 80; //al item drop rates should add up to 100
+const ITEM_CRYSTAL_DROP_PERCENT = 80; //all item drop rates should add up to 100
 const ITEM_POTION_DROP_PERCENT = 10;
 const ITEM_KEY_COMMON_DROP_PERCENT = 5;
 const ITEM_KEY_RARE_DROP_PERCENT = 4;
