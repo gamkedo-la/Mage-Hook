@@ -56,6 +56,7 @@ function updateAll() {
 
 function moveAll() {
 	player.move();
+	player.poisoned();
 	currentRoom.moveMyEnemies();
 	currentRoom.moveMagic();
 	updateItems();

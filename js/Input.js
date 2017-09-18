@@ -118,7 +118,7 @@ function keySet(keyEvent, setTo) {
 }
 
 function keyPressed(evt) {
-	console.log(evt.keyCode);
+	//console.log(evt.keyCode);
 	panelKeyCapture(debugPanel, evt);
 	//console.log("Key pressed: "+evt.keyCode);
 	var validKey = keySet(evt, true);
@@ -153,7 +153,6 @@ function keyPressed(evt) {
 			}
 			else {
 				restoreRoomDataBackup();
-
 			}
 			console.log("Tile Editor is" + " " +_DEBUG_ENABLE_TILE_EDITOR)
 			break;

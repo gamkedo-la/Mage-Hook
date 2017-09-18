@@ -12,7 +12,10 @@ const ATTACK_ANIMATION_SPEED = 13; // in FPS
 const PARTICLES_PER_ATTACK = 200;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
-const POISON_DURATION = 1;
+var poisonTick = 250;
+var poisonDuration = 750;
+var isPoisoned = false;
+var poisonTime = 0;
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
 const RANGED_ATTACK_SPEED = 5;
@@ -496,6 +499,30 @@ function playerClass() {
 		currentRoom.magic.push(ctrl)
 	}
 
+	this.poisoned = function() {
+		if(isPoisoned == true) {
+			poisonTime++;
+			console.log("posionTime");
+			if (poisonTime % poisonTick == 0 && poisonTime > 0) {
+				this.currentHealth--;
+				Sound.play("player_hit");
+				console.log("Health lost to poison");
+				if (this.currentHealth <= 0) {
+					resetAllRooms();
+					Sound.play("player_die");
+					poisonTime = 0;
+					isPoisoned = false;
+				}
+			}else if(poisonTime > poisonDuration) {
+				poisonTime = 0;
+				isPoisoned = false;
+				return;
+				console.log("poison over");
+			}
+		}
+	}
+					 
+
 	this.canHitEnemy = function(collider) { // used for attacks, returns the enemy
 
 		//console.log('Detecting attacking collisions near ' + this.attackhitbox.x+','+this.attackhitbox.y);
@@ -581,9 +608,7 @@ function playerClass() {
 		    switch (types[i]) {
 				case TILE_OOZE:
 					if (!this.isInvincible) {
-						this.currentHealth--;
-						this.isInvincible = true;
-						invincibleTimer = INVINCIBLE_DURATION;
+						isPoisoned = true;
 					}
 
 					if (isMoving) {
@@ -618,9 +643,9 @@ function playerClass() {
 					break;
 	            default:
 	                break;
-	        }
-	    }
-	}
+	        } // end of cases
+	    } // end of for tiles loop
+	} // end of tile behavior
 
 	this.collisionHandler = function(tileIndex) {
 		var collisionDetected = true;
