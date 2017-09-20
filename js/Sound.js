@@ -69,7 +69,14 @@ function SoundSystem() {
                 sounds[samplename].pause();
         };
 
-    // returns true if a sample is currently playing
+    // can be called often and it will only play one at a time max
+    this.playUnlessAlreadyPlaying = function(samplename,looping,vol,rate,pan)
+    {
+        if (!this.isPlaying(samplename))
+            this.play(samplename,looping,vol,rate,pan);
+    }
+    
+        // returns true if a sample is currently playing
     this.isPlaying = function(samplename) {
         var result = false;
 
