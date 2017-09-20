@@ -32,7 +32,7 @@ function enemyClass(newEnemy){
 
 	this.die = function(attackedBy) {
 		console.log('An enemy died!');
-		
+
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;
@@ -142,7 +142,6 @@ function enemyClass(newEnemy){
 					newEnemy.spriteWidth, newEnemy.spriteHeight, 
 					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
 			}
-			console.log("Velx: " +velX+ " VelY: " + velY );
 		}else if (this.sprite.getSpriteSheet() == sprites.Slug.walkAnimationEast){
 			if(velX < 0){
 				this.sprite.setSprite(newEnemy.spriteSheet,
