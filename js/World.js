@@ -42,7 +42,11 @@ const TILE_WALL_OUTCORNER_SW = 32;
 const TILE_WALL_OUTCORNER_SE = 33;
 const TILE_WALL_OUTCORNER_NW = 34;
 const TILE_WALL_OUTCORNER_NE = 35;
-const HIGHEST_TILE_NUMBER = 35;
+const TILE_WALL_SOUTH_TORCH = 36;
+const TILE_WALL_NORTH_TORCH = 37;
+const TILE_WALL_WEST_TORCH = 38;
+const TILE_WALL_EAST_TORCH = 39;
+const HIGHEST_TILE_NUMBER = 39;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&

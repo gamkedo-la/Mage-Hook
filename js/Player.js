@@ -746,6 +746,10 @@ function playerClass() {
 			case TILE_WALL_OUTCORNER_SE:
 			case TILE_WALL_OUTCORNER_NW:
 			case TILE_WALL_OUTCORNER_NE:
+			case TILE_WALL_NORTH_TORCH:
+			case TILE_WALL_SOUTH_TORCH:
+			case TILE_WALL_WEST_TORCH:
+			case TILE_WALL_EAST_TORCH:
 				break;
 			default:
 				collisionDetected = false;

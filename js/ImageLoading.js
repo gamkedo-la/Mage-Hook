@@ -87,7 +87,11 @@ function loadImages() {
 		{worldType: TILE_WALL_OUTCORNER_NE, theFile: "world_brick_outcorner_north_east.png"},
 		{worldType: TILE_WALL_OUTCORNER_NW, theFile: "world_brick_outcorner_north_west.png"},
 		{worldType: TILE_WALL_OUTCORNER_SE, theFile: "world_brick_outcorner_south_east.png"},
-		{worldType: TILE_WALL_OUTCORNER_SW, theFile: "world_brick_outcorner_south_west.png"}
+		{worldType: TILE_WALL_OUTCORNER_SW, theFile: "world_brick_outcorner_south_west.png"},
+		{worldType: TILE_WALL_NORTH_TORCH, theFile: "world_brick_north_torch.png"},
+		{worldType: TILE_WALL_SOUTH_TORCH, theFile: "world_brick_south_torch.png"},
+		{worldType: TILE_WALL_WEST_TORCH, theFile: "world_brick_west_torch.png"},
+		{worldType: TILE_WALL_EAST_TORCH, theFile: "world_brick_east_torch.png"}
 	];
 
 	picsToLoad = imageList.length;
