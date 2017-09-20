@@ -43,7 +43,9 @@ function loadImages() {
 		{set: "Player", name: "RangedAttack", fileName: "MainChar/Anchor Ranged Attack.png"},
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
+		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},
 		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
+		{set: "Slug", name: "walkAnimationEast", fileName: "Enemies/slugBuddy_East.png"},
 		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},

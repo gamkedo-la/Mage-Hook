@@ -32,7 +32,7 @@ function enemyClass(newEnemy){
 
 	this.die = function(attackedBy) {
 		console.log('An enemy died!');
-
+		
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;
@@ -130,11 +130,26 @@ function enemyClass(newEnemy){
 		if (directionTimer <= 0 || directionTimer == undefined) {
 			resetMovement();
 		}
-
+		
 		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 
 		directionTimer -= TIME_PER_TICK;
+
+		if(this.sprite.getSpriteSheet() == sprites.Slug.walkAnimation){
+			if(velX > 0){
+				this.sprite.setSprite(newEnemy.spriteSheetEast,
+					newEnemy.spriteWidth, newEnemy.spriteHeight, 
+					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
+			}
+			console.log("Velx: " +velX+ " VelY: " + velY );
+		}else if (this.sprite.getSpriteSheet() == sprites.Slug.walkAnimationEast){
+			if(velX < 0){
+				this.sprite.setSprite(newEnemy.spriteSheet,
+					newEnemy.spriteWidth, newEnemy.spriteHeight, 
+					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
+			}
+		}
 
 		this.sprite.update();
 		this.tileBehaviorHandler();
@@ -239,6 +254,10 @@ function slimeMonster(x, y) {
 	this.spriteHeight = 32;
 	this.spriteFrames = 6;
 	this.spriteSpeed = 9;
+	
+	this.deathSpriteSheet = sprites.Slime.deathAnimation;
+	this.deathSpriteFrames = 10;
+	this.deathSpriteSpeed = 4;
 
 	return new enemyClass(this);
 }
@@ -264,6 +283,7 @@ function slugMonster(x, y) {
 	this.hitboxOffsetY = 6;
 
 	this.spriteSheet = sprites.Slug.walkAnimation;
+	this.spriteSheetEast = sprites.Slug.walkAnimationEast;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
 	this.spriteFrames = 4;

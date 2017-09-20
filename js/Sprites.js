@@ -44,6 +44,10 @@ function spriteClass() {
 		drawFrame = true;
 	}
 
+	this.getSpriteSheet = function (){
+		return spriteSheet;
+	}
+	
 	this.getFrame = function() {
 		return frameIndex;
 	}
