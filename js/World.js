@@ -38,6 +38,7 @@ const TILE_ROOM_DOOR_EAST = 28;
 const TILE_ROOM_DOOR_WEST = 29;
 const TILE_STAIRS_DOWN = 30;
 const TILE_NOTHING = 31;
+
 const TILE_WALL_OUTCORNER_SW = 32;
 const TILE_WALL_OUTCORNER_SE = 33;
 const TILE_WALL_OUTCORNER_NW = 34;
@@ -46,7 +47,20 @@ const TILE_WALL_SOUTH_TORCH = 36;
 const TILE_WALL_NORTH_TORCH = 37;
 const TILE_WALL_WEST_TORCH = 38;
 const TILE_WALL_EAST_TORCH = 39;
-const HIGHEST_TILE_NUMBER = 39;
+
+const TILE_SMALL_WALL_HORIZ = 40;
+const TILE_SMALL_WALL_VERT = 41;
+const TILE_SMALL_WALL_PILLAR = 42;
+const TILE_SMALL_WALL_NE = 43;
+const TILE_SMALL_WALL_NW = 44;
+const TILE_SMALL_WALL_SE = 45;
+const TILE_SMALL_WALL_SW = 46;
+const TILE_SMALL_WALL_CAP_EAST = 47;
+const TILE_SMALL_WALL_CAP_WEST = 48;
+const TILE_SMALL_WALL_CAP_NORTH = 49;
+const TILE_SMALL_WALL_CAP_SOUTH = 50;
+
+const HIGHEST_TILE_NUMBER = 50;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -93,7 +107,18 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_WALL_OUTCORNER_SW ||
 			checkTileType == TILE_WALL_OUTCORNER_SE ||
 			checkTileType == TILE_WALL_OUTCORNER_NW ||
-			checkTileType == TILE_WALL_OUTCORNER_NE);
+			checkTileType == TILE_WALL_OUTCORNER_NE ||
+			checkTileType == TILE_SMALL_WALL_PILLAR ||
+			checkTileType == TILE_SMALL_WALL_NE ||
+			checkTileType == TILE_SMALL_WALL_NW ||
+			checkTileType == TILE_SMALL_WALL_SE ||
+			checkTileType == TILE_SMALL_WALL_SW ||
+			checkTileType == TILE_SMALL_WALL_CAP_EAST ||
+			checkTileType == TILE_SMALL_WALL_CAP_WEST ||
+			checkTileType == TILE_SMALL_WALL_CAP_NORTH ||
+			checkTileType == TILE_SMALL_WALL_CAP_SOUTH
+						
+		);
 }
 
 function drawWorld() {

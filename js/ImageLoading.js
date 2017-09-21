@@ -92,7 +92,18 @@ function loadImages() {
 		{worldType: TILE_WALL_NORTH_TORCH, theFile: "world_brick_north_torch.png"},
 		{worldType: TILE_WALL_SOUTH_TORCH, theFile: "world_brick_south_torch.png"},
 		{worldType: TILE_WALL_WEST_TORCH, theFile: "world_brick_west_torch.png"},
-		{worldType: TILE_WALL_EAST_TORCH, theFile: "world_brick_east_torch.png"}
+		{worldType: TILE_WALL_EAST_TORCH, theFile: "world_brick_east_torch.png"},
+		{worldType: TILE_SMALL_WALL_HORIZ, theFile: "small_wall_horiz.png"},
+		{worldType: TILE_SMALL_WALL_VERT, theFile: "small_wall_vert.png"},
+		{worldType: TILE_SMALL_WALL_PILLAR, theFile: "small_wall_pillar.png"},
+		{worldType: TILE_SMALL_WALL_NE, theFile: "small_wall_ne.png"},
+		{worldType: TILE_SMALL_WALL_NW, theFile: "small_wall_nw.png"},
+		{worldType: TILE_SMALL_WALL_SE, theFile: "small_wall_se.png"},
+		{worldType: TILE_SMALL_WALL_SW, theFile: "small_wall_sw.png"},
+		{worldType: TILE_SMALL_WALL_CAP_EAST, theFile: "small_wall_cap_east.png"},
+		{worldType: TILE_SMALL_WALL_CAP_WEST, theFile: "small_wall_cap_west.png"},
+		{worldType: TILE_SMALL_WALL_CAP_NORTH, theFile: "small_wall_cap_north.png"},
+		{worldType: TILE_SMALL_WALL_CAP_SOUTH, theFile: "small_wall_cap_south.png"}
 	];
 
 	picsToLoad = imageList.length;
