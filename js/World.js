@@ -127,7 +127,7 @@ function drawWorld() {
 					'rgba(255,255,0,0.5)',
 					Math.random()*1-0.5,
 					Math.random()*-1,
-					0.25);
+					0.25, 0);
 				particle.push(tempParticle);
 			}
 

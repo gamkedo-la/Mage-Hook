@@ -3,11 +3,11 @@ const MAX_DECAY_TIME = .50;
 const MIN_PARTICLE_SPEED = .1;
 const MAX_PARTICLE_SPEED = 1;
 const PARTICLE_SIZE = 1;
-const GRAVITY = .03;
+const DEFAULT_GRAVITY = .03;
 
 var particle = [];
 
-function particleClass(posX, posY, color, optionalVelX, optionalVelY, optionalLifespan) {
+function particleClass(posX, posY, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity) {
 
     var x = posX;
     var y = posY;
@@ -18,11 +18,13 @@ function particleClass(posX, posY, color, optionalVelX, optionalVelY, optionalLi
     var velX = optionalVelX || Math.cos(angle) * speed;
     var velY = optionalVelY || Math.sin(angle) * speed;
     var color = color;
+    var gravity = DEFAULT_GRAVITY;
 
     // maybe override defaults
     if (optionalVelX!=undefined) velX = optionalVelX;
     if (optionalVelY!=undefined) velY = optionalVelY;
     if (optionalLifespan!=undefined) decayTimer = optionalLifespan;
+    if (optionalGravity!=undefined) gravity = optionalGravity;
     
     // var red = Math.round(Math.random() * 255);
     // var blue = Math.round(Math.random() * 255);
@@ -41,7 +43,7 @@ function particleClass(posX, posY, color, optionalVelX, optionalVelY, optionalLi
 
         x += velX;
         y += velY;
-        velY += GRAVITY;
+        velY += gravity;
     }
 
     this.draw = function() {
