@@ -614,8 +614,8 @@ function playerClass() {
 				case TILE_WEB:
 					playerFriction = _WEB_FRICTION;
 					sprite.setSpeed(6)
-					Sound.playUnlessAlreadyPlaying('hit_web',false,0.2);
 					if (isMoving) {
+						Sound.playUnlessAlreadyPlaying('hit_web',false,0.2);
 						for (var i = 0; i < PARTICLES_PER_TICK; i++) {
 							var tempParticle = new particleClass(this.hitbox.x, this.hitbox.y, 'lightGrey');
 							particle.push(tempParticle);
