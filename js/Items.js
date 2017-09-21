@@ -138,10 +138,7 @@ function itemClass(posX, posY, speed, type, angle) {
         var tileType = worldGrid[tileIndex];
         switch(tileType) {
             case TILE_SKULL:
-            case TILE_DOOR_COMMON:
-			case TILE_DOOR_RARE:
-			case TILE_DOOR_EPIC:
-            case TILE_WALL:
+			case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:
 			case TILE_WALL_WEST:
@@ -150,14 +147,29 @@ function itemClass(posX, posY, speed, type, angle) {
 			case TILE_WALL_CORNER_NW:
 			case TILE_WALL_CORNER_SE:
 			case TILE_WALL_CORNER_SW:
-            case TILE_ROOM_DOOR_NORTH:
-            case TILE_ROOM_DOOR_SOUTH:
-            case TILE_ROOM_DOOR_EAST:
-            case TILE_ROOM_DOOR_WEST:
-            case TILE_WALL_OUTCORNER_SW:
-            case TILE_WALL_OUTCORNER_SE:
-            case TILE_WALL_OUTCORNER_NW:
-            case TILE_WALL_OUTCORNER_NE:
+			case TILE_WALL_OUTCORNER_SW:
+			case TILE_WALL_OUTCORNER_SE:
+			case TILE_WALL_OUTCORNER_NW:
+			case TILE_WALL_OUTCORNER_NE:
+			case TILE_WALL_NORTH_TORCH:
+			case TILE_WALL_SOUTH_TORCH:
+			case TILE_WALL_WEST_TORCH:
+			case TILE_WALL_EAST_TORCH:
+			case TILE_SMALL_WALL_HORIZ:
+			case TILE_SMALL_WALL_VERT:
+			case TILE_SMALL_WALL_PILLAR:
+			case TILE_SMALL_WALL_NE:
+			case TILE_SMALL_WALL_NW:
+			case TILE_SMALL_WALL_SE:
+			case TILE_SMALL_WALL_SW:
+			case TILE_SMALL_WALL_CAP_EAST:
+			case TILE_SMALL_WALL_CAP_WEST:
+			case TILE_SMALL_WALL_CAP_NORTH:
+			case TILE_SMALL_WALL_CAP_SOUTH:
+			case TILE_SMALL_WALL_INTO_BIG_EAST:
+			case TILE_SMALL_WALL_INTO_BIG_WEST:
+			case TILE_SMALL_WALL_INTO_BIG_NORTH:
+			case TILE_SMALL_WALL_INTO_BIG_SOUTH:
                 break;
             default:
                 collisionDetected = false;
