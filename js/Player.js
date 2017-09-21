@@ -7,7 +7,6 @@ var _STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const ATTACK_DURATION = 0.5;
-const ATTACK_DISTANCE = 10; // how far in front of us can we hit baddies?
 const ATTACK_ANIMATION_SPEED = 13; // in FPS
 const PARTICLES_PER_ATTACK = 200;
 const PARTICLES_PER_BOX = 200;
@@ -99,14 +98,6 @@ function playerClass() {
 	this.hitbox = new boxColliderClass(this.x, this.y,
 									   hitboxWidth, hitboxHeight,
 								       hitboxOffsetX, hitboxOffsetY);
-
-	var attackhitboxWidth = 24;
-	var attackhitboxHeight = 24;
-	var attackhitboxOffsetX = 0;
-	var attackhitboxOffsetY = 0;
-	this.attackhitbox = new boxColliderClass(this.x, this.y,
-											 attackhitboxWidth, attackhitboxHeight,
-											 attackhitboxOffsetX, attackhitboxOffsetY);
 
    var sprite = new spriteClass();
 
@@ -288,8 +279,6 @@ function playerClass() {
 		}
 		if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
 			this.hitbox.draw('red');
-			if (this.keyHeld_Attack)
-				 this.attackhitbox.draw('yellow');
 		}
 	}
 
@@ -584,32 +573,6 @@ function playerClass() {
 	this.updateColliders = function() {
 		this.hitbox.update(this.x, this.y);
 		this.tileCollider.update(this.x, this.y);
-
-		// where the attack hitbox is depends on what direction we are facing
-		var attackoffsetx = 0;
-		var attackoffsety = 0;
-		switch (isFacing) {
-			case NORTH:
-				attackoffsetx = 0;
-				attackoffsety = -ATTACK_DISTANCE;
-				break;
-			case SOUTH:
-				attackoffsetx = 0;
-				attackoffsety = ATTACK_DISTANCE;
-				break;
-			case EAST:
-				attackoffsetx = ATTACK_DISTANCE;
-				attackoffsety = 0;
-				break;
-			case WEST:
-				attackoffsetx = -ATTACK_DISTANCE;
-				attackoffsety = 0;
-				break;
-			default:
-				attackoffsetx = 0;
-				attackoffsety = 0;
-			}
-		this.attackhitbox.update(this.x+attackoffsetx, this.y+attackoffsety);
 	}
 
 	this.tileBehaviorHandler = function() {
