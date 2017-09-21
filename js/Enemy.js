@@ -311,10 +311,10 @@ function armsBro(x, y) {
 	this.hitboxOffsetX = 2;
 	this.hitboxOffsetY = 6;
 
-	this.spriteSheet = sprites.ArmsBro.idle;
+	this.spriteSheet = sprites.ArmsBro.walkAnimation;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
-	this.spriteFrames = 6;
+	this.spriteFrames = 7;
 	this.spriteSpeed = 9;
 
 	return new enemyClass(this);
