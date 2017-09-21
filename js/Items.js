@@ -18,6 +18,8 @@ const ITEM_KEY_COMMON_DROP_PERCENT = 5;
 const ITEM_KEY_RARE_DROP_PERCENT = 4;
 const ITEM_KEY_EPIC_DROP_PERCENT = 1;
 
+const PARTICLES_PER_PICKUP = 32;
+
 function itemClass(posX, posY, speed, type, angle) {
     this.x = posX;
     this.y = posY;
@@ -236,25 +238,30 @@ function pickUpItems(collider) {
                 	player.inventory.keysCommon++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
+                    particleFX(player.x, player.y, PARTICLES_PER_PICKUP, '#c65e31');
 					break;
 				case ITEM_KEY_RARE:
                 	player.inventory.keysRare++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
+                    particleFX(player.x, player.y, PARTICLES_PER_PICKUP, '#949494');
 					break;
 				case ITEM_KEY_EPIC:
                 	player.inventory.keysEpic++; // one more key
                     // this.updateKeyReadout();
                     Sound.play('key_pickup', false, 0.1); // 0.1 means 10% volume
+                    particleFX(player.x, player.y, PARTICLES_PER_PICKUP, '#d8b800');
 					break;
 				case ITEM_POTION:
 					if (player.currentHealth < player.maxHealth)
 						player.currentHealth++;
-					Sound.play('key_pickup', false, 0.1);
+                    Sound.play('key_pickup', false, 0.1);
+                    particleFX(player.x, player.y, PARTICLES_PER_PICKUP, 'red');
 					break;
 				case ITEM_CRYSTAL:
 					player.enemyHitCount++;
 					Sound.play('key_pickup', false, 0.1);
+                    particleFX(player.x, player.y, PARTICLES_PER_PICKUP, 'blue');
 					break;
             }
         }

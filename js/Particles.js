@@ -68,3 +68,11 @@ function drawParticles() {
         particle[i].draw();
     }
 }
+
+// spawn multiple particles
+function particleFX(x, y, num, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity)
+{
+    for (var i = 0; i < num; i++) {
+        particle.push(new particleClass(x, y, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity));
+    }
+}
