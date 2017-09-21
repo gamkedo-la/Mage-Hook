@@ -32,7 +32,7 @@ function enemyClass(newEnemy){
 
 	this.die = function(attackedBy) {
 		console.log('An enemy died!');
-
+		
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;

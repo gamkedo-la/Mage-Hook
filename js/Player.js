@@ -20,6 +20,9 @@ const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
 const RANGED_ATTACK_SPEED = 5;
 
+const PARTICLES_PER_ENEMY_HIT = 16;
+const BLOOD_SPLATTER_SPEED = 1;
+
 const INITIAL_KNOCKBACK_SPEED = 8;
 
 const NORTH = 1;
@@ -341,6 +344,7 @@ function playerClass() {
 			6: {x1: 5, y1: 8, x2: 20, y2:10 }
 		});
 		return;
+		/*
 		var hitOne = this.canHitEnemy();
 		if (hitOne)
 		{
@@ -350,6 +354,7 @@ function playerClass() {
 			hitOne.lastHitBy = this; // the player
 			Sound.play("enemy_hit"); // TODO: after a delay?
 		}
+		*/
 	}
 
 	//testing range attack
@@ -486,6 +491,15 @@ function playerClass() {
 					this.enemyHitCount++; // score?
 					hitOne.currentHealth--;
 					Sound.play("enemy_hit"); // TODO: after a delay?
+
+					// directional hit splatter particles
+					var angle = Math.atan2(hitOne.y-ctrl.y,hitOne.x-ctrl.x);					
+					var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
+					var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
+									
+					particleFX(hitOne.x,hitOne.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
+			
+					
 				}
 			} else {
 				ctrl.collider.offsetX = 0;
@@ -516,8 +530,8 @@ function playerClass() {
 			}else if(poisonTime > poisonDuration) {
 				poisonTime = 0;
 				isPoisoned = false;
-				return;
 				console.log("poison over");
+				return;
 			}
 		}
 	}

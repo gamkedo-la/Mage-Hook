@@ -70,9 +70,12 @@ function drawParticles() {
 }
 
 // spawn multiple particles
-function particleFX(x, y, num, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity)
+function particleFX(x, y, num, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity, optionalVelocityRandomness)
 {
+    optionalVelocityRandomness = optionalVelocityRandomness || 0;
     for (var i = 0; i < num; i++) {
-        particle.push(new particleClass(x, y, color, optionalVelX, optionalVelY, optionalLifespan, optionalGravity));
+        var wobbleX = optionalVelX + (Math.random() * optionalVelocityRandomness - (optionalVelocityRandomness/2));
+        var wobbleY = optionalVelY + (Math.random() * optionalVelocityRandomness - (optionalVelocityRandomness/2));
+        particle.push(new particleClass(x, y, color, optionalVelX?wobbleX:optionalVelX, optionalVelY?wobbleY:optionalVelY, optionalLifespan, optionalGravity));
     }
 }
