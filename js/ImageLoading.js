@@ -103,7 +103,11 @@ function loadImages() {
 		{worldType: TILE_SMALL_WALL_CAP_EAST, theFile: "small_wall_cap_east.png"},
 		{worldType: TILE_SMALL_WALL_CAP_WEST, theFile: "small_wall_cap_west.png"},
 		{worldType: TILE_SMALL_WALL_CAP_NORTH, theFile: "small_wall_cap_north.png"},
-		{worldType: TILE_SMALL_WALL_CAP_SOUTH, theFile: "small_wall_cap_south.png"}
+		{worldType: TILE_SMALL_WALL_CAP_SOUTH, theFile: "small_wall_cap_south.png"},
+		{worldType: TILE_SMALL_WALL_INTO_BIG_EAST, theFile: "small_wall_into_big_wall_east.png"},
+		{worldType: TILE_SMALL_WALL_INTO_BIG_WEST, theFile: "small_wall_into_big_wall_west.png"},
+		{worldType: TILE_SMALL_WALL_INTO_BIG_NORTH, theFile: "small_wall_into_big_wall_north.png"},
+		{worldType: TILE_SMALL_WALL_INTO_BIG_SOUTH, theFile: "small_wall_into_big_wall_south.png"}
 	];
 
 	picsToLoad = imageList.length;
