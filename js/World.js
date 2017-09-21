@@ -115,6 +115,17 @@ function drawWorld() {
 			canvasContext.drawImage(useImg,drawTileX,drawTileY);
 			// colorText(arrayIndex, drawTileX, drawTileY+12, 'white');
 
+			// add world tile effects for torches etc
+			if (tileKindHere==TILE_WALL_SOUTH_TORCH || 
+				tileKindHere==TILE_WALL_NORTH_TORCH || 
+				tileKindHere==TILE_WALL_WEST_TORCH || 
+				tileKindHere==TILE_WALL_EAST_TORCH
+				)
+			{
+				var tempParticle = new particleClass(drawTileX+10,drawTileY+10, 'rgba(255,255,0,0.25)');
+				particle.push(tempParticle);
+			}
+
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
