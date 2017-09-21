@@ -116,21 +116,15 @@ function drawWorld() {
 			// colorText(arrayIndex, drawTileX, drawTileY+12, 'white');
 
 			// add world tile effects for torches etc
-			if (tileKindHere==TILE_WALL_SOUTH_TORCH || 
-				tileKindHere==TILE_WALL_NORTH_TORCH || 
-				tileKindHere==TILE_WALL_WEST_TORCH || 
-				tileKindHere==TILE_WALL_EAST_TORCH
-				)
-			{
-				var tempParticle = new particleClass(
-					drawTileX+10,drawTileY+10,
-					'rgba(255,255,0,0.5)',
-					Math.random()*1-0.5,
-					Math.random()*-1,
-					0.25, 0);
-				particle.push(tempParticle);
-			}
-
+			if (tileKindHere==TILE_WALL_NORTH_TORCH)
+				particle.push(new particleClass(drawTileX+11,drawTileY+10,'rgba(255,255,0,0.5)',Math.random()*1-0.5,Math.random()*-1,0.25,0));
+			if (tileKindHere==TILE_WALL_SOUTH_TORCH)
+				particle.push(new particleClass(drawTileX+9,drawTileY+10,'rgba(255,255,0,0.5)',Math.random()*1-0.5,Math.random()*1,0.25,0));
+			if (tileKindHere==TILE_WALL_EAST_TORCH)
+				particle.push(new particleClass(drawTileX+10,drawTileY+11,'rgba(255,255,0,0.5)',Math.random()*1,Math.random()*1-0.5,0.25,0));
+			if (tileKindHere==TILE_WALL_WEST_TORCH)
+				particle.push(new particleClass(drawTileX+10,drawTileY+9,'rgba(255,255,0,0.5)',Math.random()*-1,Math.random()*1-0.5,0.25,0));
+			
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
