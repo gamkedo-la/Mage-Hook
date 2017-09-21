@@ -6,9 +6,6 @@ const PLAYER_MOVE_CHECKS_PER_TICK = 5;
 var _STUN_DURATION = 0.45;
 const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
-const ATTACK_DURATION = 0.5;
-const ATTACK_ANIMATION_SPEED = 13; // in FPS
-const PARTICLES_PER_ATTACK = 200;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
 var poisonTick = 250;
@@ -17,10 +14,7 @@ var isPoisoned = false;
 var poisonTime = 0;
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
-const RANGED_ATTACK_SPEED = 5;
 
-const PARTICLES_PER_ENEMY_HIT = 16;
-const BLOOD_SPLATTER_SPEED = 1;
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 
@@ -42,7 +36,6 @@ function playerClass() {
 	var isAttacking = false;
 	var wasAttacking = false;
 	var playerFriction = FRICTION;
-	var rangeAttackDir = 0;
 
 	var playerAtStartingPosition = true;
 	this.x = STARTING_POSITION_X;
@@ -191,7 +184,7 @@ function playerClass() {
 			// we may dash for several frames
 			if (this.lastDashTime + DASH_TIMESPAN_MS > performance.now())
 			{
-				this.anchorAttack(); // FIXME: we may want a different attack here?
+				anchorMagic(this.x, this.y, isFacing);
 				//console.log('still dashing!');
 				velX *= _PLAYER_DASH_SPEED_SCALE;
 				velY *= _PLAYER_DASH_SPEED_SCALE;
@@ -206,14 +199,13 @@ function playerClass() {
 		isAttacking = this.keyHeld_Attack;
 		if(isAttacking && !wasAttacking) // only trigger once
 		{
-			this.anchorAttack();
+			anchorMagic(this.x, this.y, isFacing);
 		}
 
 		isUsingRangedAttack = this.keyHeld_Ranged_Attack;
 		if(isUsingRangedAttack && !wasAttacking)	//either melee attack or ranged attack
 		{
-			rangeAttackDir = isFacing;
-			this.RangedAttack();
+			missileMagic(this.x, this.y, isFacing);
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
@@ -321,185 +313,6 @@ function playerClass() {
 				sprite.setSprite(playerPic, 32, 32, 1, 0, true);
 			}
 		}
-	}
-
-	this.anchorAttack = function(){
-		Sound.play("player_attack");
-		attackTimer = ATTACK_DURATION;
-		console.log('attack!');
-		this.registerAttack( this.x + 10, this.y, sprites.Player.anchorAttack, {
-			4: {x1: 5, y1: 8, x2: 20, y2:10 },
-			5: {x1: 5, y1: 8, x2: 20, y2:10 },
-			6: {x1: 5, y1: 8, x2: 20, y2:10 }
-		});
-		return;
-		/*
-		var hitOne = this.canHitEnemy();
-		if (hitOne)
-		{
-			console.log('WE HIT AN ENEMY!!!!');
-			this.enemyHitCount++; // score?
-			hitOne.currentHealth--;
-			hitOne.lastHitBy = this; // the player
-			Sound.play("enemy_hit"); // TODO: after a delay?
-		}
-		*/
-	}
-
-	//testing range attack
-	this.RangedAttack = function() {
-		Sound.play("player_attack");
-		attackTimer = ATTACK_DURATION;
-		console.log('ranged attack!');
-		switch(rangeAttackDir) {
-			case (NORTH):
-				break;
-			case(SOUTH):
-				break;
-			case(EAST):
-				break;
-			case(WEST):
-				break;
-			default:
-				console.log("Shouldn't come here...\n");
-				break;
-		}
-		this.registerAttack( this.x + 10, this.y, sprites.Player.RangedAttack, {
-			0: {x1: 0, y1: 0, x2: 20, y2:20 },
-			1: {x1: 0, y1: 0, x2: 20, y2:20 },
-			2: {x1: 0, y1: 0, x2: 20, y2:20 },
-			3: {x1: 0, y1: 0, x2: 20, y2:20 }
-		});
-		return;
-	}
-
-	//TODO: refractor out into attack.js
-	//TODO: pass in a sprite, not an img
-	this.registerAttack = function( x, y, animation, attackFrames){
-		var ctrl = {}
-		ctrl.x = x;
-		ctrl.y = y;
-
-		switch(isFacing) { //Draw attack in facing dirction
-			case NORTH:
-				ctrl.x -= 16;
-				ctrl.y -= 16;
-				break;
-			case SOUTH:
-				ctrl.x -= 16;
-				ctrl.y += 16;
-				break;
-			case EAST:
-				ctrl.x += 3;
-				break;
-			case WEST:
-				ctrl.x -= 35;
-				break;
-		}
-		
-
-		ctrl.maxHealth = 3;
-		if(!attackFrames){
-			//waaaa??
-			ctrl.attackFrames = {
-				4: {x1: 0, y1: 0, x2: 10, y2:10 },
-				5: {x1: 0, y1: 0, x2: 10, y2:10 },
-				6: {x1: 0, y1: 0, x2: 10, y2:10 }
-			};
-		} else {
-			ctrl.attackFrames = attackFrames
-		}
-
-
-		var tileColliderWidth = 0, tileColliderHeight = 0, tileColliderOffsetX = 0, tileColliderOffsetY = 0
-		ctrl.collider = new boxColliderClass(
-			ctrl.x, ctrl.y,
-			tileColliderWidth, tileColliderHeight,
-			tileColliderOffsetX, tileColliderOffsetY
-		);
-		ctrl.sprite = new spriteClass();
-		var animFrame = 0;
-		//can also set different animation speed and sprite size
-		if(animation == sprites.Player.anchorAttack){
-			ctrl.attackDir = [0,0];
-			animFrame = 7;
-		}
-		else if(animation == sprites.Player.RangedAttack){
-			animFrame = 4;
-			switch(rangeAttackDir) {
-				case (NORTH):
-					ctrl.attackDir = [0,-1];
-					break;
-				case(SOUTH):
-					ctrl.attackDir = [0,1];
-					break;
-				case(EAST):
-					ctrl.attackDir = [2,0];
-					break;
-				case(WEST):
-					ctrl.attackDir = [-2,0];
-					break;
-				default:
-					console.log("Shouldn't come here...\n");
-					break;
-			}
-		}
-
-		//console.log(animFrame);
-		ctrl.sprite.setSprite(animation, 32, 32, animFrame, 9, false);
-		ctrl.sprite.setSpeed(ATTACK_ANIMATION_SPEED);
-
-		ctrl.draw = function(){
-			ctrl.sprite.draw(this.x, this.y);
-			if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
-				ctrl.collider.draw('red');
-	        }
-		}
-
-		ctrl.update = function(){
-			if(ctrl.sprite.isDone()){
-				var index = currentRoom.magic.indexOf(ctrl);
-				if(index !== -1) {
-					currentRoom.magic.splice(index, 1);
-			  		console.log("attack removed")
-			  		return;
-				}
-			}
-			ctrl.x += ctrl.attackDir[0]*RANGED_ATTACK_SPEED;
-			ctrl.y += ctrl.attackDir[1]*RANGED_ATTACK_SPEED;
-			var frame = ctrl.sprite.getFrame();
-			if(ctrl.attackFrames[frame]){
-				ctrl.collider.offsetX = ctrl.attackFrames[frame].x1;
-    			ctrl.collider.offsetY = ctrl.attackFrames[frame].y1;
-				ctrl.collider.width = ctrl.attackFrames[frame].x2;
-				ctrl.collider.height = ctrl.attackFrames[frame].y2;
-				var hitOne = player.canHitEnemy(ctrl.collider)
-				if (hitOne)
-				{
-					console.log('WE HIT AN ENEMY!!!!');
-					this.enemyHitCount++; // score?
-					hitOne.currentHealth--;
-					Sound.play("enemy_hit"); // TODO: after a delay?
-
-					// directional hit splatter particles
-					var angle = Math.atan2(hitOne.y-ctrl.y,hitOne.x-ctrl.x);					
-					var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
-					var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
-									
-					particleFX(hitOne.x,hitOne.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
-			
-					
-				}
-			} else {
-				ctrl.collider.offsetX = 0;
-    			ctrl.collider.offsetY = 0;
-				ctrl.collider.width = 0;
-				ctrl.collider.height = 0;
-			}
-			ctrl.collider.setCollider(this.x, this.y);
-			ctrl.sprite.update();
-		}
-		currentRoom.magic.push(ctrl)
 	}
 
 	this.poisoned = function() {
@@ -709,7 +522,6 @@ function playerClass() {
 				}
 				break;
 			case TILE_SKULL:
-				break;
 			case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:
