@@ -208,6 +208,10 @@ function enemyClass(newEnemy){
             case TILE_WALL_OUTCORNER_SE:
             case TILE_WALL_OUTCORNER_NW:
             case TILE_WALL_OUTCORNER_NE:
+			case TILE_WALL_NORTH_TORCH:
+			case TILE_WALL_SOUTH_TORCH:
+			case TILE_WALL_WEST_TORCH:
+			case TILE_WALL_EAST_TORCH:
 			case TILE_SMALL_WALL_HORIZ:
 			case TILE_SMALL_WALL_VERT:
 			case TILE_SMALL_WALL_PILLAR:
@@ -219,6 +223,10 @@ function enemyClass(newEnemy){
 			case TILE_SMALL_WALL_CAP_WEST:
 			case TILE_SMALL_WALL_CAP_NORTH:
 			case TILE_SMALL_WALL_CAP_SOUTH:
+			case TILE_SMALL_WALL_INTO_BIG_EAST:
+			case TILE_SMALL_WALL_INTO_BIG_WEST:
+			case TILE_SMALL_WALL_INTO_BIG_NORTH:
+			case TILE_SMALL_WALL_INTO_BIG_SOUTH:
 				break;
 			default:
 				collisionDetected = false;
