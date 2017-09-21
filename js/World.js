@@ -122,7 +122,12 @@ function drawWorld() {
 				tileKindHere==TILE_WALL_EAST_TORCH
 				)
 			{
-				var tempParticle = new particleClass(drawTileX+10,drawTileY+10, 'rgba(255,255,0,0.25)');
+				var tempParticle = new particleClass(
+					drawTileX+10,drawTileY+10,
+					'rgba(255,255,0,0.5)',
+					Math.random()*1-0.5,
+					Math.random()*-1,
+					0.25);
 				particle.push(tempParticle);
 			}
 

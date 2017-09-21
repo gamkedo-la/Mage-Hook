@@ -7,18 +7,23 @@ const GRAVITY = .03;
 
 var particle = [];
 
-function particleClass(posX, posY, color) {
+function particleClass(posX, posY, color, optionalVelX, optionalVelY, optionalLifespan) {
 
     var x = posX;
     var y = posY;
     var size = PARTICLE_SIZE;
     var decayTimer = MIN_DECAY_TIME + Math.random() * MAX_DECAY_TIME;
     var speed = MIN_PARTICLE_SPEED + Math.random() * MAX_PARTICLE_SPEED;
-    var angle = Math.random() * Math.PI * 2;
-    var velX = Math.cos(angle) * speed;
-    var velY = Math.sin(angle) * speed;
+    var angle = (Math.random() * Math.PI * 2);
+    var velX = optionalVelX || Math.cos(angle) * speed;
+    var velY = optionalVelY || Math.sin(angle) * speed;
     var color = color;
 
+    // maybe override defaults
+    if (optionalVelX!=undefined) velX = optionalVelX;
+    if (optionalVelY!=undefined) velY = optionalVelY;
+    if (optionalLifespan!=undefined) decayTimer = optionalLifespan;
+    
     // var red = Math.round(Math.random() * 255);
     // var blue = Math.round(Math.random() * 255);
     // var green = Math.round(Math.random() * 255);
