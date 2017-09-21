@@ -40,7 +40,11 @@ function loadImages() {
 		{set: "Player", name: "walkNorth", fileName: "MainChar/playerchar_Walk North.png"},
 		{set: "Player", name: "walkWest", fileName: "MainChar/playerchar_Walk West.png"},
 		{set: "Player", name: "anchorAttack", fileName: "MainChar/Anchor Attack.png"},
-		{set: "Player", name: "RangedAttack", fileName: "MainChar/Anchor Ranged Attack.png"},
+		{set: "Player", name: "rangedAttack", fileName: "MainChar/Anchor Ranged Attack.png"},
+		{set: "Player", name: "bulletAttackNorth", fileName: "MainChar/Bullet Attack north.png"},
+		{set: "Player", name: "bulletAttackSouth", fileName: "MainChar/Bullet Attack south.png"},
+		{set: "Player", name: "bulletAttackEast", fileName: "MainChar/Bullet Attack east.png"},
+		{set: "Player", name: "bulletAttackWest", fileName: "MainChar/Bullet Attack west.png"},
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},

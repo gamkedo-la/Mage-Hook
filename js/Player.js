@@ -205,7 +205,7 @@ function playerClass() {
 		isUsingRangedAttack = this.keyHeld_Ranged_Attack;
 		if(isUsingRangedAttack && !wasAttacking)	//either melee attack or ranged attack
 		{
-			missileMagic(this.x, this.y, isFacing);
+			bulletMagic(this.x, this.y, isFacing);
 		}
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
