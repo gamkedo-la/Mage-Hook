@@ -86,6 +86,19 @@ function spriteClass() {
 		}
 	}
 
+	/*this.tint = function() {
+	var getImgData = canvasContext.getImageData(player.x,player.y, 32, 32);
+	var Imgdata = getImgData.data;
+	var color = {r:0, g: 90, b:0};
+
+		for(i = 0; i < Imgdata.length; i += 4) {
+			Imgdata[i] = Imgdata[i] + color.r;
+			Imgdata[i + 1] = Imgdata[i + 1] + color.g;
+			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
+		}
+	canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
+	}*/
+
 	// cycles through sprite animations
 	this.update = function() {
 		if (frameTotal > 0 && timePerFrame > 0) {

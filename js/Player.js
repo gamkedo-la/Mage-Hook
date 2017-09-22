@@ -318,6 +318,7 @@ function playerClass() {
 	this.poisoned = function() {
 		if(isPoisoned == true) {
 			poisonTime++;
+			sprite.tint();
 			console.log("posionTime");
 			if (poisonTime % poisonTick == 0 && poisonTime > 0) {
 				this.currentHealth--;
