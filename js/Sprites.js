@@ -78,6 +78,10 @@ function spriteClass() {
 
 		if (drawFrame) {
 			// this version of drawImage is needed to point to different frames in sprite sheet
+			if(getImgData){
+				canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
+				return;
+			}	
 			canvasContext.drawImage(spriteSheet,
 				frameX, frameY,
 				frameWidth, frameHeight,
@@ -85,19 +89,45 @@ function spriteClass() {
 				frameWidth, frameHeight);
 		}
 	}
-
-	/*this.tint = function() {
-	var getImgData = canvasContext.getImageData(player.x,player.y, 32, 32);
-	var Imgdata = getImgData.data;
-	var color = {r:0, g: 90, b:0};
-
-		for(i = 0; i < Imgdata.length; i += 4) {
-			Imgdata[i] = Imgdata[i] + color.r;
-			Imgdata[i + 1] = Imgdata[i + 1] + color.g;
-			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
+	var secretCanvas = undefined;
+	var tempImg = undefined;
+	var getImgData = undefined;
+	var hasThrown = undefined
+	//TODO: make it so sprites pool canvas. Rn every sprite gets a canvas
+	this.tint = function() {
+		if(secretCanvas === undefined){
+			secretCanvas = document.createElement('canvas') //untaintteddd 
+			document.body.appendChild(secretCanvas);
+			secretCanvas = secretCanvas.getContext('2d');
 		}
-	canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
-	}*/
+
+		var leftEdge = player.x - frameWidth/2;
+		var topEdge = player.y - frameHeight/2;
+		secretCanvas.drawImage(spriteSheet,
+				frameX, frameY,
+				frameWidth, frameHeight,
+				0, 0,
+				frameWidth, frameHeight);
+		if(location.protocol.indexOf("http") == -1){
+			
+			if(!hasThrown){
+				hasThrown = "yeah man"
+				throw "tinting will throw erros when locally hosted"
+			}
+			
+			return;
+		}
+		getImgData = secretCanvas.getImageData(0,0, 32, 32);
+		Imgdata = getImgData.data;
+		var color = {r:0, g: 90, b:0};
+
+			for(i = 0; i < Imgdata.length; i += 4) {
+				Imgdata[i] = Imgdata[i] + color.r;
+				Imgdata[i + 1] = Imgdata[i + 1] + color.g;
+				Imgdata[i + 2] = Imgdata[i + 2] + color.b;
+			}
+		canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
+	}
 
 	// cycles through sprite animations
 	this.update = function() {

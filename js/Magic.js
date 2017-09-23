@@ -1,5 +1,6 @@
 const RANGED_ATTACK_SPEED = 2;
 const BLOOD_SPLATTER_SPEED = 1;
+const PARTICLES_PER_ENEMY_HIT = 16;
 
 function magicClass(magic) {
 	this.x = magic.x;
