@@ -338,7 +338,7 @@ function playerClass() {
 			}
 		}
 	}
-					 
+
 
 	this.canHitEnemy = function(collider) { // used for attacks, returns the enemy
 
@@ -398,9 +398,9 @@ function playerClass() {
 	    for (var i = 0; i < types.length; i++) {
 		    switch (types[i]) {
 				case TILE_OOZE:
-					
+
 					Sound.playUnlessAlreadyPlaying('hit_poison',false,0.5);
-				
+
 					if (!this.isInvincible) {
 						isPoisoned = true;
 					}
@@ -450,6 +450,7 @@ function playerClass() {
 			case TILE_BOX:
 				if(this.inventory.keysEpic > 0 && !this.isStunned) {
 					this.inventory.keysEpic--; // one less key
+					Sound.play("enemy_die");
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
 					var result = calculateCenterCoordOfTileIndex(tileIndex);
