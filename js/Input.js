@@ -28,14 +28,14 @@ const KEY_TILDE = 192; // cheat console
 
 const KEY_W = 87; // move up a room when in editor mode
 const KEY_A = 65; // move a room to the left when in editor mode
-const KEY_S = 83; // move down a room when in editor mode 
+const KEY_S = 83; // move down a room when in editor mode
 const KEY_D = 68; // move a room to the right when in editor mode
 const KEY_R = 82; // reset currentRoom
-const KEY_B = 66; // draw hitboxes 
+const KEY_B = 66; // draw hitboxes
 const KEY_C = 67; // draw collision boxes
 const KEY_Q = 81; // tile editor
 const KEY_Z = 90; // dash
-const KEY_L = 76; // range attack
+const KEY_X = 88; // range attack
 
 var mouseX = 0;
 var mouseY = 0;
@@ -52,7 +52,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE, KEY_Z, KEY_L);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_SPACE, KEY_Z, KEY_X);
 }
 
 function updateMousePos(evt) {
