@@ -40,6 +40,11 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_KEY_COMMON);
+				} else if(this.layout[arrayIndex] == TILE_HEART_CONTAINER) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_HEART_CONTAINER);
 				} // end of player start if
 			} // end of col for
 		}
@@ -182,9 +187,22 @@ function Room(roomLayout) {
 	}
 };
 
+/*
+Room layout:
+	First floor
+	
+		0a1		1a1
+		
+		0b1		1b1
+	
+	Second floor
+	
+				1b2
+*/
+
 var room0a1 =[
 	24,19,19,19,37,19,19,19,19,19,19,19,19,19,19,25,
-	20,00,00,00,00,08,41,00,00,00,00,00,41,00,00,21,
+	20,55,00,00,55,08,41,00,00,00,00,00,41,00,00,21,
 	20,00,00,06,00,00,41,00,00,00,49,00,41,04,04,21,
 	38,00,00,00,00,00,41,00,00,00,41,00,46,14,19,39,
 	20,19,19,15,19,19,45,10,10,10,50,00,00,00,00,21,
