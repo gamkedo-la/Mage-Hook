@@ -8,8 +8,8 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
-var poisonTick = 250;
-var poisonDuration = 750;
+var poisonTick = 50; //changed for testing, original value: 250
+var poisonDuration = 50; //changed for testing, original value: 750
 var isPoisoned = false;
 var poisonTime = 0;
 const FRICTION = 0.80;
@@ -316,7 +316,7 @@ function playerClass() {
 	}
 
 	this.poisoned = function() {
-		if(isPoisoned == true) {
+		if(isPoisoned) {
 			poisonTime++;
 			sprite.tint();
 			console.log("posionTime");

@@ -79,31 +79,32 @@ function spriteClass() {
 		if (drawFrame) {
 			// this version of drawImage is needed to point to different frames in sprite sheet
 			if(getImgData){
-				canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
+				canvasContext.putImageData(getImgData, player.x -6.5, player.y -13);
 				return;
-			}	
+			} else {
 			canvasContext.drawImage(spriteSheet,
 				frameX, frameY,
 				frameWidth, frameHeight,
 				leftEdge, topEdge,
 				frameWidth, frameHeight);
+			}
 		}
 	}
 	var secretCanvas = undefined;
 	var tempImg = undefined;
 	var getImgData = undefined;
-	var hasThrown = undefined
+	var hasThrown = undefined;
 	//TODO: make it so sprites pool canvas. Rn every sprite gets a canvas
 	this.tint = function() {
 		if(secretCanvas === undefined){
 			secretCanvas = document.createElement('canvas') //untaintteddd 
 			document.body.appendChild(secretCanvas);
-			secretCanvas = secretCanvas.getContext('2d');
+			secretCanvasContext = secretCanvas.getContext('2d');
 		}
 
 		var leftEdge = player.x - frameWidth/2;
 		var topEdge = player.y - frameHeight/2;
-		secretCanvas.drawImage(spriteSheet,
+		secretCanvasContext.drawImage(spriteSheet,
 				frameX, frameY,
 				frameWidth, frameHeight,
 				0, 0,
@@ -117,16 +118,17 @@ function spriteClass() {
 			
 			return;
 		}
-		getImgData = secretCanvas.getImageData(0,0, 32, 32);
+		getImgData = secretCanvasContext.getImageData(9,3, 13, 26);
 		Imgdata = getImgData.data;
 		var color = {r:0, g: 90, b:0};
 
-			for(i = 0; i < Imgdata.length; i += 4) {
-				Imgdata[i] = Imgdata[i] + color.r;
-				Imgdata[i + 1] = Imgdata[i + 1] + color.g;
-				Imgdata[i + 2] = Imgdata[i + 2] + color.b;
-			}
-		canvasContext.putImageData(getImgData, player.x +16, player.y + 16);
+		for(i = 0; i < Imgdata.length; i += 4) {
+			Imgdata[i] = Imgdata[i] + color.r;
+			Imgdata[i + 1] = Imgdata[i + 1] + color.g;
+			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
+			Imgdata[i + 3] = Imgdata[i + 3] + 0;
+		}
+		secretCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
 	}
 
 	// cycles through sprite animations
