@@ -8,8 +8,8 @@ const INVINCIBLE_DURATION = 0.7;
 const FLASH_DURATION = 0.05;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
-var poisonTick = 50; //changed for testing, original value: 250
-var poisonDuration = 50; //changed for testing, original value: 750
+var poisonTick = 250;
+var poisonDuration = 750;
 var isPoisoned = false;
 var poisonTime = 0;
 const FRICTION = 0.80;
@@ -322,6 +322,8 @@ function playerClass() {
 			console.log("posionTime");
 			if (poisonTime % poisonTick == 0 && poisonTime > 0) {
 				this.currentHealth--;
+				this.isInvincible = true;
+				invincibleTimer = INVINCIBLE_DURATION;
 				Sound.play("player_hit");
 				console.log("Health lost to poison");
 				if (this.currentHealth <= 0) {
@@ -329,10 +331,13 @@ function playerClass() {
 					Sound.play("player_die");
 					poisonTime = 0;
 					isPoisoned = false;
+					this.isInvincible = false;
 				}
 			}else if(poisonTime > poisonDuration) {
 				poisonTime = 0;
 				isPoisoned = false;
+				this.isInvincible = false;
+				drawPlayer = true;
 				console.log("poison over");
 				return;
 			}
@@ -419,7 +424,7 @@ function playerClass() {
 						invincibleTimer = INVINCIBLE_DURATION;
 					}
 					screenShake(5);
-					this.isStunned = true
+					this.isStunned = true;
 					stunTimer = _STUN_DURATION;
 					knockbackAngle = calculateAngleFrom(this.tileCollider, this.hitbox);
 					knockbackSpeed = INITIAL_KNOCKBACK_SPEED;

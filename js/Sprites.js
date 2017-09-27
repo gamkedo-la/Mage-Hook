@@ -11,6 +11,14 @@ function spriteClass() {
 	var drawFrame;
 	var currentTime;
 	var timePerFrame;
+	var secretCanvas = undefined;
+	var getImgData = undefined;
+	var hasThrown = undefined;
+	var tintThisFrame = false;
+	var playerSpriteWidth = 14;
+	var playerSpriteHeight = 26;
+	var playerSpriteCanvasX = 9;
+	var playerSpriteCanvasY = 3;
 
 	// set sprite sheet to draw from and defines animation speed
 	this.setSprite = function(newSpriteSheet,
@@ -78,9 +86,8 @@ function spriteClass() {
 
 		if (drawFrame) {
 			// this version of drawImage is needed to point to different frames in sprite sheet
-			if(getImgData && tintThisFrame){
-				//canvasContext.putImageData(getImgData, player.x -6.5, player.y -13); // BUG: overwrites what's underneath
-				canvasContext.drawImage(secretCanvas,player.x -6.5, player.y -13);
+			if(getImgData && tintThisFrame) {
+				canvasContext.drawImage(secretCanvas,player.x - (playerSpriteWidth/2)-50, player.y - (playerSpriteHeight/2)-50);
 				tintThisFrame = false;
 				return;
 			} else {
@@ -92,24 +99,14 @@ function spriteClass() {
 			}
 		}
 	}
-	var secretCanvas = undefined;
-	var tempImg = undefined;
-	var getImgData = undefined;
-	var hasThrown = undefined;
-	var tintThisFrame = false;
 	//TODO: make it so sprites pool canvas. Rn every sprite gets a canvas
 	this.tint = function() {
-		
 		tintThisFrame = true;
-		
 		if(secretCanvas === undefined){
 			secretCanvas = document.createElement('canvas') //untaintteddd 
 			document.body.appendChild(secretCanvas);
 			secretCanvasContext = secretCanvas.getContext('2d');
 			}
-
-		var leftEdge = player.x - frameWidth/2;
-		var topEdge = player.y - frameHeight/2;
 		secretCanvasContext.drawImage(spriteSheet,
 				frameX, frameY,
 				frameWidth, frameHeight,
@@ -124,22 +121,20 @@ function spriteClass() {
 			
 			return;
 		}
-		getImgData = secretCanvasContext.getImageData(9,3, 13, 26);
+		getImgData = secretCanvasContext.getImageData(playerSpriteCanvasX,playerSpriteCanvasY, playerSpriteWidth, playerSpriteHeight);
 		Imgdata = getImgData.data;
-		var color = {r:0, g: 90, b:0};
+		var color = {r:0, g: 90, b:0, a:0};
 
 		for(i = 0; i < Imgdata.length; i += 4) {
 			Imgdata[i] = Imgdata[i] + color.r;
 			Imgdata[i + 1] = Imgdata[i + 1] + color.g;
 			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
-			Imgdata[i + 3] = Imgdata[i + 3] + 0;
-		}
-		
+			Imgdata[i + 3] = Imgdata[i + 3] + color.a;
+		}	
 		// clear
 		secretCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
 		// copy new tinted data for use later when we draw
-		secretCanvasContext.putImageData(getImgData,0,0);
-		
+		secretCanvasContext.putImageData(getImgData,50,50);
 	}
 
 	// cycles through sprite animations
