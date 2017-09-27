@@ -136,13 +136,13 @@ function enemyClass(newEnemy){
 
 		directionTimer -= TIME_PER_TICK;
 
-		if(this.sprite.getSpriteSheet() == sprites.Slug.walkAnimation){
+		if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
 			if(velX > 0){
 				this.sprite.setSprite(newEnemy.spriteSheetEast,
 					newEnemy.spriteWidth, newEnemy.spriteHeight, 
 					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
 			}
-		}else if (this.sprite.getSpriteSheet() == sprites.Slug.walkAnimationEast){
+		}else if (this.sprite.getSpriteSheet() == newEnemy.spriteSheetEast){
 			if(velX < 0){
 				this.sprite.setSprite(newEnemy.spriteSheet,
 					newEnemy.spriteWidth, newEnemy.spriteHeight, 
@@ -331,6 +331,7 @@ function armsBro(x, y) {
 	this.hitboxOffsetY = 6;
 
 	this.spriteSheet = sprites.ArmsBro.walkAnimation;
+	this.spriteSheetEast = sprites.ArmsBro.walkAnimationEast;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
 	this.spriteFrames = 7;
