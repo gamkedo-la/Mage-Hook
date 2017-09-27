@@ -78,8 +78,10 @@ function spriteClass() {
 
 		if (drawFrame) {
 			// this version of drawImage is needed to point to different frames in sprite sheet
-			if(getImgData){
-				canvasContext.putImageData(getImgData, player.x -6.5, player.y -13);
+			if(getImgData && tintThisFrame){
+				//canvasContext.putImageData(getImgData, player.x -6.5, player.y -13); // BUG: overwrites what's underneath
+				canvasContext.drawImage(secretCanvas,player.x -6.5, player.y -13);
+				tintThisFrame = false;
 				return;
 			} else {
 			canvasContext.drawImage(spriteSheet,
@@ -94,13 +96,17 @@ function spriteClass() {
 	var tempImg = undefined;
 	var getImgData = undefined;
 	var hasThrown = undefined;
+	var tintThisFrame = false;
 	//TODO: make it so sprites pool canvas. Rn every sprite gets a canvas
 	this.tint = function() {
+		
+		tintThisFrame = true;
+		
 		if(secretCanvas === undefined){
 			secretCanvas = document.createElement('canvas') //untaintteddd 
 			document.body.appendChild(secretCanvas);
 			secretCanvasContext = secretCanvas.getContext('2d');
-		}
+			}
 
 		var leftEdge = player.x - frameWidth/2;
 		var topEdge = player.y - frameHeight/2;
@@ -113,7 +119,7 @@ function spriteClass() {
 			
 			if(!hasThrown){
 				hasThrown = "yeah man"
-				throw "tinting will throw erros when locally hosted"
+				throw "tinting may throw errors when locally hosted"
 			}
 			
 			return;
@@ -128,7 +134,12 @@ function spriteClass() {
 			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
 			Imgdata[i + 3] = Imgdata[i + 3] + 0;
 		}
+		
+		// clear
 		secretCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
+		// copy new tinted data for use later when we draw
+		secretCanvasContext.putImageData(getImgData,0,0);
+		
 	}
 
 	// cycles through sprite animations
