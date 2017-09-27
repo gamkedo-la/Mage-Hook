@@ -83,8 +83,10 @@ function Room(roomLayout) {
 						this.layout[arrayIndex] = TILE_GROUND;
 						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
 						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently too tall to put next to walls
-						var enemyType = Math.random() * 3;
-						if (enemyType > 1 && enemyType < 2){
+						var enemyType = Math.random() * 4;
+						if (enemyType > 2 && enemyType < 3){
+							nextEnemy = new plantBaby(x, y);
+						}else if (enemyType > 1 && enemyType < 2){
 							nextEnemy = new slugMonster(x, y);
 						} else if (enemyType > 2 && enemyType < 3){
 							nextEnemy = new armsBro(x, y)

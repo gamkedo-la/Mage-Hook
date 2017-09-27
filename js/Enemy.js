@@ -138,12 +138,14 @@ function enemyClass(newEnemy){
 
 		if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
 			if(velX > 0){
+				var frames = newEnemy.spriteSheetEastFrames ? newEnemy.spriteSheetEastFrames : newEnemy.spriteFrames;
 				this.sprite.setSprite(newEnemy.spriteSheetEast,
 					newEnemy.spriteWidth, newEnemy.spriteHeight, 
-					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
+					frames, newEnemy.spriteSpeed, true);	
 			}
 		}else if (this.sprite.getSpriteSheet() == newEnemy.spriteSheetEast){
 			if(velX < 0){
+
 				this.sprite.setSprite(newEnemy.spriteSheet,
 					newEnemy.spriteWidth, newEnemy.spriteHeight, 
 					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
@@ -335,6 +337,36 @@ function armsBro(x, y) {
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
 	this.spriteFrames = 7;
+	this.spriteSpeed = 9;
+
+	return new enemyClass(this);
+}
+
+function plantBaby(x, y) {
+
+	this.x = x;
+	this.y = y;
+
+	this.maxHealth = 2; // how many hits till it dies
+	this.currentHealth = this.maxHealth;
+	this.lootModifier = 1.0;
+
+	this.tileColliderWidth = 18;
+	this.tileColliderHeight = 4;
+	this.tileColliderOffsetX = 2;
+	this.tileColliderOffsetY = 11;
+
+	this.hitboxWidth = 18;
+	this.hitboxHeight = 14;
+	this.hitboxOffsetX = 2;
+	this.hitboxOffsetY = 6;
+
+	this.spriteSheet = sprites.PlantBaby.idleAnimation;
+	this.spriteSheetEast = sprites.PlantBaby.walkAnimationSouth;
+	this.spriteSheetEastFrames= 4
+	this.spriteWidth = 32;
+	this.spriteHeight = 32;
+	this.spriteFrames = 10;
 	this.spriteSpeed = 9;
 
 	return new enemyClass(this);
