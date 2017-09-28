@@ -17,7 +17,7 @@ function magicClass(magic) {
 	this.sprite.setSprite(	magic.spriteSheet,
 							magic.spriteWidth, magic.spriteHeight,
 							magic.spriteFrames, magic.spriteSpeed, true);
-	 
+	this.remove = false;
 	this.onHitEnemy = magic.onHitEnemy;
 	 
 	this.draw = function() {
@@ -28,7 +28,7 @@ function magicClass(magic) {
 	}
 
 	this.update = function() {
-		if(this.sprite.isDone()){
+		if(this.sprite.isDone() || this.remove){
 			var index = currentRoom.magic.indexOf(this);
 			if(index !== -1) {
 				currentRoom.magic.splice(index, 1);
@@ -218,6 +218,7 @@ function anchorMagic(x, y, isFacing) {
 
 	this.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
+		this.remove = true;
 		player.enemyHitCount++;
 		enemy.currentHealth--;
 		Sound.play("enemy_hit"); // TODO: after a delay?
