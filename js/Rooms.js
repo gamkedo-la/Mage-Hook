@@ -40,6 +40,21 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_KEY_COMMON);
+				} else if(this.layout[arrayIndex] == TILE_KEY_RARE) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_KEY_RARE);
+				} else if(this.layout[arrayIndex] == TILE_KEY_EPIC) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_KEY_EPIC);
+				} else if(this.layout[arrayIndex] == TILE_CRYSTAL) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_CRYSTAL);
 				} else if(this.layout[arrayIndex] == TILE_HEART_CONTAINER) {
 					this.layout[arrayIndex] = TILE_GROUND;
 					var x = eachCol * WORLD_W + WORLD_W/2;
@@ -196,6 +211,8 @@ Room layout:
 		0a1		1a1
 		
 		0b1		1b1
+
+		0c1
 	
 	Second floor
 	
@@ -239,8 +256,8 @@ var room1b1 = [
 	24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
 	20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
 	38,00,00,00,00,00,00,04,00,03,09,00,00,00,00,39,
-	20,07,06,00,00,00,00,00,00,00,00,00,00,00,00,21,
-	29,00,00,00,00,10,00,00,00,00,00,00,17,00,00,39,
+	20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
+	29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
 	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
