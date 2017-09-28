@@ -97,10 +97,15 @@ function rowColToArrayIndex(col, row) {
 
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
+			checkTileType == TILE_KEY_COMMON ||
 			checkTileType == TILE_DOOR_COMMON ||
+			checkTileType == TILE_ENEMYSTART ||
 			checkTileType == TILE_CHAIN ||
 			checkTileType == TILE_OOZE ||
 			checkTileType == TILE_WEB ||
+			checkTileType == TILE_KEY_RARE ||
+			checkTileType == TILE_KEY_EPIC ||
+			checkTileType == TILE_CRYSTAL ||
 			checkTileType == TILE_STAIRS_UP ||
 			checkTileType == TILE_STAIRS_DOWN ||
 			checkTileType == TILE_BOX ||
