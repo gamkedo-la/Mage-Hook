@@ -100,7 +100,7 @@ function spriteClass() {
 		}
 	}
 	//TODO: make it so sprites pool canvas. Rn every sprite gets a canvas
-	this.tint = function() {
+	this.tintPlayer = function(colorR, colorG, colorB, colorA) {
 		tintThisFrame = true;
 		if(secretCanvas === undefined){
 			secretCanvas = document.createElement('canvas') //untaintteddd 
@@ -123,13 +123,12 @@ function spriteClass() {
 		}
 		getImgData = secretCanvasContext.getImageData(playerSpriteCanvasX,playerSpriteCanvasY, playerSpriteWidth, playerSpriteHeight);
 		Imgdata = getImgData.data;
-		var color = {r:0, g: 90, b:0, a:0};
 
 		for(i = 0; i < Imgdata.length; i += 4) {
-			Imgdata[i] = Imgdata[i] + color.r;
-			Imgdata[i + 1] = Imgdata[i + 1] + color.g;
-			Imgdata[i + 2] = Imgdata[i + 2] + color.b;
-			Imgdata[i + 3] = Imgdata[i + 3] + color.a;
+			Imgdata[i] = Imgdata[i] + colorR;
+			Imgdata[i + 1] = Imgdata[i + 1] + colorG;
+			Imgdata[i + 2] = Imgdata[i + 2] + colorB;
+			Imgdata[i + 3] = Imgdata[i + 3] + colorA;
 		}	
 		// clear
 		secretCanvasContext.clearRect(0, 0, canvas.width, canvas.height);
