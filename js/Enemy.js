@@ -1,4 +1,5 @@
-function enemyClass(newEnemy){
+function enemyClass(newEnemy, states){
+	//states is just an object of fuuuunctions
 
 	var velX;
 	var velY;
@@ -29,8 +30,119 @@ function enemyClass(newEnemy){
 	this.sprite.setSprite(newEnemy.spriteSheet,
 						  newEnemy.spriteWidth, newEnemy.spriteHeight,
 						  newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
+	this.isDead = function (){
+		if (this.currentHealth <= 0) {
+			this.die(this.lastHitBy || player); // if unknown. assume the player hit us
+			return true;
+		}
+		return false
+	}
+	this.ticksInState = 0;
+	this.currentState = function(){}//Gets overwritten by state;
+	var freshState;	
+	this.update = function(){
+		
+		if(this.isDead())
+			return;
+		freshState = false;
+		this.currentState();
+		if(!freshState)
+			this.ticksInState += 1;
+	} 
 
-	this.die = function(attackedBy) {
+	this.setState = function(newState){
+		//TODO:forgive myself for the string comparison
+		if(typeof this.stateMachine[newState] === "function"){
+			this.currentState = this.stateMachine[newState]
+		} else {
+			throw "ayy, so this isn't a state that can be ran"
+		}
+		freshState = true;
+		this.ticksInState = 0;
+		directionTimer = undefined;
+	}
+
+	
+	this.stateMachine = {
+		normal : function(){		
+			if(!this.ticksInState){
+				directionTimer = minMoveTime + Math.random() * maxMoveTime;
+			}
+			if (directionTimer <= 0 || directionTimer == undefined) {
+				this.setState("derpAround")
+			}
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
+		}, 
+		derpAround : function(){
+			var willWander = Math.random() * 4;
+			if(willWander > 1){
+				this.setState("wander")
+			} else {
+				this.setState("normal")
+			}
+		},
+		recoil : function(){
+			if (!player.isStunned) {					
+				this.sprite.setSprite(newEnemy.spriteSheet, //TODO: maybe derp emote? 
+					newEnemy.spriteWidth, newEnemy.spriteHeight,
+					newEnemy.spriteFrames, newEnemy.spriteHeight, true);	
+				this.setState("normal")
+			}
+		},
+		wander : function(){
+			if(!this.ticksInState){
+				directionTimer = minMoveTime + Math.random() * maxMoveTime;
+				var speed = minSpeed + Math.random() * maxSpeed;
+				var angle = Math.random() * 2*Math.PI;
+
+				velX = Math.cos(angle) * speed;
+				velY = Math.sin(angle) * speed;
+				this.sprite.setSprite(newEnemy.spriteSheet,
+					newEnemy.spriteWidth, newEnemy.spriteHeight,
+					newEnemy.spriteFrames, newEnemy.spriteHeight, true);
+				if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
+					if(velX > 0){
+						var frames = newEnemy.spriteSheetEastFrames ? newEnemy.spriteSheetEastFrames : newEnemy.spriteFrames;
+						this.sprite.setSprite(newEnemy.spriteSheetEast,
+							newEnemy.spriteWidth, newEnemy.spriteHeight, 
+							frames, newEnemy.spriteSpeed, true);	
+					}
+				}else if (this.sprite.getSpriteSheet() == newEnemy.spriteSheetEast){
+					if(velX < 0){
+
+						this.sprite.setSprite(newEnemy.spriteSheet,
+							newEnemy.spriteWidth, newEnemy.spriteHeight, 
+							newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
+					}
+				}
+			}
+
+			if (directionTimer <= 0 || directionTimer == undefined) {
+				this.setState("derpAround")
+			}
+
+			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
+		}
+	}
+	
+	//TODO: should I wrap this in an init function? 
+	//loads states 
+	for(var i in states){
+		this.stateMachine[states[i]]//no error checking yet :3
+	}
+	if(!newEnemy.initialState)
+		newEnemy.initialState = "normal"
+
+	this.setState(newEnemy.initialState)
+
+	//TODO: make dying state so we can play that sweet sweet slime death animation
+	this.die = function(attackedBy) { //TODO: make die a state? 
 		console.log('An enemy died!');
 		
 		this.isAlive = false;
@@ -110,51 +222,7 @@ function enemyClass(newEnemy){
 		return;
 	} // end of this.die function
 
-	this.update = function(){
-
-		if (this.currentHealth <= 0) {
-			this.die(this.lastHitBy || player); // if unknown. assume the player hit us
-		}
-
-		if (this.recoil) {
-			if (!player.isStunned) {
-				resetMovement();
-				this.recoil = false;
-				this.sprite.setSprite(newEnemy.spriteSheet,
-									  newEnemy.spriteWidth, newEnemy.spriteHeight,
-									  newEnemy.spriteFrames, newEnemy.spriteHeight, true);
-			}
-			return;
-		}
-
-		if (directionTimer <= 0 || directionTimer == undefined) {
-			resetMovement();
-		}
-		
-		this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-		this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
-
-		directionTimer -= TIME_PER_TICK;
-
-		if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
-			if(velX > 0){
-				var frames = newEnemy.spriteSheetEastFrames ? newEnemy.spriteSheetEastFrames : newEnemy.spriteFrames;
-				this.sprite.setSprite(newEnemy.spriteSheetEast,
-					newEnemy.spriteWidth, newEnemy.spriteHeight, 
-					frames, newEnemy.spriteSpeed, true);	
-			}
-		}else if (this.sprite.getSpriteSheet() == newEnemy.spriteSheetEast){
-			if(velX < 0){
-
-				this.sprite.setSprite(newEnemy.spriteSheet,
-					newEnemy.spriteWidth, newEnemy.spriteHeight, 
-					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
-			}
-		}
-
-		this.sprite.update();
-		this.tileBehaviorHandler();
-	} // end of this.update()
+	
 
 	function resetMovement() {
 
