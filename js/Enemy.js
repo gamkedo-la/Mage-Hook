@@ -67,10 +67,18 @@ function enemyClass(newEnemy, states){
 		normal : function(){		
 			if(!this.ticksInState){
 				directionTimer = minMoveTime + Math.random() * maxMoveTime;
+				this.sprite.setSprite(newEnemy.spriteSheet, //TODO: maybe derp emote? 
+					newEnemy.spriteWidth, newEnemy.spriteHeight,
+					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
+
+				// this.sprite.setSprite(sprites.Player.rangedAttack, //TODO: maybe derp emote? 
+				// 	newEnemy.spriteWidth, newEnemy.spriteHeight,
+				// 	4, 10, true);
 			}
 			if (directionTimer <= 0 || directionTimer == undefined) {
 				this.setState("derpAround")
 			}
+
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
@@ -87,7 +95,7 @@ function enemyClass(newEnemy, states){
 			if (!player.isStunned) {					
 				this.sprite.setSprite(newEnemy.spriteSheet, //TODO: maybe derp emote? 
 					newEnemy.spriteWidth, newEnemy.spriteHeight,
-					newEnemy.spriteFrames, newEnemy.spriteHeight, true);	
+					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
 				this.setState("normal")
 			}
 		},
@@ -101,7 +109,7 @@ function enemyClass(newEnemy, states){
 				velY = Math.sin(angle) * speed;
 				this.sprite.setSprite(newEnemy.spriteSheet,
 					newEnemy.spriteWidth, newEnemy.spriteHeight,
-					newEnemy.spriteFrames, newEnemy.spriteHeight, true);
+					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
 				if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
 					if(velX > 0){
 						var frames = newEnemy.spriteSheetEastFrames ? newEnemy.spriteSheetEastFrames : newEnemy.spriteFrames;
@@ -222,17 +230,6 @@ function enemyClass(newEnemy, states){
 		return;
 	} // end of this.die function
 
-	
-
-	function resetMovement() {
-
-		directionTimer = minMoveTime + Math.random() * maxMoveTime;
-		var speed = minSpeed + Math.random() * maxSpeed;
-		var angle = Math.random() * 2*Math.PI;
-
-		velX = Math.cos(angle) * speed;
-		velY = Math.sin(angle) * speed;
-	}
 
 	this.draw = function() {
 		if (!this.isAlive) return;
