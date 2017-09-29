@@ -420,6 +420,7 @@ function playerClass() {
 				case TILE_TRAP:
 					if (!this.isInvincible) {
 						this.currentHealth--;
+						Sound.play("player_hit");
 						this.isInvincible = true;
 						invincibleTimer = INVINCIBLE_DURATION;
 					}

@@ -70,9 +70,6 @@ function drawAll() {
 	drawWorld();
 	currentRoom.drawTraps();
 	drawItems();
-	//currentRoom.drawMyEnemies();
-	//currentRoom.drawMagic();
-	//player.draw();
 	currentRoom.drawDynamic();
 	drawParticles();
 	hud.draw();
