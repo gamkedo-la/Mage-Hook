@@ -382,7 +382,7 @@ function playerClass() {
 				knockbackAngle = calculateAngleFrom(enemy.hitbox, this.hitbox);
 				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 				enemy.sprite.setFrame(5);
-				enemy.recoil = true;
+				enemy.setState("recoil")
 				hitByEnemy = true;
 	        }
 	    }
