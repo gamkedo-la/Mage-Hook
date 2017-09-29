@@ -60,10 +60,17 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_HEART_CONTAINER);
-				} // end of player start if
-			} // end of col for
+				} else if(this.layout[arrayIndex] == TILE_ARTIFACT) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_ARTIFACT);	
+					} // end of player start if
+				} // end of col for
+			} // end of row for
 		}
-	}
+
+		
 
 	this.spawnTraps = function() {
 		var nextTrap = null;
@@ -80,7 +87,7 @@ function Room(roomLayout) {
 					this.floorTraps.push(nextTrap);
 				} // end of player start if
 			} // end of col for
-		}
+		} // end of row for
 	}
 
 	this.spawnMyEnemies = function(){
@@ -279,7 +286,7 @@ var room1b2 = [
 	20,10,08,10,00,10,00,00,00,00,00,00,00,00,00,21,
 	38,10,00,10,00,10,00,00,00,00,09,00,00,00,00,39,
 	20,10,10,10,00,10,00,00,00,00,00,00,00,00,00,21,
-	20,10,00,10,00,10,00,00,00,00,00,00,30,00,00,39,
+	20,10,00,10,00,10,00,00,56,00,00,00,30,00,00,39,
 	20,10,00,10,00,10,00,00,00,00,10,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,08,39,
 	38,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,

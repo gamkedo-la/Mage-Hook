@@ -11,6 +11,7 @@ const ITEM_KEY_RARE = 3;
 const ITEM_KEY_EPIC = 4;
 const ITEM_CRYSTAL = 5;
 const ITEM_HEART_CONTAINER = 6;
+const ITEM_ARTIFACT = 7;
 
 const ITEM_SUCCESS_CHANCE = .70; // affects item drop rate
 const ITEM_CRYSTAL_DROP_PERCENT = 80; //all item drop rates should add up to 100
@@ -81,6 +82,13 @@ function itemClass(posX, posY, speed, type, angle) {
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
 			break;
+        case(ITEM_ARTIFACT):
+        this.sprite.setSprite(worldPics[TILE_ARTIFACT], 20, 20, 1, 0);
+            var colliderWidth = 10;
+            var colliderHeight = 10;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
+            break;
 	}
 
 	this.collider = new boxColliderClass(this.x, this.y,
@@ -287,7 +295,7 @@ function pickUpItems(collider) {
 					player.maxHealth +=2;
 					player.currentHealth += 2;
 					Sound.play('key_pickup', false, 0.1);
-                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'blue');
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'yellow');
             }
         }
     }

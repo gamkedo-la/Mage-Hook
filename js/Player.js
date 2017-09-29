@@ -12,6 +12,7 @@ var poisonTick = 250;
 var poisonDuration = 750;
 var isPoisoned = false;
 var poisonTime = 0;
+var noDamageForFloor = true;
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
 
@@ -377,6 +378,8 @@ function playerClass() {
 	        if (this.hitbox.isCollidingWith(enemy.hitbox)) {
 				if (!this.isInvincible) {
 					this.currentHealth--;
+					noDamageForFloor = false;
+					console.log("noDamageForFloor = " + noDamageForFloor)
 				}
 				screenShake(5);
 				knockbackAngle = calculateAngleFrom(enemy.hitbox, this.hitbox);

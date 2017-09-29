@@ -118,7 +118,8 @@ function loadImages() {
 		{worldType: TILE_SMALL_WALL_INTO_BIG_NORTH, theFile: "small_wall_into_big_wall_north.png"},
 		{worldType: TILE_SMALL_WALL_INTO_BIG_SOUTH, theFile: "small_wall_into_big_wall_south.png"},
 		
-		{worldType: TILE_HEART_CONTAINER, theFile: "heart_container.png"}
+		{worldType: TILE_HEART_CONTAINER, theFile: "heart_container.png"},
+		{worldType: TILE_ARTIFACT, theFile: "artifact.png"}
 	];
 
 	picsToLoad = imageList.length;
