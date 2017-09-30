@@ -60,7 +60,7 @@ function slugMonster(x, y) {
 				this.setState("derpAround")
 				return;
 			}
-
+			
 			if(directionTimer === undefined)
 				directionTimer = 0
 			var speed = 4 //TODO: make charge speed a variable in newEnemy
@@ -68,15 +68,23 @@ function slugMonster(x, y) {
 			velX = Math.cos(this.chargeAngle) * speed;
 			//velY = Math.sin(angle) * speed;
 			velY = 0
-
+			
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
+
+			if(this.lastx == this.x){
+				this.setState("derpAround")
+				return;
+			}
+			this.lastx = this.x
+			this.lasty = this.y
 		},
 		normal : function(){		
-			if( Math.abs(this.y - player.y) < 60){
+			if( Math.abs(this.y - player.y) < 10){
 				this.setState("charge")
 				return;
 			}
@@ -99,7 +107,7 @@ function slugMonster(x, y) {
 			this.tileBehaviorHandler();
 		},
 		wander : function(){
-			if( Math.abs(this.y - player.y) < 60){
+			if( Math.abs(this.y - player.y) < 10){
 				this.setState("charge")
 				return;
 			}
