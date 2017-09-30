@@ -50,6 +50,8 @@ function loadImages() {
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},
 		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
 		{set: "Slug", name: "walkAnimationEast", fileName: "Enemies/slugBuddy_East.png"},
+		{set: "Slug", name: "attackBegin", fileName: "Enemies/slugBuddy_attack_Animation 1.png"},
+		{set: "Slug", name: "continueAttack", fileName: "Enemies/slugBuddy_attack_Animation 2.png"},
 		
 		{set: "PlantBaby", name: "idleAnimation", fileName: "Enemies/plantbaby_idle.png"},
 		{set: "PlantBaby", name: "runAnimation", fileName: "Enemies/plantbaby_run_south.png"},
