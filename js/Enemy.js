@@ -17,6 +17,7 @@ function enemyClass(newEnemy, states){
 	this.recoil = false;
 	this.isAlive = true;
 	this.droppedTile = newEnemy.droppedTile;
+	this.enemyData = newEnemy;
 
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 											 newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
@@ -83,14 +84,18 @@ function enemyClass(newEnemy, states){
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		}, 
+		testDistance : function(){
+			if(mDist(this.x, this.y, player.x, player.y) < 80){
+				this.setState("charge")
+				return;
+			}
+		},
 		derpAround : function(){
 			var willWander = Math.random() * 5;
 			if(willWander > 1){
 				this.setState("wander")
 			} else if (willWander < 3) {
 				this.setState("normal")
-			} else {
-				this.setState("charge")
 			}
 		},
 		recoil : function(){
@@ -160,7 +165,7 @@ function enemyClass(newEnemy, states){
 	//TODO: should I wrap this in an init function? 
 	//loads states 
 	for(var i in states){
-		this.stateMachine[states[i]]//no error checking yet :3
+		this.stateMachine[i] = states[i]//no error checking yet :3	
 	}
 	if(!newEnemy.initialState)
 		newEnemy.initialState = "normal"
@@ -425,35 +430,7 @@ function armsBro(x, y) {
 	return new enemyClass(this);
 }
 
-function plantBaby(x, y) {
 
-	this.x = x;
-	this.y = y;
-
-	this.maxHealth = 2; // how many hits till it dies
-	this.currentHealth = this.maxHealth;
-	this.lootModifier = 1.0;
-
-	this.tileColliderWidth = 18;
-	this.tileColliderHeight = 4;
-	this.tileColliderOffsetX = 2;
-	this.tileColliderOffsetY = 11;
-
-	this.hitboxWidth = 18;
-	this.hitboxHeight = 14;
-	this.hitboxOffsetX = 2;
-	this.hitboxOffsetY = 6;
-
-	this.spriteSheet = sprites.PlantBaby.idleAnimation;
-	this.spriteSheetEast = sprites.PlantBaby.walkAnimationSouth;
-	this.spriteSheetEastFrames= 4
-	this.spriteWidth = 32;
-	this.spriteHeight = 32;
-	this.spriteFrames = 10;
-	this.spriteSpeed = 9;
-
-	return new enemyClass(this);
-}
 
 function trap(x, y) { // most functionality of traps is contained in the player.js tileBehaviorHandler
 	var trapImage = worldPics[TILE_TRAP];

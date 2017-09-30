@@ -52,7 +52,7 @@ function loadImages() {
 		{set: "Slug", name: "walkAnimationEast", fileName: "Enemies/slugBuddy_East.png"},
 		
 		{set: "PlantBaby", name: "idleAnimation", fileName: "Enemies/plantbaby_idle.png"},
-		{set: "PlantBaby", name: "walkAnimationSouth", fileName: "Enemies/plantbaby_run_south.png"},
+		{set: "PlantBaby", name: "runAnimation", fileName: "Enemies/plantbaby_run_south.png"},
 
 		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
 		{set: "ArmsBro", name: "walkAnimationEast", fileName: "Enemies/ArmsBrowalk_east.png"},
