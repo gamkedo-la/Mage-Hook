@@ -84,11 +84,13 @@ function enemyClass(newEnemy, states){
 			this.tileBehaviorHandler();
 		}, 
 		derpAround : function(){
-			var willWander = Math.random() * 4;
+			var willWander = Math.random() * 5;
 			if(willWander > 1){
 				this.setState("wander")
-			} else {
+			} else if (willWander < 3) {
 				this.setState("normal")
+			} else {
+				this.setState("charge")
 			}
 		},
 		recoil : function(){
@@ -98,6 +100,22 @@ function enemyClass(newEnemy, states){
 					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);	
 				this.setState("normal")
 			}
+		},
+		charge : function(){
+			if(this.ticksInState > 1000 && mDist(this.x, this.y, player.x, player.y) > 10){
+				this.setState("derpAround")
+				return;
+			}
+			var speed = 2 //TODO: make charge speed a variable in newEnemy
+			var angle = Math.atan2(player.y - this.y, player.x - this.x);
+			velX = Math.cos(angle) * speed;
+			velY = Math.sin(angle) * speed;
+
+			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
 		},
 		wander : function(){
 			if(!this.ticksInState){
@@ -452,4 +470,8 @@ function trap(x, y) { // most functionality of traps is contained in the player.
 	this.draw = function() {
 		sprite.draw(this.x, this.y);
 	}
+}
+
+function mDist(x1,y1,x2,y2){
+    return Math.abs(x2-x1) + Math.abs(y2-y1);
 }
