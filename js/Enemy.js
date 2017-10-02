@@ -371,36 +371,6 @@ function slimeMonster(x, y) {
 }
 
 
-function armsBro(x, y) {
-	this.x = x;
-	this.y = y;
-
-	this.maxHealth = 5; // how many hits till it dies
-	this.currentHealth = this.maxHealth;
-	this.lootModifier = 1.0;
-	this.droppedTile = TILE_SKULL;
-
-	this.tileColliderWidth = 18;
-	this.tileColliderHeight = 4;
-	this.tileColliderOffsetX = 2;
-	this.tileColliderOffsetY = 11;
-
-	this.hitboxWidth = 18;
-	this.hitboxHeight = 14;
-	this.hitboxOffsetX = 2;
-	this.hitboxOffsetY = 6;
-
-	this.spriteSheet = sprites.ArmsBro.walkAnimation;
-	this.spriteSheetEast = sprites.ArmsBro.walkAnimationEast;
-	this.spriteWidth = 32;
-	this.spriteHeight = 32;
-	this.spriteFrames = 7;
-	this.spriteSpeed = 9;
-
-	return new enemyClass(this);
-}
-
-
 
 function trap(x, y) { // most functionality of traps is contained in the player.js tileBehaviorHandler
 	var trapImage = worldPics[TILE_TRAP];
