@@ -110,7 +110,7 @@ function Room(roomLayout) {
 							nextEnemy = new plantBaby(x, y);
 						}else if (enemyType > 1 && enemyType < 2){
 							nextEnemy = new slugMonster(x, y);
-						} else if (enemyType > 2 && enemyType < 3){
+						} else if (enemyType > 3 && enemyType < 4){
 							nextEnemy = new armsBro(x, y)
 						} else {
 							nextEnemy = new slimeMonster(x, y);
