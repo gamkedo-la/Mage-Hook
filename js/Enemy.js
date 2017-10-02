@@ -168,7 +168,7 @@ function enemyClass(newEnemy, states){
 		this.stateMachine[i] = states[i]//no error checking yet :3	
 	}
 	if(!newEnemy.initialState)
-		newEnemy.initialState = "normal"
+		newEnemy.initialState = "derpAround"
 
 	this.setState(newEnemy.initialState)
 
@@ -372,7 +372,6 @@ function slimeMonster(x, y) {
 
 
 function armsBro(x, y) {
-
 	this.x = x;
 	this.y = y;
 
