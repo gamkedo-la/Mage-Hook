@@ -60,15 +60,10 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_HEART_CONTAINER);
-				} else if(this.layout[arrayIndex] == TILE_ARTIFACT) {
-					this.layout[arrayIndex] = TILE_GROUND;
-					var x = eachCol * WORLD_W + WORLD_W/2;
-					var y = eachRow * WORLD_H + WORLD_H/2;
-					placeItem(x, y, this, ITEM_ARTIFACT);	
-					} // end of player start if
-				} // end of col for
-			} // end of row for
-		}
+				} // end of place item on tile
+			} // end of col for
+		} // end of row for
+	}//end of spawn items
 
 		
 
@@ -199,6 +194,20 @@ function Room(roomLayout) {
 			player.y -= (canvas.height-20);
 		}
 		if (lastValidCurrentFloor != currentFloor) {
+			console.log(noDamageForFloor[currentFloor]);
+			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+					if (this.layout[arrayIndex] == TILE_ARTIFACT && noDamageForFloor[currentFloor] === true) {
+						this.layout[arrayIndex] = TILE_GROUND;
+						var x = eachCol * WORLD_W + WORLD_W/2;
+						var y = eachRow * WORLD_H + WORLD_H/2;
+						placeItem(x, y, this, ITEM_ARTIFACT)
+					} else if (this.layout[arrayIndex] == TILE_ARTIFACT && noDamageForFloor[currentFloor] === false)  {
+						this.layout[arrayIndex] = TILE_GROUND;
+					}
+				}
+			}
 			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
 				player.x += 30; //Offset for stairs
 			}
