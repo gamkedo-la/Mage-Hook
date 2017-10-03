@@ -59,6 +59,7 @@ function loadImages() {
 		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
 		{set: "ArmsBro", name: "walkAnimationEast", fileName: "Enemies/ArmsBrowalk_east.png"},
 		{set: "ArmsBro", name: "walkAnimation", fileName: "Enemies/ArmsBrowalk1.png"},
+		{set: "ArmsBro", name: "boneThrow", fileName: "Enemies/bonethrown.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},

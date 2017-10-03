@@ -192,7 +192,7 @@ function anchorMagic(x, y, isFacing) {
 		2: {x1: 0, y1: 0, x2: 20, y2:20 },
 		3: {x1: 0, y1: 0, x2: 20, y2:20 }};
 		
-	this.spriteSheet = sprites.Player.rangedAttack;
+	this.spriteSheet = sprites.ArmsBro.boneThrow;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
 	this.spriteFrames = 4;
@@ -221,6 +221,7 @@ function anchorMagic(x, y, isFacing) {
 
 	this.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
+		this.remove = true;
 		player.enemyHitCount++;
 		enemy.currentHealth--;
 		Sound.play("enemy_hit"); // TODO: after a delay?
