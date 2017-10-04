@@ -19,6 +19,11 @@ function magicClass(magic, enemyList) {
 							magic.spriteFrames, magic.spriteSpeed, true);
 	this.remove = false;
 	this.onHitEnemy = magic.onHitEnemy;
+	if(magic.speed == undefined){
+		this.speed = RANGED_ATTACK_SPEED;
+	} else {
+		this.speed = magic.speed
+	}
 	if(!enemyList){
 		this.enemyList = currentRoom.enemyList;
 	} else {
@@ -40,8 +45,8 @@ function magicClass(magic, enemyList) {
 				return;
 			}
 		}
-		this.x += this.attackDir[0]*RANGED_ATTACK_SPEED;
-		this.y += this.attackDir[1]*RANGED_ATTACK_SPEED;
+		this.x += this.attackDir[0]*this.speed;
+		this.y += this.attackDir[1]*this.speed;
 		var frame = this.sprite.getFrame();
 		if(this.attackFrames[frame]){
 			this.collider.offsetX = this.attackFrames[frame].x1;
@@ -110,7 +115,7 @@ function anchorMagic(x, y, isFacing) {
 	this.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
 		player.enemyHitCount++;
-		enemy.currentHealth--;
+		enemy.getHit(1);
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
 		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
@@ -166,7 +171,7 @@ function anchorMagic(x, y, isFacing) {
 	this.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
 		player.enemyHitCount++;
-		enemy.currentHealth--;
+		enemy.getHit(1);
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
 		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
@@ -179,7 +184,7 @@ function anchorMagic(x, y, isFacing) {
 	return new magicClass(this);
 }
 
- function boneThrow(x, y, isFacing) {
+function boneThrow(x, y, isFacing) {
 	Sound.play("player_attack");
 	
 	this.x = x;
@@ -223,7 +228,43 @@ function anchorMagic(x, y, isFacing) {
 		console.log('WE HIT AN ENEMY!!!!');
 		this.remove = true;
 		player.enemyHitCount++;
-		enemy.currentHealth--;
+		enemy.getHit(1);
+		Sound.play("enemy_hit"); // TODO: after a delay?
+		// directional hit splatter particles
+		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
+		var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
+		var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
+						
+		particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
+	}
+	
+	return new magicClass(this, [player]);
+}
+
+function muunch(x, y, isFacing) {
+	Sound.play("player_attack");
+	
+	this.x = x;
+	this.y = y;
+	this.isFacing = EAST;
+	
+	this.attackFrames = {
+		
+		3: {x1: 0, y1: 0, x2: 55, y2:55 }};
+		
+	this.spriteSheet = sprites.ArmsBro.boneThrow;
+	this.spriteWidth = 2;
+	this.spriteHeight = 2;
+	this.spriteFrames = 12;
+	this.spriteSpeed = 13;
+	this.speed = 0;
+	this.attackDir = [0,-1];
+
+	this.onHitEnemy = function (enemy) {
+		console.log('WE HIT AN ENEMY!!!!');
+		this.remove = true;
+		player.enemyHitCount++;
+		enemy.getHit(1);
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
 		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
@@ -238,101 +279,101 @@ function anchorMagic(x, y, isFacing) {
 
  function bulletMagic(x, y, isFacing) {
 	Sound.play("player_attack");
+	var ctrl = {}
+	ctrl.x = x;
+	ctrl.y = y;
+	ctrl.isFacing = isFacing;
 	
-	this.x = x;
-	this.y = y;
-	this.isFacing = isFacing;
-	
-	this.attackFrames = {
+	ctrl.attackFrames = {
 		0: {x1: 0, y1: 0, x2: 8, y2:8 },
 		1: {x1: 0, y1: 0, x2: 8, y2:8 },
 		2: {x1: 0, y1: 0, x2: 8, y2:8 },
 		3: {x1: 0, y1: 0, x2: 8, y2:8 },};
 		
-	this.spriteWidth = 16;
-	this.spriteHeight = 16;
-	this.spriteFrames = 12;
-	this.spriteSpeed = 6;
+	ctrl.spriteWidth = 16;
+	ctrl.spriteHeight = 16;
+	ctrl.spriteFrames = 12;
+	ctrl.spriteSpeed = 6;
 	
-	switch(this.isFacing) { //Draw attack in facing dirction
+	switch(ctrl.isFacing) { //Draw attack in facing dirction
 		case NORTH:
-			this.y -= 8;
-			this.attackDir = [0,-2];
-			this.spriteSheet = sprites.Player.bulletAttackNorth;
+			ctrl.y -= 8;
+			ctrl.attackDir = [0,-2];
+			ctrl.spriteSheet = sprites.Player.bulletAttackNorth;
 			break;
 		case SOUTH:
-			this.y += 8;
-			this.attackDir = [0,2];
-			this.spriteSheet = sprites.Player.bulletAttackSouth;
+			ctrl.y += 8;
+			ctrl.attackDir = [0,2];
+			ctrl.spriteSheet = sprites.Player.bulletAttackSouth;
 			break;
 		case EAST:
-			this.x += 8;
-			this.attackDir = [2,0];
-			this.spriteSheet = sprites.Player.bulletAttackEast;
+			ctrl.x += 8;
+			ctrl.attackDir = [2,0];
+			ctrl.spriteSheet = sprites.Player.bulletAttackEast;
 			break;
 		case WEST:
-			this.x -= 8;
-			this.attackDir = [-2,0];
-			this.spriteSheet = sprites.Player.bulletAttackWest;
+			ctrl.x -= 8;
+			ctrl.attackDir = [-2,0];
+			ctrl.spriteSheet = sprites.Player.bulletAttackWest;
 			break;
 	}
 
-	this.onHitEnemy = function (enemy) {
+	ctrl.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
 		this.remove = true;
 		player.enemyHitCount++;
-		enemy.currentHealth--;
+		enemy.getHit(1);
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
-		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
+		var angle = Math.atan2(enemy.y-ctrl.y,enemy.x-ctrl.x);					
 		var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
 		var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
 						
 		particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
 	}
 	
-	var bullet1 = new magicClass(this);
+	var bullet1 = new magicClass(ctrl);
 	
-	switch(this.isFacing) { //Draw attack in facing dirction
+	switch(ctrl.isFacing) { //Draw attack in facing dirction
 		case NORTH:
-			this.y -5;
-			this.attackDir = [-0.5,-1.5];
+			ctrl.y -5;
+			ctrl.attackDir = [-0.5,-1.5];
 			break;
 		case SOUTH:
-			this.y += 5;
-			this.attackDir = [0.5,1.5];
+			ctrl.y += 5;
+			ctrl.attackDir = [0.5,1.5];
 			break;
 		case EAST:
-			this.x += 5;
-			this.attackDir = [1.5,0.5];
+			ctrl.x += 5;
+			ctrl.attackDir = [1.5,0.5];
 			break;
 		case WEST:
-			this.x -= 5;
-			this.attackDir = [-1.5,-0.5];
+			ctrl.x -= 5;
+			ctrl.attackDir = [-1.5,-0.5];
 			break;
 	}
 	
-	var bullet2 = new magicClass(this);
+	var bullet2 = new magicClass(ctrl);
 	
 	
-	switch(this.isFacing) { //Draw attack in facing dirction
+	switch(ctrl.isFacing) { //Draw attack in facing dirction
 		case NORTH:
-			this.y += 5;
-			this.attackDir = [0.5,-1.5];
+			ctrl.y += 5;
+			ctrl.attackDir = [0.5,-1.5];
 			break;
 		case SOUTH:
-			this.y -= 5;
-			this.attackDir = [-0.5,1.5];
+			ctrl.y -= 5;
+			ctrl.attackDir = [-0.5,1.5];
 			break;
 		case EAST:
-			this.x -= 5;
-			this.attackDir = [1.5,-0.5];
+			ctrl.x -= 5;
+			ctrl.attackDir = [1.5,-0.5];
 			break;
 		case WEST:
-			this.x += 5;
-			this.attackDir = [-1.5,0.5];
+			ctrl.x += 5;
+			ctrl.attackDir = [-1.5,0.5];
 			break;
 	}
 	
-	var bullet3 = new magicClass(this);
+	var bullet3 = new magicClass(ctrl);
 }

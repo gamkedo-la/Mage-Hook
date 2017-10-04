@@ -48,6 +48,8 @@ function loadImages() {
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},
+		{set: "Slime", name: "munch", fileName: "Enemies/slimeAttack.png"},
+		
 		{set: "Slug", name: "walkAnimation", fileName: "Enemies/slugBuddy.png"},
 		{set: "Slug", name: "walkAnimationEast", fileName: "Enemies/slugBuddy_East.png"},
 		{set: "Slug", name: "attackBegin", fileName: "Enemies/slugBuddy_attack_Animation 1.png"},

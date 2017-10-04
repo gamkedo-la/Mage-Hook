@@ -38,6 +38,11 @@ function enemyClass(newEnemy, states){
 		}
 		return false
 	}
+	this.getHit = function getHit(amount){
+		this.currentHealth -= amount;
+		//TODO: make silly face
+
+	}
 	this.ticksInState = 0;
 	this.currentState = function(){}//Gets overwritten by state;
 	var freshState;	

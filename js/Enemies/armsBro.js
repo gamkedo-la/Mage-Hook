@@ -23,6 +23,7 @@ function armsBro(x, y) {
 	this.spriteHeight = 32;
 	this.spriteFrames = 7;
 	this.spriteSpeed = 9;
+	var directionTimer = 0;
 	var minSpeed = .25;
 	var maxSpeed = .50;
 	var minMoveTime = 1.5;

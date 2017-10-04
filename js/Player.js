@@ -367,7 +367,9 @@ function playerClass() {
 	    }
 		return hitAnEnemy;
 	}
-
+	this.getHit = function getHit(amount){
+		this.currentHealth -= amount;
+	}
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
 
