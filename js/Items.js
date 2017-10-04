@@ -235,6 +235,16 @@ function placeItem(x, y, room, type) {
     room.itemOnGround.push(tempItem);
 }
 
+function removeAllItemsOfTypeInRoom(item_type)
+{
+    for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
+        if (currentRoom.itemOnGround[i].type == item_type)
+        {
+            currentRoom.itemOnGround[i].remove = true;
+        }
+    }
+}
+
 function updateItems() {
     for (var i = 0; i < currentRoom.itemOnGround.length; i++) {
         currentRoom.itemOnGround[i].update();

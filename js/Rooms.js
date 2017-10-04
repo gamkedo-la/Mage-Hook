@@ -60,6 +60,12 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_HEART_CONTAINER);
+				} else if(this.layout[arrayIndex] == TILE_ARTIFACT) {
+					console.log("Adding an artifact in room()");
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_ARTIFACT);
 				} // end of place item on tile
 			} // end of col for
 		} // end of row for
@@ -169,6 +175,7 @@ function Room(roomLayout) {
 		}
 	}
 	this.considerRoomChange = function () {
+
 		if (player.x < 8) {
 			currentRoomCol--;
 			Sound.play("room_change",false,0.05);
@@ -193,21 +200,36 @@ function Room(roomLayout) {
 			loadLevel();
 			player.y -= (canvas.height-20);
 		}
+		
 		if (lastValidCurrentFloor != currentFloor) {
+			console.log("considerRoomChange just noticed a floor change...")
+
+		/*
+			// BUGGY: moved to Main.js LoadLevel()
+			// only spawn artifacts if we just changed floors
 			console.log(noDamageForFloor[currentFloor]);
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					if (this.layout[arrayIndex] == TILE_ARTIFACT && noDamageForFloor[currentFloor] === true) {
+					if (this.layout[arrayIndex] == TILE_ARTIFACT) { // FIXME: this NEVER RUNS! layout has TILE_ARTIFACT stripped out?
+						
 						this.layout[arrayIndex] = TILE_GROUND;
-						var x = eachCol * WORLD_W + WORLD_W/2;
-						var y = eachRow * WORLD_H + WORLD_H/2;
-						placeItem(x, y, this, ITEM_ARTIFACT)
-					} else if (this.layout[arrayIndex] == TILE_ARTIFACT && noDamageForFloor[currentFloor] === false)  {
-						this.layout[arrayIndex] = TILE_GROUND;
+						
+						if (noDamageForFloor[currentFloor]) {
+							console.log("Placing an artifact!");
+							var x = eachCol * WORLD_W + WORLD_W/2;
+							var y = eachRow * WORLD_H + WORLD_H/2;
+							placeItem(x, y, this, ITEM_ARTIFACT)
+						}
+						else
+						{
+							console.log("Ignoring an artifact...");
+						}
 					}
 				}
 			}
+			*/
+
 			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
 				player.x += 30; //Offset for stairs
 			}
@@ -253,7 +275,7 @@ var room1a1 =[
 	20,00,00,00,00,00,41,00,00,00,41,05,46,05,19,51,
 	52,40,40,05,40,40,45,00,00,00,41,00,00,00,00,39,
 	20,00,00,00,00,00,00,09,03,00,41,09,04,00,00,21,
-	29,00,00,04,00,00,00,00,00,00,41,00,06,00,00,21,
+	29,00,00,04,56,00,00,00,00,00,41,00,06,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,41,00,04,00,00,21,
 	22,18,18,18,36,18,18,18,27,18,53,18,18,18,18,23];
 	
