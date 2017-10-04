@@ -195,7 +195,7 @@ function anchorMagic(x, y, isFacing) {
 	this.spriteSheet = sprites.ArmsBro.boneThrow;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
-	this.spriteFrames = 4;
+	this.spriteFrames = 12;
 	this.spriteSpeed = 13;
 	
 	switch(this.isFacing) { //Draw attack in facing dirction

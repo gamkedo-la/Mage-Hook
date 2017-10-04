@@ -59,8 +59,7 @@ function armsBro(x, y) {
 						this.sprite.setSprite(sprites.ArmsBro.idleRight, //TODO: maybe derp emote? 
 							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 							4, this.enemyData.spriteSpeed, true); 
-						
-						
+
 					} else {
 						direction = WEST;
 						this.sprite.setSprite(sprites.ArmsBro.idle, //TODO: maybe derp emote? 
@@ -81,14 +80,18 @@ function armsBro(x, y) {
 				return;
 			}
 			if(!this.ticksInState){
-				directionTimer = minMoveTime + Math.random() * maxMoveTime;
-				this.sprite.setSprite(this.enemyData.spriteSheet, //TODO: maybe derp emote? 
-					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+				if(this.facing == EAST){
+					this.sprite.setSprite(sprites.ArmsBro.idleRight, //TODO: maybe derp emote? 
+						this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+						4, this.enemyData.spriteSpeed, true); 
 
-				// this.sprite.setSprite(sprites.Player.rangedAttack, //TODO: maybe derp emote? 
-				// 	this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-				// 	4, 10, true);
+				} else {
+
+					this.sprite.setSprite(sprites.ArmsBro.idle, //TODO: maybe derp emote? 
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					4, this.enemyData.spriteSpeed, true); 
+					
+				}
 			}
 			if (directionTimer <= 0 || directionTimer == undefined) {
 				this.setState("derpAround")
@@ -116,6 +119,7 @@ function armsBro(x, y) {
 					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
 				if(this.sprite.getSpriteSheet() == this.enemyData.spriteSheet && this.enemyData.spriteSheetEast){
 					if(velX > 0){
+						this.facing = EAST;
 						var frames = this.enemyData.spriteSheetEastFrames ? this.enemyData.spriteSheetEastFrames : this.enemyData.spriteFrames;
 						this.sprite.setSprite(this.enemyData.spriteSheetEast,
 							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
@@ -123,7 +127,7 @@ function armsBro(x, y) {
 					}
 				}else if (this.sprite.getSpriteSheet() == this.enemyData.spriteSheetEast){
 					if(velX < 0){
-
+						this.facing = WEST;
 						this.sprite.setSprite(this.enemyData.spriteSheet,
 							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
 							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
