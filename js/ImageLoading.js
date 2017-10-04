@@ -57,9 +57,12 @@ function loadImages() {
 		{set: "PlantBaby", name: "runAnimation", fileName: "Enemies/plantbaby_run_south.png"},
 
 		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
+		{set: "ArmsBro", name: "idleRight", fileName: "Enemies/ArmsBrowalk_stand_right.png"},
 		{set: "ArmsBro", name: "walkAnimationEast", fileName: "Enemies/ArmsBrowalk_east.png"},
 		{set: "ArmsBro", name: "walkAnimation", fileName: "Enemies/ArmsBrowalk1.png"},
 		{set: "ArmsBro", name: "boneThrow", fileName: "Enemies/bonethrown.png"},
+		{set: "ArmsBro", name: "boneThrowRight", fileName: "Enemies/ArmsBrowalk_throw_right.png"},
+		{set: "ArmsBro", name: "OtherBoneThrow", fileName: "Enemies/ArmsBrowalk_throw.png"},
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},

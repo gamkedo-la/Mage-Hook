@@ -65,9 +65,9 @@ function slugMonster(x, y) {
 				directionTimer = 0
 			var speed = 4 //TODO: make charge speed a variable in newEnemy
 			
-			velX = Math.cos(this.chargeAngle) * speed;
+			var velX = Math.cos(this.chargeAngle) * speed;
 			//velY = Math.sin(angle) * speed;
-			velY = 0
+			var velY = 0
 			
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);

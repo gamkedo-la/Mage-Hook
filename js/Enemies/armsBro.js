@@ -36,18 +36,44 @@ function armsBro(x, y) {
 				var direction;//hoisted?
 				if(player.x > this.x){
 					direction = EAST;
+					this.sprite.setSprite(sprites.ArmsBro.boneThrowRight, //TODO: maybe derp emote? 
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					4, this.enemyData.spriteSpeed, false);
+					
 				} else {
 					direction = WEST;
+					this.sprite.setSprite(sprites.ArmsBro.OtherBoneThrow, //TODO: maybe derp emote? 
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					4, this.enemyData.spriteSpeed, false);
 
 				}
 				//TODO: make enmy face direction
 				//TODO: make enmy throw bone in y direction if player is there
 				boneThrow(this.x, this.y, direction)
 				
+			} 
+			if(this.sprite.getSpriteSheet() == sprites.ArmsBro.boneThrowRight || this.sprite.getSpriteSheet() == sprites.ArmsBro.OtherBoneThrow){
+				if(this.sprite.isDone()){
+					if(player.x > this.x){
+						direction = EAST;
+						this.sprite.setSprite(sprites.ArmsBro.idleRight, //TODO: maybe derp emote? 
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							4, this.enemyData.spriteSpeed, true); 
+						
+						
+					} else {
+						direction = WEST;
+						this.sprite.setSprite(sprites.ArmsBro.idle, //TODO: maybe derp emote? 
+						this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+						4, this.enemyData.spriteSpeed, true); 
+						
+					}
+				}
 			}
 			if(this.ticksInState > 28){
 				this.setState("normal")
 			}
+			this.sprite.update();
 		},
 		normal : function(){		
 			if( Math.abs(this.y - player.y) < 10){
