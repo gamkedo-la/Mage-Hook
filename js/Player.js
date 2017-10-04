@@ -323,6 +323,8 @@ function playerClass() {
 			console.log("posionTime");
 			if (poisonTime % poisonTick == 0 && poisonTime > 0) {
 				this.currentHealth--;
+				noDamageForFloor[currentFloor] = false;
+				console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
 				this.isInvincible = true;
 				invincibleTimer = INVINCIBLE_DURATION;
 				Sound.play("player_hit");
@@ -369,6 +371,8 @@ function playerClass() {
 	}
 	this.getHit = function getHit(amount){
 		this.currentHealth -= amount;
+		noDamageForFloor[currentFloor] = false;
+		console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
 	}
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
@@ -424,6 +428,8 @@ function playerClass() {
 				case TILE_TRAP:
 					if (!this.isInvincible) {
 						this.currentHealth--;
+						noDamageForFloor[currentFloor] = false;
+						console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
 						Sound.play("player_hit");
 						this.isInvincible = true;
 						invincibleTimer = INVINCIBLE_DURATION;

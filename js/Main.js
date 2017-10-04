@@ -40,8 +40,9 @@ function loadLevel() {
 	lastValidCurrentFloor = currentFloor;
 	currentRoom = nextRoom;
 	worldGrid = currentRoom.layout;
-	if (!noDamageForFloor[currentFloor])
+	if (!noDamageForFloor[currentFloor - 1]) {
 		removeAllItemsOfTypeInRoom(ITEM_ARTIFACT); 
+	}
 	player.reset("Blue Storm");
 	hud.load();
 }

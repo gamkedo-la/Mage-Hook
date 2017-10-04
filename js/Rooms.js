@@ -203,33 +203,7 @@ function Room(roomLayout) {
 		
 		if (lastValidCurrentFloor != currentFloor) {
 			console.log("considerRoomChange just noticed a floor change...")
-
-		/*
-			// BUGGY: moved to Main.js LoadLevel()
-			// only spawn artifacts if we just changed floors
-			console.log(noDamageForFloor[currentFloor]);
-			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
-				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
-					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					if (this.layout[arrayIndex] == TILE_ARTIFACT) { // FIXME: this NEVER RUNS! layout has TILE_ARTIFACT stripped out?
-						
-						this.layout[arrayIndex] = TILE_GROUND;
-						
-						if (noDamageForFloor[currentFloor]) {
-							console.log("Placing an artifact!");
-							var x = eachCol * WORLD_W + WORLD_W/2;
-							var y = eachRow * WORLD_H + WORLD_H/2;
-							placeItem(x, y, this, ITEM_ARTIFACT)
-						}
-						else
-						{
-							console.log("Ignoring an artifact...");
-						}
-					}
-				}
-			}
-			*/
-
+			console.log(noDamageForFloor[currentFloor-1]);
 			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
 				player.x += 30; //Offset for stairs
 			}
@@ -275,7 +249,7 @@ var room1a1 =[
 	20,00,00,00,00,00,41,00,00,00,41,05,46,05,19,51,
 	52,40,40,05,40,40,45,00,00,00,41,00,00,00,00,39,
 	20,00,00,00,00,00,00,09,03,00,41,09,04,00,00,21,
-	29,00,00,04,56,00,00,00,00,00,41,00,06,00,00,21,
+	29,00,00,04,00,00,00,00,00,00,41,00,06,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,41,00,04,00,00,21,
 	22,18,18,18,36,18,18,18,27,18,53,18,18,18,18,23];
 	
@@ -318,7 +292,18 @@ var room1b2 = [
 	38,10,00,10,00,10,00,00,00,00,09,00,00,00,00,39,
 	20,10,10,10,00,10,00,00,00,00,00,00,00,00,00,21,
 	20,10,00,10,00,10,00,00,56,00,00,00,30,00,00,39,
-	20,10,00,10,00,10,00,00,00,00,10,00,00,00,00,21,
+	20,10,00,10,00,10,00,00,00,00,10,00,17,00,00,21,
+	20,00,00,00,00,00,00,00,00,00,00,00,00,00,08,39,
+	38,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
+	22,18,18,36,18,18,36,18,18,36,18,18,36,18,18,23];
+
+var room1b3 = [
+	24,19,19,37,19,19,19,19,19,19,19,19,19,19,19,25,
+	20,10,08,10,00,10,00,00,00,00,00,00,00,00,00,21,
+	38,10,00,10,00,10,00,00,00,00,09,00,00,00,00,39,
+	20,10,00,10,00,10,00,00,00,00,00,00,00,00,00,21,
+	20,00,00,00,00,00,00,00,56,00,00,00,00,00,00,39,
+	20,10,00,10,00,10,00,00,00,00,10,00,30,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,08,39,
 	38,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	22,18,18,36,18,18,36,18,18,36,18,18,36,18,18,23];
@@ -326,7 +311,7 @@ var room1b2 = [
 var allRooms = [room0a1, room1a1, room0b1, room1b1, room0c1, room1b2];
 var roomCols = 3; //maximum col of rooms
 var roomRows = 3; // maximum row of rooms
-var roomFloors = 3; // maximum floor of rooms
+var roomFloors = 4; // maximum floor of rooms
 var allRoomsData = {};
 var allRoomsBackup = [];
 var currentRoom = null;
