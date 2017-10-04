@@ -264,7 +264,7 @@ function muunch(x, y, isFacing) {
 		console.log('WE HIT AN ENEMY!!!!');
 		this.remove = true;
 		player.enemyHitCount++;
-		enemy.getHit(1);
+		enemy.getHit(4);
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
 		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
