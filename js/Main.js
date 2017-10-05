@@ -43,7 +43,7 @@ function loadLevel() {
 	if (!noDamageForFloor[currentFloor - 1]) {
 		removeAllItemsOfTypeInRoom(ITEM_ARTIFACT); 
 	}
-	player.reset("Blue Storm");
+	player.reset("Untitled Player");
 	hud.load();
 }
 
