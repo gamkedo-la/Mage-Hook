@@ -30,10 +30,12 @@ const KEY_W = 87; // move up a room when in editor mode
 const KEY_A = 65; // move a room to the left when in editor mode
 const KEY_S = 83; // move down a room when in editor mode
 const KEY_D = 68; // move a room to the right when in editor mode
+const KEY_Q = 81; // move up a floor when in editor mode
+const KEY_E = 69; // move down a floor when in editor mode
 const KEY_R = 82; // reset currentRoom
 const KEY_B = 66; // draw hitboxes
 const KEY_C = 67; // draw collision boxes
-const KEY_Q = 81; // tile editor
+const KEY_TAB = 9; // tile editor
 const KEY_Z = 90; // dash
 const KEY_X = 88; // range attack
 
@@ -146,7 +148,7 @@ function keyPressed(evt) {
 		case KEY_C:
 			_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
 			break;
-		case KEY_Q:
+		case KEY_TAB:
 			_DEBUG_ENABLE_TILE_EDITOR = !_DEBUG_ENABLE_TILE_EDITOR;
 			if (_DEBUG_ENABLE_TILE_EDITOR == false) {
 				backupRoomData();
@@ -181,6 +183,20 @@ function keyPressed(evt) {
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change East");
 			currentRoomCol++;
+			loadLevel(roomCoordToVar);
+			//}
+			break;
+		case KEY_Q:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
+			console.log("Floor change Up");
+			currentFloor++;
+			loadLevel(roomCoordToVar);
+			//}
+			break;
+		case KEY_E:
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
+			console.log("Floor change Down");
+			currentFloor--;
 			loadLevel(roomCoordToVar);
 			//}
 			break;
