@@ -107,12 +107,22 @@ function playerClass() {
 
 	this.reset = function(playerName) {
 		this.name = playerName;
-		if (this.currentHealth <=0)
+		if (this.currentHealth <= 0)
 		{
 			this.inventory.keysCommon = 0;
 			this.inventory.keysRare = 0;
 			this.inventory.keysEpic = 0;
 			this.currentHealth = this.maxHealth;
+			currentRoomCol = 1;
+			currentRoomRow = 1;
+			currentFloor = 1;
+			lastValidCurrentRoomCol = 1;
+			lastValidCurrentRoomRow = 1;
+			lastValidCurrentFloor = 1;
+			loadLevel();
+			this.x = STARTING_POSITION_X;
+			this.y = STARTING_POSITION_Y;
+			playerAtStartingPosition = true;
 		}
 
 		this.isFacing = SOUTH; // FIXME possible bug? this.?
@@ -123,7 +133,6 @@ function playerClass() {
 			sprite.setSprite(sprites.Player.standSouth, 32, 32, 1, 0, true);
 			playerAtStartingPosition = false;
 		}
-		//this.keysInInventory = 0; //disabled so keys persist between rooms
 		this.updateKeyReadout();
 
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
@@ -211,7 +220,9 @@ function playerClass() {
 
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (this.currentHealth <= 0) {
+				isPoisoned = false;
 				resetAllRooms();
+				player.reset("Untitled Player");
 				Sound.play("player_die");
 			} else {
 				Sound.play("player_hit");
@@ -329,14 +340,7 @@ function playerClass() {
 				invincibleTimer = INVINCIBLE_DURATION;
 				Sound.play("player_hit");
 				console.log("Health lost to poison");
-				if (this.currentHealth <= 0) {
-					resetAllRooms();
-					Sound.play("player_die");
-					poisonTime = 0;
-					isPoisoned = false;
-					this.isInvincible = false;
-				}
-			}else if(poisonTime > poisonDuration) {
+			} else if(poisonTime > poisonDuration) {
 				poisonTime = 0;
 				isPoisoned = false;
 				this.isInvincible = false;
@@ -344,6 +348,15 @@ function playerClass() {
 				console.log("poison over");
 				return;
 			}
+			if (this.currentHealth <= 0) {
+				isPoisoned = false;
+				this.isInvincible = false;
+				poisonTime = 0;
+				resetAllRooms();
+				player.reset("Untitled Player");
+				Sound.play("player_die");		
+			}
+			
 		}
 	}
 

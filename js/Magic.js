@@ -229,6 +229,7 @@ function boneThrow(x, y, isFacing) {
 		this.remove = true;
 		enemy.getHit(1);
 		if (enemy.currentHealth <= 0) {
+			isPoisoned = false;
 			enemy.reset("Untitled Player");
 			resetAllRooms();
 			Sound.play("player_die");
@@ -269,6 +270,7 @@ function muunch(x, y, isFacing) {
 		this.remove = true;
 		enemy.getHit(4);
 		if (enemy.currentHealth <= 0) {
+			isPoisoned = false;
 			enemy.reset("Untitled Player");
 			resetAllRooms();
 			Sound.play("player_die");

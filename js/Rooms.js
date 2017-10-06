@@ -308,7 +308,7 @@ var room1b3 = [
 	38,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	22,18,18,36,18,18,36,18,18,36,18,18,36,18,18,23];
 
-var allRooms = [room0a1, room1a1, room0b1, room1b1, room0c1, room1b2];
+var allRooms = [room0a1,room0b1, room0c1, room1a1, room1b1, room1b2, room1b3];
 var roomCols = 3; //maximum col of rooms
 var roomRows = 3; // maximum row of rooms
 var roomFloors = 4; // maximum floor of rooms

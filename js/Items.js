@@ -22,6 +22,8 @@ const ITEM_KEY_EPIC_DROP_PERCENT = 1;
 
 const PARTICLES_PER_PICKUP = 32;
 
+var attackBuff = 0;
+
 function itemClass(posX, posY, speed, type, angle) {
     this.x = posX;
     this.y = posY;
@@ -306,6 +308,10 @@ function pickUpItems(collider) {
 					player.currentHealth += 2;
 					Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'yellow');
+                case ITEM_ARTIFACT:
+                    attackBuff += 0.25;
+                    Sound.play('key_pickup', false, 0.1);
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');
             }
         }
     }

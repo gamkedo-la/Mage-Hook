@@ -39,7 +39,8 @@ function enemyClass(newEnemy, states){
 		return false
 	}
 	this.getHit = function getHit(amount){
-		this.currentHealth -= amount;
+		this.currentHealth -= amount + attackBuff;
+		//console.log(amount + attackBuff);
 		//TODO: make silly face
 
 	}
