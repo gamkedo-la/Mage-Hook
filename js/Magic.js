@@ -390,11 +390,14 @@ function bulletMagic(x, y, isFacing) {
 	
 	this.x = x;
 	this.y = y;
-	this.cloudTime = 100;
+	var cloudTime = 100;
+	var cloudTimeReset = 100;
+	this.cloudCount = [];
+	var cloudCountLength = 3;
 	
 	this.attackFrames = {
 		
-		3: {x1: 0, y1: 0, x2: 55, y2:55 }};
+		3: {x1: 0, y1: 0, x2: 30, y2:23 }};
 		
 	this.spriteSheet = sprites.PlantBaby.poisonCloud;
 	this.spriteWidth = 32;
@@ -404,23 +407,27 @@ function bulletMagic(x, y, isFacing) {
 	this.speed = 0;
 	this.attackDir = [0,-1];
 
-	this.cloudRemove = function() {
-		if()
-
+	console.log("cloud made");
+	console.log(this.cloudCount.length);
+	if(this.cloudCount.length >= 0) {
+		--cloudTime;
+		console.log(cloudTime);
+		if(cloudTime == 0) {
+			console.log(cloudTime);
+			this.remove = true;
+			this.cloudCount = cloudTimeReset;
+		}
 	}
-
-	this.onHitEnemy = function (enemy) {
-		//console.log('WE HIT AN ENEMY!!!!');
-		this.remove = false;
-		isPoisoned = true;
-		//Sound.play("enemy_hit"); // TODO: after a delay?
-		// directional hit splatter particles
-		//var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
-		//var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
-		//var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
-						
-		//particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
+	if(this.cloudCount.length > cloudCountLength) {
+			this.remove = true;
+			this.cloudCount.pop();
 	}
 	
-	return new magicClass(this, [player]);
-} */
+	this.onHitEnemy = function (enemy) {
+		this.remove = false;
+		isPoisoned = true;
+		//Sound.play("enemy_hit"); //maybe?
+	}
+	return this.cloudCount.unshift(new magicClass(this, [player]));
+	this.cloudRemove();
+}*/

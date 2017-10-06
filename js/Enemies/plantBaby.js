@@ -60,7 +60,6 @@ function plantBaby(x, y) {
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
-			/*poisonGasAttack(this.x, this.y);*/
 		},
 		normal : function(){		
 			if(mDist(this.x, this.y, player.x, player.y) < 80){
@@ -127,6 +126,7 @@ function plantBaby(x, y) {
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
+			//poisonGasAttack(this.x, this.y);
 		}
 	}
 	return new enemyClass(this, staaates);
