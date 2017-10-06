@@ -385,41 +385,41 @@ function bulletMagic(x, y, isFacing) {
 	var bullet3 = new magicClass(ctrl);
 }
 
-/*function poisonGasAttack(x, y, isFacing) {
+/*function poisonGasAttack(x, y) {
 	Sound.play("player_attack");
 	
 	this.x = x;
 	this.y = y;
-	this.isFacing = EAST;
+	this.cloudTime = 100;
 	
 	this.attackFrames = {
 		
 		3: {x1: 0, y1: 0, x2: 55, y2:55 }};
 		
-	this.spriteSheet = sprites.ArmsBro.boneThrow;
-	this.spriteWidth = 2;
-	this.spriteHeight = 2;
+	this.spriteSheet = sprites.PlantBaby.poisonCloud;
+	this.spriteWidth = 32;
+	this.spriteHeight = 32;
 	this.spriteFrames = 12;
-	this.spriteSpeed = 13;
+	this.spriteSpeed = 6;
 	this.speed = 0;
 	this.attackDir = [0,-1];
 
+	this.cloudRemove = function() {
+		if()
+
+	}
+
 	this.onHitEnemy = function (enemy) {
-		console.log('WE HIT AN ENEMY!!!!');
-		this.remove = true;
-		enemy.getHit(4);
-		if (enemy.currentHealth <= 0) {
-			enemy.reset("Untitled Player");
-			resetAllRooms();
-			Sound.play("player_die");
-		}
-		Sound.play("enemy_hit"); // TODO: after a delay?
+		//console.log('WE HIT AN ENEMY!!!!');
+		this.remove = false;
+		isPoisoned = true;
+		//Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
-		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
-		var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
-		var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
+		//var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
+		//var vx = Math.cos(angle) * BLOOD_SPLATTER_SPEED;
+		//var vy = Math.sin(angle) * BLOOD_SPLATTER_SPEED;
 						
-		particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
+		//particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
 	}
 	
 	return new magicClass(this, [player]);

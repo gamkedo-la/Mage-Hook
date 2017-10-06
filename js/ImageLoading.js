@@ -57,6 +57,7 @@ function loadImages() {
 		
 		{set: "PlantBaby", name: "idleAnimation", fileName: "Enemies/plantbaby_idle.png"},
 		{set: "PlantBaby", name: "runAnimation", fileName: "Enemies/plantbaby_run_south.png"},
+		{set: "PlantBaby", name: "poisonCloud", fileName: "Enemies/poisonCloud.png"},
 
 		{set: "ArmsBro", name: "idle", fileName: "Enemies/armsBro.png"},
 		{set: "ArmsBro", name: "idleRight", fileName: "Enemies/ArmsBrowalk_stand_right.png"},
