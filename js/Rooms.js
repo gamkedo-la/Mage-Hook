@@ -102,10 +102,12 @@ function Room(roomLayout) {
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+					x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
+					y = eachRow * WORLD_H + WORLD_H/2 + offsetY;
+
 					if(this.layout[arrayIndex] == TILE_ENEMYSTART) {
 						this.layout[arrayIndex] = TILE_GROUND;
-						x = eachCol * WORLD_W + WORLD_W/2 + offsetX;
-						y = eachRow * WORLD_H + WORLD_H/2 + offsetY; //monsters are currently too tall to put next to walls
+						 //monsters are currently too tall to put next to walls
 						var enemyType = Math.random() * 4;
 						if (enemyType > 2 && enemyType < 3){
 							nextEnemy = new plantBaby(x, y);
@@ -119,7 +121,17 @@ function Room(roomLayout) {
 						this.enemyList.push(nextEnemy);
 						enemyWasFound = true;
 						break;
-					} // end of player start if
+					} else {
+						switch (this.layout[arrayIndex]){
+							case TILE_BOSSHERO:
+								this.layout[arrayIndex] = TILE_GROUND;
+					            nextEnemy = new heroBoss(x, y);
+					            this.enemyList.push(nextEnemy);
+								enemyWasFound = true;
+					            break;
+						}
+					}
+					
 				} // end of col for
 			}
 		} while (enemyWasFound)
@@ -270,7 +282,7 @@ var room1b1 = [
 	38,00,00,00,00,00,00,04,00,03,09,00,00,00,00,39,
 	20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
 	29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
-	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
+	22,18,18,18,35,00,00,00,00,00,10,00,00,57,00,21,
 	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
 	31,31,31,31,31,31,22,18,18,18,18,36,18,18,18,23];

@@ -66,8 +66,9 @@ const TILE_SMALL_WALL_INTO_BIG_NORTH = 54;
 
 const TILE_HEART_CONTAINER = 55;
 const TILE_ARTIFACT = 56;
+const TILE_BOSSHERO = 57;
 
-const HIGHEST_TILE_NUMBER = 56;
+const HIGHEST_TILE_NUMBER = 57;
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&
@@ -130,7 +131,8 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_SMALL_WALL_CAP_NORTH ||
 			checkTileType == TILE_SMALL_WALL_CAP_SOUTH ||
 			checkTileType == TILE_HEART_CONTAINER ||
-			checkTileType == TILE_ARTIFACT		
+			checkTileType == TILE_ARTIFACT || 
+			checkTileType == TILE_BOSSHERO
 		);
 }
 
