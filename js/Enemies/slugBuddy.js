@@ -53,11 +53,7 @@ function slugMonster(x, y) {
 					5, 12, true);
 				this.chargeAngle = Math.atan2(player.y - this.y, player.x - this.x);
 			}
-			if(this.ticksInState == 5){
-				this.sprite.setSprite(this.enemyData.spriteSheetCharge2, //TODO: maybe derp emote? 
-					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					3, 12, true);
-			}
+			
 			if(this.ticksInState > 1000 && mDist(this.x, this.y, player.x, player.y) > 10){
 				this.setState("derpAround")
 				return;
@@ -70,7 +66,19 @@ function slugMonster(x, y) {
 			var velX = Math.cos(this.chargeAngle) * speed;
 			//velY = Math.sin(angle) * speed;
 			var velY = 0
-			
+			if(this.ticksInState == 5){
+				if(velX > 0){
+					this.sprite.setSprite(sprites.Slug.continueAttackEast, //TODO: maybe derp emote? 
+						this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+						3, 12, true);
+					
+				} else {
+					this.sprite.setSprite(this.enemyData.spriteSheetCharge2, //TODO: maybe derp emote? 
+						this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+						3, 12, true);
+				}
+			}
+
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
 			

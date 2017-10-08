@@ -56,6 +56,7 @@ function loadImages() {
 		{set: "Slug", name: "walkAnimationEast", fileName: "Enemies/slugBuddy_East.png"},
 		{set: "Slug", name: "attackBegin", fileName: "Enemies/slugBuddy_attack_Animation 1.png"},
 		{set: "Slug", name: "continueAttack", fileName: "Enemies/slugBuddy_attack_Animation 2.png"},
+		{set: "Slug", name: "continueAttackEast", fileName: "Enemies/slugBuddy_attack_Animation east.png"},
 		
 		{set: "PlantBaby", name: "idleAnimation", fileName: "Enemies/plantbaby_idle.png"},
 		{set: "PlantBaby", name: "runAnimation", fileName: "Enemies/plantbaby_run_south.png"},
