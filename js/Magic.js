@@ -387,7 +387,7 @@ function bulletMagic(x, y, isFacing) {
 	var bullet3 = new magicClass(ctrl);
 }
 
-/*function poisonGasAttack(x, y) {
+function poisonGasAttack(x, y) {
 	Sound.play("player_attack");
 	
 	this.x = x;
@@ -432,4 +432,4 @@ function bulletMagic(x, y, isFacing) {
 	}
 	return this.cloudCount.unshift(new magicClass(this, [player]));
 	this.cloudRemove();
-}*/
+}

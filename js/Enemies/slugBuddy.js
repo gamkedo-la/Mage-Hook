@@ -32,6 +32,8 @@ function slugMonster(x, y) {
 	var minMoveTime = 1.5;
 	var maxMoveTime = 2.5;
 	var directionTimer = 0
+	this.poisonCoolDown = 5000; //5 seconds
+	this.lastPoison = 0 //time since last poison
 
 	var staaates = {
 		derpAround : function(){
@@ -87,6 +89,9 @@ function slugMonster(x, y) {
 			if( Math.abs(this.y - player.y) < 10){
 				this.setState("charge")
 				return;
+			} else if( Math.abs(this.y - player.y) < 32 && Math.abs(this.x - player.x) < 32){
+				this.setState("poisonAttack")
+				return;
 			}
 			if(!this.ticksInState){
 				directionTimer = minMoveTime + Math.random() * maxMoveTime;
@@ -106,9 +111,20 @@ function slugMonster(x, y) {
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
+		poisonAttack: function(){
+			var currentTime = new Date().getTime()
+			if(currentTime > this.enemyData.lastPoison + this.enemyData.poisonCoolDown){
+				poisonGasAttack(this.x + 15, this.y + 15)
+				this.enemyData.lastPoison = currentTime;
+			}
+			this.setState("derpAround");
+		},
 		wander : function(){
 			if( Math.abs(this.y - player.y) < 10){
 				this.setState("charge")
+				return;
+			} else if( Math.abs(this.y - player.y) < 40 && Math.abs(this.x - player.x) < 40){
+				this.setState("poisonAttack")
 				return;
 			}
 
