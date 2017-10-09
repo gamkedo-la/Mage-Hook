@@ -81,8 +81,8 @@ function spriteClass() {
 
 	// draws current sprite frame
 	this.draw = function(x, y) {
-		var leftEdge = x - frameWidth/2;
-		var topEdge = y - frameHeight/2;
+		var leftEdge = Math.floor(x - frameWidth/2);
+		var topEdge = Math.floor(y - frameHeight/2);
 
 		if (drawFrame) {
 			// this version of drawImage is needed to point to different frames in sprite sheet
