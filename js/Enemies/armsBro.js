@@ -113,13 +113,13 @@ function armsBro(x, y) {
 				var speed = minSpeed + Math.random() * maxSpeed;
 				var angle = Math.random() * 2*Math.PI;
 
-				velX = Math.cos(angle) * speed;
-				velY = Math.sin(angle) * speed;
+				this.velX = Math.cos(angle) * speed;
+				this.velY = Math.sin(angle) * speed;
 				this.sprite.setSprite(this.enemyData.spriteSheet,
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
 				if(this.sprite.getSpriteSheet() == this.enemyData.spriteSheet && this.enemyData.spriteSheetEast){
-					if(velX > 0){
+					if(this.velX > 0){
 						this.facing = EAST;
 						var frames = this.enemyData.spriteSheetEastFrames ? this.enemyData.spriteSheetEastFrames : this.enemyData.spriteFrames;
 						this.sprite.setSprite(this.enemyData.spriteSheetEast,
@@ -127,7 +127,7 @@ function armsBro(x, y) {
 							frames, this.enemyData.spriteSpeed, true);	
 					}
 				}else if (this.sprite.getSpriteSheet() == this.enemyData.spriteSheetEast){
-					if(velX < 0){
+					if(this.velX < 0){
 						this.facing = WEST;
 						this.sprite.setSprite(this.enemyData.spriteSheet,
 							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
@@ -140,8 +140,8 @@ function armsBro(x, y) {
 				this.setState("derpAround")
 			}
 
-			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();

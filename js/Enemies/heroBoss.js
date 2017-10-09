@@ -48,9 +48,9 @@ function heroBoss(x, y) {
 
 			if(!this.ticksInState){
 				directionTimer = minMoveTime + Math.random() * maxMoveTime;
-				this.sprite.setSprite(this.enemyData.spriteSheet, //TODO: maybe derp emote? 
+				this.sprite.setSprite(sprites.HeroBoss.Stand, //TODO: maybe derp emote? 
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+					1, this.enemyData.spriteSpeed, true);
 
 			}
 			if (directionTimer <= 0 || directionTimer == undefined) {
@@ -61,6 +61,63 @@ function heroBoss(x, y) {
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
+		wander : function(){
+
+			if(!this.ticksInState){
+				directionTimer = minMoveTime //+ Math.random() * maxMoveTime;
+				var speed = minSpeed + Math.random() * maxSpeed;
+				var angle = Math.random() * 2*Math.PI;
+
+				this.velX = Math.cos(angle) * speed;
+				this.velY = Math.sin(angle) * speed;
+				this.sprite.setSprite(this.enemyData.spriteSheet,
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+				if(Math.abs(this.velX) > Math.abs(this.velY)){
+					// if(this.sprite.getSpriteSheet() == this.enemyData.spriteSheet && this.enemyData.spriteSheetEast){
+					// 	if(velX > 0){
+					// 		var frames = this.enemyData.spriteSheetEastFrames ? this.enemyData.spriteSheetEastFrames : this.enemyData.spriteFrames;
+					// 		this.sprite.setSprite(this.enemyData.spriteSheetEast,
+					// 			this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+					// 			frames, this.enemyData.spriteSpeed, true);	
+					// 	}
+					// }else if (this.sprite.getSpriteSheet() == this.enemyData.spriteSheetEast){
+					// 	if(velX < 0){
+
+					// 		this.sprite.setSprite(this.enemyData.spriteSheet,
+					// 			this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+					// 			this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+					// 	}
+					// }
+				} else {
+					if(this.sprite.getSpriteSheet() != sprites.HeroBoss.walkSouth){
+						if(this.velY > 0){
+							this.sprite.setSprite(sprites.HeroBoss.walkSouth,
+								this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+								this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+						}
+					}else if (this.sprite.getSpriteSheet() != sprites.HeroBoss.walkNorth){
+						if(this.velY < 0){
+							this.sprite.setSprite(sprites.HeroBoss.walkNorth,
+								this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+								this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+							
+						}
+					}
+				}
+			}
+
+			if (directionTimer <= 0 || directionTimer == undefined) {
+				this.setState("derpAround")
+			}
+
+			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
+		
+		}
 	}
 	return new enemyClass(this, staates);
 }

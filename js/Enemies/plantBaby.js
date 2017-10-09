@@ -95,8 +95,8 @@ function plantBaby(x, y) {
 				var speed = minSpeed + Math.random() * maxSpeed;
 				var angle = Math.random() * 2*Math.PI;
 
-				velX = Math.cos(angle) * speed;
-				velY = Math.sin(angle) * speed;
+				this.velX = Math.cos(angle) * speed;
+				this.velY = Math.sin(angle) * speed;
 				this.sprite.setSprite(this.enemyData.spriteSheet,
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
@@ -121,8 +121,8 @@ function plantBaby(x, y) {
 				this.setState("derpAround")
 			}
 
-			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();

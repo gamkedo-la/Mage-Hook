@@ -134,20 +134,20 @@ function enemyClass(newEnemy, states){
 				var speed = minSpeed + Math.random() * maxSpeed;
 				var angle = Math.random() * 2*Math.PI;
 
-				velX = Math.cos(angle) * speed;
-				velY = Math.sin(angle) * speed;
+				this.velX = Math.cos(angle) * speed;
+				this.velY = Math.sin(angle) * speed;
 				this.sprite.setSprite(newEnemy.spriteSheet,
 					newEnemy.spriteWidth, newEnemy.spriteHeight,
 					newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
 				if(this.sprite.getSpriteSheet() == newEnemy.spriteSheet && newEnemy.spriteSheetEast){
-					if(velX > 0){
+					if(this.velX > 0){
 						var frames = newEnemy.spriteSheetEastFrames ? newEnemy.spriteSheetEastFrames : newEnemy.spriteFrames;
 						this.sprite.setSprite(newEnemy.spriteSheetEast,
 							newEnemy.spriteWidth, newEnemy.spriteHeight, 
 							frames, newEnemy.spriteSpeed, true);	
 					}
 				}else if (this.sprite.getSpriteSheet() == newEnemy.spriteSheetEast){
-					if(velX < 0){
+					if(this.velX < 0){
 
 						this.sprite.setSprite(newEnemy.spriteSheet,
 							newEnemy.spriteWidth, newEnemy.spriteHeight, 
@@ -160,8 +160,8 @@ function enemyClass(newEnemy, states){
 				this.setState("derpAround")
 			}
 
-			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
-			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
