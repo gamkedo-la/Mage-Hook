@@ -18,10 +18,10 @@ function heroBoss(x, y) {
 	this.hitboxOffsetX = 0;
 	this.hitboxOffsetY = 26;
 
-	this.spriteSheet = sprites.HeroBoss.Stand;
+	this.spriteSheet = sprites.HeroBoss.walkSouth;
 	this.spriteWidth = 64;
 	this.spriteHeight = 64;
-	this.spriteFrames = 1;
+	this.spriteFrames = 8;
 	this.spriteSpeed = 9;
 	
 	//this.deathSpriteSheet = sprites.Slime.deathAnimation;
