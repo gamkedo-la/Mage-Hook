@@ -49,6 +49,11 @@ function loadImages() {
 		{set: "HeroBoss", name: "Stand", fileName: "HeroBoss/Boss_stand.png"},
 		{set: "HeroBoss", name: "walkSouth", fileName: "HeroBoss/Boss_walk south.png"},
 		{set: "HeroBoss", name: "walkNorth", fileName: "HeroBoss/Boss_walk North.png"},
+		{set: "HeroBoss", name: "standSouth", fileName: "HeroBoss/Boss_stand_Stand_0.png"},
+		{set: "HeroBoss", name: "standEast", fileName: "HeroBoss/Boss_stand_Stand_1.png"},
+		{set: "HeroBoss", name: "standNorth", fileName: "HeroBoss/Boss_stand_Stand_2.png"},
+		{set: "HeroBoss", name: "standWest", fileName: "HeroBoss/Boss_stand_Stand_3.png"},
+		
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},

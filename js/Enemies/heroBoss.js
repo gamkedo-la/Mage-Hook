@@ -70,39 +70,28 @@ function heroBoss(x, y) {
 
 				this.velX = Math.cos(angle) * speed;
 				this.velY = Math.sin(angle) * speed;
-				this.sprite.setSprite(this.enemyData.spriteSheet,
-					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+				// this.sprite.setSprite(this.enemyData.spriteSheet,
+				// 	this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+				// 	this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
 				if(Math.abs(this.velX) > Math.abs(this.velY)){
-					// if(this.sprite.getSpriteSheet() == this.enemyData.spriteSheet && this.enemyData.spriteSheetEast){
-					// 	if(velX > 0){
-					// 		var frames = this.enemyData.spriteSheetEastFrames ? this.enemyData.spriteSheetEastFrames : this.enemyData.spriteFrames;
-					// 		this.sprite.setSprite(this.enemyData.spriteSheetEast,
-					// 			this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
-					// 			frames, this.enemyData.spriteSpeed, true);	
-					// 	}
-					// }else if (this.sprite.getSpriteSheet() == this.enemyData.spriteSheetEast){
-					// 	if(velX < 0){
-
-					// 		this.sprite.setSprite(this.enemyData.spriteSheet,
-					// 			this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
-					// 			this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
-					// 	}
-					// }
+					if(this.velX > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.standEast){
+						this.sprite.setSprite(sprites.HeroBoss.standEast,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+							frames, this.enemyData.spriteSpeed, true);	
+					}else if (this.velX < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.standWest){						
+						this.sprite.setSprite(sprites.HeroBoss.standWest,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+					}
 				} else {
-					if(this.sprite.getSpriteSheet() != sprites.HeroBoss.walkSouth){
-						if(this.velY > 0){
-							this.sprite.setSprite(sprites.HeroBoss.walkSouth,
-								this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-								this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
-						}
-					}else if (this.sprite.getSpriteSheet() != sprites.HeroBoss.walkNorth){
-						if(this.velY < 0){
-							this.sprite.setSprite(sprites.HeroBoss.walkNorth,
-								this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-								this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
-							
-						}
+					if(this.velY > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkSouth){
+						this.sprite.setSprite(sprites.HeroBoss.walkSouth,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+					}else if (this.velY < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkNorth){
+						this.sprite.setSprite(sprites.HeroBoss.walkNorth,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
 					}
 				}
 			}
