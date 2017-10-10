@@ -29,7 +29,7 @@ function heroBoss(x, y) {
 	this.deathSpriteSpeed = 4;
 	var directionTimer = 0;
 	var minSpeed = .25;
-	var maxSpeed = .50;
+	var maxSpeed = 1;
 	var minMoveTime = 1.5;
 	var maxMoveTime = 2.5;
 
@@ -74,13 +74,13 @@ function heroBoss(x, y) {
 				// 	this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 				// 	this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
 				if(Math.abs(this.velX) > Math.abs(this.velY)){
-					if(this.velX > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.standEast){
-						this.sprite.setSprite(sprites.HeroBoss.standEast,
+					if(this.velX > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkEast){
+						this.sprite.setSprite(sprites.HeroBoss.walkEast,
 							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
-							frames, this.enemyData.spriteSpeed, true);	
-					}else if (this.velX < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.standWest){						
-						this.sprite.setSprite(sprites.HeroBoss.standWest,
-							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+							8, this.enemyData.spriteSpeed, true);	
+					}else if (this.velX < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkWest){						
+						this.sprite.setSprite(sprites.HeroBoss.walkWest,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
 					}
 				} else {

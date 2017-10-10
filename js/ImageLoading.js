@@ -49,6 +49,8 @@ function loadImages() {
 		{set: "HeroBoss", name: "Stand", fileName: "HeroBoss/Boss_stand.png"},
 		{set: "HeroBoss", name: "walkSouth", fileName: "HeroBoss/Boss_walk south.png"},
 		{set: "HeroBoss", name: "walkNorth", fileName: "HeroBoss/Boss_walk North.png"},
+		{set: "HeroBoss", name: "walkEast", fileName: "HeroBoss/Boss_walk East.png"},
+		{set: "HeroBoss", name: "walkWest", fileName: "HeroBoss/Boss_walk West.png"},
 		{set: "HeroBoss", name: "standSouth", fileName: "HeroBoss/Boss_stand_Stand_0.png"},
 		{set: "HeroBoss", name: "standEast", fileName: "HeroBoss/Boss_stand_Stand_1.png"},
 		{set: "HeroBoss", name: "standNorth", fileName: "HeroBoss/Boss_stand_Stand_2.png"},
