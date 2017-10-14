@@ -161,6 +161,8 @@ function itemClass(posX, posY, speed, type, angle) {
 			case TILE_WALL_SOUTH:
 			case TILE_WALL_WEST:
 			case TILE_WALL_EAST:
+            case TILE_STAIRS_UP:
+            case TILE_STAIRS_DOWN:
 			case TILE_WALL_CORNER_NE:
 			case TILE_WALL_CORNER_NW:
 			case TILE_WALL_CORNER_SE:

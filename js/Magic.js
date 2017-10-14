@@ -7,6 +7,7 @@ function magicClass(magic, enemyList) {
 	this.y = magic.y;
 	this.maxHealth = magic.maxHealth;
 	this.isFacing = magic.isFacing;
+	this.lifetime = magic.lifetime || false;
 	 
 	this.collider = new boxColliderClass(this.x, this.y, 0, 0, 0, 0);
 	 
@@ -62,6 +63,12 @@ function magicClass(magic, enemyList) {
 		}
 		this.collider.setCollider(this.x, this.y);
 		this.sprite.update();
+		if (typeof this.lifetime == "number") {
+			this.lifetime--;
+			if (this.lifetime < 0) {
+				this.remove = true;
+			}
+		}
 	}
 
 	this.hitEnemy = function() {
@@ -392,10 +399,10 @@ function poisonGasAttack(x, y) {
 	
 	this.x = x;
 	this.y = y;
-	var cloudTime = 100;
 	var cloudTimeReset = 100;
 	this.cloudCount = [];
 	var cloudCountLength = 3;
+	this.lifetime = 100;
 	
 	this.attackFrames = {
 		
@@ -410,7 +417,7 @@ function poisonGasAttack(x, y) {
 	this.attackDir = [0,-1];
 
 	console.log("cloud made");
-	console.log(this.cloudCount.length);
+	/*console.log(this.cloudCount.length);
 	if(this.cloudCount.length >= 0) {
 		--cloudTime;
 		console.log(cloudTime);
@@ -423,7 +430,7 @@ function poisonGasAttack(x, y) {
 	if(this.cloudCount.length > cloudCountLength) {
 			this.remove = true;
 			this.cloudCount.pop();
-	}
+	}*/
 	
 	this.onHitEnemy = function (enemy) {
 		this.remove = false;
