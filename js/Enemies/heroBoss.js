@@ -61,6 +61,90 @@ function heroBoss(x, y) {
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
+		derpAround : function(){
+			var willWander = Math.random() * 7;
+			if(willWander < 1){
+				this.setState("wander")
+			} else if (willWander < 2) {
+				this.setState("normal")
+			}else if (willWander < 3) {
+				this.setState("dodgeRoll")
+			}else if (willWander < 4){
+				this.setState("praiseIt")
+			}else {
+				this.setState("slashAttack")
+			}
+		},
+		dodgeRoll : function(){
+			if(!this.ticksInState){
+				if(Math.random() < .5){
+					this.sprite.setSprite(sprites.HeroBoss.dodgeRoll, //TODO: maybe derp emote? 
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					8, this.enemyData.spriteSpeed, false);
+					this.velX = 2;
+				} else {
+					this.sprite.setSprite(sprites.HeroBoss.dodgeRollLeft, //TODO: maybe derp emote? 
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					8, this.enemyData.spriteSpeed, false);
+					this.velX = -2;
+				}
+				
+				this.velY = 0;
+			}
+			if(this.sprite.isDone()){
+				this.setState("derpAround");
+				return;
+			}
+			//maaake the boss invincible for a biit
+			if(this.ticksInState == 400){
+				this.setState("derpAround");
+				return;
+			}
+			
+			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
+		},
+		slashAttack: function(){
+			if(!this.ticksInState){		
+				this.sprite.setSprite(sprites.HeroBoss['aaayAttack!!'], //TODO: maybe derp emote? 
+				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+				4, this.enemyData.spriteSpeed, false);
+				this.velX = 2;
+				boneThrow(this.x, this.y, SOUTH)
+			}
+			if(this.sprite.isDone()){
+				this.setState("derpAround");
+				return;
+			}
+			this.sprite.update();
+		},
+		praiseIt: function(){
+			if(!this.ticksInState){		
+				this.sprite.setSprite(sprites.HeroBoss.praiseIt, //TODO: maybe derp emote? 
+				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+				4, 2, false);
+				this.velX = 2;
+				
+			}
+			if(this.ticksInState == 45){
+				var nextEnemy = new plantBaby(this.x +30, this.y + 30);
+				currentRoom.enemyList.push(nextEnemy);
+				var nextEnemy = new plantBaby(this.x -30, this.y + 30);
+				currentRoom.enemyList.push(nextEnemy);
+				var nextEnemy = new plantBaby(this.x -30, this.y - 30);
+				currentRoom.enemyList.push(nextEnemy);
+				var nextEnemy = new plantBaby(this.x +30, this.y - 30);
+				currentRoom.enemyList.push(nextEnemy);
+			}
+			if(this.sprite.isDone()){
+				this.setState("derpAround");
+				return;
+			}
+			this.sprite.update();
+		},
 		wander : function(){
 
 			if(!this.ticksInState){

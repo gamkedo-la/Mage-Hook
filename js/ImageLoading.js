@@ -55,6 +55,11 @@ function loadImages() {
 		{set: "HeroBoss", name: "standEast", fileName: "HeroBoss/Boss_stand_Stand_1.png"},
 		{set: "HeroBoss", name: "standNorth", fileName: "HeroBoss/Boss_stand_Stand_2.png"},
 		{set: "HeroBoss", name: "standWest", fileName: "HeroBoss/Boss_stand_Stand_3.png"},
+		{set: "HeroBoss", name: "dodgeRoll", fileName: "HeroBoss/Boss_walk dodgeRoll.png"},
+		{set: "HeroBoss", name: "dodgeRollLeft", fileName: "HeroBoss/Boss_walk rollleft.png"},
+		{set: "HeroBoss", name: "aaayAttack!!", fileName: "HeroBoss/Boss_walk attack1.png"},
+		{set: "HeroBoss", name: "praiseIt", fileName: "HeroBoss/Boss_walk sun.png"},
+		
 		
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
