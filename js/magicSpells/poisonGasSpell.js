@@ -3,14 +3,13 @@ function poisonGasAttack(x, y) {
 	
 	this.x = x;
 	this.y = y;
-	var cloudTimeReset = 100;
-	this.cloudCount = [];
-	var cloudCountLength = 3;
 	this.lifetime = 100;
 	
 	this.attackFrames = {
 		
-		3: {x1: 0, y1: 0, x2: 30, y2:23 }};
+		0: {x1: 0, y1: 0, x2: 32, y2:32 },
+		1: {x1: 0, y1: 0, x2: 32, y2:32 },
+		2: {x1: 0, y1: 0, x2: 32, y2:32 }};
 		
 	this.spriteSheet = sprites.PlantBaby.poisonCloud;
 	this.spriteWidth = 32;
@@ -21,24 +20,11 @@ function poisonGasAttack(x, y) {
 	this.attackDir = [0,-1];
 
 	console.log("cloud made");
-	/*console.log(this.cloudCount.length);
-	if(this.cloudCount.length >= 0) {
-		if(cloudTime == 0) {
-			console.log(cloudTime);
-			this.remove = true;
-			this.cloudCount = cloudTimeReset;
-		}
-	}
-	if(this.cloudCount.length > cloudCountLength) {
-			this.remove = true;
-			this.cloudCount.pop();
-	}*/
-	
+
 	this.onHitEnemy = function (enemy) {
 		this.remove = false;
 		isPoisoned = true;
 		//Sound.play("enemy_hit"); //maybe?
 	}
-	return this.cloudCount.unshift(new magicClass(this, [player]));
-	this.cloudRemove();
+	return new magicClass(this, [player]);
 }

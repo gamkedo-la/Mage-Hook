@@ -47,10 +47,13 @@ var mouseCanvasX = 0;
 
 function setupInput() {
 	canvas.addEventListener('mousemove', updateMousePos);
-	canvas.addEventListener('mousedown',mousePressed);
-	canvas.addEventListener('mouseup',mouseReleased);
-	canvas.addEventListener('mouseup',editTileOnMouseClick);
-
+	canvas.addEventListener('mousedown',function() {
+		mousePressed();
+	});
+	canvas.addEventListener('mouseup',function() {
+		mouseReleased();
+		editTileOnMouseClick();
+	});
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 

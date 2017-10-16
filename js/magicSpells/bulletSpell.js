@@ -4,6 +4,7 @@ function bulletMagic(x, y, isFacing) {
 	ctrl.x = x;
 	ctrl.y = y;
 	ctrl.isFacing = isFacing;
+	ctrl.lifetime = 100;
 	
 	ctrl.attackFrames = {
 		0: {x1: 0, y1: 0, x2: 8, y2:8 },
@@ -57,7 +58,7 @@ function bulletMagic(x, y, isFacing) {
 	
 	switch(ctrl.isFacing) { //Draw attack in facing dirction
 		case NORTH:
-			ctrl.y -5;
+			ctrl.y -= 5;
 			ctrl.attackDir = [-0.5,-1.5];
 			break;
 		case SOUTH:

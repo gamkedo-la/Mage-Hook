@@ -17,6 +17,8 @@ function roomTileCoordinate() {
 
 function editTileOnMouseClick() {
     if(_DEBUG_ENABLE_TILE_EDITOR) {
+    	canvasContext.strokeStyle = 'magenta';
+   		canvasContext.lineWidth = 4;
         worldGrid[tileUnderMouse]++;
         if (worldGrid[tileUnderMouse] > HIGHEST_TILE_NUMBER) {
             worldGrid[tileUnderMouse] = TILE_GROUND;
@@ -29,6 +31,8 @@ function editTileOnMouseClick() {
 
 function editTileReverse() {
 	if(_DEBUG_ENABLE_TILE_EDITOR) {
+		canvasContext.strokeStyle = 'magenta';
+   		canvasContext.lineWidth = 4;
 		worldGrid[tileUnderMouse]--;
 		if (worldGrid[tileUnderMouse] < TILE_GROUND) {
 			worldGrid[tileUnderMouse] = HIGHEST_TILE_NUMBER;
