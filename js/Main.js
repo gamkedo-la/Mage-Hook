@@ -81,19 +81,23 @@ function drawAll() {
 }
 
 function raycasting() {
-	if(mouseHeld && !_DEBUG_ENABLE_TILE_EDITOR){
+	if(mouseHeld && !_DEBUG_ENABLE_TILE_EDITOR) {
 		var point1X = player.x;
 		var point1Y = player.y;
 		var point2X = mouseCanvasX;
 		var point2Y = mouseCanvasY;
 		canvasContext.lineWidth = 2;
 		colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
-		if (getTileIndexAtPixelCoord(mouseCanvasX, mouseCanvasY) >= 1)
-			var roomCol = Math.floor(WORLD_COLS * mouseX / canvas.offsetWidth);
+		var tileIndex = getTileIndexAtPixelCoord(mouseCanvasX, mouseCanvasY);
+		if (worldGrid[tileIndex] == 0) {
+			console.log(worldGrid[tileIndex]);
+   		} else if (worldGrid[tileIndex] >= 1) {
+   			var roomCol = Math.floor(WORLD_COLS * mouseX / canvas.offsetWidth);
   			var roomRow = Math.floor(WORLD_ROWS * mouseY / canvas.offsetHeight);
-			var tileX = (roomCol * WORLD_W);
-   			var tileY = (roomRow * WORLD_H);
+			var tileX = mouseCanvasX;
+   			var tileY = mouseCanvasY;
    			console.log(tileX, tileY);
+   		}
 	}
 }
 
