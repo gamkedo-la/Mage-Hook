@@ -83,6 +83,7 @@ function loadImages() {
 		{set: "ArmsBro", name: "boneThrow", fileName: "Enemies/bonethrown.png"},
 		{set: "ArmsBro", name: "boneThrowRight", fileName: "Enemies/ArmsBrowalk_throw_right.png"},
 		{set: "ArmsBro", name: "OtherBoneThrow", fileName: "Enemies/ArmsBrowalk_throw.png"},
+		
 		{set: "Hud", name: "blueHeart", fileName: "blueHeart.png"},
 		{set: "Hud", name: "heartEmpty", fileName: "heartEmpty.png"},
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},
@@ -97,6 +98,8 @@ function loadImages() {
 		{worldType: TILE_KEY_RARE, theFile: "world_key_silver.png"},
 		{worldType: TILE_KEY_EPIC, theFile: "world_key_gold.png"},
 		{worldType: TILE_ENEMYSTART, theFile: "enemySpawn.png"},
+		{worldType: TILE_FIREBALL_LVL2, theFile: "fireball Powerup lvl2.png"},
+		{worldType: TILE_FIREBALL_LVL3, theFile: "fireball Powerup3.png"},
 
 		{worldType: TILE_DOOR_COMMON, theFile: "world_door_bronze.png"},
 		{worldType: TILE_DOOR_RARE, theFile: "world_door_silver.png"},

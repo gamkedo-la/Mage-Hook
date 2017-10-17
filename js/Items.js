@@ -5,6 +5,7 @@ const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
 const ITEM_FRICTION = .92;
 const ITEM_WEB_FRICTION = .75;
+
 const ITEM_KEY_COMMON = 1;
 const ITEM_POTION = 2;
 const ITEM_KEY_RARE = 3;
@@ -12,6 +13,8 @@ const ITEM_KEY_EPIC = 4;
 const ITEM_CRYSTAL = 5;
 const ITEM_HEART_CONTAINER = 6;
 const ITEM_ARTIFACT = 7;
+const ITEM_FIREBALL_LVL2 = 8;
+const ITEM_FIREBALL_LVL3 = 9;
 
 const ITEM_SUCCESS_CHANCE = .70; // affects item drop rate
 const ITEM_CRYSTAL_DROP_PERCENT = 80; //all item drop rates should add up to 100
@@ -86,6 +89,20 @@ function itemClass(posX, posY, speed, type, angle) {
 			break;
         case(ITEM_ARTIFACT):
         this.sprite.setSprite(worldPics[TILE_ARTIFACT], 20, 20, 1, 0);
+            var colliderWidth = 10;
+            var colliderHeight = 10;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
+            break;
+        case(ITEM_FIREBALL_LVL2):
+        this.sprite.setSprite(worldPics[TILE_FIREBALL_LVL2], 20, 20, 1, 0);
+            var colliderWidth = 10;
+            var colliderHeight = 10;
+            var colliderOffsetX = 0;
+            var colliderOffsetY = 0;
+            break;
+        case(ITEM_FIREBALL_LVL3):
+        this.sprite.setSprite(worldPics[TILE_FIREBALL_LVL3], 20, 20, 1, 0);
             var colliderWidth = 10;
             var colliderHeight = 10;
             var colliderOffsetX = 0;
@@ -311,6 +328,14 @@ function pickUpItems(collider) {
 					Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'yellow');
                 case ITEM_ARTIFACT:
+                    attackBuff += 0.25;
+                    Sound.play('key_pickup', false, 0.1);
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');
+                case ITEM_FIREBALL_LVL2:
+                    attackBuff += 0.25;
+                    Sound.play('key_pickup', false, 0.1);
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'green');
+                case ITEM_FIREBALL_LVL3:
                     attackBuff += 0.25;
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');

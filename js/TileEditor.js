@@ -26,6 +26,9 @@ function editTileOnMouseClick() {
         if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
             worldGrid[tileUnderMouse]++;
         }
+        if (worldGrid[tileUnderMouse] == TILE_BOSSHERO) {
+            worldGrid[tileUnderMouse]++;
+        }
     }
 }
 
@@ -38,6 +41,9 @@ function editTileReverse() {
 			worldGrid[tileUnderMouse] = HIGHEST_TILE_NUMBER;
 		}
 		if (worldGrid[tileUnderMouse] == TILE_PLAYERSTART) {
+			worldGrid[tileUnderMouse]--;
+		}
+		if (worldGrid[tileUnderMouse] == TILE_BOSSHERO) {
 			worldGrid[tileUnderMouse]--;
 		}
 	}
