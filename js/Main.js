@@ -23,6 +23,7 @@ function imageLoadingDoneSoStartGame() {
 	backupRoomData(); // should do before any numbers are replaced and load level etc.
 	loadLevel();
 	resetAllRooms();
+	createTileArrayWithoutBox();
 }
 
 function loadLevel() {
@@ -86,18 +87,21 @@ function raycasting() {
 		var point1Y = player.y;
 		var point2X = mouseCanvasX;
 		var point2Y = mouseCanvasY;
-		canvasContext.lineWidth = 2;
-		colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
+		//var roomCol = Math.floor(WORLD_COLS * mouseX / canvas.offsetWidth);
+  		//var roomRow = Math.floor(WORLD_ROWS * mouseY / canvas.offsetHeight);
+		var tileX = mouseCanvasX;
+   		var tileY = mouseCanvasY;
 		var tileIndex = getTileIndexAtPixelCoord(mouseCanvasX, mouseCanvasY);
-		if (worldGrid[tileIndex] == 0) {
-			console.log(worldGrid[tileIndex]);
-   		} else if (worldGrid[tileIndex] >= 1) {
-   			var roomCol = Math.floor(WORLD_COLS * mouseX / canvas.offsetWidth);
-  			var roomRow = Math.floor(WORLD_ROWS * mouseY / canvas.offsetHeight);
-			var tileX = mouseCanvasX;
-   			var tileY = mouseCanvasY;
-   			console.log(tileX, tileY);
+		if (allButBox.indexOf(worldGrid[tileIndex]) > -1) {
+			console.log(mouseCanvasX, mouseCanvasY);
+   		} else if (worldGrid[tileIndex] == TILE_BOX) {
+   			var tileCenter = calculateCenterCoordOfTileIndex(tileIndex);
+   			point2X = tileCenter.x;
+   			point2Y = tileCenter.y;
+   			console.log(tileCenter.x,tileCenter.y);
    		}
+   		canvasContext.lineWidth = 2;
+		colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
 	}
 }
 

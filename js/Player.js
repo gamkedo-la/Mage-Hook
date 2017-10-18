@@ -585,6 +585,9 @@ function playerClass() {
 			case TILE_SMALL_WALL_INTO_BIG_WEST:
 			case TILE_SMALL_WALL_INTO_BIG_NORTH:
 			case TILE_SMALL_WALL_INTO_BIG_SOUTH:
+			case TILE_PIT_HORIZONTAL_TOP:
+			case TILE_TOP_LEFT_PIT_CORNER:
+			case TILE_TOP_RIGHT_PIT_CORNER:
 				break;
 			default:
 				collisionDetected = false;

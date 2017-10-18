@@ -146,6 +146,9 @@ function loadImages() {
 		{worldType: TILE_SMALL_WALL_INTO_BIG_WEST, theFile: "small_wall_into_big_wall_west.png"},
 		{worldType: TILE_SMALL_WALL_INTO_BIG_NORTH, theFile: "small_wall_into_big_wall_north.png"},
 		{worldType: TILE_SMALL_WALL_INTO_BIG_SOUTH, theFile: "small_wall_into_big_wall_south.png"},
+		{worldType: TILE_PIT_HORIZONTAL_TOP, theFile: "horizontal_pit_top.png"},
+		{worldType: TILE_TOP_LEFT_PIT_CORNER, theFile: "top_left_pit_corner.png"},
+		{worldType: TILE_TOP_RIGHT_PIT_CORNER, theFile: "top_right_pit_corner.png"},
 		
 		{worldType: TILE_HEART_CONTAINER, theFile: "heart_container.png"},
 		{worldType: TILE_ARTIFACT, theFile: "artifact.png"}

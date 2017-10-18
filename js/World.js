@@ -72,7 +72,21 @@ const TILE_BOSSHERO = 57;
 const TILE_FIREBALL_LVL2 = 58;
 const TILE_FIREBALL_LVL3 = 59;
 
-const HIGHEST_TILE_NUMBER = 59;
+const TILE_PIT_HORIZONTAL_TOP = 60;
+const TILE_TOP_LEFT_PIT_CORNER = 61;
+const TILE_TOP_RIGHT_PIT_CORNER = 62;
+
+const HIGHEST_TILE_NUMBER = 62;
+
+var allButBox = [];
+
+function createTileArrayWithoutBox() {
+	for(var tileIndex = 0; tileIndex < HIGHEST_TILE_NUMBER+1; tileIndex++) {
+		if (tileIndex != TILE_BOX) {
+		allButBox.push(tileIndex);
+		}
+	}
+}
 
 function returnTileTypeAtColRow(col, row) {
 	if(col >= 0 && col < WORLD_COLS &&

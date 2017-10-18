@@ -48,7 +48,7 @@ function enemyClass(newEnemy, states){
 	this.currentState = function(){}//Gets overwritten by state;
 	var freshState;	
 	this.update = function(){
-		
+
 		if(this.isDead())
 			return;
 		freshState = false;
@@ -323,6 +323,9 @@ function enemyClass(newEnemy, states){
 			case TILE_SMALL_WALL_INTO_BIG_WEST:
 			case TILE_SMALL_WALL_INTO_BIG_NORTH:
 			case TILE_SMALL_WALL_INTO_BIG_SOUTH:
+			case TILE_PIT_HORIZONTAL_TOP:
+			case TILE_TOP_LEFT_PIT_CORNER:
+			case TILE_TOP_RIGHT_PIT_CORNER:
 				break;
 			default:
 				collisionDetected = false;
