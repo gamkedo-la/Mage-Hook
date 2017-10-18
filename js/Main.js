@@ -77,7 +77,7 @@ function drawAll() {
 	drawParticles();
 	hud.draw();
 	drawPanelWithButtons(debugPanel);
-	raycasting(); 
+	raycasting();
 }
 
 function raycasting() {

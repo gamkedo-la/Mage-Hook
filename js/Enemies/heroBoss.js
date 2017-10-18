@@ -192,5 +192,23 @@ function heroBoss(x, y) {
 		
 		}
 	}
+	this.lockDoors = function() {
+		if (this.isAlive) {
+			var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
+							 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
+			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+					var doorTile = worldGrid[arrayIndex];
+					if ((openDoors.indexOf(doorTile) > -1)) {
+						doorTile = TILE_WALL; //TODO: Make new tile;
+					}
+				}
+			}
+		}
+		} /* else if (!heroBoss.isAlive) {
+					if (worldGrid[arrayIndex] = TILE_WALL) //TODO: Make new tile;
+			}*/
+
 	return new enemyClass(this, staates);
 }
