@@ -129,6 +129,12 @@ function Room(roomLayout) {
 					            this.enemyList.push(nextEnemy);
 								enemyWasFound = true;
 					            break;
+				            case TILE_BOSSPJ:
+								this.layout[arrayIndex] = TILE_GROUND;
+					            nextEnemy = new PJBoss(x, y);
+					            this.enemyList.push(nextEnemy);
+								enemyWasFound = true;
+					            break;
 						}
 					}
 					
@@ -279,7 +285,7 @@ var room0b1 =[
 var room1b1 = [
 	24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
 	20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
-	38,00,00,00,00,00,00,04,00,03,09,00,00,00,00,39,
+	38,00,00,00,00,00,00,04,63,03,09,00,00,00,00,39,
 	20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
 	29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,

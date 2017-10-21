@@ -8,7 +8,7 @@ function enemyClass(newEnemy, states){
 	var maxSpeed = .50;
 	var minMoveTime = 1.5;
 	var maxMoveTime = 2.5;
-
+	this.name == newEnemy.name;
 	this.x = newEnemy.x;
 	this.y = newEnemy.y;
 	this.maxHealth = newEnemy.maxHealth; // how many hits till it dies
@@ -20,12 +20,12 @@ function enemyClass(newEnemy, states){
 	this.enemyData = newEnemy;
 
 	this.tileCollider = new boxColliderClass(this.x, this.y,
-											 newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
-											 newEnemy.tileColliderOffsetX, newEnemy.tileColliderOffsetY);
+		newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
+		newEnemy.tileColliderOffsetX, newEnemy.tileColliderOffsetY);
 
 	this.hitbox = new boxColliderClass(this.x, this.y,
-									   newEnemy.hitboxWidth, newEnemy.hitboxHeight,
-									   newEnemy.hitboxOffsetX, newEnemy.hitboxOffsetY);
+		newEnemy.hitboxWidth, newEnemy.hitboxHeight,
+		newEnemy.hitboxOffsetX, newEnemy.hitboxOffsetY);
 
 	this.sprite = new spriteClass();
 	this.sprite.setSprite(newEnemy.spriteSheet,

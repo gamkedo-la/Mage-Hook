@@ -75,8 +75,9 @@ const TILE_FIREBALL_LVL3 = 59;
 const TILE_PIT_HORIZONTAL_TOP = 60;
 const TILE_TOP_LEFT_PIT_CORNER = 61;
 const TILE_TOP_RIGHT_PIT_CORNER = 62;
+const TILE_BOSSPJ = 63;
 
-const HIGHEST_TILE_NUMBER = 62;
+const HIGHEST_TILE_NUMBER = 63;
 
 var allButBox = [];
 
@@ -151,6 +152,7 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_HEART_CONTAINER ||
 			checkTileType == TILE_ARTIFACT || 
 			checkTileType == TILE_BOSSHERO ||
+			checkTileType == TILE_BOSSPJ ||
 			checkTileType == TILE_FIREBALL_LVL2 ||
 			checkTileType == TILE_FIREBALL_LVL3
 		);
