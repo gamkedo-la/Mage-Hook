@@ -25,7 +25,9 @@ function spriteClass() {
 						newWidth, newHeight,
 						newTotal, newSpeed,
 						loop) {
-
+		if(!newSpriteSheet){
+			throw "YO, what are you doing. Missing spriiiiiiite"
+		}
 		spriteSheet = newSpriteSheet;
 		frameX = 0;
 		frameY = 0;
