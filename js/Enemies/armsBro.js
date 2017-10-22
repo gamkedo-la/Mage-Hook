@@ -1,4 +1,5 @@
 function armsBro(x, y) {
+	this.name = "armsBro";
 	this.x = x;
 	this.y = y;
 

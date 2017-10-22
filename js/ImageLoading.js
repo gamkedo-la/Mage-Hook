@@ -59,8 +59,19 @@ function loadImages() {
 		{set: "HeroBoss", name: "dodgeRollLeft", fileName: "HeroBoss/Boss_walk rollleft.png"},
 		{set: "HeroBoss", name: "aaayAttack!!", fileName: "HeroBoss/Boss_walk attack1.png"},
 		{set: "HeroBoss", name: "praiseIt", fileName: "HeroBoss/Boss_walk sun.png"},
-		
-		
+
+		{set: "PJDemon", name: "Alchemist", fileName: "PJDemon/Alchemist.png"},
+		{set: "PJDemon", name: "Chant", fileName: "PJDemon/Chant.png"},
+		{set: "PJDemon", name: "entrance", fileName: "PJDemon/entrance.png"},
+		{set: "PJDemon", name: "Hearts on Fire", fileName: "PJDemon/Hearts on Fire.png"},
+		{set: "PJDemon", name: "Idle", fileName: "PJDemon/Idle.png"},
+		{set: "PJDemon", name: "Summon", fileName: "PJDemon/Summon.png"},
+		{set: "PJDemon", name: "Throw magic", fileName: "PJDemon/Throw magic.png"},
+		{set: "PJDemon", name: "WalkLeft", fileName: "PJDemon/Walk Left.png"},
+		{set: "PJDemon", name: "WalkNorth", fileName: "PJDemon/Walk North.png"},
+		{set: "PJDemon", name: "WalkRight", fileName: "PJDemon/Walk Right.png"},
+		{set: "PJDemon", name: "WalkSouth", fileName: "PJDemon/Walk South.png"},
+
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},
