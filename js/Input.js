@@ -38,6 +38,7 @@ const KEY_C = 67; // draw collision boxes
 const KEY_TAB = 9; // tile editor
 const KEY_Z = 90; // dash
 const KEY_X = 88; // range attack
+const KEY_M = 77; // testing raycasting
 
 var mouseX = 0;
 var mouseY = 0;
@@ -173,6 +174,12 @@ function keyPressed(evt) {
 			console.log("Room change West");
 			currentRoomCol--;
 			loadLevel(roomCoordToVar);
+			//}
+			break;
+		case KEY_M:
+			console.log("pressed M to remove a tile");
+			//if (_DEBUG_ENABLE_TILE_EDITOR) {
+			console.log("tileIndex: " + raycasting() + " tileType: " + worldGrid[raycasting()]);
 			//}
 			break;
 		case KEY_S:

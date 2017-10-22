@@ -95,6 +95,10 @@ function playerClass() {
 
    var sprite = new spriteClass();
 
+    this.facingDirection = function() {
+    	return isFacing;
+    }
+
 	this.setupInput = function(upKey, rightKey, downKey, leftKey, attackKey, dashKey, rangedAttackKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;

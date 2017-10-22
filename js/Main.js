@@ -23,7 +23,7 @@ function imageLoadingDoneSoStartGame() {
 	backupRoomData(); // should do before any numbers are replaced and load level etc.
 	loadLevel();
 	resetAllRooms();
-	createTileArrayWithoutBox();
+	createTileArray();
 }
 
 function loadLevel() {
@@ -78,11 +78,9 @@ function drawAll() {
 	drawParticles();
 	hud.draw();
 	drawPanelWithButtons(debugPanel);
-	raycasting();
 }
 
 function raycasting() {
-	if(mouseHeld && !_DEBUG_ENABLE_TILE_EDITOR) {
 		var point1X = player.x;
 		var point1Y = player.y;
 		var point2X = mouseCanvasX;
@@ -91,18 +89,39 @@ function raycasting() {
   		//var roomRow = Math.floor(WORLD_ROWS * mouseY / canvas.offsetHeight);
 		var tileX = mouseCanvasX;
    		var tileY = mouseCanvasY;
-		var tileIndex = getTileIndexAtPixelCoord(mouseCanvasX, mouseCanvasY);
-		if (allButBox.indexOf(worldGrid[tileIndex]) > -1) {
-			console.log(mouseCanvasX, mouseCanvasY);
-   		} else if (worldGrid[tileIndex] == TILE_BOX) {
-   			var tileCenter = calculateCenterCoordOfTileIndex(tileIndex);
-   			point2X = tileCenter.x;
-   			point2Y = tileCenter.y;
-   			console.log(tileCenter.x,tileCenter.y);
-   		}
-   		canvasContext.lineWidth = 2;
-		colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
-	}
+		var tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
+		var nextTileX = player.x;
+		var nextTileY = player.y;
+		var isGround = true;
+		while (isGround) {
+			if (player.facingDirection() == NORTH) {
+				nextTileY -= 20; 
+			} else if (player.facingDirection() == SOUTH) {
+				nextTileY += 20;	
+			} else if (player.facingDirection() == EAST) {
+				nextTileX += 20;	
+			} else if (player.facingDirection() == WEST) {
+				nextTileX -= 20;	
+			}
+			console.log("starting while loop");
+			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
+			if (worldGrid[tileIndex] != TILE_GROUND) {
+				return tileIndex;
+				//worldGrid[tileIndex] = TILE_GROUND;
+				break;
+			}
+		}
+		console.log("ending while loop");
+		// if (allButBox.indexOf(worldGrid[tileIndex]) > -1) {
+		// 	console.log(mouseCanvasX, mouseCanvasY);
+  //  		} else if (worldGrid[tileIndex] == TILE_BOX) {
+  //  			var tileCenter = calculateCenterCoordOfTileIndex(tileIndex);
+  //  			point2X = tileCenter.x;
+  //  			point2Y = tileCenter.y;
+  //  			console.log(tileCenter.x,tileCenter.y);
+  //  		}
+   		//canvasContext.lineWidth = 2;
+		//colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
 }
 
 

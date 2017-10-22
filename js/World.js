@@ -78,13 +78,11 @@ const TILE_TOP_RIGHT_PIT_CORNER = 62;
 
 const HIGHEST_TILE_NUMBER = 62;
 
-var allButBox = [];
+var tileArray = [];
 
-function createTileArrayWithoutBox() {
+function createTileArray() {
 	for(var tileIndex = 0; tileIndex < HIGHEST_TILE_NUMBER+1; tileIndex++) {
-		if (tileIndex != TILE_BOX) {
-		allButBox.push(tileIndex);
-		}
+		tileArray.push(tileIndex);
 	}
 }
 
