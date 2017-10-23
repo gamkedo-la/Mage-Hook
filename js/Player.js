@@ -556,6 +556,27 @@ function playerClass() {
 					currentFloor--;
 				}
 				break;
+			case TILE_PIT_HORIZONTAL_TOP:
+				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
+				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
+				this.x = landingTileCenter.x;
+				this.y = landingTileCenter.y;
+				currentFloor--;
+				break;
+			case TILE_TOP_LEFT_PIT_CORNER:
+				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
+				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
+				this.x = landingTileCenter.x;
+				this.y = landingTileCenter.y;
+				currentFloor--;
+				break;
+			case TILE_TOP_RIGHT_PIT_CORNER:
+				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
+				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
+				this.x = landingTileCenter.x;
+				this.y = landingTileCenter.y;
+				currentFloor--;
+				break;
 			case TILE_SKULL:
 			case TILE_WALL:
 			case TILE_WALL_NORTH:
@@ -589,9 +610,6 @@ function playerClass() {
 			case TILE_SMALL_WALL_INTO_BIG_WEST:
 			case TILE_SMALL_WALL_INTO_BIG_NORTH:
 			case TILE_SMALL_WALL_INTO_BIG_SOUTH:
-			case TILE_PIT_HORIZONTAL_TOP:
-			case TILE_TOP_LEFT_PIT_CORNER:
-			case TILE_TOP_RIGHT_PIT_CORNER:
 				break;
 			default:
 				collisionDetected = false;

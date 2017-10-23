@@ -177,9 +177,8 @@ function keyPressed(evt) {
 			//}
 			break;
 		case KEY_M:
-			console.log("pressed M to remove a tile");
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
-			console.log("tileIndex: " + raycasting() + " tileType: " + worldGrid[raycasting()]);
+			console.log("arrayIndex: " + raycastingForPlayer() + " tileType: " + worldGrid[raycastingForPlayer()]);
 			//}
 			break;
 		case KEY_S:

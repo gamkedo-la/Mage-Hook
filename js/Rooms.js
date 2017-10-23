@@ -221,11 +221,11 @@ function Room(roomLayout) {
 		
 		if (lastValidCurrentFloor != currentFloor) {
 			console.log("considerRoomChange just noticed a floor change...")
-			console.log(noDamageForFloor[currentFloor-1]);
 			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
 				player.x += 30; //Offset for stairs
 			}
-			else if ((currentFloor-lastValidCurrentFloor) == -1) { //Going down
+			else if ((currentFloor-lastValidCurrentFloor) == -1 &&
+				worldGrid[getTileIndexAtPixelCoord(player.x, player.y) - 1] == TILE_STAIRS_DOWN) { //Going down
 				player.x -= 30; //Offset for stairs
 			}
 			Sound.play("room_change",false,0.1);
@@ -289,7 +289,7 @@ var room1b1 = [
 	20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
 	29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
-	31,31,31,31,20,00,00,61,60,62,00,00,00,00,08,21,
+	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
 	31,31,31,31,31,31,22,18,18,18,18,36,18,18,18,23];
 
@@ -311,7 +311,7 @@ var room1b2 = [
 	20,10,10,10,00,10,00,00,00,00,00,00,00,00,00,21,
 	20,10,00,10,00,10,00,00,56,00,00,00,30,00,00,39,
 	20,10,00,10,00,10,00,00,00,00,10,00,17,00,00,21,
-	20,00,00,00,00,00,00,11,00,00,00,00,00,00,08,39,
+	20,00,00,00,00,00,00,11,61,60,62,00,00,00,08,39,
 	38,00,00,00,00,00,00,00,11,00,00,00,00,59,58,21,
 	22,18,18,36,18,18,36,18,18,36,18,18,36,18,18,23];
 

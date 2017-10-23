@@ -29,12 +29,22 @@ function boneThrow(x, y, isFacing) {
 			this.attackDir = [0,1];
 			break;
 		case EAST:
+			raycasting(armsBro);
+			var obstacle = calculateCenterCoordOfTileIndex(tileIndex);
 			this.x += 13;
 			this.attackDir = [2,0];
+			if (this.x > obstacle.x - 10) {
+				this.remove = true;
+			}
 			break;
 		case WEST:
+			raycasting(armsBro);
+			var obstacle = calculateCenterCoordOfTileIndex(tileIndex);
 			this.x -= 25;
 			this.attackDir = [-2,0];
+			if (this.x < obstacle.x + 10) {
+				this.remove = true;
+			}
 			break;
 	}
 

@@ -7,6 +7,8 @@ var player = new playerClass();
 var hud = new hudClass();
 var particleList = [];
 
+var obstacle = 0;
+
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -80,51 +82,46 @@ function drawAll() {
 	drawPanelWithButtons(debugPanel);
 }
 
-function raycasting() {
-		var point1X = player.x;
-		var point1Y = player.y;
-		var point2X = mouseCanvasX;
-		var point2Y = mouseCanvasY;
-		//var roomCol = Math.floor(WORLD_COLS * mouseX / canvas.offsetWidth);
-  		//var roomRow = Math.floor(WORLD_ROWS * mouseY / canvas.offsetHeight);
-		var tileX = mouseCanvasX;
-   		var tileY = mouseCanvasY;
-		var tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
-		var nextTileX = player.x;
-		var nextTileY = player.y;
-		var isGround = true;
-		while (isGround) {
-			if (player.facingDirection() == NORTH) {
-				nextTileY -= 20; 
-			} else if (player.facingDirection() == SOUTH) {
-				nextTileY += 20;	
-			} else if (player.facingDirection() == EAST) {
-				nextTileX += 20;	
-			} else if (player.facingDirection() == WEST) {
-				nextTileX -= 20;	
-			}
-			console.log("starting while loop");
-			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
-			if (worldGrid[tileIndex] != TILE_GROUND) {
-				return tileIndex;
-				//worldGrid[tileIndex] = TILE_GROUND;
-				break;
-			}
+function raycastingForPlayer() {
+	var nextTileX = player.x;
+	var nextTileY = player.y;
+	var isGround = true;
+	while (isGround) {
+		if (player.facingDirection() == NORTH) {
+			nextTileY -= 20; 
+		} else if (player.facingDirection() == SOUTH) {
+			nextTileY += 20;	
+		} else if (player.facingDirection() == EAST) {
+			nextTileX += 20;	
+		} else if (player.facingDirection()  == WEST) {
+			nextTileX -= 20;	
 		}
-		console.log("ending while loop");
-		// if (allButBox.indexOf(worldGrid[tileIndex]) > -1) {
-		// 	console.log(mouseCanvasX, mouseCanvasY);
-  //  		} else if (worldGrid[tileIndex] == TILE_BOX) {
-  //  			var tileCenter = calculateCenterCoordOfTileIndex(tileIndex);
-  //  			point2X = tileCenter.x;
-  //  			point2Y = tileCenter.y;
-  //  			console.log(tileCenter.x,tileCenter.y);
-  //  		}
-   		//canvasContext.lineWidth = 2;
-		//colorLine(point1X, point1Y, point2X, point2Y, 'magenta');
+		tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
+		if (worldGrid[tileIndex] != TILE_GROUND) {
+			return tileIndex;
+			break;
+		}
+	}
 }
 
-
-
-
-
+function raycasting(caster) {
+	var nextTileX = caster.x;
+	var nextTileY = caster.y;
+	isGround = true;
+	while (isGround) {
+		if (caster.isFacing == NORTH) {
+			nextTileY -= 20; 
+		} else if (caster.isFacing == SOUTH) {
+			nextTileY += 20;	
+		} else if (caster.isFacing == EAST) {
+			nextTileX += 20;	
+		} else if (caster.isFacing == WEST) {
+			nextTileX -= 20;	
+		}
+		tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
+		if (worldGrid[tileIndex] != TILE_GROUND) {
+			return tileIndex;
+			break;
+		}
+	}
+}

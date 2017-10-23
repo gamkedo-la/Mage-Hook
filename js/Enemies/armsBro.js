@@ -52,7 +52,6 @@ function armsBro(x, y) {
 				//TODO: make enmy face direction
 				//TODO: make enmy throw bone in y direction if player is there
 				boneThrow(this.x, this.y, direction)
-				
 			} 
 			if(this.sprite.getSpriteSheet() == sprites.ArmsBro.boneThrowRight || this.sprite.getSpriteSheet() == sprites.ArmsBro.OtherBoneThrow){
 				if(this.sprite.isDone()){
