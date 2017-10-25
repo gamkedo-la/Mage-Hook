@@ -17,6 +17,7 @@ function boneThrow(x, y, isFacing) {
 	this.spriteFrames = 12;
 	this.spriteSpeed = 13;
 	this.speed = 3
+
 	switch(this.isFacing) { //Draw attack in facing dirction
 		case NORTH:
 			this.x -= 6;
@@ -29,22 +30,13 @@ function boneThrow(x, y, isFacing) {
 			this.attackDir = [0,1];
 			break;
 		case EAST:
-			raycasting(armsBro);
-			var obstacle = calculateCenterCoordOfTileIndex(tileIndex);
 			this.x += 13;
 			this.attackDir = [2,0];
-			if (this.x > obstacle.x - 10) {
-				this.remove = true;
-			}
+			
 			break;
 		case WEST:
-			raycasting(armsBro);
-			var obstacle = calculateCenterCoordOfTileIndex(tileIndex);
 			this.x -= 25;
-			this.attackDir = [-2,0];
-			if (this.x < obstacle.x + 10) {
-				this.remove = true;
-			}
+			this.attackDir = [-2,0];		
 			break;
 	}
 

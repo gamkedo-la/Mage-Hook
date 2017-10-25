@@ -103,25 +103,3 @@ function raycastingForPlayer() {
 		}
 	}
 }
-
-function raycasting(caster) {
-	var nextTileX = caster.x;
-	var nextTileY = caster.y;
-	isGround = true;
-	while (isGround) {
-		if (caster.isFacing == NORTH) {
-			nextTileY -= 20; 
-		} else if (caster.isFacing == SOUTH) {
-			nextTileY += 20;	
-		} else if (caster.isFacing == EAST) {
-			nextTileX += 20;	
-		} else if (caster.isFacing == WEST) {
-			nextTileX -= 20;	
-		}
-		tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
-		if (worldGrid[tileIndex] != TILE_GROUND) {
-			return tileIndex;
-			break;
-		}
-	}
-}

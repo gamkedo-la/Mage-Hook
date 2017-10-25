@@ -71,6 +71,38 @@ function magicClass(magic, enemyList) {
 		}
 	}
 
+	this.raycasting = function() {
+	var nextTileX = this.x;
+	var nextTileY = this.y;
+	isGround = true;
+		while (isGround) {
+			if (this.attackDir[1] < 0) { // NORTH
+				nextTileY -= 20; 
+			} else if (this.attackDir[1] > 0) { // SOUTH
+				nextTileY += 20;
+			} else if (this.attackDir[0] > 0) { // EAST
+				nextTileX += 20;
+			} else if (this.attackDir[0] < 0) { // WEST
+				nextTileX -= 20;
+			}
+			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
+			if (worldGrid[tileIndex] != TILE_GROUND) {
+				return calculateTopLeftCoordOfTileIndex(tileIndex);
+				break;
+			}
+		}
+	}
+
+	this.spellHitTile = function() { //only tests when Spell travels WEST for now
+	var obstacle = this.raycasting();
+		if (this.attackDir[0] < 0) {
+			if (this.x <= obstacle.x + 20) {
+				console.log("spell X < obstacle X");
+				this.remove = true;
+			}
+		}
+	}
+
 	this.hitEnemy = function() {
 		for (var i = 0; i < this.enemyList.length; i++) {
 			var enemy = this.enemyList[i];
