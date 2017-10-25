@@ -2,6 +2,14 @@ const RANGED_ATTACK_SPEED = 2;
 const BLOOD_SPLATTER_SPEED = 1;
 const PARTICLES_PER_ENEMY_HIT = 16;
 
+var pastX = 0;
+var pastY = 0;
+
+var obstacle = {
+	x: 0,
+	y: 0
+}
+
 function magicClass(magic, enemyList) {
 	this.x = magic.x;
 	this.y = magic.y;
@@ -20,6 +28,7 @@ function magicClass(magic, enemyList) {
 							magic.spriteFrames, magic.spriteSpeed, true);
 	this.remove = false;
 	this.onHitEnemy = magic.onHitEnemy;
+	this.tileHit = magic.tileHit;
 	if(magic.speed == undefined){
 		this.speed = RANGED_ATTACK_SPEED;
 	} else {
@@ -38,6 +47,9 @@ function magicClass(magic, enemyList) {
 	}
 
 	this.update = function() {
+		pastX = this.x;
+		pastY = this.y;
+		this.doesSpellHitTile();
 		if(this.sprite.isDone() || this.remove){
 			var index = currentRoom.magic.indexOf(this);
 			if(index !== -1) {
@@ -71,34 +83,20 @@ function magicClass(magic, enemyList) {
 		}
 	}
 
-	this.raycasting = function() {
-	var nextTileX = this.x;
-	var nextTileY = this.y;
-	isGround = true;
-		while (isGround) {
-			if (this.attackDir[1] < 0) { // NORTH
-				nextTileY -= 20; 
-			} else if (this.attackDir[1] > 0) { // SOUTH
-				nextTileY += 20;
-			} else if (this.attackDir[0] > 0) { // EAST
-				nextTileX += 20;
-			} else if (this.attackDir[0] < 0) { // WEST
-				nextTileX -= 20;
-			}
-			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
-			if (worldGrid[tileIndex] != TILE_GROUND) {
-				return calculateTopLeftCoordOfTileIndex(tileIndex);
-				break;
-			}
-		}
-	}
-
-	this.spellHitTile = function() { //only tests when Spell travels WEST for now
-	var obstacle = this.raycasting();
+	this.doesSpellHitTile = function() { //only tests when Spell travels WEST/EAST for now
 		if (this.attackDir[0] < 0) {
-			if (this.x <= obstacle.x + 20) {
-				console.log("spell X < obstacle X");
+			console.log(Math.floor(pastX));
+			if (pastX <= obstacle.x) {
+				console.log("spell X <= obstacle X");
 				this.remove = true;
+				this.tileHit();
+			}
+		} else if (this.attackDir[0] > 0) {
+			console.log(Math.floor(pastX));
+			if (pastX >= obstacle.x) {
+				console.log("spell X >= obstacle X");
+				this.remove = true;
+				this.tileHit();
 			}
 		}
 	}

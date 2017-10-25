@@ -1,3 +1,5 @@
+BONE_SPLATTER_SPEED = 0.5;
+
 function boneThrow(x, y, isFacing) {
 	Sound.play("player_attack");
 	
@@ -18,6 +20,28 @@ function boneThrow(x, y, isFacing) {
 	this.spriteSpeed = 13;
 	this.speed = 3
 
+	this.raycasting = function() {
+	var nextTileX = this.x;
+	var nextTileY = this.y;
+	isGround = true;
+		while (isGround) {
+			if (this.attackDir[1] < 0) { // NORTH
+				nextTileY -= 20; 
+			} else if (this.attackDir[1] > 0) { // SOUTH
+				nextTileY += 20;
+			} else if (this.attackDir[0] > 0) { // EAST
+				nextTileX += 20;
+			} else if (this.attackDir[0] < 0) { // WEST
+				nextTileX -= 20;
+			}
+			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
+			if (worldGrid[tileIndex] != TILE_GROUND) {
+				return calculateTopLeftCoordOfTileIndex(tileIndex);
+				break;
+			}
+		}
+	}
+
 	switch(this.isFacing) { //Draw attack in facing dirction
 		case NORTH:
 			this.x -= 6;
@@ -32,12 +56,24 @@ function boneThrow(x, y, isFacing) {
 		case EAST:
 			this.x += 13;
 			this.attackDir = [2,0];
-			
+			obstacle = this.raycasting();
+			console.log(obstacle);
 			break;
 		case WEST:
 			this.x -= 25;
-			this.attackDir = [-2,0];		
+			this.attackDir = [-2,0];
+			obstacle = this.raycasting();
+			obstacle.x += 20
+			console.log(obstacle);		
 			break;
+	}
+
+	this.tileHit = function() {
+		var angle = Math.atan2(this.y,this.x);					
+		var vx = Math.cos(angle) * BONE_SPLATTER_SPEED;
+		var vy = Math.sin(angle) * BONE_SPLATTER_SPEED;
+						
+		particleFX(this.x,this.y,PARTICLES_PER_ENEMY_HIT,'white',vx,vy,0.5,0,1);
 	}
 
 	this.onHitEnemy = function (enemy) {
