@@ -146,7 +146,7 @@ function AStarPathfindingClass() // Class Constructor
 
 	// world is a 2d array of integers (eg world[10][15] = 0)
 	// pathStart and pathEnd are arrays like [5,10]
-	function findPath(world, pathStart, pathEnd)
+	this.findPath = function(world, pathStart, pathEnd)
 	{
 		// shortcuts for speed
 		var	abs = Math.abs;
@@ -386,10 +386,15 @@ function AStarPathfindingClass() // Class Constructor
 						myPath = Node(myNode, myNeighbours[i]);
 						if (!AStar[myPath.value])
 						{
+							// BUGFIX 2017 - f and g flipped?
 							// estimated cost of this particular route so far
-							myPath.g = myNode.g + distanceFunction(myNeighbours[i], myNode);
+							myPath.f = myNode.g + distanceFunction(myNeighbours[i], myNode);
 							// estimated cost of entire guessed route to the destination
-							myPath.f = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
+							myPath.g = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
+							// estimated cost of this particular route so far
+							//myPath.g = myNode.g + distanceFunction(myNeighbours[i], myNode);
+							// estimated cost of entire guessed route to the destination
+							//myPath.f = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
 							// remember this new path for testing above
 							Open.push(myPath);
 							// mark this node in the world graph as visited
