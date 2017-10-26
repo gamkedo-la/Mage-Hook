@@ -13,20 +13,25 @@ function roomCoordToString(c, r,f) {
 }
 
 function Room(roomLayout) {
+	
 	this.originalLayout = roomLayout.slice();
 	this.layout = this.originalLayout.slice();
 	this.enemyList = [];
 	this.magic = [];
 	this.itemOnGround = [];
 	this.floorTraps = [];
+	this.pathfindingdata = [];
+	
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
 		this.itemOnGround = [];
+		this.pathfindingdata = []; // a-star pathfinding grid
 		if (!_DEBUG_ENABLE_TILE_EDITOR) {
 			this.spawnItems();
 			this.spawnTraps();
 			this.spawnMyEnemies();
+			this.generatePathfindingData();
 		}
 	}
 
@@ -81,7 +86,17 @@ function Room(roomLayout) {
 		} // end of row for
 	} //end of spawn items
 
-		
+	this.generatePathfindingData = function() {
+		console.log("Generating pathfinding data for the current room...");
+		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+			this.pathfindingdata[eachRow] = [];
+			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+				this.pathfindingdata[eachRow][eachCol] = this.layout[arrayIndex];
+			}
+		}
+	}
+	
 
 	this.spawnTraps = function() {
 		var nextTrap = null;
@@ -293,7 +308,7 @@ var room0b1 =[
 	20,00,00,00,00,00,00,00,00,00,21,31,31,31,31,31,
 	22,18,18,18,36,18,18,18,27,18,23,31,31,31,31,31];
 
-var room1b1 = [
+	var room1b1 = [
 	24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
 	20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
 	38,00,00,00,00,00,00,04,63,03,09,00,00,00,00,39,
@@ -304,7 +319,18 @@ var room1b1 = [
 	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
 	31,31,31,31,31,31,22,18,18,18,18,36,18,18,18,23];
 
-var room0c1 = [
+	var ai_test = [ // TEMP simple room with one bot
+	24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
+	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
+	38,00,06,00,00,00,00,00,00,00,00,00,00,00,00,39,
+	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
+	29,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,
+	22,18,18,18,35,00,00,00,00,00,00,00,00,00,00,21,
+	31,31,31,31,20,00,00,00,00,00,00,00,00,00,00,21,
+	31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
+	31,31,31,31,31,31,22,18,18,18,18,36,18,18,18,23];
+		
+	var room0c1 = [
 	24,19,19,37,19,19,19,19,26,19,19,19,19,19,19,25,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,21,
 	20,00,00,00,00,00,00,00,00,00,00,00,00,00,00,39,

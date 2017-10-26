@@ -114,6 +114,13 @@ function rowColToArrayIndex(col, row) {
 	return col + WORLD_COLS * row;
 }
 
+function ArrayIndexToRowCol(index) { // is this correct? FIXME
+	return [Math.floor(index / WORLD_ROWS), index % WORLD_COLS];
+}
+function ArrayIndexToColRow(index) { // is this correct? FIXME
+	return [index % WORLD_COLS,Math.floor(index / WORLD_COLS)];
+}
+
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
 			checkTileType == TILE_KEY_COMMON ||

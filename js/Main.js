@@ -99,7 +99,7 @@ function raycastingForPlayer() {
 		tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
 		if (worldGrid[tileIndex] != TILE_GROUND) {
 			return tileIndex;
-			break;
+			break; // FIXME: this never fires
 		}
 	}
 }
