@@ -333,18 +333,22 @@ function pickUpItems(collider) {
 					player.currentHealth += 2;
 					Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'yellow');
+                    break;
                 case ITEM_ARTIFACT:
                     attackBuff += 0.25;
                     Sound.play('key_pickup', false, 0.1);
-                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, '#4682B4'); // SteelBlue
+                    break;
                 case ITEM_FIREBALL_LVL2: //TODO: add booleans to bulletSpell
                     attackBuff += 0.25;
                     Sound.play('key_pickup', false, 0.1);
-                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'green');
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, '#40bf77'); // SeaGreen Modified
+                    break;
                 case ITEM_FIREBALL_LVL3: //TODO: add booleans to bulletSpell
                     attackBuff += 0.25; 
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'lightblue');
+                    break;
             }
         }
     }

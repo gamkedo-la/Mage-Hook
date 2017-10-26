@@ -147,5 +147,10 @@ function armsBro(x, y) {
 			this.tileBehaviorHandler();
 		}
 	}
+
+	this.deadEvent = function() {
+		return;
+	}
+	
 	return new enemyClass(this, staaates);
 }

@@ -129,5 +129,10 @@ function plantBaby(x, y) {
 			//poisonGasAttack(this.x, this.y);
 		}
 	}
+
+	this.deadEvent = function() {
+		return;
+	}
+	
 	return new enemyClass(this, staaates);
 }

@@ -229,8 +229,18 @@ function PJBoss(x, y) {
 		
 		},
 		bossIntro: function(){
-			if(!this.ticksInState){
-				this.enemyData.lockDoors();	
+			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
+									 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
+					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
+					var doorTile = worldGrid[tileIndex];
+					if ((openDoors.indexOf(doorTile) > -1)) {
+						worldGrid[tileIndex] = TILE_WALL; //TODO: Make new tile;
+					} // end of if openDoors.indexOf
+				} // end of for eachCol
+			} // end of for eachRow
+			if(!this.ticksInState){	
 				this.sprite.setSprite(sprites.PJDemon.entrance, //TODO: maybe derp emote? 
 				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 				16, 9, false);
@@ -249,23 +259,17 @@ function PJBoss(x, y) {
 			this.sprite.update();
 		}
 	}
-	this.lockDoors = function() {
-		if (!this.isAlive) {			
-			var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
-							 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
+
+	this.deadEvent = function() {
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
-					var doorTile = worldGrid[tileIndex];
-					if ((openDoors.indexOf(doorTile) > -1)) {
-						doorTile = TILE_WALL; //TODO: Make new tile;
-					}
-				}
-			}
-		}
-		} /* else if (!PJDemon.isAlive) {
-					if (worldGrid[arrayIndex] = TILE_WALL) //TODO: Make new tile;
-			}*/
+					if (worldGrid[tileIndex] == TILE_WALL) {
+						worldGrid[tileIndex] = TILE_ROOM_DOOR_NORTH;
+					} // end of if openDoors.indexOf
+				} // end of for eachCol
+			} // end of for eachRow
+		} // end of dead
 
 	return new enemyClass(this, staates);
 }

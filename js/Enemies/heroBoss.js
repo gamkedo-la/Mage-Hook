@@ -3,10 +3,13 @@ function heroBoss(x, y) {
 	this.x = x;
 	this.y = y;
 
-	this.maxHealth = 300; // how many hits till it dies
+	this.maxHealth = 30; // how many hits till it dies 
+	// 30 Placeholder for testing - Loim988
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
 	this.droppedTile = undefined;
+	this.initialState = "bossIntro";
+	this.isAlive = true;
 
 	this.tileColliderWidth = 18;
 	this.tileColliderHeight = 12;
@@ -33,39 +36,23 @@ function heroBoss(x, y) {
 	var minMoveTime = 1.5;
 	var maxMoveTime = 2.5;
 
-	this.lockDoors = function() {
-		if (this.isAlive) {
-			var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
-							 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
+	var staates = {
+		bossIntro: function() {
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
+									 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
 					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
 					var doorTile = worldGrid[tileIndex];
-					console.log("lockDoors: " + worldGrid[arrayIndex]);
 					if ((openDoors.indexOf(doorTile) > -1)) {
-						doorTile = TILE_WALL; //TODO: Make new tile;
-					}
-				}
-			}
-		}
-		/*} else if (!this.isAlive) {
-					if (worldGrid[arrayIndex] = TILE_WALL) //TODO: Make new tile;*/
-	}
-
-	var staates = {
-		/*bossIntro: function(){
-			if(!this.ticksInState){
-				this.enemyData.lockDoors();	
-				this.sprite.setSprite(sprites.PJDemon.entrance,
-				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-				16, 9, false);
-			}
-			if(this.sprite.isDone()){
-				this.setState("derpAround");
-				return;
-			}
+						worldGrid[tileIndex] = TILE_WALL; //TODO: Make new tile;
+					} // end of if openDoors.indexOf
+				} // end of for eachCol
+			} // end of for eachRow
+			this.setState("derpAround");
+			return;
 			this.sprite.update();
-		},*/
+		}, // end of bossIntro
 		normal : function(){
 			if(this.maxHealth != this.currentHealth){
 				if( Math.abs(this.y - player.y) < 20 ){
@@ -224,6 +211,17 @@ function heroBoss(x, y) {
 		
 		}
 	}
+
+	this.deadEvent = function() {
+			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
+					if (worldGrid[tileIndex] == TILE_WALL) {
+						worldGrid[tileIndex] = TILE_ROOM_DOOR_NORTH;
+					} // end of if openDoors.indexOf
+				} // end of for eachCol
+			} // end of for eachRow
+		} // end of dead
 
 	return new enemyClass(this, staates);
 }

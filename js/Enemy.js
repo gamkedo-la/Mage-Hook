@@ -226,7 +226,7 @@ function enemyClass(newEnemy, states){
 	//TODO: make dying state so we can play that sweet sweet slime death animation
 	this.die = function(attackedBy) { //TODO: make die a state? 
 		console.log('An enemy died!');
-		
+		newEnemy.deadEvent();
 		this.isAlive = false;
 		this.x = -99999999;
 		this.y = -99999999;
