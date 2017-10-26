@@ -1,3 +1,7 @@
+var INITIAL_AI_STATE = "derpAround";
+var TEST_AI_PATHFINDING = false;  // a-star pathfinding at all times
+var _DEBUG_DRAW_AI_PATHS = false; // so handy
+
 function enemyClass(newEnemy, states){
 	//states is just an object of fuuuunctions
 
@@ -83,7 +87,7 @@ function enemyClass(newEnemy, states){
 				// 	4, 10, true);
 			}
 			if (directionTimer <= 0 || directionTimer == undefined) {
-				this.setState("derpAround")
+				this.setState(INITIAL_AI_STATE)
 			}
 
 			directionTimer -= TIME_PER_TICK;
@@ -96,12 +100,52 @@ function enemyClass(newEnemy, states){
 				return;
 			}
 		},
+		
+		// A-STAR PATHFINDING - seek out the player
+		seek : function(){
+			
+			//if (!this.currentPath) // retain from last frame? FIXME: only recalculate if we moved a lot
+			{
+				//console.log("Pathfinding...");
+				//console.log("a-star data row count is " + currentRoom.pathfindingdata.length);
+				var playertile = getTileIndexAtPixelCoord(player.x, player.y);
+				var playerrowcol = ArrayIndexToColRow(playertile);
+				var enemytile = getTileIndexAtPixelCoord(this.x, this.y);
+				var enemyrowcol = ArrayIndexToColRow(enemytile);
+				//console.log('Enemy rowcol = ' + enemyrowcol[0]+','+enemyrowcol[1]);
+				//console.log('Player rowcol = ' + playerrowcol[0]+','+playerrowcol[1]);
+				this.currentPath = AStarPathfinding.findPath(currentRoom.pathfindingdata,enemyrowcol,playerrowcol);
+				//console.log("New path length: " + this.currentPath.length);
+			}
+			
+			// yumyum
+			// TODO: this is the old player seek code:
+			//var angle = Math.atan2(player.y - this.y, player.x - this.x);
+			//var speed = 2;
+			//velX = Math.cos(angle) * speed;
+			//velY = Math.sin(angle) * speed;
+			//this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+			//this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			//directionTimer -= TIME_PER_TICK;
+			
+			
+			this.sprite.update();
+			this.tileBehaviorHandler();
+		},	
+		
 		derpAround : function(){
-			var willWander = Math.random() * 5;
-			if(willWander > 1){
-				this.setState("wander")
-			} else if (willWander < 3) {
-				this.setState("normal")
+			if (TEST_AI_PATHFINDING)
+			{
+				this.setState("seek");
+			}
+			else
+			{
+				var willWander = Math.random() * 5;
+				if(willWander > 1){
+					this.setState("wander")
+				} else if (willWander < 3) {
+					this.setState("normal")
+				}
 			}
 		},
 		recoil : function(){
@@ -171,10 +215,11 @@ function enemyClass(newEnemy, states){
 	//TODO: should I wrap this in an init function? 
 	//loads states 
 	for(var i in states){
-		this.stateMachine[i] = states[i]//no error checking yet :3	
+		this.stateMachine[i] = states[i]; //no error checking yet :3	
 	}
+	
 	if(!newEnemy.initialState)
-		newEnemy.initialState = "derpAround"
+		newEnemy.initialState = INITIAL_AI_STATE;
 
 	this.setState(newEnemy.initialState)
 
@@ -269,7 +314,22 @@ function enemyClass(newEnemy, states){
         }
         if(_DEBUG_DRAW_HITBOX_COLLIDERS) {
 			this.hitbox.draw('red');
-        }
+		}
+		if (_DEBUG_DRAW_AI_PATHS)
+		{
+			if (this.currentPath && this.currentPath.length>1)
+			{
+				for (var rp=0; rp<this.currentPath.length-1; rp++)
+				{
+					colorLine(
+						this.currentPath[rp][0]*WORLD_W+WORLD_W/2,
+						this.currentPath[rp][1]*WORLD_H,
+						this.currentPath[rp+1][0]*WORLD_W+WORLD_W/2,
+						this.currentPath[rp+1][1]*WORLD_H,
+						"rgba(255,0,0,0.25)");
+				}
+			}
+		}
 	}
 
 	this.updateColliders = function() {
