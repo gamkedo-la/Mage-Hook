@@ -557,24 +557,12 @@ function playerClass() {
 				}
 				break;
 			case TILE_PIT_HORIZONTAL_TOP:
-				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
-				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
-				this.x = landingTileCenter.x;
-				this.y = landingTileCenter.y;
 				currentFloor--;
 				break;
 			case TILE_TOP_LEFT_PIT_CORNER:
-				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
-				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
-				this.x = landingTileCenter.x;
-				this.y = landingTileCenter.y;
 				currentFloor--;
 				break;
 			case TILE_TOP_RIGHT_PIT_CORNER:
-				tileIndex = getTileIndexAtPixelCoord(player.x, player.y);
-				landingTileCenter = calculateCenterCoordOfTileIndex(tileIndex);
-				this.x = landingTileCenter.x;
-				this.y = landingTileCenter.y;
 				currentFloor--;
 				break;
 			case TILE_SKULL:

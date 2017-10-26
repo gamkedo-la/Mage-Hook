@@ -2,17 +2,11 @@ const RANGED_ATTACK_SPEED = 2;
 const BLOOD_SPLATTER_SPEED = 1;
 const PARTICLES_PER_ENEMY_HIT = 16;
 
-var pastX = 0;
-var pastY = 0;
-
-var obstacle = {
-	x: 0,
-	y: 0
-}
-
 function magicClass(magic, enemyList) {
 	this.x = magic.x;
 	this.y = magic.y;
+	this.pastX = this.x;
+	this.pastY = this.y;
 	this.maxHealth = magic.maxHealth;
 	this.isFacing = magic.isFacing;
 	this.lifetime = magic.lifetime || false;
@@ -47,8 +41,8 @@ function magicClass(magic, enemyList) {
 	}
 
 	this.update = function() {
-		pastX = this.x;
-		pastY = this.y;
+		this.pastX = this.x;
+		this.pastY = this.y;
 		this.doesSpellHitTile();
 		if(this.sprite.isDone() || this.remove){
 			var index = currentRoom.magic.indexOf(this);
@@ -84,16 +78,19 @@ function magicClass(magic, enemyList) {
 	}
 
 	this.doesSpellHitTile = function() { //only tests when Spell travels WEST/EAST for now
+		if (magic.obstacle == undefined) {
+			return;
+		}
 		if (this.attackDir[0] < 0) {
-			console.log(Math.floor(pastX));
-			if (pastX <= obstacle.x) {
+			console.log(Math.floor(this.pastX));
+			if (this.pastX <= magic.obstacle.x) {
 				console.log("spell X <= obstacle X");
 				this.remove = true;
 				this.tileHit();
 			}
 		} else if (this.attackDir[0] > 0) {
-			console.log(Math.floor(pastX));
-			if (pastX >= obstacle.x) {
+			console.log(Math.floor(this.pastX));
+			if (this.pastX >= magic.obstacle.x) {
 				console.log("spell X >= obstacle X");
 				this.remove = true;
 				this.tileHit();

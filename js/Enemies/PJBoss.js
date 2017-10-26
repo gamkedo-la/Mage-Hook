@@ -255,8 +255,8 @@ function PJBoss(x, y) {
 							 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
-					var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-					var doorTile = worldGrid[arrayIndex];
+					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
+					var doorTile = worldGrid[tileIndex];
 					if ((openDoors.indexOf(doorTile) > -1)) {
 						doorTile = TILE_WALL; //TODO: Make new tile;
 					}

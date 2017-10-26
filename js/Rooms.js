@@ -66,10 +66,20 @@ function Room(roomLayout) {
 					var x = eachCol * WORLD_W + WORLD_W/2;
 					var y = eachRow * WORLD_H + WORLD_H/2;
 					placeItem(x, y, this, ITEM_ARTIFACT);
+				} else if(this.layout[arrayIndex] == TILE_FIREBALL_LVL2) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_FIREBALL_LVL2);
+				} else if(this.layout[arrayIndex] == TILE_FIREBALL_LVL3) {
+					this.layout[arrayIndex] = TILE_GROUND;
+					var x = eachCol * WORLD_W + WORLD_W/2;
+					var y = eachRow * WORLD_H + WORLD_H/2;
+					placeItem(x, y, this, ITEM_FIREBALL_LVL3);
 				} // end of place item on tile
 			} // end of col for
 		} // end of row for
-	}//end of spawn items
+	} //end of spawn items
 
 		
 
@@ -223,9 +233,10 @@ function Room(roomLayout) {
 			console.log("considerRoomChange just noticed a floor change...")
 			if ((currentFloor-lastValidCurrentFloor) == 1) { //Going up
 				player.x += 30; //Offset for stairs
-			}
-			else if ((currentFloor-lastValidCurrentFloor) == -1 &&
-				worldGrid[getTileIndexAtPixelCoord(player.x, player.y) - 1] == TILE_STAIRS_DOWN) { //Going down
+			} else if 
+				((currentFloor-lastValidCurrentFloor) == -1 &&
+				worldGrid[getTileIndexAtPixelCoord(player.x, player.y) - 1] == TILE_STAIRS_DOWN) 
+				{ //Going down
 				player.x -= 30; //Offset for stairs
 			}
 			Sound.play("room_change",false,0.1);

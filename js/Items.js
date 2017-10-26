@@ -95,16 +95,16 @@ function itemClass(posX, posY, speed, type, angle) {
             var colliderOffsetY = 0;
             break;
         case(ITEM_FIREBALL_LVL2):
-        this.sprite.setSprite(worldPics[TILE_FIREBALL_LVL2], 20, 20, 1, 0);
-            var colliderWidth = 10;
-            var colliderHeight = 10;
+        this.sprite.setSprite(sprites.Item.fireballLvl2, 32, 32, 4, 7, true);
+            var colliderWidth = 20;
+            var colliderHeight = 20;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
             break;
         case(ITEM_FIREBALL_LVL3):
-        this.sprite.setSprite(worldPics[TILE_FIREBALL_LVL3], 20, 20, 1, 0);
-            var colliderWidth = 10;
-            var colliderHeight = 10;
+        this.sprite.setSprite(sprites.Item.fireballLvl3, 32, 32, 4, 7, true);
+            var colliderWidth = 20;
+            var colliderHeight = 20;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
             break;
@@ -178,6 +178,9 @@ function itemClass(posX, posY, speed, type, angle) {
 			case TILE_WALL_SOUTH:
 			case TILE_WALL_WEST:
 			case TILE_WALL_EAST:
+            case TILE_DOOR_COMMON:
+            case TILE_DOOR_RARE:
+            case TILE_DOOR_EPIC:
             case TILE_STAIRS_UP:
             case TILE_STAIRS_DOWN:
 			case TILE_WALL_CORNER_NE:
@@ -334,14 +337,14 @@ function pickUpItems(collider) {
                     attackBuff += 0.25;
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');
-                case ITEM_FIREBALL_LVL2:
+                case ITEM_FIREBALL_LVL2: //TODO: add booleans to bulletSpell
                     attackBuff += 0.25;
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'green');
-                case ITEM_FIREBALL_LVL3:
-                    attackBuff += 0.25;
+                case ITEM_FIREBALL_LVL3: //TODO: add booleans to bulletSpell
+                    attackBuff += 0.25; 
                     Sound.play('key_pickup', false, 0.1);
-                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'SteelBlue');
+                    particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'lightblue');
             }
         }
     }

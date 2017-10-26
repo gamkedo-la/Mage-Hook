@@ -100,6 +100,9 @@ function loadImages() {
 		{set: "Hud", name: "heartFull", fileName: "heartFull.png"},
 		{set: "Hud", name: "heartHalf", fileName: "heartHalf.png"},
 
+		{set: "Item", name: "fireballLvl2", fileName: "fireball Powerup lvl2.png"},
+		{set: "Item", name: "fireballLvl3", fileName: "fireball Powerup3.png"},
+
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_NOTHING, theFile: "world_nothingness.png"},

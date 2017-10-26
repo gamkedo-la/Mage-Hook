@@ -1,4 +1,4 @@
-BONE_SPLATTER_SPEED = 0.5;
+const BONE_SPLATTER_SPEED = 0.5;
 
 function boneThrow(x, y, isFacing) {
 	Sound.play("player_attack");
@@ -24,18 +24,33 @@ function boneThrow(x, y, isFacing) {
 	var nextTileX = this.x;
 	var nextTileY = this.y;
 	isGround = true;
+	var tileSearchSpeed = 1;
 		while (isGround) {
 			if (this.attackDir[1] < 0) { // NORTH
-				nextTileY -= 20; 
+				nextTileY -= tileSearchSpeed; 
 			} else if (this.attackDir[1] > 0) { // SOUTH
-				nextTileY += 20;
+				nextTileY += tileSearchSpeed;
 			} else if (this.attackDir[0] > 0) { // EAST
-				nextTileX += 20;
+				nextTileX += tileSearchSpeed;
 			} else if (this.attackDir[0] < 0) { // WEST
-				nextTileX -= 20;
+				nextTileX -= tileSearchSpeed;
 			}
+			var obstacleTiles = [TILE_WALL,TILE_SKULL,TILE_DOOR_COMMON,TILE_BOX,TILE_DOOR_RARE,
+								 TILE_DOOR_EPIC,TILE_STAIRS_UP,TILE_WALL_SOUTH,TILE_WALL_NORTH,
+								 TILE_WALL_WEST,TILE_WALL_EAST,TILE_WALL_CORNER_SW,TILE_WALL_CORNER_SE,
+								 TILE_WALL_CORNER_NW,TILE_WALL_CORNER_NE,TILE_ROOM_DOOR_NORTH,
+								 TILE_ROOM_DOOR_SOUTH,TILE_ROOM_DOOR_EAST,TILE_ROOM_DOOR_WEST,
+								 TILE_NOTHING,TILE_WALL_OUTCORNER_SW,TILE_WALL_OUTCORNER_SE,
+								 TILE_WALL_OUTCORNER_NW,TILE_WALL_OUTCORNER_NE,TILE_WALL_SOUTH_TORCH,
+								 TILE_WALL_NORTH_TORCH,TILE_WALL_WEST_TORCH,TILE_WALL_EAST_TORCH,
+								 TILE_SMALL_WALL_HORIZ,TILE_SMALL_WALL_VERT,TILE_SMALL_WALL_PILLAR,
+								 TILE_SMALL_WALL_NE,TILE_SMALL_WALL_NW,TILE_SMALL_WALL_SE,
+								 TILE_SMALL_WALL_SW,TILE_SMALL_WALL_CAP_EAST,TILE_SMALL_WALL_CAP_WEST,
+								 TILE_SMALL_WALL_CAP_NORTH,TILE_SMALL_WALL_CAP_SOUTH,TILE_SMALL_WALL_INTO_BIG_EAST,
+								 TILE_SMALL_WALL_INTO_BIG_WEST,TILE_SMALL_WALL_INTO_BIG_SOUTH,
+								 TILE_SMALL_WALL_INTO_BIG_NORTH];
 			tileIndex = getTileIndexAtPixelCoord(nextTileX, nextTileY);
-			if (worldGrid[tileIndex] != TILE_GROUND) {
+			if ((obstacleTiles.indexOf(worldGrid[tileIndex])) > -1) {
 				return calculateTopLeftCoordOfTileIndex(tileIndex);
 				break;
 			}
@@ -56,14 +71,14 @@ function boneThrow(x, y, isFacing) {
 		case EAST:
 			this.x += 13;
 			this.attackDir = [2,0];
-			obstacle = this.raycasting();
+			this.obstacle = this.raycasting();
 			console.log(obstacle);
 			break;
 		case WEST:
 			this.x -= 25;
 			this.attackDir = [-2,0];
-			obstacle = this.raycasting();
-			obstacle.x += 20
+			this.obstacle = this.raycasting();
+			this.obstacle.x += WORLD_W;
 			console.log(obstacle);		
 			break;
 	}
