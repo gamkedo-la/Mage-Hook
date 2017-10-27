@@ -95,14 +95,14 @@ function itemClass(posX, posY, speed, type, angle) {
             var colliderOffsetY = 0;
             break;
         case(ITEM_FIREBALL_LVL2):
-        this.sprite.setSprite(sprites.Item.fireballLvl2, 32, 32, 4, 7, true);
+        this.sprite.setSprite(sprites.Item.fireballLvl2, 32, 32, 4, 1.5, true);
             var colliderWidth = 20;
             var colliderHeight = 20;
             var colliderOffsetX = 0;
             var colliderOffsetY = 0;
             break;
         case(ITEM_FIREBALL_LVL3):
-        this.sprite.setSprite(sprites.Item.fireballLvl3, 32, 32, 4, 7, true);
+        this.sprite.setSprite(sprites.Item.fireballLvl3, 32, 32, 4, 2, true);
             var colliderWidth = 20;
             var colliderHeight = 20;
             var colliderOffsetX = 0;
@@ -115,6 +115,7 @@ function itemClass(posX, posY, speed, type, angle) {
 						                 colliderOffsetX, colliderOffsetY);
 
     this.update = function() {
+        this.sprite.update();
 
         if (this.collider.moveOnAxis(this, velX, X_AXIS)) {
             velX = -velX;
@@ -144,7 +145,6 @@ function itemClass(posX, posY, speed, type, angle) {
                         velY = -velY;
                     }
                 }
-
                 this.tileBehaviorHandler();
             }
 
