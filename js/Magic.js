@@ -81,17 +81,31 @@ function magicClass(magic, enemyList) {
 		if (magic.obstacle == undefined) {
 			return;
 		}
-		if (this.attackDir[0] < 0) {
+		if (this.attackDir[0] < 0) { // WEST
 			console.log(Math.floor(this.pastX));
 			if (this.pastX <= magic.obstacle.x) {
 				console.log("spell X <= obstacle X");
 				this.remove = true;
 				this.tileHit();
 			}
-		} else if (this.attackDir[0] > 0) {
+		} else if (this.attackDir[0] > 0) { // EAST
 			console.log(Math.floor(this.pastX));
 			if (this.pastX >= magic.obstacle.x) {
 				console.log("spell X >= obstacle X");
+				this.remove = true;
+				this.tileHit();
+			}
+		} else if (this.attackDir[1] < 0) { // NORTH
+			console.log(Math.floor(this.pastX));
+			if (this.pastY >= magic.obstacle.y) {
+				console.log("spell Y <= obstacle Y");
+				this.remove = true;
+				this.tileHit();
+			}
+		} else if (this.attackDir[1] > 0) { // SOUTH
+			console.log(Math.floor(this.pastX));
+			if (this.pastY >= magic.obstacle.y) {
+				console.log("spell Y >= obstacle Y");
 				this.remove = true;
 				this.tileHit();
 			}
