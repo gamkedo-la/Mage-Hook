@@ -20,7 +20,7 @@ function Room(roomLayout) {
 	this.magic = [];
 	this.itemOnGround = [];
 	this.floorTraps = [];
-	this.pathfindingdata = [];
+	this.pathfindingdata = []; // 2d array of ints
 	
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
@@ -88,9 +88,13 @@ function Room(roomLayout) {
 
 	this.generatePathfindingData = function() {
 		console.log("Generating pathfinding data for the current room...");
-		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+		// the a-star pathfinding may not be able to handle
+		// world arrays without same width and height?
+		var _rows = Math.max(WORLD_ROWS,WORLD_COLS);
+		var _cols = Math.max(WORLD_ROWS,WORLD_COLS);
+		for(var eachRow=0;eachRow<_rows;eachRow++) {
 			this.pathfindingdata[eachRow] = [];
-			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+			for(var eachCol=0;eachCol<_cols;eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 				this.pathfindingdata[eachRow][eachCol] = this.layout[arrayIndex];
 			}

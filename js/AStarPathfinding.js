@@ -388,13 +388,14 @@ function AStarPathfindingClass() // Class Constructor
 						{
 							// BUGFIX 2017 - f and g flipped?
 							// estimated cost of this particular route so far
-							myPath.f = myNode.g + distanceFunction(myNeighbours[i], myNode);
+							//myPath.f = myNode.g + distanceFunction(myNeighbours[i], myNode);
 							// estimated cost of entire guessed route to the destination
-							myPath.g = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
+							//myPath.g = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
+							
 							// estimated cost of this particular route so far
-							//myPath.g = myNode.g + distanceFunction(myNeighbours[i], myNode);
+							myPath.g = myNode.g + distanceFunction(myNeighbours[i], myNode);
 							// estimated cost of entire guessed route to the destination
-							//myPath.f = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
+							myPath.f = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
 							// remember this new path for testing above
 							Open.push(myPath);
 							// mark this node in the world graph as visited
