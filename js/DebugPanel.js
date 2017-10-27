@@ -123,8 +123,9 @@ function panelKeyCapture(panel, evt)
         var key = evt.keyCode;
 		if (key == KEY_ESCAPE) {
 			panel.selected = undefined;
-			panel.buffer = "";
+			panel.buffer = "";			
 		}
+
         if (key >= KEY_NUMPAD_0 && key <= KEY_NUMPAD_9)
         {
             var num = key-96;

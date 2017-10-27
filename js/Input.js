@@ -39,6 +39,7 @@ const KEY_TAB = 9; // tile editor
 const KEY_Z = 90; // dash
 const KEY_X = 88; // range attack
 const KEY_M = 77; // testing raycasting
+const KEY_P = 80; // pause update
 
 var mouseX = 0;
 var mouseY = 0;
@@ -208,6 +209,9 @@ function keyPressed(evt) {
 			currentFloor--;
 			loadLevel(roomCoordToVar);
 			//}
+			break;
+		case KEY_P: 
+			paused = !paused;
 			break;
 		default:
 			otherKeyPressed=false;

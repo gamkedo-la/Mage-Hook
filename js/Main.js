@@ -8,6 +8,7 @@ var hud = new hudClass();
 var particleList = [];
 
 var obstacle = 0;
+var paused = false;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -51,6 +52,11 @@ function loadLevel() {
 }
 
 function updateAll() {
+	currentRoom.updatePathfindingData()
+	if(paused){
+		return;
+	}
+
 	moveAll();
 	drawAll();
 	if (_DEBUG_ENABLE_TILE_EDITOR == true) {
@@ -61,6 +67,8 @@ function updateAll() {
 }
 
 function moveAll() {
+	
+
 	player.move();
 	player.poisoned();
 	currentRoom.moveMyEnemies();

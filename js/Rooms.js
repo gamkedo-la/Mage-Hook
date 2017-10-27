@@ -21,12 +21,14 @@ function Room(roomLayout) {
 	this.itemOnGround = [];
 	this.floorTraps = [];
 	this.pathfindingdata = []; // 2d array of ints
+	this.tempPathFindingData = []; // copy of 2d array of ints. 
 	
 	this.reset = function(){
 		this.layout = this.originalLayout.slice();
 		this.enemyList = [];
 		this.itemOnGround = [];
 		this.pathfindingdata = []; // a-star pathfinding grid
+		this.tempPathFindingData = []; //a-star pathfinding grid with dynamic things like the player
 		if (!_DEBUG_ENABLE_TILE_EDITOR) {
 			this.spawnItems();
 			this.spawnTraps();
@@ -94,11 +96,28 @@ function Room(roomLayout) {
 		var _cols = Math.max(WORLD_ROWS,WORLD_COLS);
 		for(var eachRow=0;eachRow<_rows;eachRow++) {
 			this.pathfindingdata[eachRow] = [];
+			this.tempPathFindingData[eachRow] = [];
 			for(var eachCol=0;eachCol<_cols;eachCol++) {
-				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-				this.pathfindingdata[eachRow][eachCol] = this.layout[arrayIndex];
+				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);				
+				this.pathfindingdata[eachRow][eachCol] =canWalk(this.layout[arrayIndex])
+				this.tempPathFindingData[eachRow][eachCol] =canWalk(this.layout[arrayIndex])
 			}
 		}
+	}
+
+	this.updatePathfindingData = function(){
+		var _rows = Math.max(WORLD_ROWS,WORLD_COLS);
+		var _cols = Math.max(WORLD_ROWS,WORLD_COLS);
+		for(var eachRow=0;eachRow<_rows;eachRow++) {			
+			for(var eachCol=0;eachCol<_cols;eachCol++) {
+				this.tempPathFindingData[eachRow][eachCol] = this.pathfindingdata[eachRow][eachCol]
+			}
+		}
+		//Todo: add enemies to path data? 
+		//TODO: should room.js know about player.js? 
+		var playertile = getTileIndexAtPixelCoord(player.x, player.y);
+		var playerrowcol = ArrayIndexToRowCol(playertile);
+		this.tempPathFindingData[playerrowcol[0]][playerrowcol[1]] = 89
 	}
 	
 
@@ -312,11 +331,23 @@ var room0b1 =[
 	20,00,00,00,00,00,00,00,00,00,21,31,31,31,31,31,
 	22,18,18,18,36,18,18,18,27,18,23,31,31,31,31,31];
 
+	// var room1b1 = [
+	// 24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
+	// 20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
+	// 38,00,00,00,00,00,00,04,63,03,09,00,00,00,00,39,
+	// 20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
+	// 29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
+	// 22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
+	// 31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,
+	// 31,31,31,31,22,18,35,00,00,00,00,00,00,00,00,21,
+	// 31,31,31,31,31,31,22,18,18,18,18,36,18,18,18,23];
+
+	//pathfinding testing
 	var room1b1 = [
 	24,19,19,37,19,19,19,19,26,19,19,19,37,19,19,25,
 	20,10,08,00,00,00,00,06,00,00,00,00,00,00,00,21,
-	38,00,00,00,00,00,00,04,63,03,09,00,00,00,00,39,
-	20,07,06,00,00,00,00,12,00,00,00,00,16,00,00,21,
+	38,00,00,00,00,00,00,04,00,03,00,00,00,00,00,39,
+	20,07,00,00,00,00,00,12,00,00,00,00,16,00,00,21,
 	29,00,00,00,00,10,00,13,00,00,00,00,17,00,00,39,
 	22,18,18,18,35,00,00,00,00,00,10,00,00,00,00,21,
 	31,31,31,31,20,00,00,00,00,00,00,00,00,00,08,21,

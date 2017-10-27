@@ -295,9 +295,9 @@ function AStarPathfindingClass() // Class Constructor
 		// returns boolean value (world cell is available and open)
 		function canWalkHere(x, y)
 		{
-			return ((world[x] != null) &&
-				(world[x][y] != null) &&
-				(world[x][y] <= maxWalkableTileNum));
+			return ((world[y] != null) &&
+				(world[y][x] != null) &&
+				(world[y][x] <= maxWalkableTileNum));
 		};
 
 		// Node function, returns a new object with Node properties
@@ -369,6 +369,7 @@ function AStarPathfindingClass() // Class Constructor
 					do
 					{
 						result.push([myPath.x, myPath.y]);
+						colorRect(myPath.y*20, myPath.x*20, 20,20, "rgba(0,128,0,0.75)") //TODO:remove
 					}
 					while (myPath = myPath.Parent);
 					// clear the working arrays
@@ -398,6 +399,7 @@ function AStarPathfindingClass() // Class Constructor
 							myPath.f = myPath.g + distanceFunction(myNeighbours[i], mypathEnd);
 							// remember this new path for testing above
 							Open.push(myPath);
+							colorRect(myPath.x*20,myPath.y*20, 20,20, "rgba(30,30,30,0.25)") //TODO:remove
 							// mark this node in the world graph as visited
 							AStar[myPath.value] = true;
 						}

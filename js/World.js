@@ -117,10 +117,36 @@ function rowColToArrayIndex(col, row) {
 function ArrayIndexToRowCol(index) { // is this correct? FIXME
 	return [Math.floor(index / WORLD_ROWS), index % WORLD_COLS];
 }
+
 function ArrayIndexToColRow(index) { // is this correct? FIXME
 	return [index % WORLD_COLS,Math.floor(index / WORLD_COLS)];
 }
 
+function canWalk(tileType){
+	var returnValue = 1;
+	switch(tileType){
+		case TILE_KEY_COMMON:
+		case TILE_ENEMYSTART:
+		case TILE_CHAIN:
+		case TILE_OOZE:
+		case TILE_WEB:
+		case TILE_KEY_RARE:
+		case TILE_KEY_EPIC:
+		case TILE_CRYSTAL:
+		case TILE_FIREBALL_LVL2:
+		case TILE_FIREBALL_LVL3:
+		case TILE_GROUND:
+		case TILE_KEY_COMMON:
+			returnValue = 0;
+			break
+		default: 
+    		// Default case
+    		returnValue = tileType;
+    		break;
+	}
+	//not immediately returning because might include path speeds in this value later
+	return returnValue;
+}
 function tileTypeHasTransparency(checkTileType) {
 	return (checkTileType == TILE_SKULL ||
 			checkTileType == TILE_KEY_COMMON ||

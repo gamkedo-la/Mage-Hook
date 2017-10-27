@@ -59,6 +59,10 @@ function enemyClass(newEnemy, states){
 		this.currentState();
 		if(!freshState)
 			this.ticksInState += 1;
+
+		if (_TEST_AI_PATHFINDING){
+			this.updatePathfinding(); 
+		}
 	} 
 
 	this.setState = function(newState){
@@ -280,10 +284,7 @@ function enemyClass(newEnemy, states){
 		{
 			// this is a strange place to update the pathfinding
 			// but other classes override default functions here
-			if (_TEST_AI_PATHFINDING)
-			{
-				this.updatePathfinding(); 
-			}
+			
 
 			if (this.currentPath && this.currentPath.length>1)
 			{
@@ -305,9 +306,15 @@ function enemyClass(newEnemy, states){
 		//console.log("a-star data row count is " + currentRoom.pathfindingdata.length);
 		var playertile = getTileIndexAtPixelCoord(player.x, player.y);
 		var playerrowcol = ArrayIndexToColRow(playertile);
+		colorRect(playerrowcol[0] * 20, playerrowcol[1] * 20, 20,20, "rgba(255,0,0,0.25)")
+
 		var enemytile = getTileIndexAtPixelCoord(this.x, this.y);
 		var enemyrowcol = ArrayIndexToColRow(enemytile);
-		this.currentPath = AStarPathfinding.findPath(currentRoom.pathfindingdata,enemyrowcol,playerrowcol);
+		colorRect(enemyrowcol[0]*20, enemyrowcol[1]*20, 20,20, "rgba(255,0,0,0.25)")
+
+		currentRoom.updatePathfindingData();
+
+		this.currentPath = AStarPathfinding.findPath(currentRoom.tempPathFindingData,enemyrowcol,playerrowcol);
 		//console.log("New path length: " + this.currentPath.length);
 		if (this.currentPath.length==0) // imposible to get to player from here?
 		{
