@@ -177,7 +177,7 @@ function PJBoss(x, y) {
 			if(this.sprite.isDone()){
 				this.setState("derpAround");
 				this.velX = 2;
-				boneThrow(this.x, this.y, SOUTH)
+				desecrate(this.x, this.y, SOUTH)
 				return;
 			}
 			this.sprite.update();

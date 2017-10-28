@@ -72,6 +72,11 @@ function loadImages() {
 		{set: "PJDemon", name: "WalkRight", fileName: "PJDemon/Walk Right.png"},
 		{set: "PJDemon", name: "WalkSouth", fileName: "PJDemon/Walk South.png"},
 
+		{set: "Desecrate", name: "Ball", fileName: "PJDemon/desecrteBall.png"},
+		{set: "Desecrate", name: "Splash", fileName: "PJDemon/desecrteSplash.png"},
+		{set: "Desecrate", name: "Disappear", fileName: "PJDemon/desecrteDisappear.png"},
+		{set: "Desecrate", name: "Spill", fileName: "PJDemon/desecrteSpill.png"},
+
 
 		{set: "Slime", name: "idleAnimation", fileName: "slimeIdle.png"},
 		{set: "Slime", name: "deathAnimation", fileName: "slimeDeath.png"},
