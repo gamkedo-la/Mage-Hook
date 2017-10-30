@@ -142,7 +142,7 @@ function heroBoss(x, y) {
 		},
 		praiseIt: function(){
 			if(!this.ticksInState){		
-				this.sprite.setSprite(sprites.HeroBoss.praiseIt, //TODO: maybe derp emote? 
+				this.sprite.setSprite(sprites.HeroBoss.praiseIt,
 				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 				4, 2, false);
 				this.velX = 2;

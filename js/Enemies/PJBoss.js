@@ -229,17 +229,6 @@ function PJBoss(x, y) {
 		
 		},
 		bossIntro: function(){
-			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
-				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
-					var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
-									 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
-					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
-					var doorTile = worldGrid[tileIndex];
-					if ((openDoors.indexOf(doorTile) > -1)) {
-						worldGrid[tileIndex] = TILE_WALL; //TODO: Make new tile;
-					} // end of if openDoors.indexOf
-				} // end of for eachCol
-			} // end of for eachRow
 			if(!this.ticksInState){	
 				this.sprite.setSprite(sprites.PJDemon.entrance, //TODO: maybe derp emote? 
 				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
@@ -252,6 +241,17 @@ function PJBoss(x, y) {
 				this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);				
 				this.tileBehaviorHandler();
 			}
+			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+					var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
+									 TILE_ROOM_DOOR_EAST, TILE_ROOM_DOOR_WEST];
+					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
+					var doorTile = worldGrid[tileIndex];
+					if ((openDoors.indexOf(doorTile) > -1)) {
+						worldGrid[tileIndex] = TILE_WALL; //TODO: Make new tile;
+					} // end of if openDoors.indexOf
+				} // end of for eachCol
+			} // end of for eachRow
 			if(this.sprite.isDone()){
 				this.setState("derpAround");
 				return;
