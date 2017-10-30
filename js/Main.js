@@ -52,7 +52,10 @@ function loadLevel() {
 }
 
 function updateAll() {
-	currentRoom.updatePathfindingData()
+	
+	if (_TEST_AI_PATHFINDING)
+		currentRoom.updatePathfindingData()
+	
 	if(paused){
 		return;
 	}

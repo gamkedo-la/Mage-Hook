@@ -33,7 +33,10 @@ function Room(roomLayout) {
 			this.spawnItems();
 			this.spawnTraps();
 			this.spawnMyEnemies();
-			this.generatePathfindingData();
+			
+			if (_TEST_AI_PATHFINDING)
+				this.generatePathfindingData();
+				
 		}
 	}
 
