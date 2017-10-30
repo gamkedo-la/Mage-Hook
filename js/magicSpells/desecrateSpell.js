@@ -1,11 +1,10 @@
-
-
 function desecrate(x, y, isFacing) {
 	Sound.play("player_attack");
 	
 	this.x = x;
 	this.y = y;
 	this.isFacing = isFacing;
+	this.canRaycast = true;
 	
 	this.attackFrames = {
 		0: {x1: 0, y1: 0, x2: 20, y2:20 },

@@ -4,6 +4,7 @@ function muunch(x, y, isFacing) {
 	this.x = x;
 	this.y = y;
 	this.isFacing = EAST;
+	this.canRaycast = false;
 	
 	this.attackFrames = {
 		

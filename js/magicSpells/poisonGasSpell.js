@@ -4,13 +4,14 @@ function poisonGasAttack(x, y) {
 	this.x = x;
 	this.y = y;
 	this.lifetime = 100;
+	this.canRaycast = false;
 	
 	this.attackFrames = {
 		
-		0: {x1: 0, y1: 0, x2: 32, y2:32 },
-		1: {x1: 0, y1: 0, x2: 32, y2:32 },
-		2: {x1: 0, y1: 0, x2: 32, y2:32 }};
-		
+		0: {x1: 0, y1: 6, x2: 28, y2:18 },
+		1: {x1: 0, y1: 6, x2: 28, y2:18 },
+		2: {x1: 0, y1: 6, x2: 28, y2:18 }};
+
 	this.spriteSheet = sprites.PlantBaby.poisonCloud;
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
@@ -20,6 +21,10 @@ function poisonGasAttack(x, y) {
 	this.attackDir = [0,-1];
 
 	console.log("cloud made");
+
+	this.raycasting = function() {
+		return;
+	}
 
 	this.onHitEnemy = function (enemy) {
 		this.remove = false;

@@ -10,6 +10,7 @@ function magicClass(magic, enemyList) {
 	this.maxHealth = magic.maxHealth;
 	this.isFacing = magic.isFacing;
 	this.lifetime = magic.lifetime || false;
+	this.canRaycast = magic.canRaycast;
 	 
 	this.collider = new boxColliderClass(this.x, this.y, 0, 0, 0, 0);
 	 
@@ -77,37 +78,40 @@ function magicClass(magic, enemyList) {
 		}
 	}
 
-	this.doesSpellHitTile = function() { //only tests when Spell travels WEST/EAST for now
-		if (magic.obstacle == undefined) {
-			return;
-		}
-		if (this.attackDir[0] < 0) { // WEST
-			console.log(Math.floor(this.pastX));
-			if (this.pastX <= magic.obstacle.x) {
-				console.log("spell X <= obstacle X");
-				this.remove = true;
-				this.tileHit();
-			}
-		} else if (this.attackDir[0] > 0) { // EAST
-			console.log(Math.floor(this.pastX));
-			if (this.pastX >= magic.obstacle.x) {
-				console.log("spell X >= obstacle X");
-				this.remove = true;
-				this.tileHit();
-			}
-		} else if (this.attackDir[1] < 0) { // NORTH
-			console.log(Math.floor(this.pastX));
-			if (this.pastY >= magic.obstacle.y) {
-				console.log("spell Y <= obstacle Y");
-				this.remove = true;
-				this.tileHit();
-			}
-		} else if (this.attackDir[1] > 0) { // SOUTH
-			console.log(Math.floor(this.pastX));
-			if (this.pastY >= magic.obstacle.y) {
-				console.log("spell Y >= obstacle Y");
-				this.remove = true;
-				this.tileHit();
+	this.doesSpellHitTile = function() {
+		if (this.canRaycast) {
+			if (this.attackDir[0] < 0) { // WEST
+				console.log(Math.floor(this.pastX));
+				if (this.pastX <= magic.obstacle.x) {
+					console.log("spell X <= obstacle X");
+					this.remove = true;
+					this.tileHit();
+					obstacle.x = undefined;
+				}
+			} else if (this.attackDir[0] > 0) { // EAST
+				console.log(Math.floor(this.pastX));
+				if (this.pastX >= magic.obstacle.x) {
+					console.log("spell X >= obstacle X");
+					this.remove = true;
+					this.tileHit();
+					obstacle.x = undefined;
+				}
+			} else if (this.attackDir[1] < 0) { // NORTH
+				console.log(Math.floor(this.pastX));
+				if (this.pastY >= magic.obstacle.y) {
+					console.log("spell Y <= obstacle Y");
+					this.remove = true;
+					this.tileHit();
+					obstacle.y = undefined;
+				}
+			} else if (this.attackDir[1] > 0) { // SOUTH
+				console.log(Math.floor(this.pastX));
+				if (this.pastY >= magic.obstacle.y) {
+					console.log("spell Y >= obstacle Y");
+					this.remove = true;
+					this.tileHit();
+					obstacle.y = undefined;
+				}
 			}
 		}
 	}

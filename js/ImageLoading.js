@@ -45,6 +45,7 @@ function loadImages() {
 		{set: "Player", name: "bulletAttackSouth", fileName: "MainChar/Bullet Attack south.png"},
 		{set: "Player", name: "bulletAttackEast", fileName: "MainChar/Bullet Attack east.png"},
 		{set: "Player", name: "bulletAttackWest", fileName: "MainChar/Bullet Attack west.png"},
+		{set: "Player", name: "deathAnimation", fileName: "MainChar/playerchar_Death_Animation.png"},
 
 		{set: "HeroBoss", name: "Stand", fileName: "HeroBoss/Boss_stand.png"},
 		{set: "HeroBoss", name: "walkSouth", fileName: "HeroBoss/Boss_walk south.png"},

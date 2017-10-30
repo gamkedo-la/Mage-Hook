@@ -6,6 +6,7 @@ function boneThrow(x, y, isFacing) {
 	this.x = x;
 	this.y = y;
 	this.isFacing = isFacing;
+	this.canRaycast = true;
 	
 	this.attackFrames = {
 		0: {x1: 0, y1: 0, x2: 20, y2:20 },
@@ -64,27 +65,23 @@ function boneThrow(x, y, isFacing) {
 			this.attackDir = [0,-1];
 			this.obstacle = this.raycasting();
 			this.obstacle.y -= WORLD_H;
-			console.log(obstacle);
 			break;
 		case SOUTH:
 			this.x -= 6;
 			this.y += 16;
 			this.attackDir = [0,1];
 			this.obstacle = this.raycasting();
-			console.log(obstacle);
 			break;
 		case EAST:
 			this.x += 13;
 			this.attackDir = [2,0];
 			this.obstacle = this.raycasting();
-			console.log(obstacle);
 			break;
 		case WEST:
 			this.x -= 25;
 			this.attackDir = [-2,0];
 			this.obstacle = this.raycasting();
-			this.obstacle.x += WORLD_W;
-			console.log(obstacle);		
+			this.obstacle.x += WORLD_W;		
 			break;
 	}
 

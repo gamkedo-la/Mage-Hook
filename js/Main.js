@@ -7,7 +7,6 @@ var player = new playerClass();
 var hud = new hudClass();
 var particleList = [];
 
-var obstacle = 0;
 var paused = false;
 
 window.onload = function() {
