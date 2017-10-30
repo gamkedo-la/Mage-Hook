@@ -170,7 +170,8 @@ function loadImages() {
 		{worldType: TILE_TOP_RIGHT_PIT_CORNER, theFile: "top_right_pit_corner.png"},
 		
 		{worldType: TILE_HEART_CONTAINER, theFile: "heart_container.png"},
-		{worldType: TILE_ARTIFACT, theFile: "artifact.png"}
+		{worldType: TILE_ARTIFACT, theFile: "artifact.png"},
+		{worldType: TILE_BOSSPJ, theFile: "pjbosstile.png"}
 	];
 
 	picsToLoad = imageList.length;

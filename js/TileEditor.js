@@ -8,7 +8,7 @@ function roomTileCoordinate() {
    	var tileY = (roomRow * WORLD_H);
 
     tileUnderMouse = rowColToArrayIndex(roomCol, roomRow);
-    console.log(roomCol, roomRow, worldGrid[tileUnderMouse]);
+    //console.log(roomCol, roomRow, worldGrid[tileUnderMouse]);
 
     canvasContext.strokeRect(tileX, tileY, WORLD_W, WORLD_H);
     canvasContext.strokeStyle = 'orange';
@@ -63,6 +63,7 @@ function copyToClipboard() {
 	}
 
 	layoutString = layoutString.slice(0,-1);
+	layoutString = "var " + roomName + "= [ \n" + layoutString  + "];"
 	if (_DEBUG_ENABLE_TILE_EDITOR) {
 		window.prompt("Ctrl+C then Enter to close window" + "\n"+
 		roomName + ":", layoutString);

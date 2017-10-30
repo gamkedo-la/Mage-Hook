@@ -117,8 +117,8 @@ function playerClass() {
 			this.inventory.keysRare = 0;
 			this.inventory.keysEpic = 0;
 			this.currentHealth = this.maxHealth;
-			currentRoomCol = 1;
-			currentRoomRow = 1;
+			currentRoomCol = 2;
+			currentRoomRow = 5;
 			currentFloor = 1;
 			lastValidCurrentRoomCol = 1;
 			lastValidCurrentRoomRow = 1;
