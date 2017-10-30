@@ -443,19 +443,21 @@ function playerClass() {
 					}
 					break;
 				case TILE_TRAP:
+					if (this.currentHealth <= 0) {
+						isPoisoned = false;
+					resetAllRooms();
+					player.reset("Untitled Player");
+					Sound.play("player_die");
+					}
 					if (!this.isInvincible) {
 						this.currentHealth--;
 						noDamageForFloor[currentFloor] = false;
 						console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
 						Sound.play("player_hit");
 						this.isInvincible = true;
-						invincibleTimer = INVINCIBLE_DURATION;
+						invincibleTimer = 0.5;
 					}
 					screenShake(5);
-					this.isStunned = true;
-					stunTimer = _STUN_DURATION;
-					knockbackAngle = calculateAngleFrom(this.tileCollider, this.hitbox);
-					knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
 					hitByEnemy = true;
 					break;
 				case TILE_WEB:
