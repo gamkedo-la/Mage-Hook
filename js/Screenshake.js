@@ -5,6 +5,7 @@ var screen_shakes = 0; // frames of screenshake used as player feedback for when
 var screen_shake_pivot_x = 0;
 var screen_shake_pivot_y = 0;
 var screen_shake_me = document.getElementById('gameCanvas');
+var MAX_SCREEN_SHAKES = 30;
 function screenShake(howmany)
 {
 	//console.log('screenshake ' + howmany);
@@ -16,6 +17,10 @@ function screenShake(howmany)
 	screen_shake_pivot_x = 0;
 	screen_shake_pivot_y = 0;
 	screen_shakes += howmany;
+
+	// max out at a reasonable value to avoid infini-shake in tight loops
+	if (screen_shakes>MAX_SCREEN_SHAKES)
+		screen_shakes=MAX_SCREEN_SHAKES;
 }
 
 function updateScreenshake()
