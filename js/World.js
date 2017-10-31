@@ -81,7 +81,7 @@ const TILE_SLIME = 64;
 const TILE_SLUGBRO = 65;
 const TILE_PLANTBABY = 66;
 const TILE_ARMSBRO = 67;
-const TILE_GOBO = 67;
+const TILE_GOBO = 68;
 
 const HIGHEST_TILE_NUMBER = 68;
 

@@ -149,7 +149,13 @@ function armsBro(x, y) {
 	}
 
 	this.deadEvent = function() {
-		return;
+		if (currentRoomCol == 1 && currentRoomRow == 1 && currentFloor == 1) {
+			console.log("dropping keys");
+			dropItem(this.x, this.y, ITEM_KEY_COMMON,2);
+			dropItem(this.x, this.y, ITEM_KEY_COMMON,1);
+		} else {
+			return;
+		}
 	}
 	
 	return new enemyClass(this, staaates);
