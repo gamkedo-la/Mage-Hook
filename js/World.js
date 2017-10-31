@@ -75,9 +75,15 @@ const TILE_FIREBALL_LVL3 = 59;
 const TILE_PIT_HORIZONTAL_TOP = 60;
 const TILE_TOP_LEFT_PIT_CORNER = 61;
 const TILE_TOP_RIGHT_PIT_CORNER = 62;
-const TILE_BOSSPJ = 63;
 
-const HIGHEST_TILE_NUMBER = 63;
+const TILE_BOSSPJ = 63;
+const TILE_SLIME = 64;
+const TILE_SLUGBRO = 65;
+const TILE_PLANTBABY = 66;
+const TILE_ARMSBRO = 67;
+const TILE_GOBO = 67;
+
+const HIGHEST_TILE_NUMBER = 68;
 
 var tileArray = [];
 

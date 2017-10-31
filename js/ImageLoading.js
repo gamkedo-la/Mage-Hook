@@ -117,7 +117,16 @@ function loadImages() {
 		{worldType: TILE_KEY_COMMON, theFile: "world_key_bronze.png"},
 		{worldType: TILE_KEY_RARE, theFile: "world_key_silver.png"},
 		{worldType: TILE_KEY_EPIC, theFile: "world_key_gold.png"},
+
 		{worldType: TILE_ENEMYSTART, theFile: "enemySpawn.png"},
+		{worldType: TILE_SLIME, theFile: "EnemyTiles_0.png"},
+		{worldType: TILE_ARMSBRO, theFile: "EnemyTiles_1.png"},
+		{worldType: TILE_PLANTBABY, theFile: "EnemyTiles_2.png"},
+		{worldType: TILE_SLUGBRO, theFile: "EnemyTiles_3.png"},
+		
+		
+		{worldType: TILE_GOBO, theFile: "enemySpawn.png"},
+
 		{worldType: TILE_FIREBALL_LVL2, theFile: "fireball Powerup lvl2.png"},
 		{worldType: TILE_FIREBALL_LVL3, theFile: "fireball Powerup3.png"},
 

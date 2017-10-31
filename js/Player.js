@@ -1,3 +1,4 @@
+const startHealth = 4;
 var _PLAYER_MOVE_SPEED = 4;
 var _PLAYER_DASH_SPEED_SCALE = 4.0;
 const DASH_TIMESPAN_MS = 250; // how long to dash for
@@ -43,7 +44,7 @@ function playerClass() {
 	this.y = STARTING_POSITION_Y;
 
 	this.name = "Untitled Player";
-	this.maxHealth = 10;
+	this.maxHealth = startHealth;
 	this.enemyHitCount = 0;
 	this.currentHealth = this.maxHealth;
 	this.inventory = {};
