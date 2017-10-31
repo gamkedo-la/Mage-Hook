@@ -109,6 +109,8 @@ function loadImages() {
 		{set: "Item", name: "fireballLvl2", fileName: "fireball Powerup lvl2.png"},
 		{set: "Item", name: "fireballLvl3", fileName: "fireball Powerup3.png"},
 
+		{set: "Ending", name: "tempEndScreen", fileName: "temp-endscreen.png"},
+
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
 		{worldType: TILE_NOTHING, theFile: "world_nothingness.png"},

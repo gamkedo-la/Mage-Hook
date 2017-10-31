@@ -261,15 +261,17 @@ function PJBoss(x, y) {
 	}
 
 	this.deadEvent = function() {
-			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
-				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
-					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
-					if (worldGrid[tileIndex] == TILE_WALL) {
-						worldGrid[tileIndex] = TILE_ROOM_DOOR_NORTH;
-					} // end of if openDoors.indexOf
-				} // end of for eachCol
-			} // end of for eachRow
-		} // end of dead
+		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
+				var tileIndex = rowColToArrayIndex(eachCol, eachRow);
+				if (worldGrid[tileIndex] == TILE_WALL) {
+					worldGrid[tileIndex] = TILE_ROOM_DOOR_NORTH;
+				} // end of if openDoors.indexOf
+			} // end of for eachCol
+		} // end of for eachRow
+		ending();
+
+	} // end of dead
 
 	return new enemyClass(this, staates);
 }
