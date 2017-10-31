@@ -26,8 +26,8 @@ const WEST = 4;
 const ATTACK = 5; // used in input.js for future double tap logic
 const RANGED_ATTACK = 6;
 
-const STARTING_POSITION_X = 188;
-const STARTING_POSITION_Y = 86;
+const STARTING_POSITION_X = 160;
+const STARTING_POSITION_Y = 85;
 
 function playerClass() {
 	var isMoving = false;
