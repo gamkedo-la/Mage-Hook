@@ -1,4 +1,4 @@
-const startHealth = 4;
+const startHealth = 6;
 var _PLAYER_MOVE_SPEED = 4;
 var _PLAYER_DASH_SPEED_SCALE = 4.0;
 const DASH_TIMESPAN_MS = 250; // how long to dash for
