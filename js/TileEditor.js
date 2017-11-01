@@ -49,6 +49,9 @@ function copyToClipboard() {
 		if (i%16==0 && i>0) {
 			layoutString += "\n" + "	";
 		}
+		if (i==0) {
+			layoutString += "	";
+		}
 		if (currentRoom.layout[i] < 10) {
 			layoutString += "0" + currentRoom.layout[i].toString() + ",";
 		} else {
