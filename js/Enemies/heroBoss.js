@@ -3,8 +3,7 @@ function heroBoss(x, y) {
 	this.x = x;
 	this.y = y;
 
-	this.maxHealth = 30; // how many hits till it dies 
-	// 30 Placeholder for testing - Loim988
+	this.maxHealth = 300; // how many hits till it dies 
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
 	this.droppedTile = undefined;
