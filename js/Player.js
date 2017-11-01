@@ -118,6 +118,7 @@ function playerClass() {
 		this.currentlyDying = true;
 		Sound.play("player_die");
 		console.log("Starting player death animation!");
+		sprite.setSprite(sprites.Player.deathAnimation, 32, 32, 16, 8, false);
 		setTimeout(player.respawn,DEATH_RESPAWN_DELAY_MS);
 	}
 
@@ -179,7 +180,11 @@ function playerClass() {
 	this.move = function() {
 
 		// don't do anything during the death anim
-		if (this.currentlyDying) return; 
+		if (this.currentlyDying) 
+		{
+			sprite.update();
+			return; 
+		}
 
 		// Movement optimizations based on feedback from Christer
 		target = { x: this.x, y: this.y };
