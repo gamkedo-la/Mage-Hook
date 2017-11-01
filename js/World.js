@@ -82,8 +82,9 @@ const TILE_SLUGBRO = 65;
 const TILE_PLANTBABY = 66;
 const TILE_ARMSBRO = 67;
 const TILE_GOBO = 68;
+const TILE_POTION = 69;
 
-const HIGHEST_TILE_NUMBER = 68;
+const HIGHEST_TILE_NUMBER = 69;
 
 var tileArray = [];
 
@@ -143,6 +144,7 @@ function canWalk(tileType){
 		case TILE_FIREBALL_LVL3:
 		case TILE_GROUND:
 		case TILE_KEY_COMMON:
+		case TILE_POTION:
 			returnValue = 0;
 			break
 		default: 
@@ -191,8 +193,14 @@ function tileTypeHasTransparency(checkTileType) {
 			checkTileType == TILE_BOSSHERO ||
 			checkTileType == TILE_BOSSPJ ||
 			checkTileType == TILE_FIREBALL_LVL2 ||
-			checkTileType == TILE_FIREBALL_LVL3
-		);
+			checkTileType == TILE_FIREBALL_LVL3 ||
+			checkTileType == TILE_POTION ||
+			checkTileType == TILE_SLIME ||
+			checkTileType == TILE_SLUGBRO ||
+			checkTileType == TILE_PLANTBABY ||
+			checkTileType == TILE_ARMSBRO ||
+			checkTileType == TILE_GOBO
+					);
 }
 
 function drawWorld() {

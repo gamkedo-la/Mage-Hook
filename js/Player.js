@@ -10,7 +10,7 @@ const FLASH_DURATION = 0.05;
 const PARTICLES_PER_BOX = 200;
 const PARTICLES_PER_TICK = 3;
 var poisonTick = 250;
-var poisonDuration = 750;
+var poisonDuration = 500;
 var isPoisoned = false;
 var poisonTime = 0;
 var noDamageForFloor = [false,true,true];
@@ -117,6 +117,7 @@ function playerClass() {
 			this.inventory.keysCommon = 0;
 			this.inventory.keysRare = 0;
 			this.inventory.keysEpic = 0;
+			this.maxHealth = startHealth;
 			this.currentHealth = this.maxHealth;
 			currentRoomCol = 2;
 			currentRoomRow = 5;

@@ -67,7 +67,7 @@ function itemClass(posX, posY, speed, type, angle) {
             var colliderOffsetY = 0;
 			break;
 		case(ITEM_POTION):
-            this.sprite.setSprite(heartHalfPic, 7, 7, 1, 0);
+            this.sprite.setSprite(worldPics[TILE_POTION], 7, 7, 1, 0);
             var colliderWidth = 7;
             var colliderHeight = 7;
             var colliderOffsetX = 0;

@@ -116,6 +116,7 @@ function loadImages() {
 		{worldType: TILE_NOTHING, theFile: "world_nothingness.png"},
 		{worldType: TILE_WALL, theFile: "world_brick.png"},
 		{worldType: TILE_SKULL, theFile: "world_skull.png"},
+		{worldType: TILE_POTION, theFile: "heartHalf.png"},
 		{worldType: TILE_KEY_COMMON, theFile: "world_key_bronze.png"},
 		{worldType: TILE_KEY_RARE, theFile: "world_key_silver.png"},
 		{worldType: TILE_KEY_EPIC, theFile: "world_key_gold.png"},
@@ -125,7 +126,6 @@ function loadImages() {
 		{worldType: TILE_ARMSBRO, theFile: "EnemyTiles_1.png"},
 		{worldType: TILE_PLANTBABY, theFile: "EnemyTiles_2.png"},
 		{worldType: TILE_SLUGBRO, theFile: "EnemyTiles_3.png"},
-		
 		
 		{worldType: TILE_GOBO, theFile: "enemySpawn.png"},
 
@@ -183,7 +183,8 @@ function loadImages() {
 		
 		{worldType: TILE_HEART_CONTAINER, theFile: "heart_container.png"},
 		{worldType: TILE_ARTIFACT, theFile: "artifact.png"},
-		{worldType: TILE_BOSSPJ, theFile: "pjbosstile.png"}
+		{worldType: TILE_BOSSPJ, theFile: "pjbosstile.png"},
+		{worldType: TILE_BOSSHERO, theFile: "EnemyTiles_4.png"}
 	];
 
 	picsToLoad = imageList.length;
