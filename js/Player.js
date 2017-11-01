@@ -16,7 +16,7 @@ var poisonTime = 0;
 var noDamageForFloor = [false,true,true];
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
-
+const DEATH_RESPAWN_DELAY_MS = 2000; // time for playerDeathAnimation before player.reset()
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 
@@ -110,6 +110,24 @@ function playerClass() {
 		this.controlKeyRangeAttack = rangedAttackKey;
 	}
 
+	this.die = function() { // called immediately if we die
+		//isPoisoned = false;
+		//this.isInvincible = false;
+		//poisonTime = 0;
+		if (this.currentlyDying) return; // debounce multiple frames
+		this.currentlyDying = true;
+		Sound.play("player_die");
+		console.log("Starting player death animation!");
+		setTimeout(player.respawn,DEATH_RESPAWN_DELAY_MS);
+	}
+
+	this.respawn = function() { // called after a delay when you die
+		console.log("Death animation complete. Respawning...");
+		resetAllRooms();
+		player.currentlyDying = false;
+		player.reset("Untitled Player"); // "thise
+	}
+
 	this.reset = function(playerName) {
 		this.name = playerName;
 		if (this.currentHealth <= 0)
@@ -159,6 +177,9 @@ function playerClass() {
 	}
 
 	this.move = function() {
+
+		// don't do anything during the death anim
+		if (this.currentlyDying) return; 
 
 		// Movement optimizations based on feedback from Christer
 		target = { x: this.x, y: this.y };
@@ -227,9 +248,7 @@ function playerClass() {
 		if (this.isCollidingWithEnemy() && !this.isInvincible) {
 			if (this.currentHealth <= 0) {
 				isPoisoned = false;
-				resetAllRooms();
-				player.reset("Untitled Player");
-				Sound.play("player_die");
+				this.die();
 			} else {
 				Sound.play("player_hit");
 				this.isStunned = true;
@@ -358,9 +377,7 @@ function playerClass() {
 				isPoisoned = false;
 				this.isInvincible = false;
 				poisonTime = 0;
-				resetAllRooms();
-				player.reset("Untitled Player");
-				Sound.play("player_die");		
+				this.die();
 			}
 			
 		}
@@ -447,9 +464,7 @@ function playerClass() {
 				case TILE_TRAP:
 					if (this.currentHealth <= 0) {
 						isPoisoned = false;
-					resetAllRooms();
-					player.reset("Untitled Player");
-					Sound.play("player_die");
+						this.die();
 					}
 					if (!this.isInvincible) {
 						this.currentHealth--;
