@@ -19,7 +19,7 @@ function boneThrow(x, y, isFacing) {
 	this.spriteHeight = 32;
 	this.spriteFrames = 12;
 	this.spriteSpeed = 13;
-	this.speed = 3
+	this.speed = 2
 
 	this.raycasting = function() {
 	var nextTileX = this.x;
@@ -61,7 +61,7 @@ function boneThrow(x, y, isFacing) {
 	switch(this.isFacing) { //Draw attack in facing dirction
 		case NORTH:
 			this.x -= 6;
-			this.y -= 16;
+			this.y -= 6;
 			this.attackDir = [0,-1];
 			this.obstacle = this.raycasting();
 			this.obstacle.y -= WORLD_H;
@@ -73,12 +73,12 @@ function boneThrow(x, y, isFacing) {
 			this.obstacle = this.raycasting();
 			break;
 		case EAST:
-			this.x += 13;
+			this.x += 10;
 			this.attackDir = [2,0];
 			this.obstacle = this.raycasting();
 			break;
 		case WEST:
-			this.x -= 25;
+			this.x -= 10;
 			this.attackDir = [-2,0];
 			this.obstacle = this.raycasting();
 			this.obstacle.x += WORLD_W;		
