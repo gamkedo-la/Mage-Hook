@@ -272,6 +272,7 @@ function heroBoss(x, y) {
 					} // end of if openDoors.indexOf
 				} // end of for eachCol
 			} // end of for eachRow
+			player.canFireBallAttack = true;
 		} // end of dead
 
 	return new enemyClass(this, staates);

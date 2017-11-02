@@ -30,6 +30,7 @@ const ANCHOR_ATTACK_COOLDOWN = 300
 const STARTING_POSITION_X = 160;
 const STARTING_POSITION_Y = 85;
 
+
 function playerClass() {
 	var isMoving = false;
 	var wasMoving = false;
@@ -71,6 +72,7 @@ function playerClass() {
 	this.lastAnchorAttack = 0;
 	this.lastFireAttack = 0;
 	this.keyHeld_Ranged_Attack = false;
+	this.canFireBallAttack = false;
 	//this.dashPending = []; // eg player.dashPending[NORTH] = true;
 
 	this.controlKeyUp;

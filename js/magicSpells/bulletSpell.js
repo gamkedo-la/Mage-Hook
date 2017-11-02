@@ -1,4 +1,7 @@
 function bulletMagic(x, y, isFacing) {
+	if(!player.canFireBallAttack){
+		return;
+	}
 	Sound.play("player_attack");
 	var ctrl = {}
 	ctrl.x = x;
@@ -74,6 +77,10 @@ function bulletMagic(x, y, isFacing) {
 			ctrl.attackDir = [-1.5,-0.5];
 			break;
 	}
+	//<!___________________________>
+	//TODO: Upgrades for fireball attack
+	//TODO: Remove this return
+	return;
 	
 	var bullet2 = new magicClass(ctrl);
 	
