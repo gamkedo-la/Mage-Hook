@@ -125,8 +125,13 @@ function playerClass() {
 	this.respawn = function() { // called after a delay when you die
 		console.log("Death animation complete. Respawning...");
 		resetAllRooms();
+		// TODO: save the high score?
+		this.enemyHitCount = 0; 
+		this.currentlyDying = false
+		// "this" seems to be a problem here, use .apply() or .call()??
+		player.enemyHitCount = 0; 
 		player.currentlyDying = false;
-		player.reset("Untitled Player"); // "thise
+		player.reset("Untitled Player"); 
 	}
 
 	this.reset = function(playerName) {
