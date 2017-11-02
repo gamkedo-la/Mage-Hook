@@ -55,11 +55,12 @@ function heroBoss(x, y) {
 		normal : function(){
 			if(this.maxHealth != this.currentHealth){
 				if( Math.abs(this.y - player.y) < 20 ){
-					//this.setState("munch")
+					this.setState("walkToMid")
 					return;
 				}
 				if( Math.abs(this.x - player.x) < 20){
-					//this.setState("munch")
+					this.setState("walkToMid")
+
 					return;
 				}
 			}
@@ -80,6 +81,7 @@ function heroBoss(x, y) {
 			this.tileBehaviorHandler();
 		},
 		derpAround : function(){
+
 			var willWander = Math.random() * 7;
 			if(willWander < 1){
 				this.setState("wander")
@@ -208,6 +210,52 @@ function heroBoss(x, y) {
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		
+		},
+		walkToMid : function(){
+			var speed = 2 //TODO: make charge speed a variable in newEnemy
+			var angle = Math.atan2(30 - this.y, 140 - this.x);
+			velX = Math.cos(angle) * speed;
+			velY = Math.sin(angle) * speed;
+			if(Math.abs(30 - this.y) < 20 && Math.abs(140 - this.x) < 20){
+				this.setState("slashAttack")
+				return;
+			}
+
+			if(!this.ticksInState){
+				if(Math.abs(this.velX) > Math.abs(this.velY)){
+					if(this.velX > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkEast){
+						this.sprite.setSprite(sprites.HeroBoss.walkEast,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight, 
+							8, this.enemyData.spriteSpeed, true);	
+					}else if (this.velX < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkWest){						
+						this.sprite.setSprite(sprites.HeroBoss.walkWest,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+					}
+				} else {
+					if(this.velY > 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkSouth){
+						this.sprite.setSprite(sprites.HeroBoss.walkSouth,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);	
+					}else if (this.velY < 0 && this.sprite.getSpriteSheet() != sprites.HeroBoss.walkNorth){
+						this.sprite.setSprite(sprites.HeroBoss.walkNorth,
+							this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+							this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
+					}
+				}
+			}
+			if(this.ticksInState > 500){
+				this.setState("derpAround")
+				return;
+			}
+			
+			
+
+			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
+			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
+			directionTimer -= TIME_PER_TICK;
+			this.sprite.update();
+			this.tileBehaviorHandler();
 		}
 	}
 
