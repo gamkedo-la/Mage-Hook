@@ -26,7 +26,7 @@ const EAST = 3;
 const WEST = 4;
 const ATTACK = 5; // used in input.js for future double tap logic
 const RANGED_ATTACK = 6;
-
+const ANCHOR_ATTACK_COOLDOWN = 300
 const STARTING_POSITION_X = 160;
 const STARTING_POSITION_Y = 85;
 
@@ -68,6 +68,8 @@ function playerClass() {
 	this.keyHeld_Attack = false;
 	this.keyHeld_Dash = false;
 	this.lastDashTime = 0;
+	this.lastAnchorAttack = 0;
+	this.lastFireAttack = 0;
 	this.keyHeld_Ranged_Attack = false;
 	//this.dashPending = []; // eg player.dashPending[NORTH] = true;
 
@@ -247,13 +249,13 @@ function playerClass() {
 		pickUpItems(this.hitbox);
 
 		isAttacking = this.keyHeld_Attack;
-		if(isAttacking && !wasAttacking) // only trigger once
+		if(this.lastAnchorAttack + ANCHOR_ATTACK_COOLDOWN < performance.now() && isAttacking && !wasAttacking) // only trigger once
 		{
 			anchorMagic(this.x, this.y, isFacing);
 		}
 
 		isUsingRangedAttack = this.keyHeld_Ranged_Attack;
-		if(isUsingRangedAttack && !wasAttacking)	//either melee attack or ranged attack
+		if(this.lastAnchorAttack + ANCHOR_ATTACK_COOLDOWN < performance.now() && isUsingRangedAttack && !wasAttacking)	//either melee attack or ranged attack
 		{
 			bulletMagic(this.x, this.y, isFacing);
 		}
