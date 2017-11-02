@@ -154,8 +154,8 @@ function spriteClass() {
 						this.reset();
 						return;
 					} else {
-						this.setFrame(frameIndex);
-						drawFrame = false;
+						//this.setFrame(frameIndex);
+						//drawFrame = false;
 						return;
 					}
 				}
