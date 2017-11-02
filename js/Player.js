@@ -416,9 +416,17 @@ function playerClass() {
 		return hitAnEnemy;
 	}
 	this.getHit = function getHit(amount){
+		if(this.isInvincible){
+			return;
+		}
+		this.isInvincible = true;
+		invincibleTimer = 0.5;
 		this.currentHealth -= amount;
 		noDamageForFloor[currentFloor] = false;
 		console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
+
+		screenShake(5);
+		Sound.play("player_hit");
 		if(this.currentHealth < 1 ){
 			this.die()
 		}
