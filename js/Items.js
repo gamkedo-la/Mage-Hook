@@ -26,6 +26,9 @@ const ITEM_KEY_EPIC_DROP_PERCENT = 0;
 const PARTICLES_PER_PICKUP = 32;
 
 var attackBuff = 0;
+var fireballLvl1Upgrade = true;
+var fireballLvl2Upgrade = false;
+var fireballLvl3Upgrade = false;
 
 function itemClass(posX, posY, speed, type, angle) {
     this.x = posX;
@@ -340,12 +343,14 @@ function pickUpItems(collider) {
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, '#4682B4'); // SteelBlue
                     break;
                 case ITEM_FIREBALL_LVL2: //TODO: add booleans to bulletSpell
-                    attackBuff += 0.25;
+                    fireballLvl1Upgrade = false;
+                    fireballLvl2Upgrade = true;
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, '#40bf77'); // SeaGreen Modified
                     break;
                 case ITEM_FIREBALL_LVL3: //TODO: add booleans to bulletSpell
-                    attackBuff += 0.25; 
+                    foreballLvl2Upgrade = false;
+                    fireballLvl3Upgrade = true;
                     Sound.play('key_pickup', false, 0.1);
                     particleFX(item.x, item.y, PARTICLES_PER_PICKUP, 'lightblue');
                     break;

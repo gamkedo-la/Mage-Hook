@@ -20,28 +20,28 @@ function bulletMagic(x, y, isFacing) {
 	ctrl.spriteFrames = 12;
 	ctrl.spriteSpeed = 6;
 	
-	switch(ctrl.isFacing) { //Draw attack in facing dirction
-		case NORTH:
-			ctrl.y -= 8;
-			ctrl.attackDir = [0,-2];
-			ctrl.spriteSheet = sprites.Player.bulletAttackNorth;
-			break;
-		case SOUTH:
-			ctrl.y += 8;
-			ctrl.attackDir = [0,2];
-			ctrl.spriteSheet = sprites.Player.bulletAttackSouth;
-			break;
-		case EAST:
-			ctrl.x += 8;
-			ctrl.attackDir = [2,0];
-			ctrl.spriteSheet = sprites.Player.bulletAttackEast;
-			break;
-		case WEST:
-			ctrl.x -= 8;
-			ctrl.attackDir = [-2,0];
-			ctrl.spriteSheet = sprites.Player.bulletAttackWest;
-			break;
-	}
+		switch(ctrl.isFacing) { //Draw attack in facing dirction
+			case NORTH:
+				ctrl.y -= 8;
+				ctrl.attackDir = [0,-2];
+				ctrl.spriteSheet = sprites.Player.bulletAttackNorth;
+				break;
+			case SOUTH:
+				ctrl.y += 8;
+				ctrl.attackDir = [0,2];
+				ctrl.spriteSheet = sprites.Player.bulletAttackSouth;
+				break;
+			case EAST:
+				ctrl.x += 8;
+				ctrl.attackDir = [2,0];
+				ctrl.spriteSheet = sprites.Player.bulletAttackEast;
+				break;
+			case WEST:
+				ctrl.x -= 8;
+				ctrl.attackDir = [-2,0];
+				ctrl.spriteSheet = sprites.Player.bulletAttackWest;
+				break;
+		}
 
 	ctrl.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
@@ -57,52 +57,53 @@ function bulletMagic(x, y, isFacing) {
 		particleFX(enemy.x,enemy.y,PARTICLES_PER_ENEMY_HIT,'#660000',vx,vy,0.5,0,1);
 	}
 	
-	var bullet1 = new magicClass(ctrl);
-	
-	switch(ctrl.isFacing) { //Draw attack in facing dirction
-		case NORTH:
-			ctrl.y -= 5;
-			ctrl.attackDir = [-0.5,-1.5];
-			break;
-		case SOUTH:
-			ctrl.y += 5;
-			ctrl.attackDir = [0.5,1.5];
-			break;
-		case EAST:
-			ctrl.x += 5;
-			ctrl.attackDir = [1.5,0.5];
-			break;
-		case WEST:
-			ctrl.x -= 5;
-			ctrl.attackDir = [-1.5,-0.5];
-			break;
-	}
-	//<!___________________________>
-	//TODO: Upgrades for fireball attack
-	//TODO: Remove this return
-	return;
-	
-	var bullet2 = new magicClass(ctrl);
-	
-	
-	switch(ctrl.isFacing) { //Draw attack in facing dirction
-		case NORTH:
-			ctrl.y += 5;
-			ctrl.attackDir = [0.5,-1.5];
-			break;
-		case SOUTH:
-			ctrl.y -= 5;
-			ctrl.attackDir = [-0.5,1.5];
-			break;
-		case EAST:
-			ctrl.x -= 5;
-			ctrl.attackDir = [1.5,-0.5];
-			break;
-		case WEST:
-			ctrl.x += 5;
-			ctrl.attackDir = [-1.5,0.5];
-			break;
+	if(fireballLvl1Upgrade || fireballLvl3Upgrade) {
+		var bullet1 = new magicClass(ctrl);
 	}
 	
-	var bullet3 = new magicClass(ctrl);
+		switch(ctrl.isFacing) { //Draw attack in facing dirction
+			case NORTH:
+				ctrl.y -= 5;
+				ctrl.attackDir = [-0.5,-1.5];
+				break;
+			case SOUTH:
+				ctrl.y += 5;
+				ctrl.attackDir = [0.5,1.5];
+				break;
+			case EAST:
+				ctrl.x += 5;
+				ctrl.attackDir = [1.5,0.5];
+				break;
+			case WEST:
+				ctrl.x -= 5;
+				ctrl.attackDir = [-1.5,-0.5];
+				break;
+		}
+	
+	if(fireballLvl2Upgrade || fireballLvl3Upgrade) {
+		var bullet2 = new magicClass(ctrl);
+	}
+	
+		switch(ctrl.isFacing) { //Draw attack in facing dirction
+			case NORTH:
+				ctrl.y += 5;
+				ctrl.attackDir = [0.5,-1.5];
+				break;
+			case SOUTH:
+				ctrl.y -= 5;
+				ctrl.attackDir = [-0.5,1.5];
+				break;
+			case EAST:
+				ctrl.x -= 5;
+				ctrl.attackDir = [1.5,-0.5];
+				break;
+			case WEST:
+				ctrl.x += 5;
+				ctrl.attackDir = [-1.5,0.5];
+				break;
+		}
+
+	if(fireballLvl2Upgrade || fireballLvl3Upgrade) {
+		var bullet3 = new magicClass(ctrl);
+	}
 }
