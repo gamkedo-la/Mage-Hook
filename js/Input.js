@@ -100,16 +100,16 @@ function keySet(keyEvent, setTo) {
 	var validGameKey = true;
 	if(keyEvent.keyCode == player.controlKeyDash) {
 		player.keyHeld_Dash = setTo;
-	}else if(keyEvent.keyCode == player.controlKeyLeft) {
+	}else if(keyEvent.keyCode == player.controlKeyLeft || keyEvent.keyCode == player.controlKeyLeftALT) {
 		if (!setTo) checkDoubleTap(WEST);
 		player.keyHeld_West = setTo;
-	}else if(keyEvent.keyCode == player.controlKeyRight) {
+	}else if(keyEvent.keyCode == player.controlKeyRight || keyEvent.keyCode == player.controlKeyRightALT) {
 		if (!setTo) checkDoubleTap(EAST);
 		player.keyHeld_East = setTo;
-	}else if(keyEvent.keyCode == player.controlKeyUp) {
+	}else if(keyEvent.keyCode == player.controlKeyUp || keyEvent.keyCode == player.controlKeyUpALT) {
 		if (!setTo) checkDoubleTap(NORTH);
 		player.keyHeld_North = setTo;
-	}else if(keyEvent.keyCode == player.controlKeyDown) {
+	}else if(keyEvent.keyCode == player.controlKeyDown || keyEvent.keyCode == player.controlKeyDownALT) {
 		if (!setTo) checkDoubleTap(SOUTH);
 		player.keyHeld_South = setTo;
 	}else if(keyEvent.keyCode == player.controlKeyAttack) {

@@ -19,6 +19,19 @@ window.onload = function() {
 }
 
 function imageLoadingDoneSoStartGame() {
+	
+	splash();
+	//TODO: put this back, was taken out for playtest
+	// setInterval(updateAll, 1000/FRAMES_PER_SECOND);
+
+	// setupInput();
+	// backupRoomData(); // should do before any numbers are replaced and load level etc.
+	// loadLevel();
+	// resetAllRooms();
+	// createTileArray();
+}
+
+function runThatGame(){
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
 
 	setupInput();

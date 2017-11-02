@@ -110,6 +110,12 @@ function playerClass() {
 		this.controlKeyRight = rightKey;
 		this.controlKeyDown = downKey;
 		this.controlKeyLeft = leftKey;
+		
+		this.controlKeyUpALT = KEY_W;
+		this.controlKeyRightALT = KEY_D;
+		this.controlKeyDownALT = KEY_S;
+		this.controlKeyLeftALT = KEY_A;
+
 		this.controlKeyAttack = attackKey;
 		this.controlKeyDash = dashKey;
 		this.controlKeyRangeAttack = rangedAttackKey;
