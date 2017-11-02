@@ -160,7 +160,11 @@ function heroBoss(x, y) {
 				currentRoom.enemyList.push(nextEnemy);
 			}
 			if(this.sprite.isDone()){
-				this.setState("derpAround");
+				if(this.y > 60){
+					this.setState("walkToMid")
+				} else {
+					this.setState("derpAround");
+				}
 				return;
 			}
 			this.sprite.update();
