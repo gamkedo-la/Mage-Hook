@@ -24,7 +24,7 @@ function boneThrow(x, y, isFacing) {
 	this.raycasting = function() {
 	var nextTileX = this.x;
 	var nextTileY = this.y;
-	isGround = true;
+	var isGround = true;
 	var tileSearchSpeed = 1;
 		while (isGround) {
 			if (this.attackDir[1] < 0) { // NORTH
