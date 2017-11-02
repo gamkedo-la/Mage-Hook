@@ -13,8 +13,8 @@ function muunch(x, y, isFacing) {
 	this.spriteSheet = sprites.ArmsBro.boneThrow;
 	this.spriteWidth = 2;
 	this.spriteHeight = 2;
-	this.spriteFrames = 12;
-	this.spriteSpeed = 13;
+	this.spriteFrames = 4;
+	this.spriteSpeed = 9;
 	this.speed = 0;
 	this.attackDir = [0,-1];
 

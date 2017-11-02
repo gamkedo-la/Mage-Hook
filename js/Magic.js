@@ -63,7 +63,7 @@ function magicClass(magic, enemyList) {
 			this.collider.height = this.attackFrames[frame].y2;
 			this.hitEnemy();
 		} else {
-			this.collider.offsetX = 0;
+			this.collider.offsetX = 9002;
 			this.collider.offsetY = 0;
 			this.collider.width = 0;
 			this.collider.height = 0;

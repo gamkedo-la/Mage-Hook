@@ -19,6 +19,7 @@ function spriteClass() {
 	var playerSpriteHeight = 26;
 	var playerSpriteCanvasX = 9;
 	var playerSpriteCanvasY = 3;
+	var hasFinishedLoop = false
 
 	// set sprite sheet to draw from and defines animation speed
 	this.setSprite = function(newSpriteSheet,
@@ -28,6 +29,7 @@ function spriteClass() {
 		if(!newSpriteSheet){
 			throw "YO, what are you doing. Missing spriiiiiiite"
 		}
+		hasFinishedLoop = false;
 		spriteSheet = newSpriteSheet;
 		frameX = 0;
 		frameY = 0;
@@ -63,7 +65,7 @@ function spriteClass() {
 	}
 
 	this.isDone = function(){
-		return ((frameTotal - frameIndex - 1) == 0);
+		return hasFinishedLoop;
 	}
 
 	this.setSpeed = function (newSpeed) {
@@ -147,6 +149,7 @@ function spriteClass() {
 				currentTime -= timePerFrame;
 
 				if (frameIndex+1 >= frameTotal) {
+					hasFinishedLoop = true;
 					if (loopFrames) {
 						this.reset();
 						return;

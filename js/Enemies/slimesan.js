@@ -41,13 +41,13 @@ function slimeMonster(x, y) {
 					4, this.enemyData.spriteSpeed, false);
 				muunch(this.x, this.y);
 			}
-			if(this.sprite.isDone()){
+			if(this.sprite.isDone() && this.sprite.getSpriteSheet() != sprites.Slime.idleAnimation){
 				this.sprite.setSprite(sprites.Slime.idleAnimation, //TODO: maybe derp emote? 
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					4, this.enemyData.spriteSpeed, false);
-			} else {
-				this.sprite.update();
+					4, this.enemyData.spriteSpeed, true);
 			}
+			
+			this.sprite.update();
 			if(this.ticksInState > 100){
 				this.setState("normal")
 			}
