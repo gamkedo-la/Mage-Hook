@@ -122,9 +122,6 @@ function playerClass() {
 	}
 
 	this.die = function() { // called immediately if we die
-		//isPoisoned = false;
-		//this.isInvincible = false;
-		//poisonTime = 0;
 		if (this.currentlyDying) return; // debounce multiple frames
 		this.currentlyDying = true;
 		Sound.play("player_die");
@@ -144,8 +141,10 @@ function playerClass() {
 		this.currentlyDying = false
 		// "this" seems to be a problem here, use .apply() or .call()??
 		player.enemyHitCount = 0; 
+		fireballLvl1Upgrade = true;
+		fireballLvl2Upgrade = fireballLvl3Upgrade = false;
 		player.currentlyDying = false;
-		player.reset("Untitled Player"); 
+		player.reset("Untitled Player");
 	}
 
 	this.reset = function(playerName) {
