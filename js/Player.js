@@ -120,6 +120,9 @@ function playerClass() {
 		console.log("Starting player death animation!");
 		sprite.setSprite(sprites.Player.deathAnimation, 32, 32, 16, 8, false);
 		setTimeout(player.respawn,DEATH_RESPAWN_DELAY_MS);
+		isPoisoned = false;
+		this.isInvincible = false;
+		poisonTime = 0;
 	}
 
 	this.respawn = function() { // called after a delay when you die
@@ -384,9 +387,6 @@ function playerClass() {
 				return;
 			}
 			if (this.currentHealth <= 0) {
-				isPoisoned = false;
-				this.isInvincible = false;
-				poisonTime = 0;
 				this.die();
 			}
 			
@@ -419,6 +419,9 @@ function playerClass() {
 		this.currentHealth -= amount;
 		noDamageForFloor[currentFloor] = false;
 		console.log("noDamageForFloor[currentFloor] = " + noDamageForFloor[currentFloor]);
+		if(this.currentHealth < 1 ){
+			this.die()
+		}
 	}
 	this.isCollidingWithEnemy = function() {
 		var hitByEnemy = false;
