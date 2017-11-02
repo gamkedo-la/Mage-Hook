@@ -1,4 +1,5 @@
 var _DEBUG_CHEAT_CONSOLE = false;
+var _DEBUG_MODE = 0;
 const NUMBER = "number";
 const PRECISION = 100;
 
@@ -17,6 +18,7 @@ var debugPanel = {
 		{ name: "Epic Keys:  ", value: eval(makePtr("player.inventory.keysEpic")) },
 		{ name: "Cur Health: ", value: eval(makePtr("player.currentHealth")) },
 		{ name: "Max Health: ", value: eval(makePtr("player.maxHealth")) },
+		{ name: "Debug Mode: ", value: eval(makePtr("_DEBUG_MODE")) }
 	],
 
 	selected: undefined,

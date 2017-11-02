@@ -148,10 +148,12 @@ function keyPressed(evt) {
 			resetAllRooms();
 			break;
 		case KEY_B:
-			_DEBUG_DRAW_HITBOX_COLLIDERS = !_DEBUG_DRAW_HITBOX_COLLIDERS;
+			if(_DEBUG_MODE)
+				_DEBUG_DRAW_HITBOX_COLLIDERS = !_DEBUG_DRAW_HITBOX_COLLIDERS;
 			break;
 		case KEY_C:
-			_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
+			if(_DEBUG_MODE)
+				_DEBUG_DRAW_TILE_COLLIDERS = !_DEBUG_DRAW_TILE_COLLIDERS;
 			break;
 		case KEY_TAB:
 			_DEBUG_ENABLE_TILE_EDITOR = !_DEBUG_ENABLE_TILE_EDITOR;
@@ -165,12 +167,16 @@ function keyPressed(evt) {
 			break;
 		case KEY_W:
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
+			if(!_DEBUG_MODE)
+				break
 			console.log("Room change North");
 			currentRoomRow--;
 			loadLevel(roomCoordToVar);
 			//}
 			break;
 		case KEY_A:
+			if(!_DEBUG_MODE)
+				break
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change West");
 			currentRoomCol--;
@@ -183,6 +189,8 @@ function keyPressed(evt) {
 			//}
 			break;
 		case KEY_S:
+			if(!_DEBUG_MODE)
+				break
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Room change South");
 			currentRoomRow++;
@@ -190,13 +198,15 @@ function keyPressed(evt) {
 			//}
 			break;
 		case KEY_D:
-			//if (_DEBUG_ENABLE_TILE_EDITOR) {
+			if(!_DEBUG_MODE)
+				break
 			console.log("Room change East");
 			currentRoomCol++;
 			loadLevel(roomCoordToVar);
-			//}
 			break;
 		case KEY_Q:
+			if(!_DEBUG_MODE)
+				break
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Floor change Up");
 			currentFloor++;
@@ -204,6 +214,8 @@ function keyPressed(evt) {
 			//}
 			break;
 		case KEY_E:
+			if(!_DEBUG_MODE)
+				break
 			//if (_DEBUG_ENABLE_TILE_EDITOR) {
 			console.log("Floor change Down");
 			currentFloor--;
