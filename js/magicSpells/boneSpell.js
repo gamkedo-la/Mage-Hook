@@ -97,12 +97,6 @@ function boneThrow(x, y, isFacing) {
 		console.log('WE HIT AN ENEMY!!!!');
 		this.remove = true;
 		enemy.getHit(1);
-		if (enemy.currentHealth <= 0) {
-			isPoisoned = false;
-			enemy.reset("Untitled Player");
-			resetAllRooms();
-			Sound.play("player_die");
-		}
 		Sound.play("enemy_hit"); // TODO: after a delay?
 		// directional hit splatter particles
 		var angle = Math.atan2(enemy.y-this.y,enemy.x-this.x);					
