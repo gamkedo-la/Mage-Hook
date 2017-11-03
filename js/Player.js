@@ -617,7 +617,6 @@ function playerClass() {
 			case TILE_TOP_RIGHT_PIT_CORNER:
 				currentFloor--;
 				break;
-			case TILE_SKULL:
 			case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:

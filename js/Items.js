@@ -175,7 +175,6 @@ function itemClass(posX, posY, speed, type, angle) {
         var collisionDetected = true;
         var tileType = worldGrid[tileIndex];
         switch(tileType) {
-            case TILE_SKULL:
 			case TILE_WALL:
 			case TILE_WALL_NORTH:
 			case TILE_WALL_SOUTH:

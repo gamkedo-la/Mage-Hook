@@ -36,7 +36,7 @@ function boneThrow(x, y, isFacing) {
 			} else if (this.attackDir[0] < 0) { // WEST
 				nextTileX -= tileSearchSpeed;
 			}
-			var obstacleTiles = [TILE_WALL,TILE_SKULL,TILE_DOOR_COMMON,TILE_BOX,TILE_DOOR_RARE,
+			var obstacleTiles = [TILE_WALL,TILE_DOOR_COMMON,TILE_BOX,TILE_DOOR_RARE,
 								 TILE_DOOR_EPIC,TILE_STAIRS_UP,TILE_WALL_SOUTH,TILE_WALL_NORTH,
 								 TILE_WALL_WEST,TILE_WALL_EAST,TILE_WALL_CORNER_SW,TILE_WALL_CORNER_SE,
 								 TILE_WALL_CORNER_NW,TILE_WALL_CORNER_NE,TILE_ROOM_DOOR_NORTH,

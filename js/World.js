@@ -145,6 +145,7 @@ function canWalk(tileType){
 		case TILE_GROUND:
 		case TILE_KEY_COMMON:
 		case TILE_POTION:
+		case TILE_SKULL:
 			returnValue = 0;
 			break
 		default: 

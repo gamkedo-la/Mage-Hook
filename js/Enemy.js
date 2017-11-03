@@ -342,7 +342,6 @@ function enemyClass(newEnemy, states){
 		var collisionDetected = true;
 		var tileType = worldGrid[tileIndex];
 		switch(tileType) {
-			case TILE_SKULL:
 			case TILE_DOOR_COMMON:
 			case TILE_DOOR_RARE:
 			case TILE_DOOR_EPIC:
