@@ -2,6 +2,7 @@ var canvas, canvasContext;
 var levelOneRun = false;
 const FRAMES_PER_SECOND = 30;
 const TIME_PER_TICK = 1/FRAMES_PER_SECOND;
+const MUSIC_VOLUME = 0.15; // 0=none 1=loud
 
 var player = new playerClass();
 var hud = new hudClass();
@@ -33,6 +34,9 @@ function imageLoadingDoneSoStartGame() {
 
 function runThatGame(){
 	setInterval(updateAll, 1000/FRAMES_PER_SECOND);
+	
+	if (MUSIC_VOLUME>0) // should we loop some music quietly?
+		Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
 
 	setupInput();
 	backupRoomData(); // should do before any numbers are replaced and load level etc.
