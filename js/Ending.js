@@ -18,7 +18,8 @@ var cursor
 var currentScreen = "none"
 var currentSelection = "none"
 var currentPage = 0
-function splash(){
+function splash() {
+	Sound.playUnlessAlreadyPlaying("mage_hook_chiptune_menu_melody",true,MUSIC_VOLUME);
 	paused = true;
 	currentScreen = "splash"
 	currentSelection = "play"

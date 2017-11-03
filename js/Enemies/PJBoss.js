@@ -272,7 +272,7 @@ function PJBoss(x, y) {
 			} // end of for eachCol
 		} // end of for eachRow
 		Sound.stop("boss_bgm");
-		Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
+		Sound.play("mage_hook_chiptune_menu_melody",true,MUSIC_VOLUME);
 		ending();
 	} // end of deadEvent
 
