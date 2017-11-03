@@ -64,7 +64,7 @@ function boneThrow(x, y, isFacing) {
 			this.y -= 6;
 			this.attackDir = [0,-1];
 			this.obstacle = this.raycasting();
-			this.obstacle.y -= WORLD_H;
+			this.obstacle.y += WORLD_H;
 			break;
 		case SOUTH:
 			this.x -= 6;
