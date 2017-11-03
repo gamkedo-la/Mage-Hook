@@ -12,42 +12,172 @@ function drawEnding(){
 	endScreen.draw(160,90);
 }
 
-
 var splashScreen
 var splashInterval
+var cursor
 var currentScreen = "none"
+var currentSelection = "none"
+var currentPage = 0
 function splash(){
 	paused = true;
 	currentScreen = "splash"
+	currentSelection = "play"
 	splashScreen = new spriteClass();
 	splashScreen.setSprite(sprites.OPENING.tempOpening,
-						  320, 180,
-						  1, 1, true);
+		320, 180,
+		1, 1, true);
+
+	cursor = new spriteClass();
+	cursor.setSprite(sprites.OPENING.cursor,
+		32, 32,
+		1, 1, true);
+
+	cursor.x = 120
+	cursor.y = 128
 	splashInterval = setInterval(drawSplash, 1000/FRAMES_PER_SECOND);
 	document.addEventListener('keydown', startEmUP);
+
+	//load screens up only after they've been put in memory.
+	creditsScreens.push(sprites.Credits.page1);
+	creditsScreens.push(sprites.Credits.page2);
+	creditsScreens.push(sprites.Credits.page3);
+	creditsScreens.push(sprites.Credits.page4);
 }
 
-function startEmUP(){
-	if(currentScreen == "splash"){
-		currentScreen = "controls"
-		splashScreen.setSprite(sprites.OPENING.controls,
-						  320, 180,
-						  1, 1, true);
-		return;
-	}
+function startEmUP(evt){
+	switch(evt.keyCode) {
+		case KEY_ENTER:
+		case KEY_SPACE:
+			if(currentScreen == "splash" && currentSelection == "play"){
+				currentScreen = "controls"
+				splashScreen.setSprite(sprites.OPENING.controls,
+								  320, 180,
+								  1, 1, true);
+				return;
+			}
 
-	if(currentScreen == "controls"){
-		clearInterval(splashInterval)
-		paused = false;
-		runThatGame();
-		document.removeEventListener('keydown',
-	        startEmUP,
-	        false
-	    );
-	    return;
-	}
+			if(currentScreen == "splash" && currentSelection == "credits"){
+				
+				cursor.draw(-666, -666);
+				clearInterval(splashInterval)
+				document.removeEventListener('keydown',
+			        startEmUP,
+			        false
+			    );
+			    CreditsRun();
+				return;
+			}
+
+			if(currentScreen == "controls"){
+				clearInterval(splashInterval)
+				paused = false;
+				runThatGame();
+				document.removeEventListener('keydown',
+			        startEmUP,
+			        false
+			    );
+			    return;
+			}
+		break;
+		case KEY_W:
+		case KEY_UP_ARROW:
+			cursor.x = 120
+			cursor.y = 128
+			currentSelection = "play"
+		break;
+		case KEY_DOWN_ARROW:
+		case KEY_S:
+			cursor.x = 120
+			cursor.y = 151
+			currentSelection = "credits"
+		break;
+	}	
 }
+
 function drawSplash(){
 	splashScreen.draw(160,90);
+	if(currentScreen == "splash"){
+		cursor.draw(cursor.x, cursor.y);
+	}
 	console.log("draw")
+}
+var creditsScreens = [
+];
+
+function CreditsRun(){
+	splashInterval = setInterval(CreditsDraw, 1000/FRAMES_PER_SECOND);
+	document.addEventListener('keydown', creditsInput);
+	currentPage = 0;
+	splashScreen.setSprite(creditsScreens[currentPage],
+				320, 180,
+				1, 1, true);
+}
+
+function CreditsDraw(){
+	splashScreen.draw(160,90);
+}
+
+function creditsInput(evt){
+	switch(evt.keyCode) {
+		case KEY_ENTER:
+		case KEY_SPACE:
+			// if(currentScreen == "splash" && currentSelection == "play"){
+			// 	currentScreen = "controls"
+			// 	splashScreen.setSprite(sprites.OPENING.controls,
+			// 					  320, 180,
+			// 					  1, 1, true);
+			// 	return;
+			// }
+
+			// if(currentScreen == "credits" && currentSelection == "play"){
+			// 	currentScreen = "credits"
+			// 	clearInterval(splashInterval);
+			// 	document.removeEventListener('keydown',
+			//         startEmUP,
+			//         false
+			//     );
+			// 	return;
+			// }
+
+			// if(currentScreen == "controls"){
+			// 	clearInterval(splashInterval)
+			// 	paused = false;
+			// 	runThatGame();
+			// 	document.removeEventListener('keydown',
+			//         startEmUP,
+			//         false
+			//     );
+			//     return;
+			// }
+			break;
+
+		case KEY_D:
+		case KEY_RIGHT_ARROW:
+			if(currentPage < creditsScreens.length - 1){
+				currentPage += 1;
+			} 
+			splashScreen.setSprite(creditsScreens[currentPage],
+				320, 180,
+				1, 1, true);
+			break;
+		case KEY_A:
+		case KEY_LEFT_ARROW:
+		
+			if(currentPage > 0){
+				currentPage -= 1;
+			} else {
+				currentPage = 0;
+				clearInterval(splashInterval)
+				document.removeEventListener('keydown',
+			        creditsInput,
+			        false
+			    );
+			    splash()
+			    return;
+			}
+			splashScreen.setSprite(creditsScreens[currentPage],
+				320, 180,
+				1, 1, true);
+			break;
+	}	
 }

@@ -112,6 +112,12 @@ function loadImages() {
 		{set: "Ending", name: "tempEndScreen", fileName: "temp-endscreen.png"},
 		{set: "OPENING", name: "tempOpening", fileName: "playtest splash.png"},
 		{set: "OPENING", name: "controls", fileName: "Controls Screen.png"},
+		{set: "OPENING", name: "cursor", fileName: "cursor.png"},
+		
+		{set: "Credits", name: "page1", fileName: "Credits/Page1.png"},
+		{set: "Credits", name: "page2", fileName: "Credits/Page2.png"},
+		{set: "Credits", name: "page3", fileName: "Credits/Page3.png"},
+		{set: "Credits", name: "page4", fileName: "Credits/Page4.png"},
 
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
