@@ -38,6 +38,7 @@ function splash(){
 	document.addEventListener('keydown', startEmUP);
 
 	//load screens up only after they've been put in memory.
+	creditsScreens = []
 	creditsScreens.push(sprites.Credits.page1);
 	creditsScreens.push(sprites.Credits.page2);
 	creditsScreens.push(sprites.Credits.page3);
