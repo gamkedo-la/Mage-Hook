@@ -8,7 +8,7 @@ function muunch(x, y, isFacing) {
 	
 	this.attackFrames = {
 		
-		3: {x1: 0, y1: 0, x2: 55, y2:55 }};
+		1: {x1: 0, y1: 0, x2: 55, y2:55 }};
 		
 	this.spriteSheet = sprites.ArmsBro.boneThrow;
 	this.spriteWidth = 2;
