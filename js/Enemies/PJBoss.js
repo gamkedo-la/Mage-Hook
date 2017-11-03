@@ -233,6 +233,8 @@ function PJBoss(x, y) {
 				this.sprite.setSprite(sprites.PJDemon.entrance, //TODO: maybe derp emote? 
 				this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 				16, 9, false);
+				Sound.stop("MageHookThemeSong");
+				Sound.play("boss_bgm",true,MUSIC_VOLUME);
 			}
 			if(this.ticksInState > 36) {
 				this.velX = 0;
@@ -253,7 +255,7 @@ function PJBoss(x, y) {
 				} // end of for eachCol
 			} // end of for eachRow
 			if(this.sprite.isDone()){
-				this.setState("derpAround");
+				this.setState("summon");
 				return;
 			}
 			this.sprite.update();
@@ -269,9 +271,10 @@ function PJBoss(x, y) {
 				} // end of if openDoors.indexOf
 			} // end of for eachCol
 		} // end of for eachRow
+		Sound.stop("boss_bgm");
+		Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
 		ending();
-
-	} // end of dead
+	} // end of deadEvent
 
 	return new enemyClass(this, staates);
 }

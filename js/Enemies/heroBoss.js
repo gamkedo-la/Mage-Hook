@@ -48,6 +48,8 @@ function heroBoss(x, y) {
 					} // end of if openDoors.indexOf
 				} // end of for eachCol
 			} // end of for eachRow
+			Sound.pause("MageHookThemeSong");
+			Sound.play("boss_bgm",true,MUSIC_VOLUME);
 			this.setState("derpAround");
 			return;
 			this.sprite.update();
@@ -272,6 +274,8 @@ function heroBoss(x, y) {
 					} // end of if openDoors.indexOf
 				} // end of for eachCol
 			} // end of for eachRow
+			Sound.stop("boss_bgm");
+			Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
 			player.canFireBallAttack = true;
 		} // end of dead
 

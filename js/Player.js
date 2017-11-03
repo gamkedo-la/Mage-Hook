@@ -16,7 +16,7 @@ var poisonTime = 0;
 var noDamageForFloor = [false,true,true];
 const FRICTION = 0.80;
 var _WEB_FRICTION = 0.15;
-const DEATH_RESPAWN_DELAY_MS = 2000; // time for playerDeathAnimation before player.reset()
+const DEATH_RESPAWN_DELAY_MS = 2500; // time for playerDeathAnimation before player.reset()
 
 const INITIAL_KNOCKBACK_SPEED = 8;
 
@@ -124,6 +124,8 @@ function playerClass() {
 	this.die = function() { // called immediately if we die
 		if (this.currentlyDying) return; // debounce multiple frames
 		this.currentlyDying = true;
+		Sound.stop("boss_bgm");
+		Sound.stop("MageHookThemeSong");
 		Sound.play("player_die");
 		console.log("Starting player death animation!");
 		sprite.setSprite(sprites.Player.deathAnimation, 32, 32, 16, 8, false);
@@ -145,6 +147,7 @@ function playerClass() {
 		fireballLvl2Upgrade = fireballLvl3Upgrade = false;
 		player.currentlyDying = false;
 		player.reset("Untitled Player");
+		Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
 	}
 
 	this.reset = function(playerName) {
