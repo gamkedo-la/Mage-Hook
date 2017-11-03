@@ -25,7 +25,6 @@ function splash(){
 	document.addEventListener('keydown', startEmUP);
 }
 function startEmUP(){
-	
 		clearInterval(splashInterval)
 		paused = false;
 		runThatGame();
