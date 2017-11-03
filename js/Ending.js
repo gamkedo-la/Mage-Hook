@@ -15,8 +15,10 @@ function drawEnding(){
 
 var splashScreen
 var splashInterval
+var currentScreen = "none"
 function splash(){
 	paused = true;
+	currentScreen = "splash"
 	splashScreen = new spriteClass();
 	splashScreen.setSprite(sprites.OPENING.tempOpening,
 						  320, 180,
@@ -24,7 +26,17 @@ function splash(){
 	splashInterval = setInterval(drawSplash, 1000/FRAMES_PER_SECOND);
 	document.addEventListener('keydown', startEmUP);
 }
+
 function startEmUP(){
+	if(currentScreen == "splash"){
+		currentScreen = "controls"
+		splashScreen.setSprite(sprites.OPENING.controls,
+						  320, 180,
+						  1, 1, true);
+		return;
+	}
+
+	if(currentScreen == "controls"){
 		clearInterval(splashInterval)
 		paused = false;
 		runThatGame();
@@ -32,7 +44,8 @@ function startEmUP(){
 	        startEmUP,
 	        false
 	    );
-	
+	    return;
+	}
 }
 function drawSplash(){
 	splashScreen.draw(160,90);

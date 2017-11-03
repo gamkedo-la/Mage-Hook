@@ -111,6 +111,7 @@ function loadImages() {
 
 		{set: "Ending", name: "tempEndScreen", fileName: "temp-endscreen.png"},
 		{set: "OPENING", name: "tempOpening", fileName: "playtest splash.png"},
+		{set: "OPENING", name: "controls", fileName: "Controls Screen.png"},
 
 		{worldType: TILE_TRAP, theFile: "bladeTrap.png"},
 		{worldType: TILE_GROUND, theFile: "world_ground.png"},
