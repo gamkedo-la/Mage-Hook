@@ -19,7 +19,7 @@ function boneThrow(x, y, isFacing) {
 	this.spriteHeight = 32;
 	this.spriteFrames = 12;
 	this.spriteSpeed = 13;
-	this.speed = 2
+	this.speed = 2;
 
 	this.raycasting = function() {
 	var nextTileX = this.x;
