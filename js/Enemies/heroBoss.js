@@ -156,10 +156,10 @@ function heroBoss(x, y) {
 				currentRoom.enemyList.push(nextEnemy);
 				var nextEnemy = new plantBaby(this.x -30, this.y + 30);
 				currentRoom.enemyList.push(nextEnemy);
-				var nextEnemy = new plantBaby(this.x -30, this.y - 30);
-				currentRoom.enemyList.push(nextEnemy);
-				var nextEnemy = new plantBaby(this.x +30, this.y - 30);
-				currentRoom.enemyList.push(nextEnemy);
+				// var nextEnemy = new plantBaby(this.x -30, this.y - 30);
+				// currentRoom.enemyList.push(nextEnemy);
+				// var nextEnemy = new plantBaby(this.x +30, this.y - 30);
+				// currentRoom.enemyList.push(nextEnemy);
 			}
 			if(this.sprite.isDone()){
 				if(this.y > 60){
@@ -215,8 +215,8 @@ function heroBoss(x, y) {
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
-		
 		},
+		
 		walkToMid : function(){
 			var speed = 2 //TODO: make charge speed a variable in newEnemy
 			var angle = Math.atan2(30 - this.y, 140 - this.x);

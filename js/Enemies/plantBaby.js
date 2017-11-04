@@ -57,7 +57,7 @@ function plantBaby(x, y) {
 
 			this.tileCollider.moveOnAxis(this, velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, velY, Y_AXIS);
-			directionTimer -= TIME_PER_TICK;
+			this.directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
@@ -67,7 +67,7 @@ function plantBaby(x, y) {
 				return;
 			}
 			if(!this.ticksInState){
-				directionTimer = minMoveTime + Math.random() * maxMoveTime;
+				this.directionTimer = minMoveTime + Math.random() * maxMoveTime;
 				this.sprite.setSprite(this.enemyData.spriteSheet, //TODO: maybe derp emote? 
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 					this.enemyData.spriteFrames, this.enemyData.spriteSpeed, true);
@@ -76,11 +76,11 @@ function plantBaby(x, y) {
 				// 	this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 				// 	4, 10, true);
 			}
-			if (directionTimer <= 0 || directionTimer == undefined) {
+			if (this.directionTimer <= 0 || this.directionTimer == undefined) {
 				this.setState("derpAround")
 			}
 
-			directionTimer -= TIME_PER_TICK;
+			this.directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
@@ -91,7 +91,7 @@ function plantBaby(x, y) {
 			}
 
 			if(!this.ticksInState){
-				directionTimer = minMoveTime + Math.random() * maxMoveTime;
+				this.directionTimer = minMoveTime + Math.random() * maxMoveTime;
 				var speed = minSpeed + Math.random() * maxSpeed;
 				var angle = Math.random() * 2*Math.PI;
 
@@ -117,13 +117,13 @@ function plantBaby(x, y) {
 				}
 			}
 
-			if (directionTimer <= 0 || directionTimer == undefined) {
+			if (this.directionTimer <= 0 || this.directionTimer == undefined) {
 				this.setState("derpAround")
 			}
 
 			this.tileCollider.moveOnAxis(this, this.velX, X_AXIS);
 			this.tileCollider.moveOnAxis(this, this.velY, Y_AXIS);
-			directionTimer -= TIME_PER_TICK;
+			this.directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
 			//poisonGasAttack(this.x, this.y);

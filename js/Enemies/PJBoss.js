@@ -154,10 +154,10 @@ function PJBoss(x, y) {
 				currentRoom.enemyList.push(nextEnemy);
 				var nextEnemy = new armsBro(this.x -30, this.y + 30);
 				currentRoom.enemyList.push(nextEnemy);
-				var nextEnemy = new armsBro(this.x -30, this.y - 30);
-				currentRoom.enemyList.push(nextEnemy);
-				var nextEnemy = new armsBro(this.x +30, this.y - 30);
-				currentRoom.enemyList.push(nextEnemy);
+				// var nextEnemy = new armsBro(this.x -30, this.y - 30);
+				// currentRoom.enemyList.push(nextEnemy);
+				// var nextEnemy = new armsBro(this.x +30, this.y - 30);
+				// currentRoom.enemyList.push(nextEnemy);
 			}
 			if(this.sprite.getSpriteSheet() == sprites.PJDemon.Summon && this.sprite.isDone()){
 				this.setState("wander");
