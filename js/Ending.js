@@ -101,7 +101,7 @@ function drawSplash(){
 	if(currentScreen == "splash"){
 		cursor.draw(cursor.x, cursor.y);
 	}
-	console.log("draw")
+	//console.log("draw") // this runs every frame
 }
 var creditsScreens = [
 ];

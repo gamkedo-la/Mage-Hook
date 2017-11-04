@@ -264,6 +264,7 @@ function playerClass() {
 		pickUpItems(this.hitbox);
 
 		isAttacking = this.keyHeld_Attack;
+		
 		if(this.lastAnchorAttack + ANCHOR_ATTACK_COOLDOWN < performance.now() && isAttacking && !wasAttacking) // only trigger once
 		{
 			this.lastAnchorAttack = performance.now()
@@ -534,6 +535,17 @@ function playerClass() {
 	    } // end of for tiles loop
 	} // end of tile behavior
 
+	this.doorParticles = function(thistileIndex) {
+		// "dust" from a door opening - for more juice / player feedback
+		// a straight line of upward moving fog...
+		var pos = calculateCenterCoordOfTileIndex(thistileIndex);
+		particleFX(pos.x-6, pos.y+12, 3, 'rgba(155,155,155,0.6)', 0.001, -0.1, 3.0, 0.0, 0.1);
+		particleFX(pos.x-3, pos.y+12, 3, 'rgba(155,155,155,0.6)', 0.001, -0.1, 3.0, 0.0, 0.1);
+		particleFX(pos.x, pos.y+12, 3, 'rgba(155,155,155,0.6)', 0.001, -0.1, 3.0, 0.0, 0.1);
+		particleFX(pos.x+3, pos.y+12, 3, 'rgba(155,155,155,0.6)', 0.001, -0.1, 3.0, 0.0, 0.1);
+		particleFX(pos.x+6, pos.y+12, 3, 'rgba(155,155,155,0.6)', 0.001, -0.1, 3.0, 0.0, 0.1);
+	}
+
 	this.collisionHandler = function(tileIndex) {
 		var collisionDetected = true;
 		var tileType = worldGrid[tileIndex];
@@ -587,6 +599,7 @@ function playerClass() {
 					this.inventory.keysCommon--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
+					this.doorParticles(tileIndex);
 				}
 				break;
 			case TILE_DOOR_RARE:
@@ -595,6 +608,7 @@ function playerClass() {
 					this.inventory.keysRare--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
+					this.doorParticles(tileIndex);
 				}
 				break;
 			case TILE_DOOR_EPIC:
@@ -603,6 +617,7 @@ function playerClass() {
 					this.inventory.keysEpic--; // one less key
 					this.updateKeyReadout();
 					worldGrid[tileIndex] = TILE_GROUND;
+					this.doorParticles(tileIndex);
 				}
 				break;
 			case TILE_STAIRS_UP:
