@@ -14,7 +14,7 @@ function anchorMagic(x, y, isFacing) {
 	this.spriteWidth = 32;
 	this.spriteHeight = 32;
 	this.spriteFrames = 7;
-	this.spriteSpeed = 13;
+	this.spriteSpeed = 18;
 	
 	this.attackDir = [0,0];
 	

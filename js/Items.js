@@ -3,8 +3,8 @@ const MAX_ITEM_SPEED = 4;
 const UNTANGLE_SPEED = .5;
 const WALL_PUSH_SPEED = 5;
 const UNTANGLE_TIME_LIMIT = 1.5;
-const ITEM_FRICTION = .92;
-const ITEM_WEB_FRICTION = .75;
+const ITEM_FRICTION = .94;
+const ITEM_WEB_FRICTION = .40;
 
 const ITEM_KEY_COMMON = 1;
 const ITEM_POTION = 2;

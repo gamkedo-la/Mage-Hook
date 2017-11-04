@@ -15,7 +15,7 @@ var isPoisoned = false;
 var poisonTime = 0;
 var noDamageForFloor = [false,true,true];
 const FRICTION = 0.80;
-var _WEB_FRICTION = 0.15;
+var _WEB_FRICTION = 0.50;
 const DEATH_RESPAWN_DELAY_MS = 2500; // time for playerDeathAnimation before player.reset()
 
 const INITIAL_KNOCKBACK_SPEED = 8;
