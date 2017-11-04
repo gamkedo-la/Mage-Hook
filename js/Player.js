@@ -230,9 +230,13 @@ function playerClass() {
 			isMoving = true;
 		}
 		if (isMoving) {
+			
 			var angle = calculateAngleFrom(this, target);
 			var velX = Math.cos(angle) * _PLAYER_MOVE_SPEED * playerFriction;
 			var velY = Math.sin(angle) * _PLAYER_MOVE_SPEED * playerFriction;
+
+			// "footsteps" = very faint dust particles while we are walking
+			particleFX(this.x, this.y+10, 2, 'rgba(200,200,200,0.2)', 0.01, 0.02, 1.0, 0.0, 0.2);
 
 			if (this.keyHeld_Dash)
 			{
