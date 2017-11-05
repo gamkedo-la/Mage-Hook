@@ -176,6 +176,12 @@ function slugMonster(x, y) {
 	}
 
 	this.deadEvent = function() {
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Monster',
+		  eventAction: 'Defeat',
+		  eventLabel: 'SlugBuddy',
+		});
 		// remove from enemy list
 		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
 		if (foundHere > -1) {

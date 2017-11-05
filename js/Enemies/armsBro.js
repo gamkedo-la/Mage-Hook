@@ -187,6 +187,13 @@ function armsBro(x, y) {
 	}
 
 	this.deadEvent = function() {
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Monster',
+		  eventAction: 'Defeat',
+		  eventLabel: 'ArmsBro',
+		});
+
 		if (currentRoomCol == 1 && currentRoomRow == 1 && currentFloor == 1) {
 			console.log("dropping keys");
 			dropItem(this.x, this.y, ITEM_KEY_COMMON,2);

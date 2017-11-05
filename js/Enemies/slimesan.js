@@ -106,6 +106,12 @@ function slimeMonster(x, y) {
 	}
 
 	this.deadEvent = function() {
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Monster',
+		  eventAction: 'Defeat',
+		  eventLabel: 'SlimeSan',
+		});
 		this.monsterRef.setState("dying")
 		this.monsterRef.isDying = true;		
 	} // end of dead

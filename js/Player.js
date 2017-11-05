@@ -124,6 +124,12 @@ function playerClass() {
 	this.die = function() { // called immediately if we die
 		if (this.currentlyDying) return; // debounce multiple frames
 		this.currentlyDying = true;
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Player',
+		  eventAction: 'Death',
+		  eventLabel: 'Unknown',
+		});
 		Sound.stop("boss_bgm");
 		Sound.stop("MageHookThemeSong");
 		Sound.play("player_die");

@@ -235,6 +235,12 @@ function PJBoss(x, y) {
 				16, 9, false);
 				Sound.stop("MageHookThemeSong");
 				Sound.play("boss_bgm",true,MUSIC_VOLUME);
+				ga('send', {
+				  hitType: 'event',
+				  eventCategory: 'Boss',
+				  eventAction: 'Fight',
+				  eventLabel: 'PJBoss',
+				});
 			}
 			if(this.ticksInState > 36) {
 				this.velX = 0;
@@ -263,6 +269,13 @@ function PJBoss(x, y) {
 	}
 
 	this.deadEvent = function() {
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Boss',
+		  eventAction: 'Defeat',
+		  eventLabel: 'PJBoss',
+		});
+
 		for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 			for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 				var tileIndex = rowColToArrayIndex(eachCol, eachRow);

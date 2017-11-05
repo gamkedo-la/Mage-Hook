@@ -37,6 +37,12 @@ function heroBoss(x, y) {
 
 	var staates = {
 		bossIntro: function() {
+			ga('send', {
+			  hitType: 'event',
+			  eventCategory: 'Boss',
+			  eventAction: 'Fight',
+			  eventLabel: 'HeroBoss',
+			});
 			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 					var openDoors = [TILE_ROOM_DOOR_NORTH, TILE_ROOM_DOOR_SOUTH, 
@@ -298,6 +304,12 @@ function heroBoss(x, y) {
 		Sound.stop("boss_bgm");
 		
 		player.canFireBallAttack = true;
+		ga('send', {
+		  hitType: 'event',
+		  eventCategory: 'Boss',
+		  eventAction: 'Defeat',
+		  eventLabel: 'HeroBoss',
+		});
 	} // end of dead
 
 	return new enemyClass(this, staates);
