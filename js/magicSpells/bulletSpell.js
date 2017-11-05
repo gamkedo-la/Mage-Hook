@@ -43,6 +43,8 @@ function bulletMagic(x, y, isFacing) {
 				break;
 		}
 
+	particleFX(ctrl.x,ctrl.y,24,'rgba(255,200,80,0.33)',ctrl.attackDir[0]/8+0.001,ctrl.attackDir[1]/8+0.01,0.75,0.0,0.5);
+
 	ctrl.onHitEnemy = function (enemy) {
 		console.log('WE HIT AN ENEMY!!!!');
 		this.remove = true;
