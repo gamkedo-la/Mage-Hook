@@ -266,7 +266,7 @@ function heroBoss(x, y) {
 			if(!this.ticksInState){
 				this.sprite.setSprite(sprites.HeroBoss.deathMoment,
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
-					26, 2, true);	
+					26, 2, false);	
 			}
 
 			if(this.sprite.isDone()){

@@ -85,16 +85,30 @@ function slimeMonster(x, y) {
 			this.sprite.update();
 			this.tileBehaviorHandler();
 		},
+		dying: function(){
+			if(!this.ticksInState){
+				this.sprite.setSprite(sprites.Slime.death,
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					10, 15, false);	
+			}
+
+			if(this.sprite.isDone()){
+				
+				// remove from enemy list
+				var foundHere = currentRoom.enemyList.indexOf(this);
+				if (foundHere > -1) {
+					currentRoom.enemyList.splice(foundHere, 1);
+				}
+				
+			}
+			this.sprite.update();
+		}
 	}
 
 	this.deadEvent = function() {
-		// remove from enemy list
-		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
-		if (foundHere > -1) {
-			currentRoom.enemyList.splice(foundHere, 1);
-		}
-		return;
-	}
+		this.monsterRef.setState("dying")
+		this.monsterRef.isDying = true;		
+	} // end of dead
 	
 	return new enemyClass(this, staates);
 }
