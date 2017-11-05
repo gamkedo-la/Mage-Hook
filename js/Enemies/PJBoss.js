@@ -274,6 +274,14 @@ function PJBoss(x, y) {
 		Sound.stop("boss_bgm");
 		Sound.play("mage_hook_chiptune_menu_melody",true,MUSIC_VOLUME);
 		ending();
+
+		
+		// remove from enemy list
+		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
+		if (foundHere > -1) {
+			currentRoom.enemyList.splice(foundHere, 1);
+		}
+		
 	} // end of deadEvent
 
 	return new enemyClass(this, staates);

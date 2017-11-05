@@ -194,6 +194,14 @@ function armsBro(x, y) {
 		} else {
 			return;
 		}
+
+		// remove from enemy list
+		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
+		if (foundHere > -1) {
+			currentRoom.enemyList.splice(foundHere, 1);
+		}
+	
+	
 	}
 	
 	return new enemyClass(this, staaates);

@@ -3,7 +3,7 @@ function heroBoss(x, y) {
 	this.x = x;
 	this.y = y;
 
-	this.maxHealth = 50; // how many hits till it dies 
+	this.maxHealth = 2//50; // how many hits till it dies 
 	this.currentHealth = this.maxHealth;
 	this.lootModifier = 1.0;
 	this.droppedTile = undefined;
@@ -83,7 +83,6 @@ function heroBoss(x, y) {
 			this.tileBehaviorHandler();
 		},
 		derpAround : function(){
-
 			var willWander = Math.random() * 7;
 			if(willWander < 1){
 				this.setState("wander")
@@ -262,22 +261,44 @@ function heroBoss(x, y) {
 			directionTimer -= TIME_PER_TICK;
 			this.sprite.update();
 			this.tileBehaviorHandler();
-		}
-	}
+		}, 
+		dying: function(){
+			if(!this.ticksInState){
+				this.sprite.setSprite(sprites.HeroBoss.deathMoment,
+					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
+					26, 2, true);	
+			}
 
-	this.deadEvent = function() {
-			for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
+			if(this.sprite.isDone()){
+				Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
+				// remove from enemy list
+				var foundHere = currentRoom.enemyList.indexOf(this);
+				if (foundHere > -1) {
+					currentRoom.enemyList.splice(foundHere, 1);
+				}
+
+				for(var eachRow=0;eachRow<WORLD_ROWS;eachRow++) {
 				for(var eachCol=0;eachCol<WORLD_COLS;eachCol++) {
 					var tileIndex = rowColToArrayIndex(eachCol, eachRow);
 					if (worldGrid[tileIndex] == TILE_WALL) {
 						worldGrid[tileIndex] = TILE_ROOM_DOOR_NORTH;
-					} // end of if openDoors.indexOf
-				} // end of for eachCol
-			} // end of for eachRow
-			Sound.stop("boss_bgm");
-			Sound.play("MageHookThemeSong",true,MUSIC_VOLUME);
-			player.canFireBallAttack = true;
-		} // end of dead
+						} // end of if openDoors.indexOf
+					} // end of for eachCol
+				} // end of for eachRow
+				}
+
+			this.sprite.update();
+		}
+	}
+
+	this.deadEvent = function() {
+		this.monsterRef.setState("dying")
+		this.monsterRef.isDying = true;
+		
+		Sound.stop("boss_bgm");
+		
+		player.canFireBallAttack = true;
+	} // end of dead
 
 	return new enemyClass(this, staates);
 }

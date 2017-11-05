@@ -60,6 +60,7 @@ function loadImages() {
 		{set: "HeroBoss", name: "dodgeRollLeft", fileName: "HeroBoss/Boss_walk rollleft.png"},
 		{set: "HeroBoss", name: "aaayAttack!!", fileName: "HeroBoss/Boss_walk attack1.png"},
 		{set: "HeroBoss", name: "praiseIt", fileName: "HeroBoss/Boss_walk sun.png"},
+		{set: "HeroBoss", name: "deathMoment", fileName: "HeroBoss/deathmoment.png"},
 
 		{set: "PJDemon", name: "Alchemist", fileName: "PJDemon/Alchemist.png"},
 		{set: "PJDemon", name: "Chant", fileName: "PJDemon/Chant.png"},

@@ -22,6 +22,7 @@ function enemyClass(newEnemy, states){
 	this.isAlive = true;
 	this.droppedTile = newEnemy.droppedTile;
 	this.enemyData = newEnemy;
+	this.enemyData.monsterRef = this ///NOoooooooooooooooo TT_TT
 
 	this.tileCollider = new boxColliderClass(this.x, this.y,
 		newEnemy.tileColliderWidth, newEnemy.tileColliderHeight,
@@ -36,8 +37,12 @@ function enemyClass(newEnemy, states){
 						  newEnemy.spriteWidth, newEnemy.spriteHeight,
 						  newEnemy.spriteFrames, newEnemy.spriteSpeed, true);
 	this.isDead = function (){
-		if (this.currentHealth <= 0) {
-			this.die(this.lastHitBy || player); // if unknown. assume the player hit us
+		if (this.currentHealth <= 0 || this.isDying) {
+			if(this.stateMachine.dying && !this.isDying){ //if this.isDying is being used, then it has a death state
+				this.die(this.lastHitBy || player); // if unknown. assume the player hit us
+			} else if(!this.stateMachine.dying){
+				this.die(this.lastHitBy || player);
+			}
 			return true;
 		}
 		return false
@@ -53,10 +58,12 @@ function enemyClass(newEnemy, states){
 	var freshState;	
 	this.update = function(){
 
-		if(this.isDead())
+		if(this.isDead() && !this.stateMachine.dying)
 			return;
+
 		freshState = false;
 		this.currentState();
+
 		if(!freshState)
 			this.ticksInState += 1;
 
@@ -66,6 +73,9 @@ function enemyClass(newEnemy, states){
 	} 
 
 	this.setState = function(newState){
+		if(this.isDying){
+			return;
+		}
 		//TODO:forgive myself for the string comparison
 		if(typeof this.stateMachine[newState] === "function"){
 			this.currentState = this.stateMachine[newState]
@@ -192,15 +202,12 @@ function enemyClass(newEnemy, states){
 	this.die = function(attackedBy) { //TODO: make die a state? 
 		console.log('An enemy died!');
 		newEnemy.deadEvent();
-		this.isAlive = false;
-		this.x = -99999999;
-		this.y = -99999999;
-		
-		// remove from enemy list
-		var foundHere = currentRoom.enemyList.indexOf(this);
-		if (foundHere > -1) {
-			currentRoom.enemyList.splice(foundHere, 1);
+		if(!this.stateMachine.dying){
+			this.isAlive = false;
+			this.x = -99999999;
+			this.y = -99999999;
 		}
+		
 		
 		// drop items
 		var totalItems = rollItemQuantity(10, 99, this.lootModifier);

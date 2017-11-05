@@ -131,6 +131,11 @@ function plantBaby(x, y) {
 	}
 
 	this.deadEvent = function() {
+		// remove from enemy list
+		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
+		if (foundHere > -1) {
+			currentRoom.enemyList.splice(foundHere, 1);
+		}
 		return;
 	}
 	
