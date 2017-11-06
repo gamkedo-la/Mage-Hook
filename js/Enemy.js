@@ -125,6 +125,7 @@ function enemyClass(newEnemy, states){
 			}
 		},
 		recoil : function(){
+			this.sprite.setFrame(5);
 			if (!player.isStunned) {					
 				this.sprite.setSprite(newEnemy.spriteSheet, //TODO: maybe derp emote? 
 					newEnemy.spriteWidth, newEnemy.spriteHeight,

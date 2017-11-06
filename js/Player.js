@@ -429,8 +429,7 @@ function playerClass() {
 
 	    for (var i = 0; i < currentRoom.enemyList.length; i++) {
 			var enemy = currentRoom.enemyList[i];
-	        if (collider.isCollidingWith(enemy.hitbox)) {
-				enemy.sprite.setFrame(5);
+	        if (collider.isCollidingWith(enemy.hitbox)) {				
 				enemy.recoil = true;
 				hitAnEnemy = enemy; //TODO: make this a list so we can hit more than one enemy
 				for (var i = 0; i < PARTICLES_PER_ATTACK; i++) {
@@ -471,8 +470,7 @@ function playerClass() {
 				}
 				screenShake(5);
 				knockbackAngle = calculateAngleFrom(enemy.hitbox, this.hitbox);
-				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;
-				enemy.sprite.setFrame(5);
+				knockbackSpeed = INITIAL_KNOCKBACK_SPEED;				
 				enemy.setState("recoil")
 				hitByEnemy = true;
 	        }
