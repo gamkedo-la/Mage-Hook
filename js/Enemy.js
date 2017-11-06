@@ -76,6 +76,7 @@ function enemyClass(newEnemy, states){
 		if(this.isDying){
 			return;
 		}
+
 		//TODO:forgive myself for the string comparison
 		if(typeof this.stateMachine[newState] === "function"){
 			this.currentState = this.stateMachine[newState]
@@ -201,7 +202,8 @@ function enemyClass(newEnemy, states){
 	//TODO: make dying state so we can play that sweet sweet slime death animation
 	this.die = function(attackedBy) { //TODO: make die a state? 
 		console.log('An enemy died!');
-		newEnemy.deadEvent();
+
+		this.enemyData.deadEvent();
 		if(!this.stateMachine.dying){
 			this.isAlive = false;
 			this.x = -99999999;

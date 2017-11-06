@@ -194,6 +194,12 @@ function armsBro(x, y) {
 		  eventLabel: 'ArmsBro',
 		});
 
+		// remove from enemy list
+		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
+		if (foundHere > -1) {
+			currentRoom.enemyList.splice(foundHere, 1);
+		}
+		
 		if (currentRoomCol == 1 && currentRoomRow == 1 && currentFloor == 1) {
 			console.log("dropping keys");
 			dropItem(this.x, this.y, ITEM_KEY_COMMON,2);
@@ -201,12 +207,9 @@ function armsBro(x, y) {
 		} else {
 			return;
 		}
-
-		// remove from enemy list
-		var foundHere = currentRoom.enemyList.indexOf(this.monsterRef);
-		if (foundHere > -1) {
-			currentRoom.enemyList.splice(foundHere, 1);
-		}
+		
+		
+		return;
 	
 	
 	}
