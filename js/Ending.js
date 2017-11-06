@@ -47,6 +47,7 @@ function splash() {
 }
 
 function startEmUP(evt){
+	evt.preventDefault()
 	switch(evt.keyCode) {
 		case KEY_ENTER:
 		case KEY_SPACE:
@@ -120,6 +121,7 @@ function CreditsDraw(){
 }
 
 function creditsInput(evt){
+	evt.preventDefault()
 	switch(evt.keyCode) {
 		case KEY_ENTER:
 		case KEY_SPACE:
