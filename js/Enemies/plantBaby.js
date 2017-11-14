@@ -50,7 +50,7 @@ function plantBaby(x, y) {
 				this.setState("derpAround")
 				return;
 			}
-			var speed = 2 //TODO: make charge speed a variable in newEnemy
+			var speed = 1.75 //TODO: make charge speed a variable in newEnemy
 			var angle = Math.atan2(player.y - this.y, player.x - this.x);
 			velX = Math.cos(angle) * speed;
 			velY = Math.sin(angle) * speed;
