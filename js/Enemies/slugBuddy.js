@@ -35,6 +35,10 @@ function slugMonster(x, y) {
 	this.poisonCoolDown = 5000; //5 seconds
 	this.lastPoison = 0 //time since last poison
 
+	this.chargeCoolDown = 3000; //3 seconds
+	this.lastCharge = 0 //time since last poison
+	
+
 	var staaates = {
 		derpAround : function(){
 			var willWander = Math.random() * 5;
@@ -43,11 +47,12 @@ function slugMonster(x, y) {
 			} else if (willWander < 3) {
 				this.setState("normal")
 			} else {
-				this.setState("charge")
+				this.setState("poisonAttack")
 			}
 		}, 
 		charge : function(){
 			if(!this.ticksInState){
+				this.enemyData.lastCharge = new Date().getTime();
 				this.sprite.setSprite(this.enemyData.spriteSheetCharge, //TODO: maybe derp emote? 
 					this.enemyData.spriteWidth, this.enemyData.spriteHeight,
 					5, 12, true);
@@ -94,13 +99,12 @@ function slugMonster(x, y) {
 			this.lasty = this.y
 		},
 		normal : function(){		
-			if( Math.abs(this.y - player.y) < 10){
+			var currentTime = new Date().getTime()
+		
+			if( Math.abs(this.y - player.y) < 10 && currentTime > this.enemyData.lastCharge + this.enemyData.chargeCoolDown){
 				this.setState("charge")
 				return;
-			} else if( Math.abs(this.y - player.y) < 32 && Math.abs(this.x - player.x) < 32){
-				this.setState("poisonAttack")
-				return;
-			}
+			} 
 			if(!this.ticksInState){
 				directionTimer = minMoveTime + Math.random() * maxMoveTime;
 				this.sprite.setSprite(this.enemyData.spriteSheet, //TODO: maybe derp emote? 
@@ -128,11 +132,9 @@ function slugMonster(x, y) {
 			this.setState("derpAround");
 		},
 		wander : function(){
-			if( Math.abs(this.y - player.y) < 10){
+			var currentTime = new Date().getTime()
+			if( Math.abs(this.y - player.y) < 10 && currentTime > this.enemyData.lastCharge + this.enemyData.chargeCoolDown){
 				this.setState("charge")
-				return;
-			} else if( Math.abs(this.y - player.y) < 40 && Math.abs(this.x - player.x) < 40){
-				this.setState("poisonAttack")
 				return;
 			}
 
